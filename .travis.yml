@@ -10,6 +10,7 @@ before_script:
   - npm install @angular/compiler
 script:
   - cd yourney-angular-app
+  - npm link
   - ng build --prod
 notifications:
   email:
