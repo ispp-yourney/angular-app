@@ -6,7 +6,8 @@ sudo: required
 before_script:
   - npm install -g @angular/cli
   - npm install --save-dev @angular-devkit/build-angular
-  - npm i @angular/compiler-cli
+  - npm install @angular/compiler-cli
+  - npm install @angular/compiler
 script:
   - cd yourney-angular-app
   - ng build --prod
