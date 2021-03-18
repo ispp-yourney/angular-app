@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "lts/*"
+dist: trusty
+sudo: required
+before_script:
+  - npm install -g @angular/cli
+script:
+  - cd yourney-angular-app
+  - ng lint
+  - ng build --prod
+notifications:
+  email:
+    recipients:
+      - edubotdom@alum.us.es
+      - danaremar@alum.us.es
+      - alesansaa@alum.us.es
+      - juanogtir@alum.us.es
+      - pabrodgar@alum.us.es
+      - javnavpli@alum.us.es
+      - jossalase@alum.us.es
+      - marlasesc@alum.us.es
+    on_success: always
+    on_failure: always
