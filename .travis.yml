@@ -5,6 +5,7 @@ dist: trusty
 sudo: required
 before_script:
   - npm install -g @angular/cli
+  - npm install --save-dev @angular-devkit/build-angular
 script:
   - cd yourney-angular-app
   - ng lint
