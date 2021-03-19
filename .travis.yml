@@ -32,6 +32,7 @@ notifications:
       - marlasesc@alum.us.es
     on_success: always
     on_failure: always
+before_deploy: "cd yourney-angular-app"
 deploy:
   provider: heroku
   app: fe-dev-yourney
