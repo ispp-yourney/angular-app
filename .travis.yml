@@ -32,3 +32,10 @@ notifications:
       - marlasesc@alum.us.es
     on_success: always
     on_failure: always
+deploy:
+  provider: heroku
+  app: fe-dev-yourney
+  strategy: git
+  api_key: $HEROKU_AUTH_TOKEN
+  on:
+    branch: feature-2
