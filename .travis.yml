@@ -5,6 +5,7 @@ jdk: openjdk11
 dist: bionic
 sudo: required
 before_script:
+  - npm install
   - npm install -g @angular/cli
   - npm install --save-dev @angular-devkit/build-angular
   - npm install @angular/compiler-cli
