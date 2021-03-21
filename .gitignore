@@ -50,3 +50,4 @@ node_modules/*
 package-lock.json
 package.json
 src/db/db.json
+angular.json
