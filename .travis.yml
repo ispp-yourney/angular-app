@@ -15,6 +15,8 @@ before_script:
   - npm install express
   - npm i @angular/cdk
   - ng add @angular/material
+  - npm install popper.js@^1.16.1 --save
+  - npm install jquery@3.6.0 --save
 
 addons:
   sonarcloud:
@@ -32,7 +34,7 @@ notifications:
       - danaremar@alum.us.es
       - alesansaa@alum.us.es
       - juanogtir@alum.us.es
-      - pabrodgar@alum.us.es
+      - pabrodgar9@alum.us.es
       - javnavpli@alum.us.es
       - jossalase@alum.us.es
       - marlasesc@alum.us.es
