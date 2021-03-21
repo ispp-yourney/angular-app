@@ -15,8 +15,6 @@ before_script:
   - npm install express
   - npm i @angular/cdk
   - ng add @angular/material
-  - npm install popper.js@^1.16.1 --save
-  - npm install jquery@3.6.0 --save
 
 addons:
   sonarcloud:
