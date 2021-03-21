@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu/menu.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,12 @@ import { ItinerarylistComponent } from './components/itinerary/itinerarylist/iti
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { IndexComponent } from './components/index/index.component';
+import { interceptor } from './revisors/interceptor.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LoginComponent } from './components/operations/login/login.component';
+import { RegisterComponent } from './components/operations/register/register.component';
 
 
 
@@ -23,7 +29,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
   declarations: [
     AppComponent,
     MenuComponent,
-    ItinerarylistComponent
+    ItinerarylistComponent,
+    IndexComponent,
+    NotFoundComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +45,13 @@ import {MatGridListModule} from '@angular/material/grid-list';
     HttpClientModule,
     MatTableModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    interceptor
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
