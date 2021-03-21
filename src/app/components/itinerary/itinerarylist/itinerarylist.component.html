@@ -1,0 +1,71 @@
+<a href='http://localhost:4200'>back</a>
+<hr>
+
+
+
+<!--<div class="row row-cols-2 row-cols-sm-3 row-cols-md-3"> -->
+
+<div class="cards">
+  <a class="card-link" href="#" *ngFor="let item of itineraries">
+    <div class="card" >
+      <img class="card-img-top" src={{item.main_image}} alt="Card image cap">
+      <div class="details">
+        <h2 class="card-title text-green">{{item.name}}</h2>
+        <p class="card-text">{{item.description}}</p>
+        
+      </div>
+      <!--<a href="#" class="btn btn-outline-primary">Read more...</a>-->
+    </div>
+  </a>
+</div>
+
+
+
+
+
+
+
+<!--
+<div class="container">
+  <div class="card" *ngFor="let item of itineraries">
+    <div class="img">
+      <img src={{item.main_image}}>
+    </div>
+    <div class="top-text">
+      <div class="name">
+        {{item.name}}</div>
+        <a href="#">
+        {{item.author_username}}</a>
+    </div>
+    <div class="bottom-text">
+      <div class="text">
+        {{item.description}}</div>
+      <div class="btn">
+        <a href="#">Read more</a>
+      </div>
+    </div>
+  </div>
+ 
+</div>-->
+
+
+
+ <!-- <mat-grid-list cols="4" rowHeight="" gutterSize="10px">
+
+ <div class="contenedor"> 
+  <mat-grid-tile *ngFor="let item of itineraries">
+    <mat-card class="card" >
+      <mat-card-header>
+        <mat-card-title>{{item.name}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src={{item.main_image}}>
+      <mat-card-content>
+        <p>{{item.description}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button href="#" color="primary">Leer más</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</div>
+</mat-grid-list>  -->

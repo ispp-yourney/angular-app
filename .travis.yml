@@ -4,18 +4,24 @@ node_js:
 jdk: openjdk11
 dist: bionic
 sudo: required
+before_install:
+  - npm install
 before_script:
   - npm install -g @angular/cli
   - npm install --save-dev @angular-devkit/build-angular
   - npm install @angular/compiler-cli
   - npm install @angular/compiler
+  - npm install bootstrap
+  - npm install express
+  - npm i @angular/cdk
+  - ng add @angular/material
+
 addons:
   sonarcloud:
     organization: "ispp-yourney"
     token:
       secure: "YtWDlHpAigEqxuGTAgWF5g+bUD+D8SCcqY8AOF+mEFO8SF7jx0htFsZFlX3e/7Jhre5mmNb0h4oLR7mi726gZbMzvBuF+URyrN+7rvMZZ9+fn0Ta5iAjlkyv3W1paa75ryS1WK4kFWU1Yp/XUOwq33FD9RcMEY/sJukSqqHVTshmGKIFu01g9xAdMu3ztU+EeeFRJbtT7XcYtMqXrntopp0jUPhqIxP2+VuAIROjZLrD/hT9IqttMx0DMpS4KYC3bi4pZi8YS7VK5S0xaq0EbrRHssR/92o6xILicIIzcFdeU9ffCXDkKEQR+/okWa8oQuCyqVKaONKRF+2z5SEE/5kqP7qy6JtOYN4OlJaB8d03ZbOZYY9ERXTsdagsovqOsYykGJEa9g/gtdkbEP6jO27OAZVfrS7sEBS/VxJ1N9vsL4RWjmakdI//Td2WWekitfrGGBOjP8Wdgt4nPUaYZWw3pIDwSTZfwefmoa5AOfUiFt3aYdHie1A04Sfx/T6bprJi/jyk5CqnnAq2kno1L3MHkA3sG2lX4kDaYBbfOsDsptZ7v26lucI0POASnKHKeFZ8nI03EMSQTVYoPKm9yXIPHpMIRs97Mdw2XuXLH96OO0ZLX4C9tGeTPyYHXBW+QnC3vYPOqDXj28TY2z4GUe/SJh3xEzSeouxe0zYNrfs=" # encrypted value of your token
 script:
-  - cd yourney-angular-app
   - npm link
   - ng build --prod
   - sonar-scanner
@@ -32,3 +38,10 @@ notifications:
       - marlasesc@alum.us.es
     on_success: always
     on_failure: always
+deploy:
+  provider: heroku
+  app: fe-dev-yourney
+  strategy: git
+  api_key: $HEROKU_AUTH_TOKEN
+  on:
+    branch: develop
