@@ -6,7 +6,7 @@ import { ItinerarylistComponent } from './components/itinerary/itinerarylist/iti
 const routes: Routes = [
   //{path:'',component: AppComponent,pathMatch: 'full'},
   {path: '' , redirectTo: 'AppComponent', pathMatch: 'full'},
-  {path:'itineraries', component: ItinerarylistComponent,pathMatch: 'full'},
+  {path:':id/itineraries', component: ItinerarylistComponent,pathMatch: 'full'},
   { path: '**', redirectTo: '', pathMatch: 'full' }
 
 

@@ -5,16 +5,23 @@
 
 <!--<div class="row row-cols-2 row-cols-sm-3 row-cols-md-3"> -->
 
-<div class="grid-container">
-    <div class="card mr-5 row align-items-start" *ngFor="let item of itineraries">
+<div class="cards">
+  <a class="card-link" href="#" *ngFor="let item of itineraries">
+    <div class="card" >
       <img class="card-img-top" src={{item.main_image}} alt="Card image cap">
-      <div class="card-body">
-        <h2 class="card-title">{{item.name}}</h2>
+      <div class="details">
+        <h2 class="card-title text-green">{{item.name}}</h2>
         <p class="card-text">{{item.description}}</p>
-        <a href="#" class="btn btn-primary">Read more...</a>
+        
       </div>
+      <!--<a href="#" class="btn btn-outline-primary">Read more...</a>-->
     </div>
+  </a>
 </div>
+
+
+
+
 
 
 
