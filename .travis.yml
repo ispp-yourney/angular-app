@@ -13,6 +13,7 @@ before_script:
   - npm install @angular/compiler
   - npm install bootstrap
   - npm install express
+  - npm i @angular/cdk
   - ng add @angular/material
 
 addons:
