@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <span>Yourney</span>
+
+    <div class="spacer"></div>
+
+    <a mat-button>Servicios</a>
+    <a mat-button>Sobre nosotros</a>
+    <a mat-button>Equipo</a>
+    <a mat-button>Contacto</a>
+    <a routerLink="/login" *ngIf="!isLogged" class="login" mat-button>Iniciar sesión</a>
+    <a routerLink="/" *ngIf="isLogged" (click)="onLogout()" class="logout" mat-button>Cerrar sesión</a>
+    <a routerLink="/register"  *ngIf="!isLogged" mat-button>Registrarse</a>
+
+</mat-toolbar>
+
+
+
