@@ -1,0 +1,39 @@
+<app-menu></app-menu>
+
+<div>
+    <p>Id: {{itinerary.id}}</p>
+    <p>Nombre: {{itinerary.name}}</p>
+    <p>Descripción: {{itinerary.description}}</p>
+    <p>Visitas: {{itinerary.views}}</p>
+    <p>Estado: {{itinerary.status}}</p>
+    <p>Fecha de creación: {{itinerary.createDate}}</p>
+    <p>Presupuesto: {{itinerary.budget}}</p>
+    <p>Fecha de eliminación: {{itinerary.deleteDate}}</p>
+    <p>Autor: {{itinerary.author.username}}</p>
+    <p>Descripción del día 1: {{days[1][0].description}}</p>
+    <p>Descripción del día 2: {{days[2][0].description}}</p>
+</div>
+
+<br>
+
+<div>
+    <p>Estaciones Recomendadas: </p>
+    <a class="card-link" href="#" *ngFor="let i of itinerary.recommendedSeasons" >
+        <p>{{i.recommendedSeason}}</p>
+    </a>
+</div>
+
+<br>
+<br>
+
+<div>
+    <a href="#" *ngFor="let i of [1,2]" >
+        <div>
+            <p>Día: {{days[i][0].day}}</p>
+            <a *ngFor="let j of [0,1]">
+                <p>Título: {{days[i][j].title}}</p>
+                <p>Descripción: {{days[i][j].description}}</p>
+            </a>
+        </div>
+    </a>
+</div>

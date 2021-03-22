@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Itinerary } from '../models/itinerary';
+import { Itinerary, Day } from '../models/itinerary';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,13 @@ export class ItineraryService {
   public lista(): Observable<Itinerary[]> {
     var url=this.hostURL + 'itineraries'
     var req=this.httpClient.get<Itinerary[]>(url);
+    req.subscribe(res=>console.log(res))
+    return req;
+  }
+
+  public vista(): Observable<Itinerary> {
+    var url=this.hostURL + 'itinerary'
+    var req=this.httpClient.get<Itinerary>(url);
     req.subscribe(res=>console.log(res))
     return req;
   }

@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
-
+import { ItineraryViewContoller } from './components/itinerary/itineraryshow/itineraryview.component';
 
 
 
@@ -33,7 +33,8 @@ import { RegisterComponent } from './components/operations/register/register.com
     IndexComponent,
     NotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ItineraryViewContoller
   ],
   imports: [
     BrowserModule,
