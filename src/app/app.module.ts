@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
-
+import { ItineraryformComponent } from './components/itinerary/itineraryform/itineraryform.component';
 
 
 
@@ -33,7 +33,8 @@ import { RegisterComponent } from './components/operations/register/register.com
     IndexComponent,
     NotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ItineraryformComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,8 @@ import { RegisterComponent } from './components/operations/register/register.com
     MatCardModule,
     MatGridListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [
     interceptor

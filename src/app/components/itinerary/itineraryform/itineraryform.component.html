@@ -1,0 +1,34 @@
+<app-menu></app-menu>
+
+<div class="jumbotron">
+  <h1 class="display-3">Crear itinerario</h1>
+  <form>
+    <fieldset>
+      <div class="form-group">
+        <label class="col-form-label" for="name">Nombre</label>
+        <input type="text" class="form-control" id="name" placeholder="Nombre del itinerario">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" class="form-control" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="budget">Presupuesto</label>
+        <input type="number" class="form-control" id="budget">
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="estimatedDays">Días estimados</label>
+        <input type="number" class="form-control" id="estimatedDays">
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="image">URL de imagen</label>
+        <input type="url" class="form-control" id="image">
+      </div>
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+</div>

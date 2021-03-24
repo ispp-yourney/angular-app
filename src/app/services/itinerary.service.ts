@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Itinerary } from '../models/itinerary';
+import { Itinerary, ItineraryForm } from '../models/itinerary';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,11 @@ export class ItineraryService {
     var req=this.httpClient.get<Itinerary[]>(url);
     req.subscribe(res=>console.log(res))
     return req;
+  }
+  
+  public nuevo(itinerary: ItineraryForm): Observable<any> {
+    var url=this.hostURL + 'itinerary/create'
+    return this.httpClient.post<any>(url, itinerary)
   }
 
 }
