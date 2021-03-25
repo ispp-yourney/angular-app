@@ -1,68 +1,59 @@
 <app-menu></app-menu>
-
-<!--<div class="row row-cols-2 row-cols-sm-3 row-cols-md-3"> -->
-
-<div class="cards">
-  <a class="card-link" href="#" *ngFor="let item of itineraries">
-    <div class="card" >
-      <img class="card-img-top" src={{item.main_image}} alt="Card image cap">
-      <div class="details">
-        <h2 class="card-title text-green">{{item.name}}</h2>
-        <p class="card-text">{{item.description}}</p>
-        
+<h3>
+  Itinerarios
+  <small class="text-muted">{{username}}</small>
+</h3>
+<div *ngIf="itineraries.length>0; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <div class="cards">
+    <a class="card-link" href="#" *ngFor="let item of itineraries">
+      <div class="card">
+        <img class="card-img-top" src={{item.imageUrl}} alt="Card image cap">
+        <div class="details">
+          <h2 class="card-title text-green">{{item.name}}</h2>
+          <p class="card-text">
+            {{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}{{item.description}}
+          </p>
+          <div class="card-footer text-right pr-3 pb-3 text-muted">{{item.views}} visitas</div>
+        </div>
+        <!-- <a href="#" class="btn btn-outline-primary">Read more...</a> -->
       </div>
-      <!--<a href="#" class="btn btn-outline-primary">Read more...</a>-->
-    </div>
-  </a>
-</div>
-
-
-
-
-
-
-
-<!--
-<div class="container">
-  <div class="card" *ngFor="let item of itineraries">
-    <div class="img">
-      <img src={{item.main_image}}>
-    </div>
-    <div class="top-text">
-      <div class="name">
-        {{item.name}}</div>
-        <a href="#">
-        {{item.author_username}}</a>
-    </div>
-    <div class="bottom-text">
-      <div class="text">
-        {{item.description}}</div>
-      <div class="btn">
-        <a href="#">Read more</a>
-      </div>
-    </div>
+    </a>
   </div>
- 
-</div>-->
 
-
-
- <!-- <mat-grid-list cols="4" rowHeight="" gutterSize="10px">
-
- <div class="contenedor"> 
-  <mat-grid-tile *ngFor="let item of itineraries">
-    <mat-card class="card" >
-      <mat-card-header>
-        <mat-card-title>{{item.name}}</mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src={{item.main_image}}>
-      <mat-card-content>
-        <p>{{item.description}}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button href="#" color="primary">Leer más</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
+<div>
+  <ul class="pagination pagination-lg">
+    <li class="page-item disabled">
+      <a class="page-link" href="#">&laquo;</a>
+    </li> 
+    <li class="page-item" [ngClass]="{'active': page===pageId}" *ngFor="let page of totalPages"  >
+      <a class="page-link " href="/itineraries/{{page}}">{{page + 1}}</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">&raquo;</a>
+    </li>
+  </ul>
 </div>
-</mat-grid-list>  -->
+
+</ng-template>
+
+<ng-template #elseBlock>
+  <div class="alert alert-dismissible alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <p>No existen itinerarios para este usuario.</p></div>
+
+  <div>
+    <ul class="pagination pagination-lg">
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&laquo;</a>
+      </li> 
+      <li class="page-item" [ngClass]="{'active': page===pageId}" *ngFor="let page of totalPages"  >
+        <a class="page-link " href="/itineraries/{{page}}">{{page + 1}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+
+  </ng-template>
