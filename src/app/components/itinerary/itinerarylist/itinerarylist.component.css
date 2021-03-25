@@ -12,9 +12,9 @@ body{
 }
 .cards{
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
   padding: 20px;
-  grid-gap: 40px;
+  grid-gap: 30px;
 }
 .card-link{
   border-radius: 15px;
@@ -33,7 +33,7 @@ body{
   /* height:40%; */
   width: 100%;
   display: block;
-  border-radius: 20px 20px 0 0;
+  border-radius: 15px 15px 0 0;
 }
 .container:after{
   content: "";
@@ -42,7 +42,7 @@ body{
   position: relative;
   top: 0;
   left: 0;
-  border-radius: 20px 20px 0 0;
+  border-radius: 15px 15px 0 0;
   opacity: 0.7;
 }
 .details{
@@ -74,160 +74,3 @@ body{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-/* @media (max-width:750px) {
-  .card-text {
-    display: none;
-  }
-}
-
-.card-text {
-  max-height: 300px;
-  z-index: 0;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  /* grid-gap: 10px;
-  padding: 10px;
-}  */
-
-/* .grid-container (min-width:750px) {
-  .card-text {
-    display: none;
-  }
-} */
-
-
-/*
-table {
-  width: 100%;
-}
-
-.grid-container {
-  display: grid;  
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-html,body{
-  display: grid;
-  place-items: center;
-  background: #f2f2f2;
-  text-align: center;
-}
-.container{
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card{
-  border: 5px;
-  height: 280px;
-  max-width: 350px;
-  margin: 0 20px;
-  background: rgb(255, 255, 255);
-  transition: 0.4s;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-}
-.card:hover{
-  transform: scale(1.3);
-   height: 470px; 
-   box-shadow: 5px 5px 10px rgba(0,0,0,0.2); 
-}
-.card .img{
-  height: 200px;
-  width: 100%;
-}
-.card .img img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-.card .top-text{
-  padding: 5px;
-}
-.card .top-text .name{
-  font-size: 25px;
-  font-weight: 600;
-  color: #202020;
-}
-.card .top-text a{
-  font-size: 20px;
-  font-weight: 600;
-  color: #e74c3c;
-  line-height: 20px;
-}
-.card .bottom-text{
-  padding: 0 20px 10px 20px;
-  margin-top: 5px;
-  background: rgb(255, 255, 255);
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.1s;
-}
-.card:hover .bottom-text{
-  opacity: 1;
-  visibility: visible;
-}
-.card .bottom-text .text{
-  text-align: justify;
-}
-.card .bottom-text .btn{
-  margin: 10px 0;
-  text-align: left;
-}
-.card .bottom-text .btn a{
-  text-decoration: none;
-  background: #e74c3c;
-  color: #f2f2f2;
-  padding: 5px 8px;
-  border-radius: 3px;
-  display: inline-flex;
-  transition: 0.2s;
-}
-.card .bottom-text .btn a:hover{
-  transform: scale(0.9);
-}
-@media screen and (max-width: 978px) {
-  .container{
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-  .card{
-    max-width: 700px;
-    margin: 20px 0;
-  }
-}*/
-
-
-
-/* .card {
-  min-width: 400px;
-  max-width: 600px;
-} */
-
-
-/* .circular {
-  border-radius: 50%;
-}
-
-.mat-grid-tile {
-  height: 100%;
-  padding-top: 5;
-} */
-
-/* .contenedor {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */

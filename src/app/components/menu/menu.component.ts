@@ -9,6 +9,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class MenuComponent implements OnInit {
 
   isLogged = false;
+  loggedUsername: String;
  
   constructor(private tokenService: TokenService) { }
 
@@ -16,6 +17,8 @@ export class MenuComponent implements OnInit {
     if(this.tokenService.getToken()){
       this.isLogged = true;
     }
+
+    this.loggedUsername=this.tokenService.getUsername()
   }
 
 

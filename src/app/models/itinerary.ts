@@ -3,6 +3,6 @@ export interface Itinerary {
     name: string;
     description: string;
     views: number;
-    main_image: string;
-    author_username: string;
+    imageUrl: string;
+    username: string;
 }

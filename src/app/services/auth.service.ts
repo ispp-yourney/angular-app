@@ -10,6 +10,7 @@ import { NewUser } from '../models/new-user';
 })
 export class AuthService {
   auth = 'https://be-dev-yourney.herokuapp.com/auth/'
+  //auth='http://localhost:50482/auth/';
   //auth = 'http://localhost:3000/'
   constructor(private httpClient: HttpClient) { }
 
