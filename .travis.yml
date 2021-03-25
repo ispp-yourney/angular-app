@@ -11,6 +11,8 @@ before_script:
   - npm install --save-dev @angular-devkit/build-angular
   - npm install @angular/compiler-cli
   - npm install @angular/compiler
+  - npm install jquery
+  - npm install popper.js
   - npm install bootstrap
   - npm install express
   - npm i @angular/cdk
@@ -44,4 +46,4 @@ deploy:
   strategy: git
   api_key: $HEROKU_AUTH_TOKEN
   on:
-    branch: develop
+    branch: feature-13

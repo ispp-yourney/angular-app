@@ -48,6 +48,6 @@ Thumbs.db
 # Angular
 node_modules/*
 package-lock.json
-package.json
+#package.json
 src/db/db.json
-angular.json
+#angular.json
