@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Activity, Day, Itinerary } from 'src/app/models/itinerary';
+import { Activity, Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
 import { from, of } from 'rxjs';
-import { groupBy, reduce, toArray, } from 'rxjs/operators';
+import { groupBy, reduce, toArray} from 'rxjs/operators';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
@@ -16,6 +16,7 @@ export class ItineraryViewContoller implements OnInit {
 
   itinerary: Itinerary
   days: Array<Array<Activity>>
+  listNumberDays: Array<number>
 
   ngOnInit(): void {
     this.loadItinerary()
@@ -28,6 +29,7 @@ export class ItineraryViewContoller implements OnInit {
         console.log(data)
         this.itinerary = data;
         this.loadDays()
+        this.listNumberDays = Array.from({length: this.itinerary.estimatedDays}, (_, i) => i + 1)
       },
       err => {
         console.log(err);
@@ -40,8 +42,6 @@ export class ItineraryViewContoller implements OnInit {
 
     const activities: Array<Activity> = this.itinerary.activities
     this.days = this.groupByDay(activities)
-
-    console.log("Days" + this.days[0][0].day)
   }
 
   groupByKey(array, key) {

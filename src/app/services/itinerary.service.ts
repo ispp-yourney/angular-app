@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Itinerary, Day } from '../models/itinerary';
+import { Itinerary } from '../models/itinerary';
 
 @Injectable({
   providedIn: 'root'

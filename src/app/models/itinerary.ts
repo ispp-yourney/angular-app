@@ -1,17 +1,20 @@
 export interface Itinerary {
     id: number
     name: string
-    status: string
     description: string
-    createDate: Date
-    deleteDate: Date
-    author: Author
-    estimatedDays: number
-    views: number
+    status: string
     budget: number
+    estimatedDays: number
+    createDate: Date
+    views: 5
     image: Image
+    recommendedSeason: string
     activities: Array<Activity>
-    recommendedSeasons: Array<RecommendedSeason>
+    author: Author
+    calcPlan: number
+    calcPromotion: number
+    username: string
+    imageUrl: string
 }
 
 export interface Image {
@@ -22,26 +25,46 @@ export interface Image {
 
 export interface Activity {
     id: number
-    day: number
     title: string
     description: string
+    day: number
+    createDate: Date
+    views: number
+    landmak: Landmark
 }
 
-export interface Day {
+export interface Landmark {
     id: number
-    day: number
-    activities: Array<Activity>
+    name: string
+    description: string
+    price: number
+    country: string
+    city: string
+    latitude: number
+    longitude: number
+    promoted: boolean
+    category: string
+    email: string
+    phone: string
+    website: string
+    instagram: string
+    twitter: string
+    createDate: Date
+    views: number
 }
 
 export interface Author {
     id: number
-    firstName: string
-    email: string
-    lastName: string
     username: string
+    email: string
+    firstName: string
+    lastName: string
+    expirationDate: Date
+    plan: number
+    roles: Array<Role>
 }
 
-export interface RecommendedSeason {
+export interface Role {
     id: number
-    recommendedSeason: string
+    name: string
 }

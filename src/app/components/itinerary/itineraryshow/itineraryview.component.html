@@ -1,39 +1,54 @@
 <app-menu></app-menu>
 
+<br>
+<br>
+<br>
 <div>
     <p>Id: {{itinerary.id}}</p>
     <p>Nombre: {{itinerary.name}}</p>
     <p>Descripción: {{itinerary.description}}</p>
-    <p>Visitas: {{itinerary.views}}</p>
     <p>Estado: {{itinerary.status}}</p>
-    <p>Fecha de creación: {{itinerary.createDate}}</p>
     <p>Presupuesto: {{itinerary.budget}}</p>
-    <p>Fecha de eliminación: {{itinerary.deleteDate}}</p>
-    <p>Autor: {{itinerary.author.username}}</p>
-    <p>Descripción del día 1: {{days[1][0].description}}</p>
-    <p>Descripción del día 2: {{days[2][0].description}}</p>
-</div>
-
-<br>
-
-<div>
-    <p>Estaciones Recomendadas: </p>
-    <a class="card-link" href="#" *ngFor="let i of itinerary.recommendedSeasons" >
-        <p>{{i.recommendedSeason}}</p>
-    </a>
+    <p>Días estimados: {{itinerary.estimatedDays}}</p>
+    <p>Fecha de creación: {{itinerary.createDate}}</p>
+    <p>Visitas: {{itinerary.views}}</p>
+    <p>Estación recomendada: {{itinerary.recommendedSeason}}</p>
+    <p>calcPlan: {{itinerary.views}}</p>
+    <p>calcPromotion: {{itinerary.views}}</p>
+    <p>Usuario: @{{itinerary.username}}</p>
+    <p>URL imagen: {{itinerary.imageUrl}}</p>
 </div>
 
 <br>
 <br>
+<br>
 
-<div>
-    <a href="#" *ngFor="let i of [1,2]" >
-        <div>
-            <p>Día: {{days[i][0].day}}</p>
-            <a *ngFor="let j of [0,1]">
-                <p>Título: {{days[i][j].title}}</p>
-                <p>Descripción: {{days[i][j].description}}</p>
-            </a>
-        </div>
-    </a>
+<div href="#" *ngFor="let i of listNumberDays">
+    <p>DÍA: {{days[i][0].day}}</p>
+    <div href="#" *ngFor="let day of days[i]">
+        <p>Título: {{day.title}}</p>
+        <p>Descripción: {{day.description}}</p>
+        <p>Fecha de creación: {{day.createDate}}</p>
+        <p>Visitas: {{day.views}}</p>
+        <p>Identificador del lugar: {{day.landmark.name}}</p>
+        <p>Nombre del lugar: {{day.landmark.name}}</p>
+        <p>Descripción del lugar: {{day.landmark.name}}</p>
+        <p>Precio del lugar: {{day.landmark.price}}</p>
+        <p>País del lugar: {{day.landmark.country}}</p>
+        <p>Ciudad del lugar: {{day.landmark.city}}</p>
+        <p>Latitud del lugar: {{day.landmark.latitude}}</p>
+        <p>Longitud del lugar: {{day.landmark.longitude}}</p>
+        <p>Promocionado: {{day.landmark.promoted}}</p>
+        <p>Correo electrónico: {{day.landmark.email}}</p>
+        <p>Teléfono: {{day.landmark.phone}}</p>
+        <p>Página web: {{day.landmark.website}}</p>
+        <p>Instagram: {{day.landmark.instagram}}</p>
+        <p>Twitter: {{day.landmark.twitter}}</p>
+        <p>Fecha de creación de lugar: {{day.landmark.createDate}}</p>
+        <p>Visitas del lugar: {{day.landmark.views}}</p>
+        <br>
+    </div>
+    <br>
+    <br>
+    <br>
 </div>
