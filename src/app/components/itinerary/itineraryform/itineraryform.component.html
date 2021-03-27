@@ -2,33 +2,33 @@
 
 <div class="jumbotron">
   <h1 class="display-3">Crear itinerario</h1>
-  <form>
+  <form [formGroup]="formItiner" (ngSubmit)="onCreate()">
     <fieldset>
       <div class="form-group">
         <label class="col-form-label" for="name">Nombre</label>
-        <input type="text" class="form-control" id="name" placeholder="Nombre del itinerario">
+        <input type="text" class="form-control" id="name" placeholder="Nombre del itinerario" formControlName="name">
       </div>
 
       <div class="form-group">
         <label for="description">Descripción</label>
-        <textarea id="description" class="form-control" rows="3"></textarea>
+        <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
       </div>
 
       <div class="form-group">
         <label class="col-form-label" for="budget">Presupuesto</label>
-        <input type="number" class="form-control" id="budget">
+        <input type="number" class="form-control" id="budget" formControlName="budget">
       </div>
 
       <div class="form-group">
-        <label class="col-form-label" for="estimatedDays">Días estimados</label>
-        <input type="number" class="form-control" id="estimatedDays">
+        <label class="col-form-label" for="estimated_days">Días estimados</label>
+        <input type="number" class="form-control" id="estimated_days" formControlName="estimated_days">
       </div>
 
       <div class="form-group">
-        <label class="col-form-label" for="image">URL de imagen</label>
-        <input type="url" class="form-control" id="image">
+        <label class="col-form-label" for="main_image">URL de imagen</label>
+        <input type="url" class="form-control" id="image" formControlName="main_image">
       </div>
     </fieldset>
-    <button type="submit" class="btn btn-primary">Crear</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!formItiner.valid">Crear</button>
   </form>
 </div>
