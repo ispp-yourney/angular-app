@@ -4,6 +4,7 @@
   <small class="text-muted">{{username}}</small>
 </h3>
 <div *ngIf="itineraries.length>0; then thenBlock else elseBlock"></div>
+
 <ng-template #thenBlock>
   <div class="cards">
     <a class="card-link" href="#" *ngFor="let item of itineraries">
@@ -24,13 +25,13 @@
 <div>
   <ul class="pagination pagination-lg">
     <li class=" page-item" [ngClass]="{'disabled': pageId==0}">
-      <a class="page-link" href="/mis_itinerarios/{{pageId}}">&laquo;</a>
+      <a class="page-link" href="{{currentUrl}}/{{pageId}}">&laquo;</a>
     </li>
     <li class="page-item" [ngClass]="{'active': page===pageId}" *ngFor="let page of totalPages"  >
-      <a class="page-link " href="/mis_itinerarios/{{page + 1}}">{{page + 1}}</a>
+      <a class="page-link " href="{{currentUrl}}/{{page + 1}}">{{page + 1}}</a>
     </li>
     <li class="page-item" [ngClass]="{'disabled': (totalPages.length - 1)==pageId}">
-      <a class="page-link" href="/mis_itinerarios/{{pageId + 2}}">&raquo;</a>
+      <a class="page-link" href="{{currentUrl}}/{{pageId + 2}}">&raquo;</a>
     </li>
   </ul>
 </div>

@@ -17,6 +17,7 @@ export class ItinerarylistComponent implements OnInit {
   numberOfElements: Number;
   totalPages: Array<Number> = [];
   pageId: Number;
+  currentUrl:String;
 
   @Input()
   userId: Number;
@@ -30,8 +31,15 @@ export class ItinerarylistComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageId = Number(this.activatedRoute.snapshot.paramMap.get('id')) - 1;
-    console.log(this.router.url)
-    this.loadUserItineraries(this.pageId, this.userId);
+    //var currentUrl=this.router.url.replace(/\d+/g, '');
+  
+    if (this.base_url){
+      this.currentUrl=this.base_url;
+    }else{
+      this.currentUrl="/itinerarios"
+    }
+    
+    this.loadUserItineraries(this.pageId, 2);
   }
 
   loadUserItineraries(pageId: Number, userId: Number): void {
@@ -39,7 +47,7 @@ export class ItinerarylistComponent implements OnInit {
       data => {
         this.itineraries = data.content;
         var pageArray: Array<Number> = [];
-        for (var i = 0; i < data.totalPages; i++) {
+        for (var i = 0; i < data.totalPages+5; i++) {
           pageArray.push(i)
         }
         this.totalPages = pageArray
