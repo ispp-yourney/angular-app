@@ -74,3 +74,12 @@ body{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+h3 {
+    padding: 15px;
+    text-align: center;
+}
+
+.pagination {
+  padding-bottom: 15px;
+}

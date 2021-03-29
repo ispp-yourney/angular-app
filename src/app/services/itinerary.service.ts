@@ -13,11 +13,11 @@ export class ItineraryService {
 
   hostURL = 'https://be-dev-yourney.herokuapp.com/';
 
-  public userItineraries(page:Number, userId:Number): Observable<ItineraryUserPage> {
-    var url=this.hostURL + 'itinerary/user/'+page;
+  public userItineraries(page:Number, username:String): Observable<ItineraryUserPage> {
+    var url=this.hostURL + 'itinerary/user/'+username;
     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
-    var body_params = { "userId": userId };
-    var req=this.httpClient.post<ItineraryUserPage>(url,body_params);
+    var url_params = "?page="+page;
+    var req=this.httpClient.get<ItineraryUserPage>(url+url_params);
     //req.subscribe(res=>console.log(res))
     return req;
   }

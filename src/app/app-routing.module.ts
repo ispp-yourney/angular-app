@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:'mis_itinerarios/:id', component: MyItinerariesComponent,pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'error', component: NotFoundComponent},
   {path: '**', component: NotFoundComponent}
 
 ];

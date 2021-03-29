@@ -11,16 +11,13 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ItinerarylistComponent implements OnInit {
 
-  constructor(private itineraryService: ItineraryService, private activatedRoute: ActivatedRoute, private tokenService: TokenService,private router: Router) { }
+  constructor(private itineraryService: ItineraryService, private activatedRoute: ActivatedRoute, private tokenService: TokenService, private router: Router) { }
 
   itineraries: Itinerary[] = [];
   numberOfElements: Number;
   totalPages: Array<Number> = [];
   pageId: Number;
-  currentUrl:String;
-
-  @Input()
-  userId: Number;
+  currentUrl: String;
 
   @Input()
   username: String;
@@ -32,25 +29,29 @@ export class ItinerarylistComponent implements OnInit {
   ngOnInit(): void {
     this.pageId = Number(this.activatedRoute.snapshot.paramMap.get('id')) - 1;
     //var currentUrl=this.router.url.replace(/\d+/g, '');
-  
-    if (this.base_url){
-      this.currentUrl=this.base_url;
-    }else{
-      this.currentUrl="/itinerarios"
+    if (this.base_url) {
+      this.currentUrl = this.base_url;
+    } else {
+      this.currentUrl = "/itinerarios"
     }
-    
-    this.loadUserItineraries(this.pageId, 2);
+    this.loadUserItineraries(this.pageId, this.username);
   }
-
-  loadUserItineraries(pageId: Number, userId: Number): void {
-    this.itineraryService.userItineraries(pageId, userId).subscribe(
+  loadUserItineraries(pageId: Number, username: String): void {
+    if (pageId < 0) {
+      this.router.navigateByUrl("/error")
+    }
+    this.itineraryService.userItineraries(pageId, username).subscribe(
       data => {
         this.itineraries = data.content;
         var pageArray: Array<Number> = [];
-        for (var i = 0; i < data.totalPages+5; i++) {
+        for (var i = 0; i < data.totalPages; i++)
           pageArray.push(i)
-        }
+        
         this.totalPages = pageArray
+
+        if (this.totalPages.includes(pageId) == false)
+          this.router.navigateByUrl("/error")
+        
       },
       err => {
         console.log(err);
