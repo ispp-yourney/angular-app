@@ -29,6 +29,20 @@ export class ItineraryformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    function addDay() {
+      var title = document.createElement("h2");
+      title.setAttribute("value", "Día 1");
+  
+      var actBut = document.createElement("button"); 
+      //title.setAttribute("onClick", "addActivity");
+  
+  
+      //and some more input elements here
+      //and dont forget to add a submit button
+  
+      document.getElementsByTagName('form')[0].appendChild(title);
+      document.getElementsByTagName('form')[0].appendChild(actBut);
+    }
   }
 
   onCreate(): void {
