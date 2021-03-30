@@ -1,3 +1,4 @@
+cd ./src
+json-server --watch db.json
 cd ..
-cd yourney-angular-app
 ng serve --open
