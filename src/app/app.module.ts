@@ -35,7 +35,7 @@ import { MyItinirariesComponent } from './components/itinerary/my-itiniraries/my
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    ItineraryViewContoller
+    ItineraryViewContoller,
     MyItinirariesComponent
   ],
   imports: [
