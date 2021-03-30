@@ -21,6 +21,7 @@ body{
 }
 .card{
   overflow: hidden;
+  height: 100%;
   border-radius: 15px;
   box-shadow: 0 0 30px rgba(0,0,0,0.18);
   transition: transform .5s ease;
@@ -30,7 +31,6 @@ body{
 }
 .card img{
   position:relative;
-  /* height:40%; */
   width: 100%;
   display: block;
   border-radius: 15px 15px 0 0;
