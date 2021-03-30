@@ -4,6 +4,8 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { from, of } from 'rxjs';
 import { groupBy, reduce, toArray} from 'rxjs/operators';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-itineraryview',
@@ -12,7 +14,7 @@ import { Variable } from '@angular/compiler/src/render3/r3_ast';
 })
 export class ItineraryViewContoller implements OnInit {
 
-  constructor(private itineraryService: ItineraryService) { }
+  constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService) { }
 
   itinerary: Itinerary
   days: Array<Array<Activity>>
@@ -24,7 +26,7 @@ export class ItineraryViewContoller implements OnInit {
   }
 
   loadItinerary(): void {
-    this.itineraryService.vista().subscribe(
+    this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
         console.log(data)
         this.itinerary = data;

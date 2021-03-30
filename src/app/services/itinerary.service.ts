@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Itinerary } from '../models/itinerary';
 import { ItineraryUserPage } from '../models/itineraryUserPage';
+import { TokenService } from 'src/app/services/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItineraryService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
 
   // hostURL = 'http://localhost:3000/';
   id = 1
@@ -24,8 +25,8 @@ export class ItineraryService {
     return req;
   }
 
-  public vista(): Observable<Itinerary> {
-    var url=this.hostURL + '/itinerary/show/' + this.id.toString()
+  public vista(id:number): Observable<Itinerary> {
+    var url=this.hostURL + '/itinerary/show/' + id
     var req=this.httpClient.get<Itinerary>(url)
     req.subscribe(res=>console.log(res))
     return req;
