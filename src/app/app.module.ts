@@ -20,8 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
+import { ItineraryViewContoller } from './components/itinerary/itineraryshow/itineraryview.component';
 import { MyItinirariesComponent } from './components/itinerary/my-itiniraries/my-itiniraries.component';
-
 
 
 
@@ -35,6 +35,7 @@ import { MyItinirariesComponent } from './components/itinerary/my-itiniraries/my
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
+    ItineraryViewContoller
     MyItinirariesComponent
   ],
   imports: [
