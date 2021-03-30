@@ -11,37 +11,47 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ItinerarylistComponent implements OnInit {
 
-  constructor(private itineraryService: ItineraryService,private route: ActivatedRoute, private tokenService: TokenService) { }
+  constructor(private itineraryService: ItineraryService, private activatedRoute: ActivatedRoute, private tokenService: TokenService, private router: Router) { }
 
   itineraries: Itinerary[] = [];
   numberOfElements: Number;
-  totalPages: Array<Number>=[];
+  totalPages: Array<Number> = [];
   pageId: Number;
+  currentUrl: String;
 
   @Input()
-  userId: Number;
-  
   username: String;
+
+  @Input()
+  base_url: String;
 
 
   ngOnInit(): void {
-    this.pageId = Number(this.route.snapshot.paramMap.get('id')) -1;
-    this.username=this.tokenService.getUsername()
-
-    this.loadUserItineraries(this.pageId,this.userId);
+    this.pageId = Number(this.activatedRoute.snapshot.paramMap.get('id')) - 1;
+    //var currentUrl=this.router.url.replace(/\d+/g, '');
+    if (this.base_url) {
+      this.currentUrl = this.base_url;
+    } else {
+      this.currentUrl = "/itinerarios"
+    }
+    this.loadUserItineraries(this.pageId, this.username);
   }
-
-  loadUserItineraries(pageId: Number, userId: Number): void {
-    this.itineraryService.userItineraries(pageId,userId).subscribe(
+  loadUserItineraries(pageId: Number, username: String): void {
+    if (pageId < 0) {
+      this.router.navigateByUrl("/error")
+    }
+    this.itineraryService.userItineraries(pageId, username).subscribe(
       data => {
-        //console.log(data)
         this.itineraries = data.content;
-        var pageArray:Array<Number>=[];
-        for(var i = 0; i < data.totalPages+5; i++)
-          {
-            pageArray.push(i)
-          }
-        this.totalPages=pageArray
+        var pageArray: Array<Number> = [];
+        for (var i = 0; i < data.totalPages; i++)
+          pageArray.push(i)
+        
+        this.totalPages = pageArray
+
+        if (this.totalPages.includes(pageId) == false)
+          this.router.navigateByUrl("/error")
+        
       },
       err => {
         console.log(err);
