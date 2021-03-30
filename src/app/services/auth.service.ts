@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { JwtDto } from '../models/jwt-dto';
 import { LoginUser } from '../models/login-user';
 import { NewUser } from '../models/new-user';
+import { ShowUser } from '../models/show-user';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,9 @@ export class AuthService {
     
   }
 
+  public showUser(username: String): Observable<any>{
+    return this.httpClient.get<ShowUser>(this.auth+"show/"+username);
+  }
 
 
 

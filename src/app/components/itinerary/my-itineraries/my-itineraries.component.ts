@@ -12,11 +12,11 @@ export class MyItinerariesComponent implements OnInit {
   constructor(private tokenService: TokenService) { }
 
   loggedUsername: String;
-  base_url: String;
+  //base_url: String;
 
   ngOnInit(): void {
     this.loggedUsername=this.tokenService.getUsername();
-    this.base_url="/mis_itinerarios";
+    //this.base_url="/mis_itinerarios";
   }
 
 }

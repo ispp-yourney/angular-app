@@ -16,7 +16,7 @@ export class ItineraryService {
   hostURL = 'https://be-dev-yourney.herokuapp.com';
 
   public userItineraries(page:Number, username:String): Observable<ItineraryUserPage> {
-    var url=this.hostURL + 'itinerary/user/'+username;
+    var url=this.hostURL + '/itinerary/user/'+username;
     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
     var url_params = "?page="+page;
     var req=this.httpClient.get<ItineraryUserPage>(url+url_params);

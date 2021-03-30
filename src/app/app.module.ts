@@ -11,6 +11,7 @@ import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { ItinerarylistComponent } from './components/itinerary/itinerarylist/itinerarylist.component';
+import { ItineraryViewContoller } from './components/itinerary/itineraryshow/itineraryview.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -21,19 +22,20 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
 import { MyItinerariesComponent } from './components/itinerary/my-itineraries/my-itineraries.component';
-import { ItineraryViewContoller } from './components/itinerary/itineraryshow/itineraryview.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     ItinerarylistComponent,
+    ItineraryViewContoller,
     IndexComponent,
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    MyItinerariesComponent
-    ItineraryViewContoller,
+    MyItinerariesComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
