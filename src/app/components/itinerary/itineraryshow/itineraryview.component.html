@@ -1,98 +1,102 @@
 <app-menu></app-menu>
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">{{itinerary.name}}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">@{{itinerary.username}}</h6>
-        <img class="card-img-top" src={{itinerary.imageUrl}} alt="Card image cap">
-        <p class="card-text">{{itinerary.description}}</p>
-        <p class="card-text">{{itinerary.budget}}</p>
-        <p class="card-text">{{itinerary.estimatedDays}} días</p>
-        <p class="card-text">{{itinerary.recommendedSeason}}</p>
-        
-    </div>
-</div>
+<style>
 
-<div href="#" *ngFor="let i of listNumberDays">
-    <div class="card mb-3">
-        <h3 class="card-header">Día {{days[i][0].day}}</h3>
-        <div href="#" *ngFor="let day of days[i]">
+    * {
+      box-sizing: border-box;
+    }
+
+    card-space {
+        height: 300000px;
+    }
+
+    /* Create two columns/boxes that floats next to each other */
+    nav {
+      float: left;
+      width: 30%;
+      padding: 20px;
+    }
+    
+    /* Style the list inside the menu */
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    article {
+      float: left;
+      padding: 20px;
+      width: 70%;
+    }
+    
+    /* Clear floats after the columns */
+    section::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+    @media (max-width: 600px) {
+      nav, article {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+</style>
+
+<section>
+    <nav>
+        <div class="card">
             <div class="card-body">
-                <h5 class="card-title">{{day.landmark.name}}</h5>
-                <h6 class="card-subtitle text-muted">{{day.landmark.description}}</h6>
-            </div>
-            <div class="card-body">
-                <p class="card-text">{{day.description}}</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{day.landmark.price}}</li>
-                <li class="list-group-item">{{day.landmark.city}} - {{day.landmark.country}}</li>
-                <li class="list-group-item"></li>
-            </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">{{day.landmark.email}}</a>
-                <a href="#" class="card-link">{{day.landmark.phone}}</a>
-                <a href="#" class="card-link">{{day.landmark.website}}</a>
-                <a href="#" class="card-link">{{day.landmark.instagram}}</a>
-                <a href="#" class="card-link">{{day.landmark.twitter}}</a>
-            </div>
-            <div class="card-footer text-muted">
-                {{day.landmark.createDate}}
+                <h4 class="card-title">{{itinerary.name}}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">@{{itinerary.username}}</h6>
+                <img class="card-img-top" src={{itinerary.imageUrl}} alt="Card image cap">
+                <div class="card-space"></div>
+                <p class="card-text">{{itinerary.description}}</p>
+                <p class="card-text">{{itinerary.budget}} €</p>
+                <p class="card-text">{{itinerary.estimatedDays}} días</p>
+                <p class="card-text">{{itinerary.recommendedSeason}}</p>
+                
             </div>
         </div>
-    </div>
-</div>
 
-<!-- <br>
-<br>
-<br>
-<div>
-    <p>Id: {{itinerary.id}}</p>
-    <p>Nombre: {{itinerary.name}}</p>
-    <p>Descripción: {{itinerary.description}}</p>
-    <p>Estado: {{itinerary.status}}</p>
-    <p>Presupuesto: {{itinerary.budget}}</p>
-    <p>Días estimados: {{itinerary.estimatedDays}}</p>
-    <p>Fecha de creación: {{itinerary.createDate}}</p>
-    <p>Visitas: {{itinerary.views}}</p>
-    <p>Estación recomendada: {{itinerary.recommendedSeason}}</p>
-    <p>calcPlan: {{itinerary.views}}</p>
-    <p>calcPromotion: {{itinerary.views}}</p>
-    <p>Usuario: @{{itinerary.username}}</p>
-    <p>URL imagen: {{itinerary.imageUrl}}</p>
-</div>
+        <button type="button" class="btn btn-primary" (click)="deleteItinerary()">Eliminar</button>
+    </nav>
+    
+    <article>
+      
+        <div href="#" *ngFor="let i of listNumberDays">
+            <div class="card mb-3">
+                <h3 class="card-header">Día {{days[i][0].day}}</h3>
+                <div href="#" *ngFor="let day of days[i]">
+                    <div class="card-body">
+                        <h5 class="card-title">{{day.landmark.name}}</h5>
+                        <h6 class="card-subtitle text-muted">{{day.landmark.description}}</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{day.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{day.landmark.price}} €</li>
+                        <li class="list-group-item">{{day.landmark.city}} - {{day.landmark.country}}</li>
+                        <li class="list-group-item"></li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">{{day.landmark.email}}</a>
+                        <a href="#" class="card-link">{{day.landmark.phone}}</a>
+                        <a href="#" class="card-link">{{day.landmark.website}}</a>
+                        <a href="#" class="card-link">{{day.landmark.instagram}}</a>
+                        <a href="#" class="card-link">{{day.landmark.twitter}}</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{day.landmark.createDate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
 
-<br>
-<br>
-<br>
 
-<div href="#" *ngFor="let i of listNumberDays">
-    <p>DÍA: {{days[i][0].day}}</p>
-    <div href="#" *ngFor="let day of days[i]">
-        <p>Id: {{day.id}}</p>
-        <p>Título: {{day.title}}</p>
-        <p>Descripción: {{day.description}}</p>
-        <p>Fecha de creación: {{day.createDate}}</p>
-        <p>Visitas: {{day.views}}</p>
-        <p>Identificador del lugar: {{day.landmark.name}}</p>
-        <p>Nombre del lugar: {{day.landmark.name}}</p>
-        <p>Descripción del lugar: {{day.landmark.name}}</p>
-        <p>Precio del lugar: {{day.landmark.price}}</p>
-        <p>País del lugar: {{day.landmark.country}}</p>
-        <p>Ciudad del lugar: {{day.landmark.city}}</p>
-        <p>Latitud del lugar: {{day.landmark.latitude}}</p>
-        <p>Longitud del lugar: {{day.landmark.longitude}}</p>
-        <p>Promocionado: {{day.landmark.promoted}}</p>
-        <p>Correo electrónico: {{day.landmark.email}}</p>
-        <p>Teléfono: {{day.landmark.phone}}</p>
-        <p>Página web: {{day.landmark.website}}</p>
-        <p>Instagram: {{day.landmark.instagram}}</p>
-        <p>Twitter: {{day.landmark.twitter}}</p>
-        <p>Fecha de creación de lugar: {{day.landmark.createDate}}</p>
-        <p>Visitas del lugar: {{day.landmark.views}}</p>
-        <br>
-    </div>
-    <br>
-    <br>
-    <br>
-</div> -->

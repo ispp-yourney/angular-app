@@ -39,9 +39,19 @@ export class ItineraryViewContoller implements OnInit {
 
 
   loadDays(): void {
-
     const activities: Array<Activity> = this.itinerary.activities
     this.days = this.groupByDay(activities)
+  }
+
+  deleteItinerary(): void {
+    this.itineraryService.delete(this.itinerary.id).subscribe(
+      data => {
+        console.log(data)
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
 
   groupByKey(array, key) {
