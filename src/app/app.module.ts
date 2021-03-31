@@ -23,6 +23,7 @@ import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
 import { MyItinerariesComponent } from './components/itinerary/my-itineraries/my-itineraries.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginComponent,
     RegisterComponent,
     MyItinerariesComponent,
-    ProfileComponent
+    ProfileComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,
