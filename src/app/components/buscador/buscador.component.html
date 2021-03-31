@@ -4,7 +4,7 @@
 
 <div class="form-group">
   <label for="country">Pais</label>
-  <select  formControlName="country" class="form-control" id="country" (change)="OnChange($event.target.value)">
+  <select  formControlName="country" value="España" class="form-control" id="country" (change)="OnChange($event.target.value)">
     <option *ngFor="let pais of country"  [value]="pais"> {{pais}} </option>
   </select>
 </div>
@@ -12,7 +12,7 @@
 
 <div class="form-group">
   <label for="city">Ciudad</label>
-  <select formControlName="city" class="form-control" id="city">
+  <select formControlName="city" value="Sevilla" class="form-control" id="city">
     <option *ngFor="let ciudad of city"  [value]="ciudad"> {{ciudad}} </option>
   </select>
 </div>
