@@ -8,7 +8,7 @@
 /bazel-out
 
 # dependencies
-node_modules
+/node_modules
 
 # profiling files
 chrome-profiler-events*.json
@@ -46,8 +46,4 @@ testem.log
 Thumbs.db
 
 # Angular
-node_modules/*
-package-lock.json
-package.json
-src/db/db.json
-angular.json
+/yourney-angular-app/node_modules/*

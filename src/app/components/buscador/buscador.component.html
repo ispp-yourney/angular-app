@@ -1,0 +1,34 @@
+<form  #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
+
+
+
+<div class="form-group">
+  <label for="country">Pais</label>
+  <select  formControlName="country" class="form-control" id="country" (change)="OnChange($event.target.value)">
+    <option *ngFor="let pais of country"  [value]="pais"> {{pais}} </option>
+  </select>
+</div>
+
+
+<div class="form-group">
+  <label for="city">Ciudad</label>
+  <select formControlName="city" class="form-control" id="city">
+    <option *ngFor="let ciudad of city"  [value]="ciudad"> {{ciudad}} </option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label class="col-form-label">Presupuesto</label>
+  <input formControlName="maxBudget" type="text" class="form-control" value="500" id="maxBudget">
+</div>
+
+<div class="form-group">
+  <label class="col-form-label">Días</label>
+  <input formControlName="maxDays" type="text" class="form-control" value="3" id="maxDays">
+</div>
+
+<button type="submit" class="btn  btn-primary"><i></i> Filtrar</button>
+
+</form>
+
+     

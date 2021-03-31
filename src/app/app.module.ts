@@ -5,37 +5,25 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { MenuComponent } from './menu/menu.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule} from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSliderModule } from '@angular/material/slider';
-import { ItinerarylistComponent } from './components/itinerary/itinerarylist/itinerarylist.component';
-import { ItineraryViewContoller } from './components/itinerary/itineraryshow/itineraryview.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatCardModule} from '@angular/material/card';
-import {MatGridListModule} from '@angular/material/grid-list';
-import { IndexComponent } from './components/index/index.component';
-import { interceptor } from './revisors/interceptor.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { LoginComponent } from './components/operations/login/login.component';
-import { RegisterComponent } from './components/operations/register/register.component';
-import { MyItinerariesComponent } from './components/itinerary/my-itineraries/my-itineraries.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BuscadorComponent } from './components/buscador/buscador.component'; 
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ItinerarylistComponent,
-    ItineraryViewContoller,
-    IndexComponent,
-    NotFoundComponent,
-    LoginComponent,
-    RegisterComponent,
-    MyItinerariesComponent,
-    ProfileComponent
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,
@@ -45,15 +33,20 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatToolbarModule,
     MatButtonModule,
     HttpClientModule,
-    MatTableModule,
-    MatCardModule,
-    MatGridListModule,
+    MatFormFieldModule,
+    MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    
+
+
+
   ],
-  providers: [
-    interceptor
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
