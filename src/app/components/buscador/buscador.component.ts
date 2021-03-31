@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import { Router } from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
 import { searchFilter } from 'src/app/models/search-filters';
-import { BuscadorService } from '../../servicios/buscador.service';
+import { BuscadorService } from '../../services/buscador.service';
 
 /**
  * @title Filter autocomplete
