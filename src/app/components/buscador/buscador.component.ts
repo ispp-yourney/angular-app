@@ -27,12 +27,12 @@ export class BuscadorComponent implements OnInit {
 
   constructor(private buscadorService:BuscadorService, 
               private formBuilder:FormBuilder,
-              private router: Router,){
+              private router: Router){
                 this.formFilter = formBuilder.group({
-                  country: '',
-                  city: '',
-                  maxBudget: '',
-                  maxDays: '',
+                  country: [''],
+                  city: [''],
+                  maxBudget: ['', Validators.min(0)],
+                  maxDays: ['', Validators.min(0)],
                 });
               }
 
@@ -41,7 +41,7 @@ export class BuscadorComponent implements OnInit {
   ngOnInit() {
 
     this.buscadorService.getAllCountry().subscribe(c => {this.country = c; } )
-    this.buscadorService.getAllCity().subscribe(c => {this.city = c; } )     
+    //this.buscadorService.getAllCity().subscribe(c => {this.city = c; } )     
   }
 
   onRegister(){
@@ -55,15 +55,18 @@ export class BuscadorComponent implements OnInit {
                                    this.formFilter.value.city,
                                    this.formFilter.value.maxBudget,
                                    this.formFilter.value.maxDays);
-
+    console.log(this.filter)
+      
     this.buscadorService.postFilter(this.filter).subscribe(
      response => {
       var res = response 
       this.itineraries=res.content
-      console.log(this.itineraries)
+      console.log("Itinerarios: ",this.itineraries)
       //this.router.navigate(['/buscador']); 
       if(!(this.itineraries.length>0)){
         this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."
+      }else{
+        this.noItinerariesFound=""
       }
      },
      err => {
@@ -77,8 +80,8 @@ export class BuscadorComponent implements OnInit {
    
   }
 
-  // reset(){
-
-  // }
+  reset(){
+    this.formFilter.reset();
+  }
 
 }
