@@ -80,8 +80,4 @@ export class BuscadorComponent implements OnInit {
    
   }
 
-  reset(){
-    this.formFilter.reset();
-  }
-
 }
