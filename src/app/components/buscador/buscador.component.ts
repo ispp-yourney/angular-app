@@ -23,6 +23,7 @@ export class BuscadorComponent implements OnInit {
   formFilter: FormGroup;
   filter: searchFilter;
   itineraries: Itinerary[] = [];
+  noItinerariesFound:string;
 
   constructor(private buscadorService:BuscadorService, 
               private formBuilder:FormBuilder,
@@ -51,14 +52,19 @@ export class BuscadorComponent implements OnInit {
     this.filter = new searchFilter(this.formFilter.value.country, 
                                    this.formFilter.value.city,
                                    this.formFilter.value.maxBudget,
-                                   this.formFilter.value.maxDays,)
+                                   this.formFilter.value.maxDays);
 
     this.buscadorService.postFilter(this.filter).subscribe(
      response => {
       var res = response 
       this.itineraries=res.content
-      console.log(res)
       //this.router.navigate(['/buscador']); 
+      if(!(this.itineraries.length>0)){
+        this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."
+      }
+     },
+     err => {
+       console.log(err);
      })                         
   }
 
