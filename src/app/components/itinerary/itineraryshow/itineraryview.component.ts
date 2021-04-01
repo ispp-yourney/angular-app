@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Activity, Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -11,12 +11,14 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ItineraryViewContoller implements OnInit {
 
-  constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService) { }
+  constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService, private router: Router) { }
 
   itinerary: Itinerary
   days: Array<Array<Activity>>
   listNumberDays: Array<number>
   isMyItinerary: boolean
+  containError: boolean = false
+  messageError: string
 
   ngOnInit(): void {
     this.loadItinerary()
@@ -31,9 +33,11 @@ export class ItineraryViewContoller implements OnInit {
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
         this.isMyItinerary = (this.tokenService != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() === this.itinerary.username)
+        this.containError = false
       },
       err => {
         console.log(err);
+        this.containError = true
       }
     );
   }
@@ -48,9 +52,13 @@ export class ItineraryViewContoller implements OnInit {
     this.itineraryService.delete(this.itinerary.id).subscribe(
       data => {
         console.log(data)
+        this.containError = false
+        this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername() + '/itinerarios/1')
       },
       err => {
         console.log(err)
+        this.messageError = err.error.text
+        this.containError = true
       }
     )
   }
