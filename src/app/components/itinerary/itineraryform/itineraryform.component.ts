@@ -22,43 +22,36 @@ export class ItineraryformComponent implements OnInit {
                     name: ['', Validators.required],
                     description: ['', Validators.required],
                     budget: ['', Validators.required],
-                    estimated_days: ['', Validators.required],
-                    // activities: [[], Validators.required],
-                    main_image: ['', Validators.required]
+                    estimatedDays: ['', Validators.required],
+                    image: ['', Validators.required],
+                    recommendedSeason: ['', Validators.required],
+                    title0_0: ['']
                 })
   }
 
   ngOnInit(): void {
-    function addDay() {
-      var title = document.createElement("h2");
-      title.setAttribute("value", "Día 1");
-  
-      var actBut = document.createElement("button"); 
-      //title.setAttribute("onClick", "addActivity");
-  
-  
-      //and some more input elements here
-      //and dont forget to add a submit button
-  
-      document.getElementsByTagName('form')[0].appendChild(title);
-      document.getElementsByTagName('form')[0].appendChild(actBut);
-    }
   }
 
   onCreate(): void {
 
-    this.newItinerary = new ItineraryDto(this.formItiner.value.name,
+    this.newItinerary = new ItineraryDto(0,
+                                          this.formItiner.value.name,
                                           this.formItiner.value.description,
                                           this.formItiner.value.budget,
-                                          this.formItiner.value.estimated_days,
-                                          [],
-                                          0,
-                                          this.formItiner.value.main_image,
-                                          0,
-                                          []);
+                                          this.formItiner.value.estimatedDays,
+                                          this.formItiner.value.image,
+                                          this.formItiner.value.recommendedSeason);
     
     console.log(this.newItinerary)
-    this.itineraryService.nuevo(this.newItinerary)
+    console.log(this.formItiner.value.title0_0)
+    this.itineraryService.nuevo(this.newItinerary).subscribe(
+      data => {
+        console.log(data)
+      },
+      err => {
+        console.log(err)
+      }
+    )
 
     this.router.navigate(['/']);
   }

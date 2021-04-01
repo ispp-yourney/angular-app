@@ -8,35 +8,33 @@ export interface Itinerary {
 }
 
 export class ItineraryDto {
+    id: number;
     name: string;
     description: string;
-    status: string;
     budget: number;
-    estimated_days: number;
-    activities: number[];
-    views: number;
-    main_image: string;
-    author: number;
-    seasons: number[];
+    estimatedDays: number;
+    image: string;
+    recommendedSeason: string;
 
-    constructor(name: string, description: string, budget: number, estimated_days: number, activities: number[],
-        views: number, main_image: string, author: number, seasons: number[]) {
+    constructor(id: number, name: string, description: string, budget: number, estimatedDays: number,
+                image: string, recommendedSeason: string) {
+            this.id = id;
             this.name = name
             this.description = description;
             this.budget = budget;
-            this.estimated_days = estimated_days;
-            this.activities = activities;
-            this.views = views;
-            this.main_image = main_image;
-            this.author = author;
-            this.seasons = seasons;
+            this.estimatedDays = estimatedDays;
+            this.image = image;
+            this.recommendedSeason = recommendedSeason;
     }
 }
 
 export class Activity {
-
+    id: number;
     title: string;
     description: string;
     day: number;
+    itinerary: number;
+    landmark: number;
+    views: number;
 
 }

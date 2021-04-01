@@ -2,7 +2,6 @@ var dayCounter = 0;
 var activityCounter = [0,0,0]
 
 function addDay() {
-    dayCounter++;
     var dayDiv = document.createElement("div");
     dayDiv.setAttribute("class", "card")
 
@@ -12,7 +11,7 @@ function addDay() {
     dayDiv.appendChild(cardDiv);
 
     var title = document.createElement("h2");
-    var titleText = document.createTextNode("Día " + dayCounter.toString());
+    var titleText = document.createTextNode("Día " + (dayCounter+1).toString());
     title.appendChild(titleText);
     title.setAttribute("class", "card-title");
     cardDiv.appendChild(title);
@@ -27,6 +26,8 @@ function addDay() {
     actBut.setAttribute("type", "button");
     cardDiv.appendChild(actBut);
 
+    dayCounter++;
+
     var parent = document.getElementsByTagName("form")[0];
     parent.insertBefore(dayDiv, parent.lastElementChild);
     if (dayCounter >= 3) {
@@ -35,17 +36,16 @@ function addDay() {
 }
 
 function addActivity(id) {
-    activityCounter[id-1]++;
 
     var actDiv = document.createElement("div");
-    actDiv.setAttribute("class", "card")
+    actDiv.setAttribute("class", "card");
 
     var cardDiv2 = document.createElement("div");
     cardDiv2.setAttribute("class", "card-body");
     actDiv.appendChild(cardDiv2);
 
     var titleAct = document.createElement("h2");
-    var titleActText = document.createTextNode("Actividad " + activityCounter[id-1].toString());
+    var titleActText = document.createTextNode("Actividad " + (activityCounter[id]+1).toString());
     titleAct.appendChild(titleActText);
     titleAct.setAttribute("class", "card-title");
     cardDiv2.appendChild(titleAct);
@@ -61,7 +61,7 @@ function addActivity(id) {
     titleInput.setAttribute("class", "form-control");
     titleInput.setAttribute("type", "text");
     titleInput.setAttribute("id", "activity-title");
-    titleInput.setAttribute("formControlName", "title" + id.toString() + "-" + activityCounter[id-1].toString())
+    titleInput.setAttribute("formControlName", "title" + id.toString() + "_" + activityCounter[id].toString())
     titleFieldDiv.appendChild(titleInput);
 
     var descFieldDiv = document.createElement("div");
@@ -75,7 +75,7 @@ function addActivity(id) {
     descInput.setAttribute("class", "form-control");
     descInput.setAttribute("rows", "3");
     descInput.setAttribute("id", "activity-description");
-    descInput.setAttribute("formControlName", "description" + id.toString() + "-" + activityCounter[id-1].toString())
+    descInput.setAttribute("formControlName", "description" + id.toString() + "_" + activityCounter[id].toString())
     descFieldDiv.appendChild(descInput);
 
     cardDiv2.appendChild(titleFieldDiv);
@@ -84,7 +84,9 @@ function addActivity(id) {
     var parent = document.getElementById("act" + id.toString());
     parent.insertBefore(actDiv, parent.lastElementChild);
 
-    if (activityCounter[id-1] >= 3) {
+    activityCounter[id]++;
+
+    if (activityCounter[id] >= 3) {
         document.getElementById(id).remove();
     }
     

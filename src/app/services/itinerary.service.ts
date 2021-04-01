@@ -10,7 +10,7 @@ export class ItineraryService {
 
   constructor(private httpClient: HttpClient) { }
 
-  hostURL = 'http://localhost:3000/';
+  hostURL = 'http://localhost:8080/';
 
   public lista(): Observable<Itinerary[]> {
     var url=this.hostURL + 'itineraries'
@@ -20,8 +20,10 @@ export class ItineraryService {
   }
   
   public nuevo(itinerary: ItineraryDto): Observable<any> {
-    var url=this.hostURL + 'itinerary/create'
-    return this.httpClient.post<any>(url, itinerary)
+    var url=this.hostURL + 'itinerary/create';
+    var req = this.httpClient.post<ItineraryDto>(url, itinerary);
+    req.subscribe(res=>console.log(res));
+    return req;
   }
 
 }

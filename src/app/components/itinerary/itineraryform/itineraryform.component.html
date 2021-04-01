@@ -4,6 +4,7 @@
   <h1 class="display-3">Crear itinerario</h1>
   <form [formGroup]="formItiner" (ngSubmit)="onCreate()">
     <fieldset>
+      
       <div class="form-group">
         <label class="col-form-label" for="name">Nombre</label>
         <input type="text" class="form-control" id="name" placeholder="Nombre del itinerario" formControlName="name">
@@ -21,12 +22,17 @@
 
       <div class="form-group">
         <label class="col-form-label" for="estimated_days">Días estimados</label>
-        <input type="number" class="form-control" id="estimated_days" formControlName="estimated_days">
+        <input type="number" class="form-control" id="estimated_days" formControlName="estimatedDays">
       </div>
 
       <div class="form-group">
         <label class="col-form-label" for="main_image">URL de imagen</label>
-        <input type="url" class="form-control" id="image" formControlName="main_image">
+        <input type="url" class="form-control" id="image" formControlName="image">
+      </div>
+      
+      <div class="form-group">
+        <label class="col-form-label" for="season">Estación</label>
+        <input type="text" class="form-control" id="season" formControlName="recommendedSeason">
       </div>
     </fieldset>
 
