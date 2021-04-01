@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {map, startWith} from 'rxjs/operators';
 import { searchFilter } from 'src/app/models/search-filters';
 import { BuscadorService } from '../../services/buscador.service';
+import { Itinerary } from 'src/app/models/itinerary';
 
 /**
  * @title Filter autocomplete
@@ -21,6 +22,7 @@ export class BuscadorComponent implements OnInit {
   country: string[] = [];
   formFilter: FormGroup;
   filter: searchFilter;
+  itineraries: Itinerary[] = [];
 
   constructor(private buscadorService:BuscadorService, 
               private formBuilder:FormBuilder,
@@ -54,7 +56,9 @@ export class BuscadorComponent implements OnInit {
     this.buscadorService.postFilter(this.filter).subscribe(
      response => {
       var res = response 
-      this.router.navigate(['/']); 
+      this.itineraries=res.content
+      console.log(res)
+      //this.router.navigate(['/buscador']); 
      })                         
   }
 

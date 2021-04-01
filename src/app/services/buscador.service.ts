@@ -9,24 +9,26 @@ import { JwtDto } from '../models/jwt-dto';
 })
 export class BuscadorService {
 
-  private url:string = "/landmark/country/list";
-  private url1:string = "/landmark/city/list";
-  private url2:string = "/landmark/country/";
-  private url3:string = "https://be-dev-yourney.herokuapp.com/";
+  private baseUrl:string = "https://be-dev-yourney.herokuapp.com";
+  private listCountries:string = this.baseUrl+"/landmark/country/list";
+  private listCities:string = this.baseUrl+"/landmark/city/list";
+  private listCitiesByCountry:string = this.baseUrl+"/landmark/country/";
+  private itinerarySearch:string = this.baseUrl+ '/itinerary/search/'
+  
   
 
   constructor( private http:HttpClient ) { }
 
   public getAllCountry():Observable<string[]>{
-    return this.http.get<string[]>(this.url);
+    return this.http.get<string[]>(this.listCountries);
   }
 
   public getAllCity():Observable<string[]>{
-    return this.http.get<string[]>(this.url1);
+    return this.http.get<string[]>(this.listCities);
   }
 
   public getCityByCountry(pais:string):Observable<string[]>{
-    return this.http.get<string[]>(this.url2 + pais + "/city/list");
+    return this.http.get<string[]>(this.listCitiesByCountry + pais + "/city/list");
   }
 
   public postFilter(searchFilter: searchFilter): Observable<any>{
@@ -35,7 +37,7 @@ export class BuscadorService {
     .set('city', searchFilter.city)
     .set('maxBudget', searchFilter.maxBudget)
     .set('maxDays', searchFilter.maxDays);
-    return this.http.get<any>(this.url3 + 'list/', {params});
+    return this.http.get<any>(this.itinerarySearch, {params});
 
     
   }
