@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
 
         console.log("User " + res.username + "  logged sucessfully.")
 
-        this.router.navigate(['/']);
+        this.router.navigate(['/perfil/'+res.username]);
         
       }, err =>{
         this.isLogged = false;

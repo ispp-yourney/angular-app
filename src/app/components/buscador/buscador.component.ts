@@ -45,10 +45,12 @@ export class BuscadorComponent implements OnInit {
   }
 
   onRegister(){
-    console.log(this.formFilter.value.country, 
-      this.formFilter.value.city,
-      this.formFilter.value.maxBudget,
-      this.formFilter.value.maxDays)
+    console.log('Pais: '+this.formFilter.value.country)
+    console.log('Ciudad: '+this.formFilter.value.city)
+    console.log('Presupuesto: '+this.formFilter.value.maxBudget)
+    console.log('Días: '+this.formFilter.value.maxDays)
+
+
     this.filter = new searchFilter(this.formFilter.value.country, 
                                    this.formFilter.value.city,
                                    this.formFilter.value.maxBudget,
@@ -58,6 +60,7 @@ export class BuscadorComponent implements OnInit {
      response => {
       var res = response 
       this.itineraries=res.content
+      console.log(this.itineraries)
       //this.router.navigate(['/buscador']); 
       if(!(this.itineraries.length>0)){
         this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."
@@ -74,5 +77,8 @@ export class BuscadorComponent implements OnInit {
    
   }
 
+  // reset(){
+
+  // }
 
 }
