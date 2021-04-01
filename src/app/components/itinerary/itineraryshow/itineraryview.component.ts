@@ -19,6 +19,7 @@ export class ItineraryViewContoller implements OnInit {
   itinerary: Itinerary
   days: Array<Array<Activity>>
   listNumberDays: Array<number>
+  isMyItinerary: boolean
 
   ngOnInit(): void {
     this.loadItinerary()
@@ -31,7 +32,8 @@ export class ItineraryViewContoller implements OnInit {
         console.log(data)
         this.itinerary = data;
         this.loadDays()
-        this.listNumberDays = Array.from({length: this.itinerary.estimatedDays}, (_, i) => i + 1)
+        this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
+        this.isMyItinerary = (this.tokenService != null) && (this.tokenService.getUsername!=null) && (this.tokenService.getUsername.length>0) && (this.tokenService.getUsername.toString === this.itinerary.username.toString)
       },
       err => {
         console.log(err);
@@ -56,20 +58,13 @@ export class ItineraryViewContoller implements OnInit {
     )
   }
 
-  groupByKey(array, key) {
-    return array
-      .reduce((hash, obj) => {
-        if(obj[key] === undefined) return hash; 
-        return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
-      }, {})
-  }
-
   groupByDay(array){
-    return array.reduce((r, a) => {
+    var a = array.reduce((r, a) => {
           r[a.day] = r[a.day] || [];
           r[a.day].push(a);
           return r;
       }, Object.create(null));
+    return a
   }
 
 }

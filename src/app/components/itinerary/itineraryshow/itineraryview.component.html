@@ -61,8 +61,9 @@
                 
             </div>
         </div>
-
-        <button type="button" class="btn btn-primary" (click)="deleteItinerary()">Eliminar</button>
+        <div *ngIf="isMyItinerary">
+            <button type="button" class="btn btn-primary" (click)="deleteItinerary()">Eliminar</button>
+        </div>
     </nav>
     
     <article>
