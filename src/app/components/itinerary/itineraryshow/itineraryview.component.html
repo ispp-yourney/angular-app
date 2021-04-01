@@ -1,5 +1,8 @@
 <app-menu></app-menu>
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 
     * {
@@ -43,8 +46,10 @@
         height: auto;
       }
     }
-
 </style>
+
+
+<div *ngIf="containError" class="alert alert-danger"> {{messageError}}</div>
 
 <section>
     <nav>
@@ -61,8 +66,9 @@
                 
             </div>
         </div>
-
-        <button type="button" class="btn btn-primary" (click)="deleteItinerary()">Eliminar</button>
+        <div *ngIf="isMyItinerary">
+            <button type="button" class="btn btn-primary" (click)="deleteItinerary()">Eliminar</button>
+        </div>
     </nav>
     
     <article>
