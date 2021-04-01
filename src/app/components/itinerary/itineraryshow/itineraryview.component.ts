@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Activity, Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
-import { from, of } from 'rxjs';
-import { groupBy, reduce, toArray} from 'rxjs/operators';
-import { Variable } from '@angular/compiler/src/render3/r3_ast';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -33,7 +30,7 @@ export class ItineraryViewContoller implements OnInit {
         this.itinerary = data;
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
-        this.isMyItinerary = (this.tokenService != null) && (this.tokenService.getUsername!=null) && (this.tokenService.getUsername.length>0) && (this.tokenService.getUsername.toString === this.itinerary.username.toString)
+        this.isMyItinerary = (this.tokenService != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() === this.itinerary.username)
       },
       err => {
         console.log(err);
