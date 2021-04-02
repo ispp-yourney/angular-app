@@ -9,7 +9,7 @@ import { TokenService } from 'src/app/services/token.service';
   templateUrl: './itineraryview.component.html',
   styleUrls: ['./itineraryview.component.css']
 })
-export class ItineraryViewContoller implements OnInit {
+export class ItineraryViewComponent implements OnInit {
 
   constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService, private router: Router) { }
 
