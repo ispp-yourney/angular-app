@@ -26,13 +26,46 @@ export class ItineraryformComponent implements OnInit {
                     budget: ['', Validators.required],
                     image: ['', Validators.required],
                     recommendedSeason: ['', Validators.required],
-                    days: new FormArray([])
+                    days: this.formBuilder.array([])
                 })
   }
 
   ngOnInit(): void {
     this.numberDays = 0;
   }
+
+  addDay(){
+
+    const day = this.formBuilder.group({
+      activities: this.formBuilder.array([])
+    });
+    
+    (this.formItiner.get('days') as FormArray).push(day);
+
+  }
+
+  addActivity(pepe: FormArray){
+    const activity = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required]
+    });
+
+    pepe.push(activity);
+  }
+
+
+  removeDay(i: number){
+    (this.formItiner.get('days') as FormArray).removeAt(i);
+  }
+
+
+
+  removeActivity(daysList: FormArray, i: number){
+    daysList.removeAt(i);
+  }
+
+
+
 
   get allDays() { return this.formItiner.controls.days as FormArray; }
   get daysGroup() { return this.allDays.controls as FormGroup[]; }
