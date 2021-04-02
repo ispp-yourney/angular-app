@@ -1,54 +1,6 @@
 <app-menu></app-menu>
 
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<style>
-
-    * {
-      box-sizing: border-box;
-    }
-
-    card-space {
-        height: 300000px;
-    }
-
-    /* Create two columns/boxes that floats next to each other */
-    nav {
-      float: left;
-      width: 30%;
-      padding: 20px;
-    }
-    
-    /* Style the list inside the menu */
-    nav ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    
-    article {
-      float: left;
-      padding: 20px;
-      width: 70%;
-    }
-    
-    /* Clear floats after the columns */
-    section::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-    @media (max-width: 600px) {
-      nav, article {
-        width: 100%;
-        height: auto;
-      }
-    }
-</style>
-
-
 <div *ngIf="containError" class="alert alert-danger"> {{messageError}}</div>
 
 <section>
@@ -58,12 +10,10 @@
                 <h4 class="card-title">{{itinerary.name}}</h4>
                 <h6 class="card-subtitle mb-2 text-muted">@{{itinerary.username}}</h6>
                 <img class="card-img-top" src={{itinerary.imageUrl}} alt="Card image cap">
-                <div class="card-space"></div>
                 <p class="card-text">{{itinerary.description}}</p>
                 <p class="card-text">{{itinerary.budget}} €</p>
                 <p class="card-text">{{itinerary.estimatedDays}} días</p>
                 <p class="card-text">{{itinerary.recommendedSeason}}</p>
-                
             </div>
         </div>
         <div *ngIf="isMyItinerary">
@@ -72,33 +22,25 @@
     </nav>
     
     <article>
-      
         <div href="#" *ngFor="let i of listNumberDays">
-            <div class="card mb-3">
+            <div class="card mb-5">
                 <h3 class="card-header">Día {{days[i][0].day}}</h3>
-                <div href="#" *ngFor="let day of days[i]">
-                    <div class="card-body">
-                        <h5 class="card-title">{{day.landmark.name}}</h5>
-                        <h6 class="card-subtitle text-muted">{{day.landmark.description}}</h6>
+                <p class="card-text ml-3">{{days[i][0].description}}</p>
+                <div class="card-body" href="#" *ngFor="let day of days[i]">
+                    <div class="card">
+                        <p class="card-header">{{day.landmark.name}}</p>
+                        <p class="card-text ml-3">{{day.landmark.description}}</p>
+                        <p class="card-text ml-3">{{day.landmark.price}} €</p>
+                        <p class="card-text ml-3">{{day.landmark.city}} - {{day.landmark.country}}</p>
+                        <ul class="card-body" title="contactInfo">
+                            <a href="#" class="card-link">{{day.landmark.email}}</a>
+                            <a href="#" class="card-link">{{day.landmark.phone}}</a>
+                            <a href="#" class="card-link">{{day.landmark.website}}</a>
+                            <a href="#" class="card-link">{{day.landmark.instagram}}</a>
+                            <a href="#" class="card-link">{{day.landmark.twitter}}</a>
+                        </ul>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">{{day.description}}</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{day.landmark.price}} €</li>
-                        <li class="list-group-item">{{day.landmark.city}} - {{day.landmark.country}}</li>
-                        <li class="list-group-item"></li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">{{day.landmark.email}}</a>
-                        <a href="#" class="card-link">{{day.landmark.phone}}</a>
-                        <a href="#" class="card-link">{{day.landmark.website}}</a>
-                        <a href="#" class="card-link">{{day.landmark.instagram}}</a>
-                        <a href="#" class="card-link">{{day.landmark.twitter}}</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        {{day.landmark.createDate}}
-                    </div>
+                    
                 </div>
             </div>
         </div>
