@@ -84,7 +84,12 @@ export class RegisterComponent implements OnInit {
           }, err =>{
             this.isLogged = false;
             this.isLoginFail = true;
-            this.messageError = err.error.mensaje;
+
+            var returned_error = err.error.text
+            if(returned_error == undefined){
+              returned_error = 'Ha ocurrido un error'
+            }
+            this.messageError = returned_error;
             console.log(this.messageError)
             
           }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { data } from 'jquery';
 import { ShowUser } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -36,12 +37,25 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
+        console.log(err)
         this.incorrectUsername=true;
         this.messageError=err.error.text;
         //this.router.navigateByUrl("/error");
         //console.log(this.errorMessage);
       }
     );
+  }
+
+  proUser(){
+    this.authService.proUser().subscribe(
+      data => {
+        console.log(data)
+      },
+      err => {
+        console.log(err)
+        this.messageError=err.error.text
+      }
+    )
   }
 
 }

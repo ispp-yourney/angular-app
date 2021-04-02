@@ -36,7 +36,12 @@ export class ItineraryViewContoller implements OnInit {
         this.containError = false
       },
       err => {
-        console.log(err);
+        console.log(err)
+        var returned_error = err.error.text
+        if(returned_error == undefined){
+          returned_error = 'Ha ocurrido un error'
+        }
+        this.messageError = returned_error;
         this.containError = true
       }
     );
@@ -52,12 +57,16 @@ export class ItineraryViewContoller implements OnInit {
     this.itineraryService.delete(this.itinerary.id).subscribe(
       data => {
         console.log(data)
-        this.containError = false
         this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername() + '/itinerarios/1')
+        this.containError = false
       },
       err => {
         console.log(err)
-        this.messageError = err.error.text
+        var returned_error = err.error.text
+        if(returned_error == undefined){
+          returned_error = 'Ha ocurrido un error'
+        }
+        this.messageError = returned_error;
         this.containError = true
       }
     )
