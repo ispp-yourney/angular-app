@@ -29,8 +29,8 @@ export class AuthService {
     return this.httpClient.get<ShowUser>(this.auth+"show/"+username);
   }
 
-  public proUser(): Observable<any> {
-    return this.httpClient.post<any>(this.auth + "pro/", '');
+  public upgradeUser(): Observable<any> {
+    return this.httpClient.get<any>(this.auth + "upgrade/");
   }
 
 

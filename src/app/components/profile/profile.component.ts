@@ -46,10 +46,11 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  proUser(){
-    this.authService.proUser().subscribe(
+  upgradeUser(){
+    this.authService.upgradeUser().subscribe(
       data => {
         console.log(data)
+        this.ngOnInit()
       },
       err => {
         console.log(err)
