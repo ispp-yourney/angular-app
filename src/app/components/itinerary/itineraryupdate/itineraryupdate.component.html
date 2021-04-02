@@ -1,0 +1,54 @@
+<app-menu></app-menu>
+
+<div class="jumbotron">
+  <h1 class="display-3">Modificar itinerario</h1>
+  <form [formGroup]="formItiner" (ngSubmit)="onUpdate()">
+    <fieldset>
+      
+      <div class="form-group">
+        <label class="col-form-label" for="name">Nombre</label>
+        <input type="text" class="form-control" id="name" placeholder="Nombre del itinerario" formControlName="name">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="budget">Presupuesto</label>
+        <input type="number" class="form-control" id="budget" formControlName="budget">
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="main_image">URL de imagen</label>
+        <input type="url" class="form-control" id="image" formControlName="image">
+      </div>
+      
+      <div class="form-group">
+        <label class="col-form-label" for="season">Estación</label>
+        <input type="text" class="form-control" id="season" formControlName="recommendedSeason">
+      </div>
+    </fieldset>
+    <button type="button" class="btn btn-primary" id="day" (click)="onAddDays()">Día nuevo</button>
+    <div *ngFor="let day of daysGroup; let i = index" class="card">
+      <div class="card-body">
+        <h2 class="card-title">Día {{i+1}}</h2>
+
+        <div class="card">
+          <div [formGroup]="day" class="card-body">
+            <h2 class="card-title">Actividad 1</h2>
+            <label class="col-form-label" for="title1">Título</label>
+            <input type="text" formControlName="title1" class="form-control" id="title1">
+            <label class="col-form-label" for="description1">Descripción</label>
+            <input type="text" formControlName="description1" class="form-control" id="description1">
+          </div>
+        </div>
+      
+      </div>
+
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" id="submit" [disabled]="!formItiner.valid">Actualizar</button>
+  </form>
+</div>

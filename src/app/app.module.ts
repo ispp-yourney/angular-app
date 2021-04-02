@@ -21,6 +21,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
 import { ItineraryformComponent } from './components/itinerary/itineraryform/itineraryform.component';
+import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate/itineraryupdate.component';
 
 
 
@@ -34,7 +35,8 @@ import { ItineraryformComponent } from './components/itinerary/itineraryform/iti
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
-    ItineraryformComponent
+    ItineraryformComponent,
+    ItineraryupdateComponent
   ],
   imports: [
     BrowserModule,

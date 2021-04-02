@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItineraryService} from 'src/app/services/itinerary.service';
-import { ActivityDto, ItineraryDto } from 'src/app/models/itinerary'
+import { ActivityDto, ItineraryDto, Itinerary } from 'src/app/models/itinerary'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ItineraryformComponent implements OnInit {
 
   newItinerary: ItineraryDto;
+  auxItinerary: Itinerary;
   numberDays: number;
   formItiner: FormGroup;
 
@@ -44,6 +45,8 @@ export class ItineraryformComponent implements OnInit {
     this.numberDays++;
   }
 
+  
+
   onCreate(): void {
 
     this.newItinerary = new ItineraryDto(0,
@@ -52,7 +55,7 @@ export class ItineraryformComponent implements OnInit {
                                           this.formItiner.value.budget,
                                           this.formItiner.value.image,
                                           this.formItiner.value.recommendedSeason);
-    
+
     console.log(this.newItinerary)
     this.itineraryService.nuevo(this.newItinerary).subscribe(
       data => {

@@ -18,6 +18,13 @@ export class ItineraryService {
     req.subscribe(res=>console.log(res))
     return req;
   }
+
+  public vista(id:number): Observable<Itinerary> {
+    var url=this.hostURL + '/itinerary/show/' + id
+    var req=this.httpClient.get<Itinerary>(url)
+    req.subscribe(res=>console.log(res))
+    return req;
+  }
   
   public nuevo(itinerary: ItineraryDto): Observable<any> {
     var url=this.hostURL + 'itinerary/create';
