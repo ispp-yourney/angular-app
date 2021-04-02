@@ -7,6 +7,7 @@ import { ItineraryViewComponent } from './components/itinerary/itineraryshow/iti
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
+import { ItineraryformComponent } from './components/itinerary/itineraryform/itineraryform.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'itinerario/:id', component: ItineraryViewComponent,pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
+  {path: 'itineraries/create', component: ItineraryformComponent},
   {path: 'error', component: NotFoundComponent},
   // {path:'itinerarios/:id', component: ItinerarylistComponent,pathMatch: 'full'},
   {path:'perfil/:username', component: ProfileComponent, pathMatch: 'full'},

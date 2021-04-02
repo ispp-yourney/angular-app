@@ -21,6 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/operations/login/login.component';
 import { RegisterComponent } from './components/operations/register/register.component';
+import { ItineraryformComponent } from './components/itinerary/itineraryform/itineraryform.component';
+import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate/itineraryupdate.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 
@@ -34,6 +36,8 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
+    ItineraryformComponent,
+    ItineraryupdateComponent,
     ProfileComponent,
     BuscadorComponent
   ],
@@ -49,7 +53,8 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     MatCardModule,
     MatGridListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [
     interceptor

@@ -1,0 +1,109 @@
+<app-menu></app-menu>
+
+<div class="jumbotron">
+  <h1 class="display-3">Crear itinerario</h1>
+  <form [formGroup]="formItiner" (ngSubmit)="onCreate()">
+    <div>
+      <div class="form-group">
+        <label class="col-form-label" for="name">Nombre</label>
+        <input type="text" class="form-control" id="name" formControlName="name" required minlength="5" maxlength="50">
+        <div class="alert alert-danger" *ngIf="formItiner.get('name').touched && formItiner.get('name').invalid">
+          <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
+          <div *ngIf="formItiner.get('name').errors.minlength">Debe de tener al menos 5 caracteres</div>
+          <div *ngIf="formItiner.get('name').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="budget">Presupuesto</label>
+        <input type="number" class="form-control" id="budget" formControlName="budget" value="0" placeholder="0">
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label" for="main_image">URL de imagen</label>
+        <input type="url" class="form-control" id="image" formControlName="image"
+          pattern="(?:https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))?"
+          required="false">
+        <div class="alert alert-danger" *ngIf="formItiner.get('image').touched && formItiner.get('image').invalid">
+          <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
+          <div *ngIf="formItiner.get('image').errors.pattern">Debe ser una URL válida</div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="col-form-label" for="season">Estación</label>
+        <select class="form-control" id="season">
+          <option label="INVIERNO">WINTER</option>
+          <option label="PRIMAVERA">SPRING</option>
+          <option label="VERANO">SUMMER</option>
+          <option label="OTOÑO">AUTUMN</option>
+        </select>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary mb-3"  (click)="addDay()">Añadir nuevo día</button>
+
+    <div *ngIf="formItiner.get('days')['controls'].length > 0" formArrayName="days">
+
+      <br>
+      <div *ngFor="let day of formItiner.get('days')['controls']; let i=index" [formGroupName]="i">
+
+        <div class="card mb-3">
+
+          <div class="card-header d-flex">
+            <h2 class="p-2 mt-3">Día {{i+1}}</h2>
+            <button type="button" class="btn ml-auto p-2" (click)="addActivity(day.get('activities'))">
+              <span class="material-icons" style="color: green">
+                add
+              </span>
+            </button>
+            <button type="button" class="btn ml p-2" (click)="removeDay(i)">
+              <span class="material-icons" style="color: red">
+                delete
+              </span>
+            </button>
+          </div>
+
+          <div class="card-body mb-3">
+            
+            <div *ngIf="day.get('activities')['controls'].length > 0" formArrayName="activities">
+              <div *ngFor="let activity of day.get('activities')['controls']; let j=index" [formGroupName]="j">
+                
+                <div class="card mb-3">
+
+                  <div class="card-header d-flex">
+                    <h2 class="p-2 mt-3">Actividad {{j+1}}</h2>
+                    <button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)">
+                      <span class="material-icons" style="color: red">
+                        delete
+                      </span>
+                    </button>
+                  </div>
+                  
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label for="title">Título</label>
+                      <input type="text" id="title" formControlName="title" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="description">Descripción</label>
+                      <input type="text" id="description" formControlName="description" class="form-control">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" id="submit" [disabled]="!formItiner.valid">Crear</button>
+  </form>
+</div>

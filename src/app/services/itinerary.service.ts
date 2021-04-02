@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Itinerary } from '../models/itinerary';
+import { Itinerary, ItineraryDto } from '../models/itinerary';
 import { ItineraryUserPage } from '../models/itineraryUserPage';
 import { TokenService } from 'src/app/services/token.service';
 
@@ -11,7 +11,6 @@ import { TokenService } from 'src/app/services/token.service';
 export class ItineraryService {
 
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
-
   // hostURL = 'http://localhost:3000/';
   id = 1
   hostURL = 'https://be-dev-yourney.herokuapp.com';
@@ -31,15 +30,19 @@ export class ItineraryService {
     req.subscribe(res=>console.log(res))
     return req;
   }
-
+  
+  public nuevo(itinerary: ItineraryDto): Observable<any> {
+    var url=this.hostURL + 'itinerary/create';
+    var req = this.httpClient.post<ItineraryDto>(url, itinerary);
+    req.subscribe(res=>console.log(res));
+    return req;
+  }
+  
   public delete(idDelete): Observable<any> {
     var url=this.hostURL + '/itinerary/delete/' + idDelete
     var req = this.httpClient.delete(url)
     req.subscribe(res=>console.log(res))
     return req
   }
-
-
-
 
 }
