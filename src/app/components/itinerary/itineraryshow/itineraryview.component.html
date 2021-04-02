@@ -1,0 +1,50 @@
+<app-menu></app-menu>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div *ngIf="containError" class="alert alert-danger"> {{messageError}}</div>
+
+<section>
+    <nav>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{itinerary.name}}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">@{{itinerary.username}}</h6>
+                <img class="card-img-top" src={{itinerary.imageUrl}} alt="Card image cap">
+                <p class="card-text">{{itinerary.description}}</p>
+                <p class="card-text">{{itinerary.budget}} €</p>
+                <p class="card-text">{{itinerary.estimatedDays}} días</p>
+                <p class="card-text">{{itinerary.recommendedSeason}}</p>
+            </div>
+        </div>
+        <div *ngIf="isMyItinerary">
+            <button type="button" class="btn btn-primary" (click)="deleteItinerary()">Eliminar</button>
+        </div>
+    </nav>
+    
+    <article>
+        <div href="#" *ngFor="let i of listNumberDays">
+            <div class="card mb-5">
+                <h3 class="card-header">Día {{days[i][0].day}}</h3>
+                <p class="card-text ml-3">{{days[i][0].description}}</p>
+                <div class="card-body" href="#" *ngFor="let day of days[i]">
+                    <div class="card">
+                        <p class="card-header">{{day.landmark.name}}</p>
+                        <p class="card-text ml-3">{{day.landmark.description}}</p>
+                        <p class="card-text ml-3">{{day.landmark.price}} €</p>
+                        <p class="card-text ml-3">{{day.landmark.city}} - {{day.landmark.country}}</p>
+                        <ul class="card-body" title="contactInfo">
+                            <a href="#" class="card-link">{{day.landmark.email}}</a>
+                            <a href="#" class="card-link">{{day.landmark.phone}}</a>
+                            <a href="#" class="card-link">{{day.landmark.website}}</a>
+                            <a href="#" class="card-link">{{day.landmark.instagram}}</a>
+                            <a href="#" class="card-link">{{day.landmark.twitter}}</a>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+
+

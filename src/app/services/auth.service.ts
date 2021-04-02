@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { JwtDto } from '../models/jwt-dto';
 import { LoginUser } from '../models/login-user';
 import { NewUser } from '../models/new-user';
+import { ShowUser } from '../models/show-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   auth = 'https://be-dev-yourney.herokuapp.com/auth/'
+  //auth='http://localhost:50482/auth/';
   //auth = 'http://localhost:3000/'
   constructor(private httpClient: HttpClient) { }
 
@@ -23,7 +25,13 @@ export class AuthService {
     
   }
 
+  public showUser(username: String): Observable<any>{
+    return this.httpClient.get<ShowUser>(this.auth+"show/"+username);
+  }
 
+  public upgradeUser(): Observable<any> {
+    return this.httpClient.get<any>(this.auth + "upgrade/");
+  }
 
 
 }
