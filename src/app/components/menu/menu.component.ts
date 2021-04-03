@@ -18,7 +18,6 @@ export class MenuComponent implements OnInit {
     if(this.tokenService.getToken()){
       this.isLogged = true;
     }
-
     this.loggedUsername=this.tokenService.getUsername()
   }
 

@@ -49,7 +49,7 @@ export class ItineraryupdateComponent implements OnInit {
       days: this.formBuilder.array([])
     })
 
-    this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
+    this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).toPromise().then(
       data => {
         console.log(data)
         this.itinerary = data;
@@ -190,6 +190,15 @@ export class ItineraryupdateComponent implements OnInit {
   }
 
   onUpdate() {
+    const wait = () => {
+      return new Promise((resolve, reject) => {
+        setTimeout( () => {
+         resolve( this.router.navigate(['/itinerario/' + this.editForm.value.id]).then( () => {window.location.reload()} ))
+        }, 2000)
+      })
+    };
+
+
     // Borramos las actividades de la lista
     for (let iId of this.activityTrash) {
       this.activityService.borrar(iId).subscribe(
@@ -264,11 +273,10 @@ export class ItineraryupdateComponent implements OnInit {
           }
           dia++;
         }
+        wait()
       }, err => {
         console.log(err);
       }
     )
-    this.router.navigate(['/itinerario/' + this.editForm.value.id]).then( () => {window.location.reload()} )
-    
   }
 }

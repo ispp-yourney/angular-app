@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 import { IndexComponent } from './components/index/index.component';
 import { ItinerarylistComponent } from './components/itinerary/itinerarylist/itinerarylist.component';
 import { ItineraryViewComponent } from './components/itinerary/itineraryshow/itineraryview.component';
@@ -16,6 +16,7 @@ const routes: Routes = [
   {path: '' , component: IndexComponent},
   {path:'itinerario/:id', component: ItineraryViewComponent,pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
+  {path: 'buscador', component: BuscadorComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
   {path: 'itinerarios/create', component: ItineraryformComponent, canActivate: [guard], data: { expectedRol:['user'] }},
   {path: 'itinerarios/update/:id', component: ItineraryupdateComponent, canActivate: [guard], data: { expectedRol:['user'] }},
