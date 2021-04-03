@@ -23,17 +23,17 @@ export class ItineraryDto {
     description: string;
     estimatedDays: number;
     budget: number;
-    image: string;
+    //image: string;
     recommendedSeason: string;
 
-    constructor(id: number, name: string, description: string, budget: number,
-                image: string, recommendedSeason: string) {
+    constructor(id: number, name: string, description: string, estimatedDays:number ,budget: number,
+                recommendedSeason: string) {
             this.id = id;
             this.name = name
             this.description = description;
-            this.estimatedDays = 1;
+            this.estimatedDays = estimatedDays;
             this.budget = budget;
-            this.image = image;
+            //this.image = image;
             this.recommendedSeason = recommendedSeason;
     }
 }
@@ -91,6 +91,43 @@ export interface Landmark {
     twitter: string
     createDate: Date
     views: number
+}
+
+export class LandmarkDto  {
+    id: number
+    name: string
+    description: string
+    price: number
+    country: string
+    city: string
+    latitude: number
+    longitude: number
+    category: string
+    email: string
+    phone: string
+    website: string
+    instagram: string
+    twitter: string
+    activity: number
+
+    constructor(id: number, name: string, description: string, price: number, country: string, city: string, latitude: number, longitude: number,
+        category: string, email: string, phone: string, website: string, instagram: string, twitter: string, activity: number) {
+    this.id = id;
+    this.name = name
+    this.description = description;
+    this.price = price;
+    this.country = country;
+    this.city = city;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.category = category;
+    this.email = email;
+    this.phone = phone;
+    this.website = website;
+    this.instagram = instagram;
+    this.twitter = twitter;
+    this.activity = activity;
+        }
 }
 
 export interface Author {

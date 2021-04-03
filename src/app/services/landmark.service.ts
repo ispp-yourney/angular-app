@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ActivityDto } from '../models/itinerary';
+import { LandmarkDto } from '../models/itinerary';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActivityService {
+export class LandmarkService {
 
   constructor(private httpClient: HttpClient) { }
 
   hostURL = 'http://localhost:8080';
   
-  public nuevo(itinerary: ActivityDto): Observable<any> {
-    var url=this.hostURL + '/activity/create';
-    var req = this.httpClient.post<ActivityDto>(url, itinerary);
+  public nuevo(landmark: LandmarkDto): Observable<any> {
+    var url=this.hostURL + '/landmark/create';
+    var req = this.httpClient.post<LandmarkDto>(url, landmark);
     return req;
   }
 }
