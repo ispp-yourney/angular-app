@@ -121,7 +121,7 @@
                       <label for="price">Precio</label>
                       <input type="number" id="price" formControlName="price" class="form-control" >
                       <div class="alert alert-danger" *ngIf="activity.get('price').touched && activity.get('price').invalid">
-                        <div *ngIf="activity.get('description').errors.min">El precio mínimo es 0</div>
+                        <div *ngIf="activity.get('price').errors.min">El precio mínimo es 0</div>
                       </div>
                     </div>
                     <div class="mb-3">

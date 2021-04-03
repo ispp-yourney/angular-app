@@ -35,6 +35,12 @@ export class ItineraryService {
     var req = this.httpClient.post<ItineraryDto>(url, itinerary);
     return req;
   }
+
+  public editar(itinerary: ItineraryDto): Observable<any> {
+    var url=this.hostURL + '/itinerary/update';
+    var req = this.httpClient.put<ItineraryDto>(url, itinerary);
+    return req;
+  }
   
   public delete(idDelete): Observable<any> {
     var url=this.hostURL + '/itinerary/delete/' + idDelete

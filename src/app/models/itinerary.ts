@@ -70,7 +70,7 @@ export interface Activity {
     day: number
     createDate: Date
     views: number
-    landmak: Landmark
+    landmark: Landmark
 }
 
 export interface Landmark {

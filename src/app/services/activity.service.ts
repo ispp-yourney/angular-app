@@ -12,9 +12,21 @@ export class ActivityService {
 
   hostURL = 'http://localhost:8080';
   
-  public nuevo(itinerary: ActivityDto): Observable<any> {
+  public nuevo(activity: ActivityDto): Observable<any> {
     var url=this.hostURL + '/activity/create';
-    var req = this.httpClient.post<ActivityDto>(url, itinerary);
+    var req = this.httpClient.post<ActivityDto>(url, activity);
+    return req;
+  }
+
+  public editar(activity: ActivityDto): Observable<any> {
+    var url=this.hostURL + '/activity/update';
+    var req = this.httpClient.put<ActivityDto>(url, activity);
+    return req;
+  }
+
+  public borrar(id: number): Observable<any> {
+    var url = this.hostURL + '/activity/delete/' + id;
+    var req = this.httpClient.delete<ActivityDto>(url);
     return req;
   }
 }

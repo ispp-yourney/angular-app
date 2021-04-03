@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { data } from 'jquery';
+import { ActivityDto, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ShowUser } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -15,7 +16,7 @@ export class ProfileComponent implements OnInit {
   constructor(private tokenServide: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private router: Router) { }
 
   userDetails:ShowUser;
-  username:String
+  username:String;
   messageError:String;
   incorrectUsername:boolean;
   plan:String;
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
     this.showUser(this.username);
     console.log(this.username)
     console.log(this.tokenServide.getUsername())
-    if(String(this.tokenServide.getUsername()) == this.username){
+    if(String(this.tokenServide.getUsername()) == this.username && this.tokenServide.getToken()){
         this.expectedUser = true;
     }
     
