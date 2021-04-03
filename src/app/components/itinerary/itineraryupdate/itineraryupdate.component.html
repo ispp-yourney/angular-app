@@ -48,6 +48,14 @@
           <option label="OTOÑO">FALL</option>
         </select>
       </div>
+
+      <div class="form-group mb-3">
+        <label class="col-form-label" for="status">Estado</label>
+        <select class="form-control" id="status" formControlName="status">
+          <option label="BORRADOR">DRAFT</option>
+          <option label="PUBLICADO">PUBLISHED</option>
+        </select>
+      </div>
     </div>
     <button type="button" class="btn btn-primary mb-3" (click)="addDay()">Añadir nuevo día</button>
 
@@ -189,7 +197,7 @@
       </div>
     </div>
     <br>
-    <button class="btn btn-primary" [disabled]="!editForm.valid">Crear</button>
+    <button class="btn btn-primary" [disabled]="!editForm.valid">Guardar cambios</button>
 
 
   </form>

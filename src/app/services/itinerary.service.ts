@@ -11,9 +11,9 @@ import { TokenService } from 'src/app/services/token.service';
 export class ItineraryService {
 
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
-  hostURL = 'http://localhost:8080';
+  // hostURL = 'http://localhost:8080';
   id = 1
-  // hostURL = 'https://be-dev-yourney.herokuapp.com';
+  hostURL = 'https://be-dev-yourney.herokuapp.com';
 
   public userItineraries(page:Number, username:String): Observable<ItineraryUserPage> {
     var url=this.hostURL + '/itinerary/user/'+username;

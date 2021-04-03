@@ -10,7 +10,9 @@ export class ActivityService {
 
   constructor(private httpClient: HttpClient) { }
 
-  hostURL = 'http://localhost:8080';
+  //hostURL = 'http://localhost:8080';
+
+  hostURL = 'https://be-dev-yourney.herokuapp.com';
   
   public nuevo(activity: ActivityDto): Observable<any> {
     var url=this.hostURL + '/activity/create';

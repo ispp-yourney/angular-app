@@ -45,6 +45,7 @@ export class ItineraryupdateComponent implements OnInit {
       description: new FormControl('data.description', Validators.required),
       budget: new FormControl('', [Validators.required, Validators.min(0)]),
       recommendedSeason: new FormControl('', Validators.required),
+      status: new FormControl('', Validators.required),
       days: this.formBuilder.array([])
     })
 
@@ -57,6 +58,7 @@ export class ItineraryupdateComponent implements OnInit {
         this.editForm.controls['description'].setValue(data.description);
         this.editForm.controls['budget'].setValue(data.budget);
         this.editForm.controls['recommendedSeason'].setValue(data.recommendedSeason);
+        this.editForm.controls['status'].setValue(data.status);
         
         let activities: Array<Activity> = data.activities
         
@@ -209,7 +211,8 @@ export class ItineraryupdateComponent implements OnInit {
                                           numb,
                                           this.editForm.value.budget,
                                           //this.formItiner.value.image,
-                                          this.editForm.value.recommendedSeason);
+                                          this.editForm.value.recommendedSeason,
+                                          this.editForm.value.status);
     this.itineraryService.editar(newItinerary).subscribe(
       data => {
         console.log(data)
@@ -265,7 +268,7 @@ export class ItineraryupdateComponent implements OnInit {
         console.log(err);
       }
     )
-    //this.router.navigate(['/itinerario/' + this.editForm.value.id]).then( () => {window.location.reload()} )
+    this.router.navigate(['/itinerario/' + this.editForm.value.id]).then( () => {window.location.reload()} )
     
   }
 }

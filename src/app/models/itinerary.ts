@@ -25,9 +25,10 @@ export class ItineraryDto {
     budget: number;
     //image: string;
     recommendedSeason: string;
+    status: string;
 
     constructor(id: number, name: string, description: string, estimatedDays:number ,budget: number,
-                recommendedSeason: string) {
+                recommendedSeason: string, status: string) {
             this.id = id;
             this.name = name
             this.description = description;
@@ -35,6 +36,7 @@ export class ItineraryDto {
             this.budget = budget;
             //this.image = image;
             this.recommendedSeason = recommendedSeason;
+            this.status = status;
     }
 }
 

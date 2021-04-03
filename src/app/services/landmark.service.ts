@@ -10,7 +10,9 @@ export class LandmarkService {
 
   constructor(private httpClient: HttpClient) { }
 
-  hostURL = 'http://localhost:8080';
+  // hostURL = 'http://localhost:8080';
+
+  hostURL = 'https://be-dev-yourney.herokuapp.com';
   
   public nuevo(landmark: LandmarkDto): Observable<any> {
     var url=this.hostURL + '/landmark/create';

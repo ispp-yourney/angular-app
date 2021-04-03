@@ -90,7 +90,8 @@ export class ItineraryformComponent implements OnInit {
                                           numb,
                                           this.formItiner.value.budget,
                                           //this.formItiner.value.image,
-                                          this.formItiner.value.recommendedSeason);
+                                          this.formItiner.value.recommendedSeason,
+                                          "DRAFT");
 
     console.log(this.newItinerary)
     this.itineraryService.nuevo(this.newItinerary).subscribe(
