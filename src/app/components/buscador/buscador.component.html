@@ -22,14 +22,22 @@
   <div class="form-group">
     <label class="col-form-label">Presupuesto Máx.</label>
     <input formControlName="maxBudget" type="number" class="form-control" min="0" id="maxBudget">
+    <div class="alert alert-danger" *ngIf="formFilter.get('maxBudget').touched && formFilter.get('maxBudget').invalid">
+      <div *ngIf="formFilter.get('maxBudget').errors.min" >El presupuesto no puede ser negativo.</div>
+    </div>
+
   </div>
 
   <div class="form-group">
     <label class="col-form-label">Días Máx.</label>
     <input formControlName="maxDays" type="number" class="form-control" min="0" id="maxDays">
+    <div class="alert alert-danger" *ngIf="formFilter.get('maxDays').touched && formFilter.get('maxDays').invalid">
+      <div *ngIf="formFilter.get('maxDays').errors.min" >El número de días no puede ser negativo.</div>
+    </div>
+
   </div>
 
-  <button type="submit" class="btn btn-primary"> Filtrar</button>
+  <button type="submit"  [disabled]="!formFilter.valid" class="btn btn-primary"> Filtrar</button>
 
   <a href="/buscador" class="btn btn-primary">Resetear</a>
 
