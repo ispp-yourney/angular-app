@@ -76,7 +76,7 @@ export class BuscadorComponent implements OnInit {
 
 
   OnChange(pais:string) {
-    this.buscadorService.getCityByCountry(pais).subscribe(c => {this.city = c; } )
+    this.buscadorService.getCityByCountry(pais).subscribe(c => {this.city = c; this.formFilter.controls['city'].setValue('');} )
    
   }
 

@@ -14,6 +14,7 @@
   <div class="form-group">
     <label for="city">Ciudad</label>
     <select formControlName="city" class="form-control" id="city">
+      <option disabled selected value> -- Secciona una ciudad --  </option>
       <option *ngFor="let ciudad of city"  [value]="ciudad"> {{ciudad}} </option>
     </select>
   </div>
