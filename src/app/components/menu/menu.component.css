@@ -1,3 +1,7 @@
 .spacer{
     flex: 1 1 auto;
 }
+
+.navbar-custom {
+    background: #3C303E!important;
+}

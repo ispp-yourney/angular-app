@@ -19,7 +19,7 @@ body{
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 0 solid rgba(0,0,0,.125);
+    border: 1 solid rgba(0,0,0,.125);
     border-radius: .25rem;
 }
 

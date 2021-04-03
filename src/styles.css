@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
+* {
+    font-family: "Work Sans", Sans-serif;
+}
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; background: #f3f3f3}
+
+.btn-primary {
+    border-radius: .25rem;
+    background: #FB7F64!important;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    background: #FB7F64;
+}
+
+.dropdown-menu {
+    border-radius: .25rem;
+}

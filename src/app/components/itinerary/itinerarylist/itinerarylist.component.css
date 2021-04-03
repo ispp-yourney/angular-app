@@ -83,3 +83,9 @@ h3 {
 .pagination {
   padding-bottom: 15px;
 }
+
+.page-item.active .page-link {
+  background-color: #FB7F64;
+  border-color: #FB7F64;
+  border-radius: .25rem;
+}
