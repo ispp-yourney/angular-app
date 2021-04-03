@@ -29,13 +29,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Servicios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Sobre nosotros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Promociones</a>
+        <a class="nav-link" href="https://ispp-yourney.github.io/" target="_blank">Sobre nosotros</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/buscador">Buscador</a>
@@ -45,7 +39,7 @@
 
       <ng-template #notLoggedBlock>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+        <a class="nav-link" routerLink="/login" *ngIf="!isLogged" >Iniciar Sesión</a>
       </li>
 
       <li class="nav-item">

@@ -17,6 +17,48 @@ export interface Itinerary {
     imageUrl: string
 }
 
+export class ItineraryDto {
+    id: number;
+    name: string;
+    description: string;
+    estimatedDays: number;
+    budget: number;
+    //image: string;
+    recommendedSeason: string;
+    status: string;
+
+    constructor(id: number, name: string, description: string, estimatedDays:number ,budget: number,
+                recommendedSeason: string, status: string) {
+            this.id = id;
+            this.name = name
+            this.description = description;
+            this.estimatedDays = estimatedDays;
+            this.budget = budget;
+            //this.image = image;
+            this.recommendedSeason = recommendedSeason;
+            this.status = status;
+    }
+}
+
+export class ActivityDto {
+    id: number;
+    title: string;
+    description: string;
+    day: number;
+    itinerary: number;
+    landmark: number;
+
+    constructor(id: number, title: string, description: string, day: number,
+        itinerary: number, landmark: number) {
+    this.id = id;
+    this.title = title
+    this.description = description;
+    this.day = day;
+    this.itinerary = itinerary;
+    this.landmark = landmark;
+    }
+}
+
 export interface Image {
     id: number
     name: string
@@ -30,7 +72,7 @@ export interface Activity {
     day: number
     createDate: Date
     views: number
-    landmak: Landmark
+    landmark: Landmark
 }
 
 export interface Landmark {
@@ -51,6 +93,43 @@ export interface Landmark {
     twitter: string
     createDate: Date
     views: number
+}
+
+export class LandmarkDto  {
+    id: number
+    name: string
+    description: string
+    price: number
+    country: string
+    city: string
+    latitude: number
+    longitude: number
+    category: string
+    email: string
+    phone: string
+    website: string
+    instagram: string
+    twitter: string
+    activity: number
+
+    constructor(id: number, name: string, description: string, price: number, country: string, city: string, latitude: number, longitude: number,
+        category: string, email: string, phone: string, website: string, instagram: string, twitter: string, activity: number) {
+    this.id = id;
+    this.name = name
+    this.description = description;
+    this.price = price;
+    this.country = country;
+    this.city = city;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.category = category;
+    this.email = email;
+    this.phone = phone;
+    this.website = website;
+    this.instagram = instagram;
+    this.twitter = twitter;
+    this.activity = activity;
+        }
 }
 
 export interface Author {
