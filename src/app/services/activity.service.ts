@@ -10,12 +10,25 @@ export class ActivityService {
 
   constructor(private httpClient: HttpClient) { }
 
-  hostURL = 'http://localhost:8080/';
+  //hostURL = 'http://localhost:8080';
+
+  hostURL = 'https://be-dev-yourney.herokuapp.com';
   
-  public nuevo(itinerary: ActivityDto): Observable<any> {
-    var url=this.hostURL + 'itinerary/create';
-    var req = this.httpClient.post<ActivityDto>(url, itinerary);
-    req.subscribe(res=>console.log(res));
+  public nuevo(activity: ActivityDto): Observable<any> {
+    var url=this.hostURL + '/activity/create';
+    var req = this.httpClient.post<ActivityDto>(url, activity);
+    return req;
+  }
+
+  public editar(activity: ActivityDto): Observable<any> {
+    var url=this.hostURL + '/activity/update';
+    var req = this.httpClient.put<ActivityDto>(url, activity);
+    return req;
+  }
+
+  public borrar(id: number): Observable<any> {
+    var url = this.hostURL + '/activity/delete/' + id;
+    var req = this.httpClient.delete<ActivityDto>(url);
     return req;
   }
 }

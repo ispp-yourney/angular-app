@@ -12,7 +12,7 @@ import { ShowUser } from '../models/show-user';
 export class AuthService {
   auth = 'https://be-dev-yourney.herokuapp.com/auth/'
   //auth='http://localhost:50482/auth/';
-  //auth = 'http://localhost:3000/'
+  //auth = 'http://localhost:8080/auth/'
   constructor(private httpClient: HttpClient) { }
 
   public new(newUser: NewUser): Observable<any>{

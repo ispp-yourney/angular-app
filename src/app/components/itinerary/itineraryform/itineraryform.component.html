@@ -6,7 +6,7 @@
     <div>
       <div class="form-group">
         <label class="col-form-label" for="name">Nombre</label>
-        <input type="text" class="form-control" id="name" formControlName="name" required minlength="5" maxlength="50">
+        <input type="text" class="form-control" id="name" formControlName="name" required minlength="5" maxlength="50"º>
         <div class="alert alert-danger" *ngIf="formItiner.get('name').touched && formItiner.get('name').invalid">
           <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
           <div *ngIf="formItiner.get('name').errors.minlength">Debe de tener al menos 5 caracteres</div>
@@ -21,27 +21,30 @@
 
       <div class="form-group">
         <label class="col-form-label" for="budget">Presupuesto</label>
-        <input type="number" class="form-control" id="budget" formControlName="budget" value="0" placeholder="0">
+        <input type="number" class="form-control" id="budget" formControlName="budget" value="0" placeholder="0" required min="0">
+        <div class="alert alert-danger" *ngIf="formItiner.get('budget').touched && formItiner.get('budget').invalid">
+          <div *ngIf="formItiner.get('budget').errors.required">No puede quedar vacío</div>
+          <div *ngIf="formItiner.get('budget').errors.min">El valor mínimo es 0</div>
+        </div>
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label class="col-form-label" for="main_image">URL de imagen</label>
         <input type="url" class="form-control" id="image" formControlName="image"
-          pattern="(?:https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))?"
           required="false">
         <div class="alert alert-danger" *ngIf="formItiner.get('image').touched && formItiner.get('image').invalid">
           <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
           <div *ngIf="formItiner.get('image').errors.pattern">Debe ser una URL válida</div>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group mb-3">
         <label class="col-form-label" for="season">Estación</label>
-        <select class="form-control" id="season">
+        <select class="form-control" id="season" formControlName="recommendedSeason">
           <option label="INVIERNO">WINTER</option>
           <option label="PRIMAVERA">SPRING</option>
           <option label="VERANO">SUMMER</option>
-          <option label="OTOÑO">AUTUMN</option>
+          <option label="OTOÑO">FALL</option>
         </select>
       </div>
     </div>
@@ -88,11 +91,91 @@
                     <div class="mb-3">
                       <label for="title">Título</label>
                       <input type="text" id="title" formControlName="title" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('title').touched && activity.get('title').invalid">
+                        <div *ngIf="activity.get('title').errors.required">No puede quedar vacío</div>
+                      </div>
                     </div>
                     <div class="mb-3">
                       <label for="description">Descripción</label>
                       <input type="text" id="description" formControlName="description" class="form-control">
+                      <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
+                        <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
+                      </div>
                     </div>
+                    <h2 class="p-2 mt-3">Datos de la ubicación</h2>
+                    <div class="mb-3">
+                      <label for="name">Nombre del la ubicación</label>
+                      <input type="text" id="name" formControlName="name" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('name').touched && activity.get('name').invalid">
+                        <div *ngIf="activity.get('name').errors.required">No puede quedar vacío</div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="description2">Descripción de la ubicación</label>
+                      <input type="text" id="description2" formControlName="description2" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('description2').touched && activity.get('description2').invalid">
+                        <div *ngIf="activity.get('description2').errors.required">No puede quedar vacío</div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="price">Precio</label>
+                      <input type="number" id="price" formControlName="price" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('price').touched && activity.get('price').invalid">
+                        <div *ngIf="activity.get('price').errors.min">El precio mínimo es 0</div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="country">País</label>
+                      <input type="text" id="country" formControlName="country" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="city">Ciudad</label>
+                      <input type="text" id="city" formControlName="city" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="latitude">Latitud</label>
+                      <input type="number" id="latitude" formControlName="latitude" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="longitude">Longitud</label>
+                      <input type="number" id="longitude" formControlName="longitude" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="category">Categoría</label>
+                      <input type="text" id="category" formControlName="category" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="email">Email</label>
+                      <input type="text" id="email" formControlName="email" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="phone">Teléfono</label>
+                      <input type="text" id="phone" formControlName="phone" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="website">Sitio web</label>
+                      <input type="url" id="website" formControlName="website" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('website').touched && activity.get('website').invalid">
+                        <div *ngIf="activity.get('website').errors.pattern">Debe ser una URL</div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="instagram">Instagram</label>
+                      <input type="text" id="instagram" formControlName="instagram" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('instagram').touched && activity.get('instagram').invalid">
+                        <div *ngIf="activity.get('instagram').errors.pattern">Debe ser una URL</div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="twitter">Twitter</label>
+                      <input type="url" id="twitter" formControlName="twitter" class="form-control" >
+                      <div class="alert alert-danger" *ngIf="activity.get('twitter').touched && activity.get('twitter').invalid">
+                        <div *ngIf="activity.get('twitter').errors.pattern">Debe ser una URL</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    
                   </div>
 
                 </div>
@@ -104,6 +187,6 @@
       </div>
     </div>
     <br>
-    <button type="submit" class="btn btn-primary" id="submit" [disabled]="!formItiner.valid">Crear</button>
+    <button class="btn btn-primary" [disabled]="!formItiner.valid">Crear</button>
   </form>
 </div>

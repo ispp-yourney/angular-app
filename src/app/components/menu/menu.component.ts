@@ -26,6 +26,6 @@ export class MenuComponent implements OnInit {
   
   onLogout(): void {
     this.tokenService.logOut();
-    this.router.navigate(["/"])
+    this.router.navigate(["/"]).then( () => {window.location.reload()} )
   }
 }
