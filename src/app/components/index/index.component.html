@@ -1,28 +1,35 @@
-<app-menu></app-menu>
+
 <body>
+<app-menu></app-menu>
+
     <div class="outer-welcome"> 
         <div class="middle-welcome">
+            
             <div class="inner-welcome" *ngIf="isLoggged; else loggedOut">
                 <h1>Bienvenido</h1> 
                 <h2>{{username}}</h2>
-                <h3>Gracias por confiar en nuestros servicios</h3>
                 <div>
                     <p class="elevator-pitch">
-                        Elevator pitch
+                        ¿Sabías que el turismo internacional en España durante 2020 cayó un 77% respecto al año anterior? ¿Y que el turismo nacional no fue mucho mejor, cayendo casi un 50% respecto a 2019?<br><br>
+                        Somos el equipo de Yourney, un grupo de ingenieros informáticos entusiastas que quieren ayudar a salir adelante al turismo después del duro golpe recibido por el covid. Para ello, estamos desarrollando una aplicación gratuita a todos los usuarios y accesible desde sus móviles, donde pueden seguir los pasos y consejos de otros trotamundos. Además, aquellos negocios que se decidan por apoyar nuestro proyecto verán priorizados sus locales entre nuestros usuarios, que serán atraídos por su accesibilidad, usabilidad y por no encontrar publicidad indeseada.
                     </p>
                 </div>
             </div>
             <ng-template #loggedOut>
                 <div class="inner-welcome">
                     <h1>Bienvenido</h1>
-                    <h3>Si confias en nosotros, estamos seguro que podemos llegar muy lejos</h3>
                     <div>
                         <p class="elevator-pitch">
-                            Elevator pitch
+                            ¿Sabías que el turismo internacional en España durante 2020 cayó un 77% respecto al año anterior? ¿Y que el turismo nacional no fue mucho mejor, cayendo casi un 50% respecto a 2019?<br><br>
+                            Somos el equipo de Yourney, un grupo de ingenieros informáticos entusiastas que quieren ayudar a salir adelante al turismo después del duro golpe recibido por el covid. Para ello, estamos desarrollando una aplicación gratuita a todos los usuarios y accesible desde sus móviles, donde pueden seguir los pasos y consejos de otros trotamundos. Además, aquellos negocios que se decidan por apoyar nuestro proyecto verán priorizados sus locales entre nuestros usuarios, que serán atraídos por su accesibilidad, usabilidad y por no encontrar publicidad indeseada.
                         </p>
                     </div>
                 </div>
             </ng-template>
         </div> 
     </div>
+
 </body>
+
+
+

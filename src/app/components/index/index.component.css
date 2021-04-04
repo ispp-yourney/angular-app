@@ -1,8 +1,16 @@
-body {
-    background-image: url(header-bg-0.8.png);
+
+body{
+    background-size:cover;
+    background:linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)), url(hiker-1149898_1920.png);
+}
+
+.bg-dark {
+    background-color: none!important;
 }
 
 .outer-welcome {
+    background-size:cover;
+    background:linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)), url(hiker-1149898_1920.png);
     display: table;
     position: absolute;
     top: auto;
@@ -12,6 +20,7 @@ body {
 }
   
 .middle-welcome {
+  
     display: table-cell;
     vertical-align: middle;
 }
@@ -19,38 +28,31 @@ body {
 .inner-welcome {
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.6);
+    /* background: rgba(255, 255, 255, 0.6); */
     border-radius: 20px;
     width:50%;
 }
 
 h1 { 
-    font-family: 'Helvetica Neue', sans-serif; 
-    font-size: 46px; 
-    font-weight: 700; 
+    /* font-family: 'Helvetica Neue', sans-serif;  */
+    font-family: "Muli", sans-serif;
+    font-size: 4vw; 
+    font-weight: 500; 
     line-height: 50px; 
     letter-spacing: 1.5px; 
-    padding: 20px 0 0; 
+    padding: 20px 0 20px; 
+    color:white;
 }
 
 h2 {
-    font-family: 'Helvetica Neue', sans-serif; 
-    font-size: 20px; 
+    /* font-family: 'Helvetica Neue', sans-serif;  */
+    font-size: 2vw; 
     font-weight: 100; 
     line-height: 50px; 
     padding: 0 0 0;
     opacity: 70%;
-}
-
-h3 {
-    font-family: 'Helvetica Neue', sans-serif; 
-    font-size: 15px; 
-    font-weight: 600; 
-    line-height: 50px; 
-    padding: 20px 0 20px; 
-    border-bottom: double rgb(0, 0, 0, 0.5); 
+    color:white;
 }
 
 h4 {
@@ -58,5 +60,9 @@ h4 {
 }
 
 .elevator-pitch {
+    font-family: "Muli", sans-serif;
     padding: 0 0 20px;
+    padding: 15px;
+    font-weight: 700;
+    color:white;
 }
