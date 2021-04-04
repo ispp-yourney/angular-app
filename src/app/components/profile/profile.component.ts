@@ -25,8 +25,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
     this.showUser(this.username);
-    console.log(this.username)
-    console.log(this.tokenServide.getUsername())
+
     if(String(this.tokenServide.getUsername()) == this.username && this.tokenServide.getToken()){
         this.expectedUser = true;
     }
@@ -58,7 +57,7 @@ export class ProfileComponent implements OnInit {
   upgradeUser(){
     this.authService.upgradeUser().subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.ngOnInit()
       },
       err => {
