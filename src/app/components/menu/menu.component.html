@@ -1,20 +1,3 @@
-<!-- <mat-toolbar color="primary">
-    <span>Yourney</span>
-
-    <div class="spacer"></div>
-
-    <a mat-button>Servicios</a>
-    <a mat-button>Sobre nosotros</a>
-    <a mat-button>Equipo</a>
-    <a mat-button>Contacto</a>
-    <a routerLink="/login" *ngIf="!isLogged" class="login" mat-button>Iniciar sesión</a>
-    <a routerLink="/" *ngIf="isLogged" (click)="onLogout()" class="logout" mat-button>Cerrar sesión</a>
-    <a routerLink="/register"  *ngIf="!isLogged" mat-button>Registrarse</a>
-
-</mat-toolbar> -->
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
   <a class="navbar-brand" href="#">Yourney</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +14,8 @@
       <li class="nav-item">
         <a class="nav-link" href="https://ispp-yourney.github.io/" target="_blank">Sobre nosotros</a>
       </li>
+    </ul>
+    <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="/buscador">Buscador</a>
       </li>
@@ -50,9 +35,11 @@
 
     <ng-template #loggedBlock>
       <li class="nav-item dropdown" *ngIf="isLogged">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{loggedUsername}}</a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="min-width:140px;text-align:right">{{loggedUsername}}</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="/perfil/{{loggedUsername}}">Mi perfil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/perfil/{{loggedUsername}}/itinerarios/1">Mis itinerarios</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" routerLink="/" *ngIf="isLogged" (click)="onLogout()" ><strong>Cerrar Sesión</strong></a>
         </div>
