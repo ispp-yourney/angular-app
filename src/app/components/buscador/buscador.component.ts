@@ -55,13 +55,13 @@ export class BuscadorComponent implements OnInit {
                                    this.formFilter.value.city,
                                    this.formFilter.value.maxBudget,
                                    this.formFilter.value.maxDays);
-    console.log(this.filter)
+    //console.log(this.filter)
       
     this.buscadorService.postFilter(this.filter).subscribe(
      response => {
       var res = response 
       this.itineraries=res.content
-      console.log("Itinerarios: ",this.itineraries)
+      //console.log("Itinerarios: ",this.itineraries)
       //this.router.navigate(['/buscador']); 
       if(!(this.itineraries.length>0)){
         this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."

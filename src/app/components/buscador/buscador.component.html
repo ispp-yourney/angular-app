@@ -1,6 +1,9 @@
-<app-menu></app-menu>
 
-<form  class="form-itineraries" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
+  <app-menu></app-menu>
+
+<div class="container center-block">
+
+<form  class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
 
 
   <div class="form-group">
@@ -43,7 +46,7 @@
 
 </form>
 
-
+</div>
 <div *ngIf="noItinerariesFound; then noDataPresent else dataPresent"></div>
 <ng-template #dataPresent>
 <div class="cards">
@@ -64,4 +67,3 @@
 <ng-template #noDataPresent>
 <div class="alert alert-danger"> {{noItinerariesFound}}</div>
 </ng-template>
-     
