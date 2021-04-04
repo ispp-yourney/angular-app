@@ -56,3 +56,19 @@ body{
     font-weight: 400!important;
     font-size: 1rem!important;
 }
+
+.btn-primary {
+    background: #c6b895!important;
+}
+
+.btn-upgrade {
+    background: #FB7F64!important;
+}
+
+.badge-info {
+    background: #648ffb;
+}
+
+.badge-warning {
+    background: #ffcc66;
+}
