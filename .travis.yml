@@ -4,19 +4,18 @@ node_js:
 jdk: openjdk11
 dist: bionic
 sudo: required
-before_install:
-  - npm install
+
 before_script:
   - npm install -g @angular/cli
-  - npm install --save-dev @angular-devkit/build-angular
-  - npm install @angular/compiler-cli
-  - npm install @angular/compiler
-  - npm install jquery
-  - npm install popper.js
-  - npm install bootstrap
-  - npm install express
-  - npm i @angular/cdk
-  - ng add @angular/material
+  - npm install
+  #- npm install --save-dev @angular-devkit/build-angular
+  #- npm install @angular/compiler-cli
+  #- npm install @angular/compiler
+  #- npm install jquery
+  #- npm install popper.js
+  #- npm install bootstrap
+  #- npm install express
+  #- npm i @angular/cdk
 
 addons:
   sonarcloud:
@@ -26,6 +25,7 @@ addons:
 script:
   - yes | cp -r bootstrap.css node_modules/bootstrap/dist/css/bootstrap.min.css
   - npm link
+  - ng e2e
   - ng build --prod
   - sonar-scanner
 notifications:

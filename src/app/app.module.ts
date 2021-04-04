@@ -7,14 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule} from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSliderModule } from '@angular/material/slider';
 import { ItinerarylistComponent } from './components/itinerary/itinerarylist/itinerarylist.component';
 import { ItineraryViewComponent } from './components/itinerary/itineraryshow/itineraryview.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatCardModule} from '@angular/material/card';
-import {MatGridListModule} from '@angular/material/grid-list';
 import { IndexComponent } from './components/index/index.component';
 import { interceptor } from './revisors/interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +19,7 @@ import { ItineraryformComponent } from './components/itinerary/itineraryform/iti
 import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate/itineraryupdate.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -39,19 +34,14 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     ItineraryformComponent,
     ItineraryupdateComponent,
     ProfileComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
-    MatSliderModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
     HttpClientModule,
-    MatTableModule,
-    MatCardModule,
-    MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
     
