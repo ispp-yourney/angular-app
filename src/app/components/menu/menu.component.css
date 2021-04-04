@@ -2,6 +2,18 @@
     flex: 1 1 auto;
 }
 
-.navbar-custom {
-    background: #3C303E!important;
-}
+
+.animated-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 4px;
+    background: rgb(255, 255, 255);
+    transition: width .1s;
+  }
+  
+  .animated-link:hover::after {
+    width: 100%;
+  }
+
+  

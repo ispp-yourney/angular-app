@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-dark ">
   <a class="navbar-brand" href="#">Yourney</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,36 +7,35 @@
   <div class="collapse navbar-collapse" id="navbarColor03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home
+        <a class="nav-link animated-link" href="#">Inicio
           <span class="sr-only">(current)</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://ispp-yourney.github.io/" target="_blank">Sobre nosotros</a>
+        <a class="nav-link  animated-link" href="https://ispp-yourney.github.io/" target="_blank">Sobre nosotros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/buscador">Buscar itinerarios</a>
       </li>
     </ul>
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/buscador">Buscador</a>
-      </li>
-
       <div *ngIf="isLogged; then loggedBlock else notLoggedBlock"></div>
 
       <ng-template #notLoggedBlock>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" *ngIf="!isLogged" >Iniciar Sesión</a>
+        <a class="nav-link  animated-link" routerLink="/login" *ngIf="!isLogged" >Iniciar Sesión</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/register">Registrarse</a>
+        <a class="nav-link  animated-link" routerLink="/register">Registrarse</a>
       </li>
     </ng-template>
 
 
     <ng-template #loggedBlock>
       <li class="nav-item dropdown" *ngIf="isLogged">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="min-width:140px;text-align:right">{{loggedUsername}}</a>
-        <div class="dropdown-menu">
+        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="min-width:140px; text-align:right">{{loggedUsername}}</a>
+        <div class="dropdown-menu " >
           <a class="dropdown-item" href="/perfil/{{loggedUsername}}">Mi perfil</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/perfil/{{loggedUsername}}/itinerarios/1">Mis itinerarios</a>
