@@ -193,7 +193,7 @@ export class ItineraryupdateComponent implements OnInit {
     const wait = () => {
       return new Promise((resolve, reject) => {
         setTimeout( () => {
-         resolve( this.router.navigate(['/itinerario/' + this.editForm.value.id]).then( () => {window.location.reload()} ))
+         resolve( this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then( () => {window.location.reload()} ))
         }, 2000)
       })
     };

@@ -47,7 +47,7 @@
 <div *ngIf="noItinerariesFound; then noDataPresent else dataPresent"></div>
 <ng-template #dataPresent>
 <div class="cards">
-  <a class="card-link" href="/itinerario/{{item.id}}" *ngFor="let item of itineraries">
+  <a class="card-link" href="/itinerarios/{{item.id}}" *ngFor="let item of itineraries">
     <div class="card">
       <img class="card-img-top" src={{item.imageUrl}} alt="Card image cap">
       <div class="details">

@@ -14,12 +14,12 @@ import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate
 
 const routes: Routes = [
   {path: '' , component: IndexComponent},
-  {path:'itinerario/:id', component: ItineraryViewComponent,pathMatch: 'full'},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'buscador', component: BuscadorComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
-  {path: 'itinerarios/create', component: ItineraryformComponent, canActivate: [guard], data: { expectedRol:['user'] }},
-  {path: 'itinerarios/update/:id', component: ItineraryupdateComponent, canActivate: [guard], data: { expectedRol:['user'] }},
+  {path: 'itinerarios/crear', component: ItineraryformComponent, canActivate: [guard], data: { expectedRol:['user'] }},
+  {path: 'itinerarios/actualizar/:id', component: ItineraryupdateComponent, canActivate: [guard], data: { expectedRol:['user'] }},
+  {path: 'itinerarios/:id', component: ItineraryViewComponent,pathMatch: 'full'},
   {path: 'error', component: NotFoundComponent},
   // {path:'itinerarios/:id', component: ItinerarylistComponent,pathMatch: 'full'},
   {path:'perfil/:username', component: ProfileComponent, pathMatch: 'full'},
