@@ -1,6 +1,28 @@
 <app-menu></app-menu>
-<div *ngIf="isLoggged; else loggedOut">
-<h1>Bienvenido {{username}}!</h1>
-</div>
-
-<ng-template #loggedOut><h1>Para visualizar elementos debes de iniciar sesión</h1></ng-template>
+<body>
+    <div class="outer-welcome"> 
+        <div class="middle-welcome">
+            <div class="inner-welcome" *ngIf="isLoggged; else loggedOut">
+                <h1>Bienvenido</h1> 
+                <h2>{{username}}</h2>
+                <h3>Gracias por confiar en nuestros servicios</h3>
+                <div>
+                    <p class="elevator-pitch">
+                        Elevator pitch
+                    </p>
+                </div>
+            </div>
+            <ng-template #loggedOut>
+                <div class="inner-welcome">
+                    <h1>Bienvenido</h1>
+                    <h3>Si confias en nosotros, estamos seguro que podemos llegar muy lejos</h3>
+                    <div>
+                        <p class="elevator-pitch">
+                            Elevator pitch
+                        </p>
+                    </div>
+                </div>
+            </ng-template>
+        </div> 
+    </div>
+</body>

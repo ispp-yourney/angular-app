@@ -1,0 +1,62 @@
+body {
+    background-image: url(header-bg-0.8.png);
+}
+
+.outer-welcome {
+    display: table;
+    position: absolute;
+    top: auto;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+  
+.middle-welcome {
+    display: table-cell;
+    vertical-align: middle;
+}
+  
+.inner-welcome {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    width:50%;
+}
+
+h1 { 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 46px; 
+    font-weight: 700; 
+    line-height: 50px; 
+    letter-spacing: 1.5px; 
+    padding: 20px 0 0; 
+}
+
+h2 {
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 20px; 
+    font-weight: 100; 
+    line-height: 50px; 
+    padding: 0 0 0;
+    opacity: 70%;
+}
+
+h3 {
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 15px; 
+    font-weight: 600; 
+    line-height: 50px; 
+    padding: 20px 0 20px; 
+    border-bottom: double rgb(0, 0, 0, 0.5); 
+}
+
+h4 {
+    padding:20px;
+}
+
+.elevator-pitch {
+    padding: 0 0 20px;
+}
