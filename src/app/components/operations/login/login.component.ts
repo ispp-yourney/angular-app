@@ -44,12 +44,12 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     this.loginUser = new LoginUser(this.formLogin.value.username, this.formLogin.value.password);
-    console.log(this.loginUser)
+    //console.log(this.loginUser)
     this.authService.login(this.loginUser).subscribe(
       response => {
         var res = response
         //var res = response[0]
-        console.log(response)
+        //console.log(response)
         this.isLogged = true;
         this.isLoginFail = false;
 
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
 
         console.log("User " + res.username + "  logged sucessfully.")
 
-        this.router.navigate(['/perfil/'+res.username]);
+        this.router.navigate(['/']);
         
       }, err =>{
         this.isLogged = false;

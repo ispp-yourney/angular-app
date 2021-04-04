@@ -3,6 +3,7 @@ input {
     border-radius: .25rem;
 }
 
+  
 .outer {
     display: table;
     position: absolute;
@@ -11,16 +12,56 @@ input {
     height: 100%;
     width: 100%;
 }
-  
+
 .middle {
     display: table-cell;
     vertical-align: middle;
+    /* background-color: white;
+  border-radius: 10px;
+  position :relative !important; 
+  top: 20px;
+  width: 30%;
+  
+  align-items: center;
+  margin: auto;
+  margin-bottom: 70px;
+  padding-top: 120px;
+  padding-bottom:120px; */
+   
 }
   
 .inner {
+    background-color: white;
+    border-radius: 10px;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
     text-align: center;
-    width:20%;
+    width:50%;
+    padding:5%;
+    min-width: 300px;
 }
+
+/* @media (max-width: 800px) {
+
+    .middle {
+        background-color: white;
+      border-radius: 10px;
+      position :relative !important; 
+      top: 60px;
+      width: 80%;
+      align-items: center;
+      margin: auto;
+      margin-bottom: 70px;
+      padding-top: 60px;
+      padding-bottom: 80px;
+       
+    }
+
+    .inner {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width:70%;
+    }
+
+} */

@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
                               this.formRegister.value.lastName, 
                               this.formRegister.value.email);
 
-    console.log(this.newUser)
+    //console.log(this.newUser)
      this.authService.new(this.newUser).subscribe(
       response => {
         var res = response
