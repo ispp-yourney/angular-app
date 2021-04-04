@@ -1,8 +1,8 @@
 <app-menu></app-menu>
 
-<div class="jumbotron">
+<div>
   <h1 class="display-3">Crear itinerario</h1>
-  <form [formGroup]="formItiner" (ngSubmit)="onCreate()">
+  <form class="form-background" [formGroup]="formItiner" (ngSubmit)="onCreate()">
     <div>
       <div class="form-group">
         <label class="col-form-label" for="name">Nombre</label>
@@ -60,14 +60,10 @@
           <div class="card-header d-flex">
             <h2 class="p-2 mt-3">Día {{i+1}}</h2>
             <button type="button" class="btn ml-auto p-2" (click)="addActivity(day.get('activities'))">
-              <span class="material-icons" style="color: green">
-                add
-              </span>
+              <i class="fa fa-plus fa-2x" aria-hidden="true" style="color:#52ba47"></i>
             </button>
             <button type="button" class="btn ml p-2" (click)="removeDay(i)">
-              <span class="material-icons" style="color: red">
-                delete
-              </span>
+              <i class="fa fa-trash fa-2x" aria-hidden="true" style="color:#ba4752"></i>
             </button>
           </div>
 
@@ -81,9 +77,7 @@
                   <div class="card-header d-flex">
                     <h2 class="p-2 mt-3">Actividad {{j+1}}</h2>
                     <button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)">
-                      <span class="material-icons" style="color: red">
-                        delete
-                      </span>
+                      <i class="fa fa-trash fa-2x" aria-hidden="true" style="color:#ba4752"></i>
                     </button>
                   </div>
                   
