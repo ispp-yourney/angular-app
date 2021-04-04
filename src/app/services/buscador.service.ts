@@ -38,8 +38,7 @@ export class BuscadorService {
     .set('maxBudget', searchFilter.maxBudget  ?? "")
     .set('maxDays', searchFilter.maxDays  ?? "");
     var req=this.http.get<any>(this.itinerarySearch, {params});
-    console.log(params);
-    console.log(req)
+    //console.log(req)
     return req;
     
   }
