@@ -28,7 +28,7 @@ export class ItineraryViewComponent implements OnInit {
   loadItinerary(): void {
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.itinerary = data;
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
@@ -56,7 +56,7 @@ export class ItineraryViewComponent implements OnInit {
   deleteItinerary(): void {
     this.itineraryService.delete(this.itinerary.id).subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername() + '/itinerarios/1')
         this.containError = false
       },

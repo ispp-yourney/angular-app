@@ -53,8 +53,8 @@ h4 {
 }
 
 .card-header {
-    border-radius: 5px;
-    background: #c6b895;
+    border-radius: 15px;
+    background: #7c5ea5c2;
     color: white;
     width: 100%;
     font-size: 18px;
@@ -69,6 +69,12 @@ img {
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 1.25rem;
+}
+
+.btn-header-card {
+  width: 80%!important;
+  margin-left: 0!important;
+  margin-right: 0!important;
 }
 
 .dropdown {

@@ -1,6 +1,216 @@
 <app-menu></app-menu>
 
-<div class="jumbotron">
+<h1 class="card-tite">Editar itinerario</h1>
+<form [formGroup]="editForm" (ngSubmit)="onUpdate()">
+  <input type="hidden" formControlName="id">
+  <section>
+    <nav>
+      <div class="card">
+        <div class="card-body">
+          
+
+              <div class="form-group">
+                <label class="col-form-label" for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" formControlName="name" required minlength="5" maxlength="50">
+                <div class="alert alert-danger" *ngIf="editForm.get('name').touched && editForm.get('name').invalid">
+                  <div *ngIf="editForm.get('name').errors.required">No puede quedar vacío</div>
+                  <div *ngIf="editForm.get('name').errors.minlength">Debe de tener al menos 5 caracteres</div>
+                  <div *ngIf="editForm.get('name').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Descripción</label>
+                <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label" for="budget">Presupuesto</label>
+                <input type="number" class="form-control" id="budget" formControlName="budget" value="0" placeholder="0" required min="0">
+                <div class="alert alert-danger" *ngIf="editForm.get('budget').touched && editForm.get('budget').invalid">
+                  <div *ngIf="editForm.get('budget').errors.required">No puede quedar vacío</div>
+                  <div *ngIf="editForm.get('budget').errors.min">El valor mínimo es 0</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="col-form-label" for="season">Estación</label>
+                <select class="form-control" id="season" formControlName="recommendedSeason">
+                  <option label="INVIERNO">WINTER</option>
+                  <option label="PRIMAVERA">SPRING</option>
+                  <option label="VERANO">SUMMER</option>
+                  <option label="OTOÑO">FALL</option>
+                </select>
+              </div>
+          <div style="text-align:center!important">
+            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
+            <button type="button" class="btn btn-primary" style="margin:5px" (click)="addDay()">Añadir nuevo día</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <article>
+      <div *ngIf="editForm.get('days')['controls'].length > 0" formArrayName="days">
+
+        <br>
+        <div *ngFor="let day of editForm.get('days')['controls']; let i=index" [formGroupName]="i">
+
+
+          <div class="card mb-3 dropdown" style="border: none; ">
+
+            <div class="card-header d-flex">
+            <h2 class="p-2 mt-3">Día {{i+1}}</h2>
+              <button type="button" class="btn ml-auto p-2" (click)="addActivity(day.get('activities'))">
+                <em class="fa fa-plus-circle fa-3x" aria-hidden="true" style="color:white;"></em>
+              </button>
+              <button type="button" class="btn ml p-2" (click)="removeDay(i)">
+                <em class="fa fa-minus-circle fa-3x" aria-hidden="true" style="color:white"></em>
+              </button>
+            </div>
+
+            <div class="card-body mb-3"  style="border: none; ">
+
+              <div *ngIf="day.get('activities')['controls'].length > 0" formArrayName="activities">
+                <div *ngFor="let activity of day.get('activities')['controls']; let j=index" [formGroupName]="j">
+
+                  <div class="card mb-3 dropdown">
+
+                    <div style="text-align:center!important; ">
+
+                      <button type="button" class="btn btn-primary btn-header-card" style="display:inline-block" data-toggle="modal" [attr.data-target]="'#day' +(i+1)+''+(j+1)">
+
+                        Actividad {{j+1}} &nbsp;&nbsp;
+
+                        <!--<button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)"> -->
+                          <em type="button" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle fa-3x" aria-hidden="true" style="color:white;"></em>
+                        <!--</button>-->
+                      </button>
+
+                    </div>
+                    <input type="hidden" formControlName="id2">
+
+
+                    <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Actividad {{j+1}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <label for="title">Título <span style="color:#ff0000">*</span></label>
+                            <input type="text" id="title" formControlName="title" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('title').touched && activity.get('title').invalid">
+                              <div *ngIf="activity.get('title').errors.required">No puede quedar vacío</div>
+                            </div>
+                            <br>
+                            <br>
+                            <label for="description">Descripción <span style="color:#ff0000">*</span></label>
+                            <input type="text" id="description" formControlName="description" class="form-control">
+                            <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
+                              <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
+                            </div>
+
+
+                            <h2 style="color:grey">Datos de la ubicación</h2>
+
+                            <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
+                            <input type="text" id="name" formControlName="name" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('name').touched && activity.get('name').invalid">
+                              <div *ngIf="activity.get('name').errors.required">No puede quedar vacío</div>
+                            </div>
+                            <br>
+
+                            <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
+                            <input type="text" id="description2" formControlName="description2" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('description2').touched && activity.get('description2').invalid">
+                              <div *ngIf="activity.get('description2').errors.required">No puede quedar vacío</div>
+                            </div>
+                            <br>
+                            <label for="price">Precio</label>
+                            <input type="number" id="price" formControlName="price" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('price').touched && activity.get('price').invalid">
+                              <div *ngIf="activity.get('price').errors.min">El precio mínimo es 0</div>
+                            </div>
+                            <br>
+
+                            <label for="country">País</label>
+                            <input type="text" id="country" formControlName="country" class="form-control" >
+
+                            <br>
+                            <label for="city">Ciudad</label>
+                            <input type="text" id="city" formControlName="city" class="form-control" >
+
+                            <br>
+                            <label for="latitude">Latitud</label>
+                            <input type="number" id="latitude" formControlName="latitude" class="form-control" >
+
+                            <br>
+                            <label for="longitude">Longitud</label>
+                            <input type="number" id="longitude" formControlName="longitude" class="form-control" >
+
+                            <br>
+                            <label for="category">Categoría</label>
+                            <input type="text" id="category" formControlName="category" class="form-control" >
+
+                            <br>
+                            <label for="email">Email</label>
+                            <input type="text" id="email" formControlName="email" class="form-control" >
+                            <br>
+
+                            <label for="phone">Teléfono</label>
+                            <input type="text" id="phone" formControlName="phone" class="form-control" >
+
+                            <br>
+                            <label for="website">Sitio web</label>
+                            <input type="url" id="website" formControlName="website" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('website').touched && activity.get('website').invalid">
+                              <div *ngIf="activity.get('website').errors.pattern">Debe ser una URL</div>
+                            </div>
+
+                            <br>
+                            <label for="instagram">Instagram</label>
+                            <input type="text" id="instagram" formControlName="instagram" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('instagram').touched && activity.get('instagram').invalid">
+                              <div *ngIf="activity.get('instagram').errors.pattern">Debe ser una URL</div>
+                            </div>
+
+                            <br>
+                            <label for="twitter">Twitter</label>
+                            <input type="url" id="twitter" formControlName="twitter" class="form-control" >
+                            <div class="alert alert-danger" *ngIf="activity.get('twitter').touched && activity.get('twitter').invalid">
+                              <div *ngIf="activity.get('twitter').errors.pattern">Debe ser una URL</div>
+                          </div>
+
+                          </div>
+
+                          <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <br>
+    </article>
+  </section>
+</form>
+
+
+
+
+<!-- <div class="jumbotron">
   <h1 class="display-3">Modificar itinerario</h1>
   <form [formGroup]="editForm" (ngSubmit)="onUpdate()">
     <input type="hidden" formControlName="id">
@@ -28,16 +238,6 @@
           <div *ngIf="editForm.get('budget').errors.min">El valor mínimo es 0</div>
         </div>
       </div>
-
-      <!-- <div class="form-group">
-        <label class="col-form-label" for="main_image">URL de imagen</label>
-        <input type="url" class="form-control" id="image" formControlName="image"
-          required="false">
-        <div class="alert alert-danger" *ngIf="formItiner.get('image').touched && formItiner.get('image').invalid">
-          <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
-          <div *ngIf="formItiner.get('image').errors.pattern">Debe ser una URL válida</div>
-        </div>
-      </div> -->
 
       <div class="form-group mb-3">
         <label class="col-form-label" for="season">Estación</label>
@@ -84,6 +284,8 @@
             
             <div *ngIf="day.get('activities')['controls'].length > 0" formArrayName="activities">
               <div *ngFor="let activity of day.get('activities')['controls']; let j=index" [formGroupName]="j">
+
+
                 
                 <div class="card mb-3">
 
@@ -201,4 +403,4 @@
 
 
   </form>
-</div>
+</div> -->

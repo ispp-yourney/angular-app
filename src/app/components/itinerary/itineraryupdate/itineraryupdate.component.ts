@@ -51,7 +51,7 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).toPromise().then(
       data => {
-        console.log(data)
+        //console.log(data)
         this.itinerary = data;
         this.editForm.controls['id'].setValue(data.id);
         this.editForm.controls['name'].setValue(data.name);
@@ -64,7 +64,7 @@ export class ItineraryupdateComponent implements OnInit {
         
         let activitiesByDay = new Map(Object.entries(this.groupByDay(activities)))
         activitiesByDay.forEach((value, key) => {
-          console.log(key);
+          //console.log(key);
 
           const day = this.formBuilder.group({
             activities: this.formBuilder.array([], Validators.required)
@@ -72,10 +72,10 @@ export class ItineraryupdateComponent implements OnInit {
 
           (this.editForm.controls['days'] as FormArray).push(day)
 
-          console.log(activitiesByDay.get(key))
+          //console.log(activitiesByDay.get(key))
 
           let acts = (new Array(activitiesByDay.get(key) as Activity[]))[0];
-          console.log(acts)
+          //console.log(acts)
           
           for (let index = 0; index < acts.length; index++) {
             let activityInfo = acts[index]
@@ -160,6 +160,7 @@ export class ItineraryupdateComponent implements OnInit {
     for (let index = 0; index < activities.length; index++) {
       
       if (activities[index].id2 != undefined && activities[index].id2 > 0) {
+        // console.log(activities[index].id2)
         this.activityTrash.push(activities[index].id2);
       }
       
@@ -171,13 +172,13 @@ export class ItineraryupdateComponent implements OnInit {
 
   removeActivity(activityList: FormArray, i: number) {
     let activityId = activityList.controls[i].value['id2']
-    console.log(activityId)
+    // console.log(activityId)
     if (activityId != undefined && activityId > 0) {
       this.activityTrash.push(activityId);
     }
 
     activityList.removeAt(i);
-    console.log(this.activityTrash)
+    // console.log(this.activityTrash)
   }
 
   groupByDay(array){
@@ -190,6 +191,7 @@ export class ItineraryupdateComponent implements OnInit {
   }
 
   onUpdate() {
+    
     const wait = () => {
       return new Promise((resolve, reject) => {
         setTimeout( () => {
@@ -203,16 +205,16 @@ export class ItineraryupdateComponent implements OnInit {
     for (let iId of this.activityTrash) {
       this.activityService.borrar(iId).subscribe(
         data => {
-          console.log(data)
+          // console.log(data)
         }, err => {
-          console.log(err)
+          // console.log(err)
         }
       )
     }
 
     // Actualizamos itinerario
     var totalDays = this.editForm.controls.days as FormArray;
-    console.log(totalDays)
+    // console.log(totalDays)
     var numb = totalDays.length;
     var newItinerary = new ItineraryDto(this.editForm.value.id,
                                           this.editForm.value.name,
@@ -224,7 +226,7 @@ export class ItineraryupdateComponent implements OnInit {
                                           this.editForm.value.status);
     this.itineraryService.editar(newItinerary).subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         var dia = 1
         for (let day of this.editForm.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
@@ -234,9 +236,9 @@ export class ItineraryupdateComponent implements OnInit {
             if(actId >= 0) {
               this.activityService.editar(newAct).subscribe(
                 data => {
-                  console.log(data);
+                  // console.log(data);
                 }, err => {
-                  console.log(err);
+                  // console.log(err);
                 }
               )
             } else {
@@ -248,13 +250,13 @@ export class ItineraryupdateComponent implements OnInit {
                     activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id);
                   this.landmarkService.nuevo(newLand).subscribe(
                     data => {
-                      console.log(data);
+                      // console.log(data);
                     }, err => {
-                      console.log(err)
+                      // console.log(err)
                     }
                   )
                 }, err => {
-                  console.log(err)
+                  // console.log(err)
                 }
               )
             }
@@ -264,9 +266,9 @@ export class ItineraryupdateComponent implements OnInit {
             if(landId >= 0) {
               this.landmarkService.editar(newLand).subscribe(
                 data => {
-                  console.log(data);
+                  // console.log(data);
                 }, err => {
-                  console.log(err);
+                  // console.log(err);
                 }
               )
             }
@@ -275,7 +277,7 @@ export class ItineraryupdateComponent implements OnInit {
         }
         wait()
       }, err => {
-        console.log(err);
+        // console.log(err);
       }
     )
   }
