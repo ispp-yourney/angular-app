@@ -18,7 +18,8 @@ export class ItinerarylistComponent implements OnInit {
   totalPages: Array<Number> = [];
   pageId: Number;
   currentUrl: String;
-  username:String
+  username:String;
+  loggedUsername:String
 
 
   /*@Input()
@@ -37,7 +38,7 @@ export class ItinerarylistComponent implements OnInit {
     } else {
       this.currentUrl = "/itinerarios"
     }*/
-    
+    this.loggedUsername=this.tokenService.getUsername()
     this.loadUserItineraries(this.pageId, this.username);
   }
   loadUserItineraries(pageId: Number, username: String): void {

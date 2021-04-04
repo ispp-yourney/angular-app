@@ -76,8 +76,14 @@ body{
 }
 
 h3 {
-    padding: 15px;
-    text-align: center;
+  font-family: 'Enriqueta', arial, serif; 
+  line-height: 1.25; 
+  font-size: 20px; 
+  font-weight: bold;
+  color: #3C303E;
+  padding: 15px;
+  text-align: center;
+  margin: 10px;
 }
 
 .pagination {
@@ -88,4 +94,10 @@ h3 {
   background-color: #FB7F64;
   border-color: #FB7F64;
   border-radius: .25rem;
+}
+
+.btn-primary {
+  padding: 15px;
+  text-align: right;
+  margin: 10px;
 }

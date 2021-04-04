@@ -1,13 +1,16 @@
 <app-menu></app-menu>
-<h3>
-  Itinerarios
-  <small class="text-muted">{{username}}</small>
-</h3>
+<div class="align-items-center text-center">
+  <h3>
+    Itinerarios
+    <small class="text-muted">{{username}}</small>
+  </h3>
+  <a *ngIf="loggedUsername == username" class="btn btn-primary" href="/itinerarios/crear">Crear itinerario</a>
+</div>
 <div *ngIf="itineraries.length>0; then thenBlock else elseBlock"></div>
 
 <ng-template #thenBlock>
   <div class="cards">
-    <a class="card-link" href="/itinerario/{{item.id}}" *ngFor="let item of itineraries">
+    <a class="card-link" href="/itinerarios/{{item.id}}" *ngFor="let item of itineraries">
       <div class="card">
         <img class="card-img-top" src={{item.imageUrl}} alt="Card image cap">
         <div class="details">
