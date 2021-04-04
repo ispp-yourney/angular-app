@@ -14,7 +14,7 @@
                       <h4>{{userDetails.username}}</h4>
                       <div class="plan">
                         <span class="badge badge-pill" [ngClass]="plan=='Gratis' ? 'badge-info': 'badge-warning'"><span *ngIf="plan!='Gratis'" class="fa fa-star">&nbsp;&nbsp;</span>{{plan}}</span><br>
-                        <br><button *ngIf="plan=='Gratis'" type="button" class="btn btn-primary" (click)="upgradeUser()">Mejorar a pro</button>
+                        <br><button *ngIf="plan=='Gratis' && expectedUser" type="button" class="btn btn-primary" (click)="upgradeUser()">Mejorar a pro</button>
                       </div>
                       <br><a href="/perfil/{{userDetails.username}}/itinerarios/1" class="btn btn-primary">Itinerarios</a>
                     </div>
@@ -42,33 +42,6 @@
                       {{userDetails.email}}
                     </div>
                   </div>
-                  <!-- <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Phone</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      (239) 816-9029
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Mobile</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      (320) 380-4539
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Address</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      Bay Area, San Francisco, CA
-                    </div>
-                  </div> -->
                 </div>
               </div>
             </div>

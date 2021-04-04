@@ -18,7 +18,6 @@ export class MenuComponent implements OnInit {
     if(this.tokenService.getToken()){
       this.isLogged = true;
     }
-
     this.loggedUsername=this.tokenService.getUsername()
   }
 
@@ -26,6 +25,6 @@ export class MenuComponent implements OnInit {
   
   onLogout(): void {
     this.tokenService.logOut();
-    this.router.navigate(["/"])
+    this.router.navigate(["/"]).then( () => {window.location.reload()} )
   }
 }
