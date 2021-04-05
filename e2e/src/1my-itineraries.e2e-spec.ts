@@ -53,8 +53,8 @@ var compruebaItinerario = function () {
   // @ts-ignore
   expect(list.count()).toBe(6);
 
-  // @ts-ignore 
-  expect(element(by.xpath('/html/body/app-root/app-itineraryview/section/nav/div/div[2]/button')).isDisplayed()).toBe(true); //Boton de eliminar
+  // @ts-ignore
+  expect(element(by.xpath('/html/body/app-root/app-itineraryview/section/nav/div/div/div/button')).isDisplayed()).toBe(true); //Boton de eliminar
   element(by.xpath('/html/body/app-root/app-itineraryview/section/article/div[1]/div[1]/button')).click(); //Primer dia
   expect<any>(element(by.xpath('//*[@id="landmark1"]/div/div/div[2]/div/div[1]/h5')).getText()).toEqual('Teatro Chino de Grauman'); //Titulo del primer dia
   
