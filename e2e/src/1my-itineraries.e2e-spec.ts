@@ -33,7 +33,7 @@ var accedePerfil = function () {
 var accedeItinerariosDeUsuario = function () {
   element(by.xpath('/html/body/app-root/app-profile/div/div/div/div[1]/div/div/div/div/a')).click(); //Boton de itinerarios del usuario 
   browser.sleep(5000)
-  expect<any>(element(by.xpath('/html/body/app-root/app-itinerarylist/div[1]/h3')).getText()).toEqual('Itinerarios de alejandro1cortes');
+  expect<any>(element(by.xpath('/html/body/app-root/app-itinerarylist/div[1]/h3/h2')).getText()).toEqual('alejandro1cortes'); //Texto de listado itinerarios
 
   var list = element.all(by.xpath('/html/body/app-root/app-itinerarylist/div[2]/a')); 
   // @ts-ignore 

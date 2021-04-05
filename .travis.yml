@@ -28,7 +28,7 @@ script:
   - npm link
   - webdriver-manager update
   - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
-  - ng e2e
+  #- ng e2e
   - ng build --prod
   - sonar-scanner
 notifications:
@@ -50,4 +50,4 @@ deploy:
   strategy: git
   api_key: $HEROKU_AUTH_TOKEN
   on:
-    branch: develop
+    branch: feature-23

@@ -3,13 +3,13 @@ import { HttpClient, HttpParams  } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { searchFilter } from '../models/search-filters';
 import { JwtDto } from '../models/jwt-dto';
-
+import {environment} from '../../environments/environment-ci';
 @Injectable({
   providedIn: 'root'
 })
 export class BuscadorService {
 
-  private baseUrl:string = "https://be-dev-yourney.herokuapp.com";
+  private baseUrl:string = environment.backendEndpoint;
   private listCountries:string = this.baseUrl+"/landmark/country/list";
   private listCities:string = this.baseUrl+"/landmark/city/list";
   private listCitiesByCountry:string = this.baseUrl+"/landmark/country/";
