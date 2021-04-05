@@ -18,6 +18,7 @@ before_script:
   #- npm i @angular/cdk
 
 addons:
+  chrome: stable
   sonarcloud:
     organization: "ispp-yourney"
     token:

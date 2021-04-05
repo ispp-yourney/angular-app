@@ -19,6 +19,7 @@ exports.config = {
   directConnect: false,
   // seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:4200/',
+  chromeDriver:'../node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_89.**',
   framework: 'jasmine2',
   jasmineNodeOpts: {
     showColors: true,
