@@ -191,21 +191,21 @@
 
                             <br>
                             <label for="website">Sitio web</label>
-                            <input type="url" id="website" formControlName="website" class="form-control" placeholder="www.website.com">
+                            <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com">
                             <div class="alert alert-danger" *ngIf="activity.get('website').touched && activity.get('website').invalid">
                               <div *ngIf="activity.get('website').errors.pattern">Debe ser una URL</div>
                             </div>
 
                             <br>
                             <label for="instagram">Instagram</label>
-                            <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="www.instagram.com">
+                            <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com">
                             <div class="alert alert-danger" *ngIf="activity.get('instagram').touched && activity.get('instagram').invalid">
                               <div *ngIf="activity.get('instagram').errors.pattern">Debe ser una URL</div>
                             </div>
 
                             <br>
                             <label for="twitter">Twitter</label>
-                            <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="www.twitter.com">
+                            <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
                             <div class="alert alert-danger" *ngIf="activity.get('twitter').touched && activity.get('twitter').invalid">
                               <div *ngIf="activity.get('twitter').errors.pattern">Debe ser una URL</div>
                           </div>

@@ -32,7 +32,7 @@ export class ItineraryViewComponent implements OnInit {
         this.itinerary = data;
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
-        this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() === this.itinerary.username)
+        this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
         this.containError = false
       },
       err => {
