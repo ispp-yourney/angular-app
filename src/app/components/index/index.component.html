@@ -1,6 +1,27 @@
-<app-menu></app-menu>
-<div *ngIf="isLoggged; else loggedOut">
-<h1>Bienvenido {{username}}!</h1>
-</div>
 
-<ng-template #loggedOut><h1>Para visualizar elementos debes de iniciar sesión</h1></ng-template>
+<body>
+<app-menu></app-menu>
+
+    <div class="outer-welcome"> 
+        <div class="middle-welcome">
+            
+            <div class="inner-welcome" *ngIf="isLoggged; else loggedOut">
+                <h1>Bienvenido/a</h1> 
+                <h2>{{username}}</h2>
+                
+            </div>
+            <ng-template #loggedOut>
+                <div class="inner-welcome">
+                    <h1>Bienvenido/a a Yourney</h1>
+                    
+                </div>
+            </ng-template>
+        </div> 
+    </div>
+
+    <app-footer></app-footer>
+
+</body>
+
+
+

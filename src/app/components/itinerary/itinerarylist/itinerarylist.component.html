@@ -1,13 +1,16 @@
 <app-menu></app-menu>
-<h3>
-  Itinerarios
-  <small class="text-muted">{{username}}</small>
-</h3>
+ <div class="align-items-center text-center">
+  <h3>
+    Itinerarios de 
+    <h2 >{{username}}</h2>
+  </h3>
+  <a *ngIf="loggedUsername == username" class="btn btn-primary" href="/itinerarios/crear">Crear itinerario</a>
+</div>
 <div *ngIf="itineraries.length>0; then thenBlock else elseBlock"></div>
 
 <ng-template #thenBlock>
   <div class="cards">
-    <a class="card-link" href="/itinerario/{{item.id}}" *ngFor="let item of itineraries">
+    <a class="card-link" href="/itinerarios/{{item.id}}" *ngFor="let item of itineraries">
       <div class="card">
         <img class="card-img-top" src={{item.imageUrl}} alt="Card image cap">
         <div class="details">
@@ -16,22 +19,20 @@
             {{item.description}}
           </p>
           <div class="card-footer text-right pr-3 pb-3 text-muted">{{item.views}} visitas</div>
-        </div>
-        <!-- <a href="#" class="btn btn-outline-primary">Read more...</a> -->
+        </div> 
       </div>
     </a>
   </div>
-
-<div>
+<div class="div_pagination ">
   <ul class="pagination pagination-lg">
     <li class=" page-item" [ngClass]="{'disabled': pageId==0}">
-      <a class="page-link" href="/perfil/{{username}}/itinerarios/{{pageId}}">&laquo;</a>
+      <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;" href="/perfil/{{username}}/itinerarios/{{pageId}}">&laquo;</a>
     </li>
     <li class="page-item" [ngClass]="{'active': page===pageId}" *ngFor="let page of totalPages"  >
       <a class="page-link " href="/perfil/{{username}}/itinerarios/{{page + 1}}">{{page + 1}}</a>
     </li>
     <li class="page-item" [ngClass]="{'disabled': (totalPages.length - 1)==pageId}">
-      <a class="page-link" href="/perfil/{{username}}/itinerarios//{{pageId + 2}}">&raquo;</a>
+      <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;" href="/perfil/{{username}}/itinerarios/{{pageId + 2}}">&raquo;</a>
     </li>
   </ul>
 </div>
@@ -42,5 +43,4 @@
   <div class="alert alert-dismissible alert-danger">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <p>No existen itinerarios para este usuario.</p></div>
-
-</ng-template>
+</ng-template> 

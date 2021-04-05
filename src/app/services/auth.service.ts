@@ -6,11 +6,13 @@ import { LoginUser } from '../models/login-user';
 import { NewUser } from '../models/new-user';
 import { ShowUser } from '../models/show-user';
 
+import {environment} from '../../environments/environment-ci';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  auth = 'https://be-dev-yourney.herokuapp.com/auth/'
+  auth = environment.backendEndpoint+'/auth/'
   //auth='http://localhost:50482/auth/';
   //auth = 'http://localhost:8080/auth/'
   constructor(private httpClient: HttpClient) { }
@@ -22,7 +24,6 @@ export class AuthService {
   public login(loginUser: LoginUser): Observable<any>{
     return this.httpClient.post<JwtDto>(this.auth + 'login', loginUser);
     //return this.httpClient.get<JwtDto>(this.auth+'login');
-    
   }
 
   public showUser(username: String): Observable<any>{

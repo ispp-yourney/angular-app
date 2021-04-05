@@ -14,11 +14,12 @@ export class ItinerarylistComponent implements OnInit {
   constructor(private itineraryService: ItineraryService, private activatedRoute: ActivatedRoute, private tokenService: TokenService, private router: Router) { }
 
   itineraries: Itinerary[] = [];
-  numberOfElements: Number;
+  numberOfElements: number;
   totalPages: Array<Number> = [];
-  pageId: Number;
-  currentUrl: String;
-  username:String
+  pageId: number;
+  currentUrl: string;
+  username:string;
+  loggedUsername:string
 
 
   /*@Input()
@@ -37,7 +38,7 @@ export class ItinerarylistComponent implements OnInit {
     } else {
       this.currentUrl = "/itinerarios"
     }*/
-    
+    this.loggedUsername=this.tokenService.getUsername()
     this.loadUserItineraries(this.pageId, this.username);
   }
   loadUserItineraries(pageId: Number, username: String): void {
@@ -53,12 +54,12 @@ export class ItinerarylistComponent implements OnInit {
         
         this.totalPages = pageArray
 
-        if (this.totalPages.includes(pageId) == false)
+        if (this.totalPages.includes(pageId) == false && pageId!=0)
           this.router.navigateByUrl("/error")
         
       },
       err => {
-        console.log(err);
+     //console.log(err);
       }
     );
   }

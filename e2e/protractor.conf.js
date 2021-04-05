@@ -15,23 +15,24 @@ exports.config = {
   capabilities: {
     browserName: 'chrome'
   },
-  directConnect: true,
-  SELENIUM_PROMISE_MANAGER: false,
+  highlightDelay: 200,
+  directConnect: false,
+  // seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:4200/',
-  framework: 'jasmine',
+  chromeDriver:'../node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_89.0.4389.23',
+  framework: 'jasmine2',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 260000,
     print: function() {}
   },
-  onPrepare() {
+  beforeLaunch: function() {
     require('ts-node').register({
-      project: require('path').join(__dirname, './tsconfig.json')
+      project: 'e2e/tsconfig.json'
     });
-    jasmine.getEnv().addReporter(new SpecReporter({
-      spec: {
-        displayStacktrace: StacktraceOption.PRETTY
-      }
-    }));
-  }
+  },
+    onPrepare() {
+      // @ts-ignore
+      jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+    }
 };

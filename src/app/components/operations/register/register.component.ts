@@ -52,12 +52,12 @@ export class RegisterComponent implements OnInit {
                               this.formRegister.value.lastName, 
                               this.formRegister.value.email);
 
-    console.log(this.newUser)
+ //console.log(this.newUser)
      this.authService.new(this.newUser).subscribe(
       response => {
         var res = response
 
-        console.log("User " + res.username + "  sucessfully created.")
+     //console.log("User " + res.username + "  sucessfully created.")
 
         this.authService.login(new LoginUser(this.formRegister.value.username, 
                                             this.formRegister.value.password)).subscribe(
@@ -68,15 +68,15 @@ export class RegisterComponent implements OnInit {
             this.isLogged = true;
             this.isLoginFail = false;
     
-            console.log("User token: " + res.token);
-            console.log("Username: " + res.username);
-            console.log("User roles: " + res.authorities);
+         //console.log("User token: " + res.token);
+         //console.log("Username: " + res.username);
+         //console.log("User roles: " + res.authorities);
     
             this.tokenService.setToken(res.token);
             this.tokenService.setUsername(res.username);
             this.tokenService.setAuthorities(res.authorities);
     
-            console.log("User " + res.username + "  logged sucessfully.")
+            // console.log("User " + res.username + "  logged sucessfully.")
 
             this.router.navigate(['/']);
             
@@ -90,15 +90,25 @@ export class RegisterComponent implements OnInit {
               returned_error = 'Ha ocurrido un error'
             }
             this.messageError = returned_error;
-            console.log(this.messageError)
+         //console.log(this.messageError)
             
           }
         )
 
-      });
-      
+      }, err =>{
+        this.isLogged = false;
+        this.isLoginFail = true;
+
+        var returned_error = err.error.text
+        if(returned_error == undefined){
+          returned_error = 'Ha ocurrido un error'
+        }
+        this.messageError = returned_error;
+        // console.log(this.messageError)
+
     
   }
-
+  );
   
+}
 }

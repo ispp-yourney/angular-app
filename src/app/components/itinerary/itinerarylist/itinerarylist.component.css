@@ -1,4 +1,4 @@
-*{
+ *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -12,7 +12,8 @@ body{
 }
 .cards{
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit,minmax(250px,400px));
   padding: 20px;
   grid-gap: 30px;
 }
@@ -58,7 +59,7 @@ body{
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* number of lines to show */
+  -webkit-line-clamp: 5; 
   -webkit-box-orient: vertical;
   color: #a0a0a0;
   font-size: 15px;
@@ -76,10 +77,32 @@ body{
 }
 
 h3 {
-    padding: 15px;
-    text-align: center;
+  line-height: 1.25; 
+  font-size: 20px; 
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+  margin: 10px;
+}
+
+.div_pagination{
+  justify-content: center;
+  display: flex;
+  margin:5%;
 }
 
 .pagination {
   padding-bottom: 15px;
 }
+
+
+.page-item.active .page-link {
+  background-color: #FB7F64;
+  border-color: #FB7F64;
+}
+
+.btn-primary {
+  padding: 15px;
+  text-align: right;
+  margin: 10px;
+} 

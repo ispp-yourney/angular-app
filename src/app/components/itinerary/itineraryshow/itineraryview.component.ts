@@ -28,15 +28,15 @@ export class ItineraryViewComponent implements OnInit {
   loadItinerary(): void {
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
-        console.log(data)
+     //console.log(data)
         this.itinerary = data;
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
-        this.isMyItinerary = (this.tokenService != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() === this.itinerary.username)
+        this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() === this.itinerary.username)
         this.containError = false
       },
       err => {
-        console.log(err)
+     //console.log(err)
         var returned_error = err.error.text
         if(returned_error == undefined){
           returned_error = 'Ha ocurrido un error'
@@ -56,12 +56,12 @@ export class ItineraryViewComponent implements OnInit {
   deleteItinerary(): void {
     this.itineraryService.delete(this.itinerary.id).subscribe(
       data => {
-        console.log(data)
+     //console.log(data)
         this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername() + '/itinerarios/1')
         this.containError = false
       },
       err => {
-        console.log(err)
+     //console.log(err)
         var returned_error = err.error.text
         if(returned_error == undefined){
           returned_error = 'Ha ocurrido un error'

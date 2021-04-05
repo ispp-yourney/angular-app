@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivityDto } from '../models/itinerary';
-
+import {environment} from '../../environments/environment-ci';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class ActivityService {
 
   //hostURL = 'http://localhost:8080';
 
-  hostURL = 'https://be-dev-yourney.herokuapp.com';
+  hostURL = environment.backendEndpoint;
   
   public nuevo(activity: ActivityDto): Observable<any> {
     var url=this.hostURL + '/activity/create';

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Itinerary, ItineraryDto } from '../models/itinerary';
 import { ItineraryUserPage } from '../models/itineraryUserPage';
 import { TokenService } from 'src/app/services/token.service';
-
+import {environment} from '../../environments/environment-ci';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,7 @@ export class ItineraryService {
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
   // hostURL = 'http://localhost:8080';
   id = 1
-  hostURL = 'https://be-dev-yourney.herokuapp.com';
+  hostURL = environment.backendEndpoint;
 
   public userItineraries(page:Number, username:String): Observable<ItineraryUserPage> {
     var url=this.hostURL + '/itinerary/user/'+username;
