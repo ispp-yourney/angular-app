@@ -45,11 +45,11 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
-        console.log(err)
+     //console.log(err)
         this.incorrectUsername=true;
         this.messageError=err.error.text;
         //this.router.navigateByUrl("/error");
-        //console.log(this.errorMessage);
+    
       }
     );
   }
@@ -57,11 +57,11 @@ export class ProfileComponent implements OnInit {
   upgradeUser(){
     this.authService.upgradeUser().subscribe(
       data => {
-        //console.log(data)
+     //console.log(data)
         this.ngOnInit()
       },
       err => {
-        console.log(err)
+        // console.log(err)
         this.messageError=err.error.text
       }
     )

@@ -13,7 +13,7 @@
     <nav>
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{itinerary?.name}}</h4>
+                <h4 class="card-title titulo">{{itinerary?.name}}</h4>
                 <h6 class="card-subtitle mb-2 text-muted">@{{itinerary?.username}}</h6>
                 <img class="card-img-top" src={{itinerary?.imageUrl}} alt="Card image cap">
                 <hr/>
@@ -66,19 +66,29 @@
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">{{day.landmark.price}} €</li>
-                                    <li class="list-group-item">{{day.landmark.city}} - {{day.landmark.country}}</li>
+                                    
+                                        <div *ngIf="day.landmark.city && day.landmark.country">
+                                            <li class="list-group-item">{{day.landmark.city}} - {{day.landmark.country}}</li>
+                                        </div>
+
+                                        <div *ngIf="day.landmark.city && !day.landmark.country">
+                                            <li class="list-group-item">{{day.landmark.city}}</li>
+                                        </div>
+
+                                        <div *ngIf="!day.landmark.city && day.landmark.country">
+                                            <li class="list-group-item">{{day.landmark.country}}</li>
+                                        </div>
+                                        
                                     <li class="list-group-item"></li>
                                 </ul>
                                 <div class="card-body" *ngIf="day.landmark.email || day.landmark.phone || day.landmark.website || day.landmark.instagram || day.landmark.twitter">
-                                    <a *ngIf="day.landmark.email" href="#" class="card-link"><em class="fa fa-envelope-o" style="font-size:20px">&nbsp;&nbsp;</em>{{day.landmark.email}}</a>
-                                    <a *ngIf="day.landmark.phone" href="#" class="card-link"><em class="fa fa-phone" style="font-size:20px">&nbsp;&nbsp;</em>{{day.landmark.phone}}</a>
-                                    <a *ngIf="day.landmark.website" href="#" class="card-link"><em class="fa fa-globe" style="font-size:20px">&nbsp;&nbsp;</em>{{day.landmark.website}}</a>
+                                    <p *ngIf="day.landmark.email" href="#" class="card-link"><em class="fa fa-envelope-o" style="font-size:20px">&nbsp;&nbsp;</em>{{day.landmark.email}}</p>
+                                    <p *ngIf="day.landmark.phone" href="#" class="card-link"><em class="fa fa-phone" style="font-size:20px">&nbsp;&nbsp;</em>{{day.landmark.phone}}</p>
+                                    <a *ngIf="day.landmark.website" href="{{day.landmark.website}}" class="card-link"><em class="fa fa-globe" style="font-size:20px">&nbsp;&nbsp;</em>{{day.landmark.website}}</a>
                                     <a *ngIf="day.landmark.instagram" href="{{day.landmark.instagram}}" class="card-link"><em class="fa fa-instagram" style="font-size:20px"></em></a>
                                     <a *ngIf="day.landmark.twitter" href="{{day.landmark.twitter}}" class="card-link"><em class="fa fa-twitter" style="font-size:20px"></em></a>
                                 </div>
-                                <div class="card-footer text-muted">
-                                    {{day.landmark.createDate}}
-                                </div>
+                               
   
                 </div>
 

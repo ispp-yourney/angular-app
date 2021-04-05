@@ -59,7 +59,7 @@ export class ItinerarylistComponent implements OnInit {
         
       },
       err => {
-        console.log(err);
+     //console.log(err);
       }
     );
   }

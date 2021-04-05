@@ -14,33 +14,34 @@ export class TokenService {
   constructor() { }
 
   public setToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string | null{
-   return sessionStorage.getItem(TOKEN_KEY);
+   return localStorage.getItem(TOKEN_KEY);
   }
 
   public setUsername(username: string): void {
-    window.sessionStorage.removeItem(USERNAME_KEY);
-    window.sessionStorage.setItem(USERNAME_KEY, username);
+    localStorage.removeItem(USERNAME_KEY);
+    localStorage.setItem(USERNAME_KEY, username);
   }
 
   public getUsername(): string | null{
-    return sessionStorage.getItem(USERNAME_KEY);
+    return localStorage.getItem(USERNAME_KEY);
   }
 
   public setAuthorities(authorities: string[]): void{
-    window.sessionStorage.removeItem(AUTHORITIES_KEY);
-    window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+    localStorage.removeItem(AUTHORITIES_KEY);
+    localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
 
   public getAuthorities(): string[] {
     this.roles = [];
     
-    if(sessionStorage.getItem(AUTHORITIES_KEY)){
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY) || '{}').forEach(adfcx => {
+    if(localStorage.getItem(AUTHORITIES_KEY)){
+      JSON.parse(localStorage.getItem(AUTHORITIES_KEY) || '{}').forEach(adfcx => {
         this.roles.push(adfcx.authority);
       });
     }
@@ -48,7 +49,7 @@ export class TokenService {
   }
 
   public logOut(): void{
-    window.sessionStorage.clear();
+    localStorage.clear();
   }
   
 

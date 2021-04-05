@@ -36,9 +36,10 @@ export class BuscadorService {
     .set('country', searchFilter.country ?? "")
     .set('city', searchFilter.city  ?? "")
     .set('maxBudget', searchFilter.maxBudget  ?? "")
-    .set('maxDays', searchFilter.maxDays  ?? "");
+    .set('maxDays', searchFilter.maxDays  ?? "")
+    .set('size', '1000');
     var req=this.http.get<any>(this.itinerarySearch, {params});
-    //console.log(req)
+ //console.log(req)
     return req;
     
   }

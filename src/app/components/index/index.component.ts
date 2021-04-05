@@ -15,7 +15,7 @@ export class IndexComponent implements OnInit {
       if(this.tokenService.getToken()){
         this.isLoggged = true;
         this.username = this.tokenService.getUsername();
-       
+        
       }
   
   }

@@ -44,24 +44,24 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     this.loginUser = new LoginUser(this.formLogin.value.username, this.formLogin.value.password);
-    //console.log(this.loginUser)
+ //console.log(this.loginUser)
     this.authService.login(this.loginUser).subscribe(
       response => {
         var res = response
         //var res = response[0]
-        //console.log(response)
+     //console.log(response)
         this.isLogged = true;
         this.isLoginFail = false;
 
-        console.log("User token: " + res.token);
-        console.log("Username: " + res.username);
-        console.log("User roles: " + res.authorities);
+     //console.log("User token: " + res.token);
+     //console.log("Username: " + res.username);
+     //console.log("User roles: " + res.authorities);
 
         this.tokenService.setToken(res.token);
         this.tokenService.setUsername(res.username);
         this.tokenService.setAuthorities(res.authorities);
 
-        console.log("User " + res.username + "  logged sucessfully.")
+     //console.log("User " + res.username + "  logged sucessfully.")
 
         this.router.navigate(['/']);
         
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           returned_error = 'Usuario incorrecto'
         }
         this.messageError = returned_error;
-        console.log(this.messageError)
+     //console.log(this.messageError)
         
       }
     )

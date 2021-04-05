@@ -43,7 +43,7 @@ export class ItineraryupdateComponent implements OnInit {
       id: new FormControl(''),
       name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       description: new FormControl('data.description', Validators.required),
-      budget: new FormControl('', [Validators.required, Validators.min(0)]),
+      budget: new FormControl('0', [Validators.required, Validators.min(0)]),
       recommendedSeason: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required),
       days: this.formBuilder.array([])
@@ -51,7 +51,7 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).toPromise().then(
       data => {
-        //console.log(data)
+     //console.log(data)
         this.itinerary = data;
         this.editForm.controls['id'].setValue(data.id);
         this.editForm.controls['name'].setValue(data.name);
@@ -64,7 +64,7 @@ export class ItineraryupdateComponent implements OnInit {
         
         let activitiesByDay = new Map(Object.entries(this.groupByDay(activities)))
         activitiesByDay.forEach((value, key) => {
-          //console.log(key);
+       //console.log(key);
 
           const day = this.formBuilder.group({
             activities: this.formBuilder.array([], Validators.required)
@@ -72,10 +72,10 @@ export class ItineraryupdateComponent implements OnInit {
 
           (this.editForm.controls['days'] as FormArray).push(day)
 
-          //console.log(activitiesByDay.get(key))
+       //console.log(activitiesByDay.get(key))
 
           let acts = (new Array(activitiesByDay.get(key) as Activity[]))[0];
-          //console.log(acts)
+       //console.log(acts)
           
           for (let index = 0; index < acts.length; index++) {
             let activityInfo = acts[index]
@@ -90,11 +90,11 @@ export class ItineraryupdateComponent implements OnInit {
               price: [activityInfo.landmark.price, Validators.min(0)],
               country: [activityInfo.landmark.country],
               city: [activityInfo.landmark.city],
-              latitude: [activityInfo.landmark.latitude],
-              longitude: [activityInfo.landmark.longitude],
+              latitude: [activityInfo.landmark.latitude, [Validators.min(-90), Validators.max(90)]],
+              longitude: [activityInfo.landmark.longitude, [Validators.min(-180), Validators.max(180)]],
               category: [activityInfo.landmark.category],
-              email: [activityInfo.landmark.email],
-              phone: [activityInfo.landmark.phone],
+              email: [activityInfo.landmark.email, [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+              phone: [activityInfo.landmark.phone, Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
               website: [activityInfo.landmark.website, Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")],
               instagram: [activityInfo.landmark.instagram, Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")],
               twitter: [activityInfo.landmark.twitter, Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]
@@ -107,7 +107,7 @@ export class ItineraryupdateComponent implements OnInit {
         
       },
       err => {
-        console.log(err)
+     //console.log(err)
         var returned_error = err.error.text
         if(returned_error){
           this.router.navigate(["/"]).then( () => {window.location.reload()} )
@@ -136,14 +136,14 @@ export class ItineraryupdateComponent implements OnInit {
       id3: [-1],
       name: ['', Validators.required],
       description2: ['', Validators.required],
-      price: ['', Validators.min(0)],
+      price: ['0', Validators.min(0)],
       country: [''],
       city: [''],
-      latitude: [''],
-      longitude: [''],
+      latitude: ['', [Validators.min(-90), Validators.max(90)]],
+      longitude: ['', [Validators.min(-180), Validators.max(180)]],
       category: [''],
-      email: [''],
-      phone: [''],
+      email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      phone: ['',Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
       website: ['', Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")],
       instagram: ['', Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")],
       twitter: ['', Validators.pattern("(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?")]
@@ -244,7 +244,7 @@ export class ItineraryupdateComponent implements OnInit {
             } else {
               this.activityService.nuevo(newAct).subscribe(
                 data => {
-                  console.log(data);
+               //console.log(data);
                   var newLand = new LandmarkDto(landId, activity.value.name, activity.value.description2, activity.value.price, activity.value.country, 
                     activity.value.city, activity.value.latitude, activity.value.longitude, activity.value.category, activity.value.email,
                     activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id);

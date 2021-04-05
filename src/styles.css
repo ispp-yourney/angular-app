@@ -13,18 +13,17 @@ html, body{
     height: auto;
     min-height: 950px;
     background-size: cover;
+    background-repeat: initial;
    
 
 }
 
-.btn-primary {
-    border-radius: .25rem;
-    background: #FB7F64!important;
-}
+
 
 .btn-primary:hover {
     transform: scale(1.05);
     background: #FB7F64;
+    border-color:#FB7F64;
 }
 
 .dropdown-menu {
@@ -36,4 +35,8 @@ h1, h2, h3, h4{
 }
 
 
-  
+.btn-primary {
+    border-radius: .25rem;
+    background: #FB7F64!important;
+    border-color: #FB7F64;
+}
