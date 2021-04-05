@@ -1,0 +1,70 @@
+
+  <app-menu></app-menu>
+
+<div class="container center-block">
+
+<form  class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
+
+
+  <div class="form-group">
+    <label for="country">Pais</label>
+    <select  formControlName="country" value="España" class="form-control" id="country" (change)="OnChange($event.target.value)">
+      <option *ngFor="let pais of country"  [value]="pais"> {{pais}} </option>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label for="city">Ciudad</label>
+    <select formControlName="city" class="form-control" id="city">
+      <option disabled selected value> -- Secciona una ciudad --  </option>
+      <option *ngFor="let ciudad of city"  [value]="ciudad"> {{ciudad}} </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="col-form-label">Presupuesto Máx.</label>
+    <input formControlName="maxBudget" type="number" class="form-control" min="0" id="maxBudget">
+    <div class="alert alert-danger" *ngIf="formFilter.get('maxBudget').touched && formFilter.get('maxBudget').invalid">
+      <div *ngIf="formFilter.get('maxBudget').errors.min" >El presupuesto no puede ser negativo.</div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label class="col-form-label">Días Máx.</label>
+    <input formControlName="maxDays" type="number" class="form-control" min="0" id="maxDays">
+    <div class="alert alert-danger" *ngIf="formFilter.get('maxDays').touched && formFilter.get('maxDays').invalid">
+      <div *ngIf="formFilter.get('maxDays').errors.min" >El número de días no puede ser negativo.</div>
+    </div>
+
+  </div>
+
+  <button type="submit"  [disabled]="!formFilter.valid" class="btn btn-primary"> Filtrar</button>
+
+  <a href="/buscador" class="btn btn-primary">Resetear</a>
+
+</form>
+
+</div>
+<div *ngIf="noItinerariesFound; then noDataPresent else dataPresent"></div>
+<ng-template #dataPresent>
+<div class="cards">
+  <a class="card-link" href="/itinerarios/{{item.id}}" *ngFor="let item of itineraries">
+    <div class="card">
+      <img class="card-img-top" src={{item.imageUrl}} alt="Card image cap">
+      <div class="details">
+        <h2 class="card-title text-green">{{item.name}}</h2>
+        <p class="card-text">
+          {{item.description}}
+        </p>
+        <div class="card-footer text-right pr-3 pb-3 text-muted">{{item.views}} visitas</div>
+      </div>
+    </div>
+  </a>
+</div>
+</ng-template>
+<ng-template #noDataPresent>
+<div class="alert alert-danger"> {{noItinerariesFound}}</div>
+</ng-template>
+

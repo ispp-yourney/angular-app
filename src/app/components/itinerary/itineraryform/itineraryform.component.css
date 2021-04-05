@@ -1,0 +1,69 @@
+h1, h2 {
+    line-height: 1.25; 
+    font-size: 20px; 
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    margin: 10px;
+}
+
+h2 {
+    color:white;
+}
+
+.form-background {
+    padding: 20px;
+}
+
+input, textarea, select, .card {
+    box-shadow: 0 0 5px rgba(0,0,0,0.18);
+    border-radius: .25rem;
+}
+
+.card-header {
+  background:  linear-gradient(0deg, rgba(221, 110, 76, 0.857), rgba(204, 98, 98, 0.844))!important;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+
+.btn-header-card {
+  width: 100%!important;
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
+nav {
+    float: left;  
+    width: 30%;
+    padding: 20px;
+  }
+  
+  /* Style the list inside the menu */
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+  }
+  
+  /* Clear floats after the columns */
+  section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+  @media (max-width: 600px) {
+    nav, article {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+

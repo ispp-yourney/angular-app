@@ -1,0 +1,9 @@
+
+-- Enable Terminal in other spaces (SUDO)
+Set-ExecutionPolicy Unrestricted
+
+-- Run server
+ng serve --open
+
+-- Generate component XXX
+ng g c XXX

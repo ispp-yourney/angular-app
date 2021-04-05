@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark ">
+  <!-- <a class="navbar-brand" href="#">Yourney</a> -->
+  
+  <img  class="navbar-brand" src="assets/img/icon.png" alt="fff" style="width: 2%;" />
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link animated-link" href="#">Inicio
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="https://ispp-yourney.github.io/" target="_blank">Sobre nosotros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link  animated-link" href="/buscador">Buscar itinerarios</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <div *ngIf="isLogged; then loggedBlock else notLoggedBlock"></div>
+
+      <ng-template #notLoggedBlock>
+      <li class="nav-item">
+        <a class="nav-link  animated-link" routerLink="/login" *ngIf="!isLogged" >Iniciar Sesión</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  animated-link" routerLink="/register">Registrarse</a>
+      </li>
+    </ng-template>
+
+
+    <ng-template #loggedBlock>
+      <li class="nav-item dropdown" *ngIf="isLogged">
+        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="min-width:140px; text-align:right">{{loggedUsername}}</a>
+        <div class="dropdown-menu " >
+          <a class="dropdown-item" href="/perfil/{{loggedUsername}}">Mi perfil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/perfil/{{loggedUsername}}/itinerarios/1">Mis itinerarios</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="/" *ngIf="isLogged" (click)="onLogout()" ><strong>Cerrar Sesión</strong></a>
+        </div>
+      </li>
+    </ng-template>
+    </ul>
+  </div>
+</nav>

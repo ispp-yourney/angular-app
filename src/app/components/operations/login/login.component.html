@@ -1,0 +1,64 @@
+
+
+<app-menu></app-menu>
+<div class="text-center" *ngIf="isLogged">
+    <h2>Su sesión ya ha sido iniciada</h2>
+    <form (ngSubmit)="onLogout()">
+        <button>Cerrar Sesión</button>
+    </form>
+</div>
+
+<div *ngIf="isLoginFail" class="alert alert-danger"> {{messageError}}</div>
+
+<div *ngIf="!isLogged">
+    <div class="outer">
+    
+        <div class="middle">
+          
+            <div class="inner">
+
+                
+
+                <form #f="ngForm" (ngSubmit)="onLogin()" [formGroup]="formLogin">
+                    
+
+                <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" formControlName="username">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" id="password" class="form-control" formControlName="password">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" [disabled]="!formLogin.valid">
+                        Iniciar Sesión</button>
+                </div>
+                </form>
+
+
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

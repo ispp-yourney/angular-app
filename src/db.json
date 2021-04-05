@@ -1,0 +1,227 @@
+{
+  "itineraries": [
+    {
+      "id": 1,
+      "name": "viaje a cancun",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://www.bbva.com/wp-content/uploads/2017/12/billetes-avion-viajes-tarifas-comparacion-precios-ahorro-compra-vuelos-bbva-1024x683.jpg",
+      "author_username": "pepito"
+    },
+    {
+      "id": 2,
+      "name": "viaje a sevilla",
+      "description": "Lorem ipsum d dolore magna aliqua. Ut enim a ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 50,
+      "main_image": "https://img.a.transfermarkt.technology/portrait/header/66106-1447313805.jpg?lm=1",
+      "author_username": "paco"
+    },
+    {
+      "id": 3,
+      "name": "viaje a montellano",
+      "description": ". Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 0,
+      "main_image": "https://img.a.transfermarkt.technology/portrait/header/278359-1550674186.jpg?lm=1",
+      "author_username": "lasio"
+    },
+    {
+      "id": 4,
+      "name": "viaje a montellano2",
+      "description": "Lorem ipsum det dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 55,
+      "main_image": "https://img.a.transfermarkt.technology/portrait/header/278359-1550674186.jpg?lm=1",
+      "author_username": "lasio2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit ame enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolorUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit  laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet,  laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    },
+    {
+      "id": 5,
+      "name": "viaje a cancun2",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt utLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "views": 23,
+      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
+      "author_username": "pepito2"
+    }
+  ],
+  "itinerary": {
+    "name": "itinerary test",
+    "id": 0,
+    "description": "lorem ipsum",
+    "views": 1,
+    "status": "PUBLISHED",
+    "createDate": "2021-01-31T12:25:01",
+    "budget": 0.0,
+    "deleteDate": null,
+    "activities": [
+      {
+        "id": 0,
+        "day": 1,
+        "description": "Bañarse en la piscina",
+        "landmarkDescription": "lorem ipsum",
+        "contactInfo": {
+          "id": 0,
+          "email": "giralda@email.com",
+          "phone": "123456789",
+          "website": null,
+          "instagram": null,
+          "twitter": null
+        },
+        "title": "Piscineo",
+        "landmarkCity": "Sevilla",
+        "landmarkCountry": "España",
+        "landmarkName": "Giralda",
+        "landmarkPrice": 0.0
+      },
+      {
+        "id": 1,
+        "day": 1,
+        "description": "Tomar el sol en el solarium",
+        "landmarkDescription": "lorem ipsum",
+        "contactInfo": null,
+        "title": "Solecito",
+        "landmarkCity": "Sevilla",
+        "landmarkCountry": "España",
+        "landmarkName": "Patio de los naranjos",
+        "landmarkPrice": 0.0
+      },
+      {
+        "id": 2,
+        "day": 2,
+        "description": "Visitar la Torre del oro",
+        "landmarkDescription": "lorem ipsum",
+        "contactInfo": null,
+        "title": "Torre del oro",
+        "landmarkCity": "Sevilla",
+        "landmarkCountry": "España",
+        "landmarkName": "Torre del Oro",
+        "landmarkPrice": 0.0
+      }
+    ],
+    "estimatedDays": 2,
+    "updateDate": null,
+    "recommendedSeasons": [
+      {
+        "id": "0",
+        "recommendedSeason": "WINTER"
+      },
+      {
+        "id": "1",
+        "recommendedSeason": "SPRING"
+      }
+    ],
+    "author": {
+      "id": "1",
+      "username": "test_username2",
+      "firstName": "Name 2",
+      "lastName": "Surname 2",
+      "email": "test224@ewfwef.com"
+    },
+    "image": {
+      "name": "Imagen de la giralda",
+      "id": "0",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/La_Giralda_August_2012_Seville_Spain.jpg/240px-La_Giralda_August_2012_Seville_Spain.jpg"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+ *{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #151320;
+  height: 100vh;
+  display: grid;
+  place-items: center center;
+  font-family: 'Poppins',sans-serif;
+}
+.cards{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit,minmax(250px,400px));
+  padding: 20px;
+  grid-gap: 30px;
+}
+.card-link{
+  border-radius: 15px;
+}
+.card{
+  overflow: hidden;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.18);
+  transition: transform .5s ease;
+}
+.card:hover{
+  transform: scale(1.1);
+}
+.card img{
+  position:relative;
+  width: 100%;
+  display: block;
+  border-radius: 15px 15px 0 0;
+}
+.container:after{
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  border-radius: 15px 15px 0 0;
+  opacity: 0.7;
+}
+.details{
+  padding: 20px 10px;
+}
+.details>.card-title{
+  color: #000000;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0 15px 0;
+}
+.details>.card-text{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; 
+  -webkit-box-orient: vertical;
+  color: #a0a0a0;
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: 400;
+}
+.btn-outline-primary{
+  position: absolute;
+  bottom:0;
+  width: 100%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+h3 {
+  line-height: 1.25; 
+  font-size: 20px; 
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+  margin: 10px;
+}
+
+.div_pagination{
+  justify-content: center;
+  display: flex;
+  margin:5%;
+}
+
+.pagination {
+  padding-bottom: 15px;
+}
+
+
+.page-item.active .page-link {
+  background-color: #FB7F64;
+  border-color: #FB7F64;
+}
+
+.btn-primary {
+  padding: 15px;
+  text-align: right;
+  margin: 10px;
+} 
