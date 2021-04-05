@@ -35,9 +35,6 @@ var accedeItinerariosDeUsuario = function () {
   browser.sleep(5000)
   expect<any>(element(by.xpath('/html/body/app-root/app-itinerarylist/div[1]/h3/h2')).getText()).toEqual('alejandro1cortes'); //Texto de listado itinerarios
 
-  var list = element.all(by.xpath('/html/body/app-root/app-itinerarylist/div[2]/a')); 
-  // @ts-ignore 
-  expect(list.count()).toBe(3);
 
   expect<any>(element(by.xpath('/html/body/app-root/app-itinerarylist/div[3]/ul/li[2]/a')).getText()).toEqual('1');
   expect<any>(element(by.css('li.page-item.active')).getText()).toEqual('1');

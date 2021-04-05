@@ -30,7 +30,7 @@ describe('Login', () => {
     element(by.xpath('/html/body/app-root/app-login/div/div/div/div/form/div[3]/button')).click();
     browser.sleep(30000)
     var texto_bienvenida = element(by.xpath('/html/body/app-root/app-index/body/div/div/div/h1'));
-    expect<any>(texto_bienvenida.getText()).toEqual('Bienvenido');
+    expect<any>(texto_bienvenida.getText()).toEqual('Bienvenido/a');
     var texto_nombreUsuario = element(by.xpath('/html/body/app-root/app-index/body/div/div/div/h2'))
     expect<any>(texto_nombreUsuario.getText()).toEqual('alejandro1cortes');
   });
