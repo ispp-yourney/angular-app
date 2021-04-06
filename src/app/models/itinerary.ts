@@ -1,3 +1,5 @@
+import { Comment } from "./comment";
+
 export interface Itinerary {
     id: number
     name: string
@@ -15,6 +17,7 @@ export interface Itinerary {
     calcPromotion: number
     username: string
     imageUrl: string
+    comments: Array<Comment>
 }
 
 export class ItineraryDto {
