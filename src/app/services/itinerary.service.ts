@@ -11,8 +11,8 @@ import {environment} from '../../environments/environment-ci';
 export class ItineraryService {
 
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
-  // hostURL = 'http://localhost:8080';
-  id = 1
+  //hostURL1 = 'http://localhost:3000/itineraries';
+  
   hostURL = environment.backendEndpoint;
 
   public userItineraries(page:Number, username:String): Observable<ItineraryUserPage> {
@@ -29,6 +29,8 @@ export class ItineraryService {
     var req=this.httpClient.get<Itinerary>(url)
     return req;
   }
+
+  
   
   public nuevo(itinerary: ItineraryDto): Observable<any> {
     var url=this.hostURL + '/itinerary/create';

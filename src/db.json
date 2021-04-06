@@ -1,227 +1,295 @@
 {
-  "itineraries": [
+  "itineraries":[
     {
       "id": 1,
-      "name": "viaje a cancun",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://www.bbva.com/wp-content/uploads/2017/12/billetes-avion-viajes-tarifas-comparacion-precios-ahorro-compra-vuelos-bbva-1024x683.jpg",
-      "author_username": "pepito"
-    },
-    {
-      "id": 2,
-      "name": "viaje a sevilla",
-      "description": "Lorem ipsum d dolore magna aliqua. Ut enim a ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 50,
-      "main_image": "https://img.a.transfermarkt.technology/portrait/header/66106-1447313805.jpg?lm=1",
-      "author_username": "paco"
-    },
-    {
-      "id": 3,
-      "name": "viaje a montellano",
-      "description": ". Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 0,
-      "main_image": "https://img.a.transfermarkt.technology/portrait/header/278359-1550674186.jpg?lm=1",
-      "author_username": "lasio"
-    },
-    {
-      "id": 4,
-      "name": "viaje a montellano2",
-      "description": "Lorem ipsum det dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 55,
-      "main_image": "https://img.a.transfermarkt.technology/portrait/header/278359-1550674186.jpg?lm=1",
-      "author_username": "lasio2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit ame enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolorUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit  laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet,  laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    },
-    {
-      "id": 5,
-      "name": "viaje a cancun2",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt utLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      "views": 23,
-      "main_image": "https://tmssl.akamaized.net/images/wappen/head/150.png?lm=1407484550",
-      "author_username": "pepito2"
-    }
-  ],
-  "itinerary": {
-    "name": "itinerary test",
-    "id": 0,
-    "description": "lorem ipsum",
-    "views": 1,
-    "status": "PUBLISHED",
-    "createDate": "2021-01-31T12:25:01",
-    "budget": 0.0,
-    "deleteDate": null,
-    "activities": [
-      {
-        "id": 0,
-        "day": 1,
-        "description": "Bañarse en la piscina",
-        "landmarkDescription": "lorem ipsum",
-        "contactInfo": {
-          "id": 0,
-          "email": "giralda@email.com",
-          "phone": "123456789",
-          "website": null,
-          "instagram": null,
-          "twitter": null
-        },
-        "title": "Piscineo",
-        "landmarkCity": "Sevilla",
-        "landmarkCountry": "España",
-        "landmarkName": "Giralda",
-        "landmarkPrice": 0.0
+      "name": "Unar semana en Los Ángeles",
+      "description": "Situada en la coste oeste de los Estados Unidos, Los Ángeles es una ciudad de gran atractivo turístico. En este itinerario, os llevaré por algunos de los lugares más interesantes de esta gran ciudad, desde la playa de Venice hasta Hollywood, pasando por el Observatorio Griffith y el distrito comercial.",
+      "status": "PUBLISHED",
+      "budget": 1400.0,
+      "estimatedDays": 6,
+      "createDate": "2021-01-20T12:55:00",
+      "views": 44,
+      "image": {
+          "id": 1,
+          "name": "imagenLosAngeles",
+          "imageUrl": "https://storage.googleapis.com/md-media-cl/2019/04/promociones-aereas-los-angeles-capa2019-01.jpg"
       },
-      {
-        "id": 1,
-        "day": 1,
-        "description": "Tomar el sol en el solarium",
-        "landmarkDescription": "lorem ipsum",
-        "contactInfo": null,
-        "title": "Solecito",
-        "landmarkCity": "Sevilla",
-        "landmarkCountry": "España",
-        "landmarkName": "Patio de los naranjos",
-        "landmarkPrice": 0.0
+      "imageUrl": "https://storage.googleapis.com/md-media-cl/2019/04/promociones-aereas-los-angeles-capa2019-01.jpg",
+      "recommendedSeason": "SPRING",
+      "activities": [
+          {
+              "id": 1,
+              "title": "Hollywood",
+              "description": "El primer día de nuestro itinerario podemos visitar un lugar conocido en todo el planeta, especialmente por el mundo del cine. Hablamos del glamuroso Hollywood. Os recomiendo que no perdais la magnífica oportunidad de visitar el paseo de la fama y el Teatro Chino de Grauman.",
+              "day": 1,
+              "createDate": "2021-01-20T12:56:01",
+              "landmark": {
+                  "id": 1,
+                  "name": "Teatro Chino de Grauman",
+                  "description": "Famoso teatro que se ecuentra en Hollywood Boulevard. Grandes celebridades asisten a los estrenos que allí se realizan.",
+                  "price": 21.75,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 34.1022362941919,
+                  "longitude": -118.34090682908928,
+                  "promoted": true,
+                  "category": "Cine",
+                  "email": "info@chinesetheatres.com",
+                  "phone": "+1 3234645145",
+                  "website": "http://www.tclchinesetheatres.com/",
+                  "instagram": null,
+                  "twitter": null,
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 11,
+                      "name": "imagenTeatroChinoDeGrauman",
+                      "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,h_1191,w_2121,x_0,y_160/v1554925523/shape/mentalfloss/21817-istock-515672264.jpg?itok=AYt9udYR"
+                  },
+                  "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,h_1191,w_2121,x_0,y_160/v1554925523/shape/mentalfloss/21817-istock-515672264.jpg?itok=AYt9udYR"
+              }
+          },
+          {
+              "id": 2,
+              "title": "Chinatown",
+              "description": "El barrio de Chinatown es famoso en todo el mundo por su especial y único encanto. Merece la pena realizar una visita para disfrutar plenamente de sus calles.",
+              "day": 2,
+              "createDate": "2021-01-20T12:59:34",
+              "landmark": {
+                  "id": 2,
+                  "name": "Chinatown",
+                  "description": "ES uno de los barrios más típicos de la ciudad, donde se encuentra Olvera Street, la calle más antigua de Los Ángeles.",
+                  "price": 0.0,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 34.062680686248186,
+                  "longitude": -118.23735015248829,
+                  "promoted": false,
+                  "category": "Barrio",
+                  "email": null,
+                  "phone": null,
+                  "website": null,
+                  "instagram": null,
+                  "twitter": null,
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 12,
+                      "name": "imagenChinatown",
+                      "imageUrl": "https://globalcomment.com/wp-content/uploads/2017/04/800px-Chinatown_gate_Los_Angeles.jpg"
+                  },
+                  "imageUrl": "https://globalcomment.com/wp-content/uploads/2017/04/800px-Chinatown_gate_Los_Angeles.jpg"
+              }
+          },
+          {
+              "id": 3,
+              "title": "Santa Mónica",
+              "description": "La playa de Santa Mónica es uno de los lugares más visitados de Los Ángeles. Te recomiendo vistar el pier y pasar el día en su parque de atracciones. ¡La diversión está asegurada!",
+              "day": 3,
+              "createDate": "2021-01-20T13:05:11",
+              "landmark": {
+                  "id": 3,
+                  "name": "Santa Mónica",
+                  "description": "El pier de Santa Mónica contiene un pequeño parque de atracciones y atrae a un gran número e turistas al año.",
+                  "price": 0.0,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 34.009374925024446,
+                  "longitude": -118.49722783651956,
+                  "promoted": true,
+                  "category": "Punto turístico",
+                  "email": null,
+                  "phone": "+1 3104588900",
+                  "website": "https://www.santamonicapier.org/",
+                  "instagram": "https://www.instagram.com/santamonicapier/",
+                  "twitter": "https://twitter.com/santamonicapier",
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 13,
+                      "name": "imagenSantaMonica",
+                      "imageUrl": "https://d3iso9mq9tb10q.cloudfront.net/magefan_blog/s/a/santa-monica-pier_banner_1.jpg"
+                  },
+                  "imageUrl": "https://d3iso9mq9tb10q.cloudfront.net/magefan_blog/s/a/santa-monica-pier_banner_1.jpg"
+              }
+          },
+          {
+              "id": 4,
+              "title": "Playa de Venice",
+              "description": "El cuarto día de nuestro itinerario lo aprovecharemos al máximo, disfrutando de una relajante mañana en la playa de Venice.",
+              "day": 4,
+              "createDate": "2021-01-20T13:11:10",
+              "landmark": {
+                  "id": 4,
+                  "name": "Playa de Venice",
+                  "description": "Una de las playas más conocidas de Los Ángeles en la que disfrutaras de un día esplendido.",
+                  "price": 0.0,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 33.992620312566466,
+                  "longitude": -118.48018207017859,
+                  "promoted": false,
+                  "category": "Playa",
+                  "email": null,
+                  "phone": null,
+                  "website": null,
+                  "instagram": null,
+                  "twitter": null,
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 14,
+                      "name": "imagenPlayaDeVenice",
+                      "imageUrl": "https://www.visitcalifornia.com/sites/visitcalifornia.com/files/VC_California101_VeniceBeach_Stock_RF_638340372_1280x640.jpg"
+                  },
+                  "imageUrl": "https://www.visitcalifornia.com/sites/visitcalifornia.com/files/VC_California101_VeniceBeach_Stock_RF_638340372_1280x640.jpg"
+              }
+          },
+          {
+              "id": 5,
+              "title": "Observatorio Griffith",
+              "description": "Terminaremos el día en el maravilloso Observatorio Griffith, donde podremos disfrutar de unas da las mejores vistas del cielo nocturno que podemos encontrar.",
+              "day": 4,
+              "createDate": "2021-01-20T13:13:13",
+              "landmark": {
+                  "id": 5,
+                  "name": "Observatorio Griffith",
+                  "description": "El Observatorio Griffith es uno de los puntos más visitados de la ciudad y las vistas del cielo nocturno desde allí son incomparables.",
+                  "price": 0.0,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 34.11850513806364,
+                  "longitude": -118.30056516346312,
+                  "promoted": true,
+                  "category": "Punto turístico",
+                  "email": null,
+                  "phone": "+1 2134730800",
+                  "website": "https://griffithobservatory.org/",
+                  "instagram": null,
+                  "twitter": null,
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 15,
+                      "name": "imagenObservatorioGriffith",
+                      "imageUrl": "https://www.visitcalifornia.com/sites/visitcalifornia.com/files/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg"
+                  },
+                  "imageUrl": "https://www.visitcalifornia.com/sites/visitcalifornia.com/files/vc_spotlight_griffithpark_module1_observatory_rf_601930068_1280x640.jpg"
+              }
+          },
+          {
+              "id": 6,
+              "title": "Centro de Música de Los Ángeles",
+              "description": "Este es un punto de interés especial para los aficionados a la música. El centro de música de Los Ángeles cuenta con cuatro edificios donde los asistentes pueden disfrutar de maravillosos conciertos de una gran variedad de artistas.",
+              "day": 5,
+              "createDate": "2021-01-20T13:17:21",
+              "landmark": {
+                  "id": 6,
+                  "name": "Centro de Música de Los Ángeles",
+                  "description": "Compuesto por cuatro edificios, el centro de música de Los Ángeles es uno de los lugares con más fama en el mundo de la música.",
+                  "price": 0.0,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 34.05635960154746,
+                  "longitude": -118.24878664627724,
+                  "promoted": false,
+                  "category": "Punto turístico",
+                  "email": null,
+                  "phone": "+1 2139727211",
+                  "website": "https://www.musiccenter.org/tmc-offstage/",
+                  "instagram": "https://www.instagram.com/musiccenterla/",
+                  "twitter": "https://twitter.com/musiccenterla",
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 16,
+                      "name": "imagenCentroDeMusicaDeLosAngeles",
+                      "imageUrl": "https://media-cdn.sygictraveldata.com/media/800x600/612664395a40232133447d33247d3832373735333236"
+                  },
+                  "imageUrl": "https://media-cdn.sygictraveldata.com/media/800x600/612664395a40232133447d33247d3832373735333236"
+              }
+          },
+          {
+              "id": 7,
+              "title": "Distrito Comercial",
+              "description": "A todos nos gusta comprar algunos recuerdos en nuestros viajes. En Los Ángeles podemos acudir al Beverly Boulevad, un barrio que cuenta con decenas de tiendas en las que podemos comprar todo tipo de recuerdos.",
+              "day": 6,
+              "createDate": "2021-01-20T13:20:03",
+              "landmark": {
+                  "id": 7,
+                  "name": "Beverly Boulevard",
+                  "description": "El lugar donde viven las estrellas se encuentra en Los Ángeles.",
+                  "price": 0.0,
+                  "country": "Estados Unidos",
+                  "city": "Los Ángeles",
+                  "latitude": 34.076223546040545,
+                  "longitude": -118.32363760264143,
+                  "promoted": false,
+                  "category": "Barrio",
+                  "email": null,
+                  "phone": null,
+                  "website": null,
+                  "instagram": null,
+                  "twitter": null,
+                  "createDate": null,
+                  "views": 43,
+                  "image": {
+                      "id": 17,
+                      "name": "imagenBeverlyBoulevard",
+                      "imageUrl": "http://1.bp.blogspot.com/-otTqtkmyAzY/VNZUg0njkjI/AAAAAAAAA9g/nMszyUO7H7A/s1600/Los-Angeles-Beverly-Hills-004.jpg"
+                  },
+                  "imageUrl": "http://1.bp.blogspot.com/-otTqtkmyAzY/VNZUg0njkjI/AAAAAAAAA9g/nMszyUO7H7A/s1600/Los-Angeles-Beverly-Hills-004.jpg"
+              }
+          }
+      ],
+      "author": {
+          "id": 2,
+          "username": "alejandro1cortes",
+          "email": "alejandro1cortes@gmail.com",
+          "firstName": "Alejandro",
+          "lastName": "Cortés Gómez",
+          "expirationDate": null,
+          "plan": 0,
+          "roles": [
+              {
+                  "id": 2,
+                  "roleType": "ROLE_USER"
+              }
+          ]
       },
-      {
-        "id": 2,
-        "day": 2,
-        "description": "Visitar la Torre del oro",
-        "landmarkDescription": "lorem ipsum",
-        "contactInfo": null,
-        "title": "Torre del oro",
-        "landmarkCity": "Sevilla",
-        "landmarkCountry": "España",
-        "landmarkName": "Torre del Oro",
-        "landmarkPrice": 0.0
-      }
-    ],
-    "estimatedDays": 2,
-    "updateDate": null,
-    "recommendedSeasons": [
-      {
-        "id": "0",
-        "recommendedSeason": "WINTER"
-      },
-      {
-        "id": "1",
-        "recommendedSeason": "SPRING"
-      }
-    ],
-    "author": {
-      "id": "1",
-      "username": "test_username2",
-      "firstName": "Name 2",
-      "lastName": "Surname 2",
-      "email": "test224@ewfwef.com"
-    },
-    "image": {
-      "name": "Imagen de la giralda",
-      "id": "0",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/La_Giralda_August_2012_Seville_Spain.jpg/240px-La_Giralda_August_2012_Seville_Spain.jpg"
-    }
+      "calcPlan": 0,
+      "calcPromotion": 3,
+      "comments": [
+          {
+              "id": 1,
+              "content": "Es un plan de vacaciones muy completo y que comprende los lugares más emblemáticos de la ciudad. Muy buenas actividades propuestas para cada día y muy bien organizado el viaje.",
+              "rating": 4,
+              "createDate": "2021-04-06T12:56:01",
+              "author": {
+                  "id": 4,
+                  "username": "ana3tirado",
+                  "email": "ana3tirado@hotmail.com",
+                  "firstName": "Ana",
+                  "lastName": "Tirado Sánchez",
+                  "expirationDate": null,
+                  "plan": 0,
+                  "roles": [
+                      {
+                          "id": 2,
+                          "roleType": "ROLE_USER"
+                      }
+                  ]
+              },
+              "itineraryId": 1
+          }
+      ],
+      "username": "alejandro1cortes"
   }
+  ]
+
+
+
+
+
+
 }

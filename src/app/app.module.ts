@@ -20,6 +20,7 @@ import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate
 import { ProfileComponent } from './components/profile/profile.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CommentformComponent } from './components/comment/commentform/commentform.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ItineraryupdateComponent,
     ProfileComponent,
     BuscadorComponent,
-    FooterComponent
+    FooterComponent,
+    CommentformComponent
   ],
   imports: [
     BrowserModule,
