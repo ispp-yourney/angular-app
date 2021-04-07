@@ -1,6 +1,7 @@
 
 
 <app-menu></app-menu>
+
 <div class="text-center" *ngIf="isLogged">
     <h2>Su sesión ya ha sido iniciada</h2>
     <form (ngSubmit)="onLogout()">
@@ -13,7 +14,7 @@
 <div *ngIf="!isLogged">
     <div class="outer">
     
-        <div class="middle">
+        <div class="middle ">
           
             <div class="inner">
 

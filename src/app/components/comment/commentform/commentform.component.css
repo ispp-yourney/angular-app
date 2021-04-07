@@ -1,7 +1,7 @@
 .barra{
  
     position: relative;
-    top: 100px;
+    top: 150px;
     height:800px;
     margin-bottom: 200px; 
    
@@ -39,7 +39,7 @@
     
     border-radius: 50px;
     position :relative !important; 
-    top: 30px;
+    top: 50px;
     width: 100%;
     align-items: center;
     margin: auto;
@@ -111,7 +111,30 @@
     margin-top:5px
 }
 
+.comment{
+    position: relative;
+    left:220px;
+}
 
+ 
+
+.btn-comment{
+    padding-left: 60px;
+    padding-right: 60px;
+    position:relative;
+    left: 80px;
+}
+.mostrar{
+    position: relative!important;
+   
+    left: 280px;
+    top:100px!important;
+}
+
+.eliminar{
+    position: relative;
+    left: 22vw;
+}
 
 @media (max-width: 800px){
     .comments{
@@ -122,6 +145,22 @@
 
     .mostrar{
         position: relative!important;
-        margin-bottom: 200px!important;
+        right: 500px;
+        left: 2px;
+        top: 100px!important;
+       
+    }
+    
+    .comment{
+        position: relative;
+        left:30px;
+    }
+
+    .btn-comment{
+        padding-left: 60px;
+        padding-right: 60px;
+        position:relative;
+        top:90px;
+        left: 20px;
     }
 }

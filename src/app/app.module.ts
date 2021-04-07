@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommentformComponent } from './components/comment/commentform/commentform.component';
+import { NgxSliderModule } from "@angular-slider/ngx-slider";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CommentformComponent } from './components/comment/commentform/commentfo
     ProfileComponent,
     BuscadorComponent,
     FooterComponent,
-    CommentformComponent
+    CommentformComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,7 @@ import { CommentformComponent } from './components/comment/commentform/commentfo
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    NgxSliderModule,
   ],
   providers: [
     interceptor

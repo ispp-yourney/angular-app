@@ -121,14 +121,20 @@ img {
   content: "";
 }
 
+
 .titulo{
   color: black;
+  font-family: Arial, Helvetica, sans-serif;
+
 }
+
+
 
 .barra{
  
   overflow: auto;
   height: 660px;
+  margin-bottom: 60px;
 }
 
 /* width */

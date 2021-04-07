@@ -7,17 +7,15 @@ export class Comment {
     rating:number;
     createDate:Date;
     author:Author
-    itineraryId:number;
+    itinerary:number;
 
 
 
-    constructor(id: number, content:string, rating:number, createDate:Date,
-        author:Author, itineraryId:number) {
-        this.id = id;
+    constructor(itinerary:number, content:string, rating:number) {
+        this.itinerary = itinerary;
         this.content = content
         this.rating = rating;
-        this.createDate = createDate;
-        this.author = author;
-        this.itineraryId = itineraryId;
+       
+
     }
 }
