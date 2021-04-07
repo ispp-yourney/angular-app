@@ -1,6 +1,5 @@
 import { IndexPage } from './index.po';
 import { browser, by, element, logging } from 'protractor';
-import { environment } from '../../src/environments/environment';
 
 // browser.executeScript('window.scrollTo(0, document.body.scrollHeight)');
 
@@ -29,9 +28,9 @@ describe('Login', () => {
     browser.sleep(5)
     element(by.xpath('/html/body/app-root/app-login/div/div/div/div/form/div[3]/button')).click();
     browser.sleep(30000)
-    var texto_bienvenida = element(by.xpath('/html/body/app-root/app-index/body/div/div/div/h1'));
+    var texto_bienvenida = element(by.xpath('/html/body/app-root/app-index/div/div/div/h1'));
     expect<any>(texto_bienvenida.getText()).toEqual('Bienvenido/a');
-    var texto_nombreUsuario = element(by.xpath('/html/body/app-root/app-index/body/div/div/div/h2'))
+    var texto_nombreUsuario = element(by.xpath('/html/body/app-root/app-index/div/div/div/h2'))
     expect<any>(texto_nombreUsuario.getText()).toEqual('alejandro1cortes');
   });
 
