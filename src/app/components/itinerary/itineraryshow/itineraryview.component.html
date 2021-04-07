@@ -29,7 +29,7 @@
         </div>
     </nav>
     
-    <article>
+    <article class="barra">
         <div href="#" *ngFor="let i of listNumberDays">
             
 
@@ -42,6 +42,23 @@
                         Día {{days[i][0].day}}:  
                         <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
                     </button>
+                    <button type="button" class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#landmark' + days[i][0].day">
+                        Día {{days[i][0].day}}:  
+                        <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#landmark' + days[i][0].day">
+                        Día {{days[i][0].day}}:  
+                        <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#landmark' + days[i][0].day">
+                        Día {{days[i][0].day}}:  
+                        <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#landmark' + days[i][0].day">
+                        Día {{days[i][0].day}}:  
+                        <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
+                    </button>
+                  
                 </div>
 
                 <div class="modal fade" id="landmark{{days[i][0].day}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
