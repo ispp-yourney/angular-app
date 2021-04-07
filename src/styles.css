@@ -13,7 +13,9 @@ html, body{
     height: auto;
     min-height: 1200px;
     background-size: cover;
-    background-repeat: initial;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+ 
    
 
 }
@@ -50,7 +52,7 @@ h1, h2, h3, h4{
        
         margin: 0;
         height: auto;
-        min-height: 1750px;
+        min-height: 1233px;
         background-size: cover;
         background-repeat: initial;
        

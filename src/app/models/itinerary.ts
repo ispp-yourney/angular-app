@@ -144,6 +144,8 @@ export interface Author {
     expirationDate: Date
     plan: number
     roles: Array<Role>
+    image: Image
+    imageUrl: string
 }
 
 export interface Role {
