@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   incorrectUsername:boolean;
   plan:String;
   expectedUser: boolean =  false;
+  paypalUrl: string
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
@@ -57,14 +58,13 @@ export class ProfileComponent implements OnInit {
   upgradeUser(){
     this.authService.upgradeUser().subscribe(
       data => {
-     //console.log(data)
-        this.ngOnInit()
+        window.location.href = data.text
       },
       err => {
-        // console.log(err)
-        this.messageError=err.error.text
+        this.messageError=err.error.text;
       }
     )
+    
   }
 
 }

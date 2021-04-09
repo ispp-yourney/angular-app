@@ -21,3 +21,11 @@ export class ShowUser {
     }
 
 }
+
+export class UpgradeUserDto {
+    text: string
+
+    constructor(text: string){
+        this.text = text
+    }
+}
