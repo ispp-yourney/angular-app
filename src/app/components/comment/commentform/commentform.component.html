@@ -28,7 +28,7 @@
               </div>
             </div>
             <div *ngIf="isLogged" class="modal-footer">
-              <button type="submit" *ngIf="!formComment.valid" class="btn btn-primary">Comentar</button>
+              <button type="submit" [disabled]="!formComment.valid" class="btn btn-primary">Comentar</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
           </form>
