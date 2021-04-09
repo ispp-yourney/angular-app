@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { data } from 'jquery';
 import { ActivityDto, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
-import { ShowUser, UpgradeUserDto } from 'src/app/models/show-user';
+import { ShowUser } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 

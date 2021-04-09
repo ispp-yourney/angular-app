@@ -32,7 +32,6 @@ export class AuthService {
 
   public upgradeUser(): Observable<any> {
     return this.httpClient.get<UpgradeUserDto>(environment.backendEndpoint + "/paypal/create/SUBSCRIPTION")
-    //return this.httpClient.get<any>(this.auth + "upgrade/");
   }
 
 
