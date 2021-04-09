@@ -89,7 +89,7 @@
 
 
                     <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Actividad {{j+1}}</h5>
@@ -112,6 +112,9 @@
                               <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
                             </div>
 
+                            <!-- <div class="landmarks">
+                            <app-buscador-landmark  [create]="true"></app-buscador-landmark>
+                             </div> -->
 
                             <h2 style="color:grey">Datos de la ubicación</h2>
 

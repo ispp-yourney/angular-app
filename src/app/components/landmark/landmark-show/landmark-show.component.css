@@ -1,0 +1,281 @@
+* {
+    box-sizing: border-box;
+  }
+
+  card-space {
+      height: 300000px;
+  }
+
+.card-title {
+  text-align: center;
+}
+
+  /* Create two columns/boxes that floats next to each other */
+  nav {
+    float: left;
+    width: 30%;
+    padding: 20px;
+    
+  }
+  
+  /* Style the list inside the menu */
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+  }
+  
+  /* Clear floats after the columns */
+  section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+  @media (max-width: 1000px) {
+    nav, article {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+h4 {
+    text-align: center;
+}
+
+
+
+.card-header {
+    border-radius: 15px;
+    background: #7c5ea5c2;
+    color: white;
+    width: 100%;
+    font-size: 18px;
+}
+
+img {
+    border-radius: 5px;
+}
+
+.btn.btn-primary{
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 1.25rem;
+}
+
+.btn-header-card {
+  width: 80%!important;
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropbtn {
+  border:none;
+}
+
+.list-names{
+  display: inline;
+  text-align: center;
+}
+
+.list-names:after{
+  content: ", ";
+}
+
+.list-names:last-child::after{
+  content: "";
+}
+
+
+.titulo{
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+.barra{
+ 
+  overflow: auto;
+  height: 660px;
+  margin-bottom: 60px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 120px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
+.barra{
+  height: 660px;
+  margin-bottom: 60px;
+  width: 80%;
+  position: relative;
+  left: 10vw;
+  height: 89.5vh;
+  bottom:69vh;
+  border-radius: 40px;
+  overflow: hidden;
+  background-color: rgb(20, 18, 18);
+}
+
+.landmark{
+  z-index: 1;
+  position: relative;
+  top: 23vh;
+  left: 8.5vw;
+  
+
+}
+.card {
+  border-radius: 15px;
+  height: 90vh;
+  border-radius: 40px;
+  width: 30vw;
+ 
+}
+
+.marco{
+  position: relative;
+  width: 20vw;
+  text-align: center;
+  bottom: 20vh ;
+  left: 30vw;
+  
+  
+  
+}
+
+.line{
+  position: relative;
+  bottom: 15vh ;
+  left: 26.3vw;
+  border: 5px solid rgba(196, 31, 13, 0.679);
+  border-radius: 5px;
+  width: 5vw;
+ 
+}
+
+.section{
+  padding-top:1px;
+  position: relative;
+
+}
+
+.header{
+  position: relative;
+  top: 10vh;
+}
+
+
+@media (max-width: 1000px){
+  .section{
+    padding-top:1px;
+    position: relative;
+
+    
+  }
+  
+.landmark{
+  z-index: 2;
+  position: relative;
+  top: 32vh;
+  left: 2vw;
+
+}
+  .card {
+    border-radius: 15px;
+    height: 90vh;
+    border-radius: 40px;
+    width: 90vw;
+    
+  }
+
+
+  .barra{
+    height: 660px;
+    width: 90vw;
+    position: relative;
+    left: 5vw;
+    height: 89.5vh;
+    bottom:-33vh;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: rgb(20, 18, 18);
+    margin-bottom: 50vh;
+    
+  }
+  .marco{
+    position: relative;
+    width: 30vw;
+    text-align: center;
+    bottom: 20vh ;
+    left: 31vw;
+    
+    
+    
+  }
+
+  .line{
+    position: relative;
+    bottom: 15vh ;
+    left: 1px;
+    border: 5px solid rgba(196, 31, 13, 0.679);
+    border-radius: 5px;
+    width: 10vw;
+   
+  }
+}

@@ -67,3 +67,7 @@ nav {
   }
 
 
+.landmarks{
+  overflow: auto;
+  height: 100vh;
+}

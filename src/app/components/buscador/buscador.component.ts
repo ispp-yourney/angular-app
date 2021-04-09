@@ -16,14 +16,18 @@ import { Itinerary } from 'src/app/models/itinerary';
   styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent implements OnInit {
-  lastResult: string = ""
-  result : string = "";
+  //lastResult: string = ""
+  //result : string = "";
   city: string[] = [];
   country: string[] = [];
   formFilter: FormGroup;
   filter: searchFilter;
   itineraries: Itinerary[] = [];
   noItinerariesFound:string;
+
+  search: boolean = false;
+  totalPages:number;
+  currentPage: number = 0;
 
   constructor(private buscadorService:BuscadorService, 
               private formBuilder:FormBuilder,
@@ -36,36 +40,32 @@ export class BuscadorComponent implements OnInit {
                 });
               }
 
-  static result = "";
+  //static result = "";
 
   ngOnInit() {
     this.buscadorService.getAllCountry().subscribe(c => {this.country = c; } )
     //this.buscadorService.getAllCity().subscribe(c => {this.city = c; } )     
   }
 
-  onRegister(){
- //console.log('Pais: '+this.formFilter.value.country)
- //console.log('Ciudad: '+this.formFilter.value.city)
- //console.log('Presupuesto: '+this.formFilter.value.maxBudget)
- //console.log('Días: '+this.formFilter.value.maxDays)
-
-
-    this.filter = new searchFilter(this.formFilter.value.country, 
-                                   this.formFilter.value.city,
-                                   this.formFilter.value.maxBudget,
-                                   this.formFilter.value.maxDays);
- //console.log(this.filter)
+loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:number){
       
-    this.buscadorService.postFilter(this.filter).subscribe(
+    this.buscadorService.postFilter(country,city,maxBudget,maxDays,page).subscribe(
      response => {
-      var res = response 
-      this.itineraries=res.content
+      var res = response;
+      console.log(res)
+      this.itineraries=res.content;
+      this.totalPages= res.totalPages;
+      console.log(this.itineraries)
+      console.log('Totalpages ',this.totalPages)
+      console.log('Current page  ',this.currentPage)
+      this.search = true
    //console.log("Itinerarios: ",this.itineraries)
       //this.router.navigate(['/buscador']); 
       if(!(this.itineraries.length>0)){
         this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."
       }else{
         this.noItinerariesFound=""
+        
       }
      },
      err => {
@@ -73,10 +73,32 @@ export class BuscadorComponent implements OnInit {
      })                         
   }
 
+  count(totalPages:number): Array<number>{
+    return Array(totalPages);
+  }
+      
+  switchPage(page:number){
+      this.currentPage=page;
+      console.log(this.currentPage)
+      this.loadItineraries(this.formFilter.controls.country.value,this.formFilter.controls.city.value, this.formFilter.controls.maxBudget.value, this.formFilter.controls.maxDays.value,this.currentPage);
+  }
+
+  onRegister(){
+    this.loadItineraries(this.formFilter.controls.country.value,this.formFilter.controls.city.value, this.formFilter.controls.maxBudget.value, this.formFilter.controls.maxDays.value,0);
+  }
 
   OnChange(pais:string) {
     this.buscadorService.getCityByCountry(pais).subscribe(c => {this.city = c; this.formFilter.controls['city'].setValue('');} )
    
   }
+
+  countStars(stars:number){
+    return Array(Math.round( stars ))
+ }
+
+ countNoStars(stars:number){
+  
+  return Array(5-Math.round( stars ))
+}
 
 }
