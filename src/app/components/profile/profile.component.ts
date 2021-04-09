@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { data } from 'jquery';
 import { ActivityDto, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
-import { ShowUser } from 'src/app/models/show-user';
+import { ShowUser, UpgradeUserDto } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 
@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   incorrectUsername:boolean;
   plan:String;
   expectedUser: boolean =  false;
+  paypalUrl: string
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
@@ -57,14 +58,13 @@ export class ProfileComponent implements OnInit {
   upgradeUser(){
     this.authService.upgradeUser().subscribe(
       data => {
-     //console.log(data)
-        this.ngOnInit()
+        window.location.href = data.text
       },
       err => {
-        // console.log(err)
-        this.messageError=err.error.text
+        this.messageError=err.error.text;
       }
     )
+    
   }
 
 }
