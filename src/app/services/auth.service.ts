@@ -30,6 +30,10 @@ export class AuthService {
     return this.httpClient.get<ShowUser>(this.auth+"show/"+username);
   }
 
+  public updateUser(updateUser: NewUser): Observable<any>{
+    return this.httpClient.put<any>(this.auth + 'update', updateUser);
+  }
+
   public upgradeUser(): Observable<any> {
     return this.httpClient.get<UpgradeUserDto>(environment.backendEndpoint + "/paypal/create/SUBSCRIPTION")
   }

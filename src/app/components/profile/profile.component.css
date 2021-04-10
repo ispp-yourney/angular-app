@@ -4,6 +4,12 @@ body{
     text-align: left;
     background-color: #e2e8f0;    
 }
+
+h4 {
+    color: #333333;
+    font-size: 1rem;
+}
+
 .main-body {
     padding: 15px;
 }
