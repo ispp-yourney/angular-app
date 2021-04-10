@@ -23,7 +23,7 @@
                         <div class="form-group col-md-6">
                             <label>Contraseña <span style="color:#ff0000">*</span></label>
                             <input type="password" name="password" id="password" class="form-control" formControlName="password"
-                                required minlength="8" maxlength="25" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d.\/\\\$@\_\-\¿\?\¡\!*\[\]\(\)\=\{\}]{8,}$"
+                                required minlength="8" maxlength="25" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d.,:;\/\\\$@\_\-\¿\?\¡\!*\[\]\(\)\=\{\}]{8,}$"
                                 [ngClass]="{'is-invalid':formRegister.get('password').touched && formRegister.get('password').invalid}">
                             <div class="alert alert-danger"
                                 *ngIf="formRegister.get('password').touched && formRegister.get('password').invalid">
