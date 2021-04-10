@@ -4,6 +4,7 @@ import { data } from 'jquery';
 import { ActivityDto, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ShowUser } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
+import { ImageService } from 'src/app/services/image.service';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private tokenServide: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private tokenServide: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private imageService: ImageService, private router: Router) { }
 
   userDetails:ShowUser;
   username:String;
@@ -65,6 +66,31 @@ export class ProfileComponent implements OnInit {
       }
     )
     
+  }
+
+  addUserImage(files: FileList) {
+    const file = files.item(0)
+    this.imageService.addUserPhoto(file).subscribe(
+      data => {
+        //console.log(data)
+        this.showUser(this.username)  // reload page
+      },
+      err => {
+        // console.log(err)
+      }
+    )
+  }
+
+  removeUserImage() {
+    this.imageService.deleteUserPhoto().subscribe(
+      data => {
+        //console.log(data)
+        this.showUser(this.username)  // reload page
+      },
+      err => {
+        // console.log(err)
+      }
+    )
   }
 
 }

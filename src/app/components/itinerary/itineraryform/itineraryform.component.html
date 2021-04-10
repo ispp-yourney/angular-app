@@ -32,6 +32,12 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <label class="col-form-label" for="itineraryImage">Imagen</label>
+                <br>
+                <input type="file" id="itineraryImage" formControlName="itineraryImage" class="file-input" (change)="addItineraryImage($event.target.files)">
+              </div>
+
               <div class="form-group mb-3">
                 <label class="col-form-label" for="season">Estación</label>
                 <select class="form-control" id="season" formControlName="recommendedSeason">
@@ -163,7 +169,11 @@
                             </div>
 
 
-
+                            <div class="form-group">
+                              <label class="col-form-label" for="landmarkImage">Imagen</label>
+                              <br>
+                              <input type="file" id="landmarkImage" formControlName="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
+                            </div>
 
 
                             <br>

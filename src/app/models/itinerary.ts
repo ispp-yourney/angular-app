@@ -114,6 +114,7 @@ export class LandmarkDto  {
     instagram: string
     twitter: string
     activity: number
+    landmarkImage: File
 
     constructor(id: number, name: string, description: string, price: number, country: string, city: string, latitude: number, longitude: number,
         category: string, email: string, phone: string, website: string, instagram: string, twitter: string, activity: number) {
