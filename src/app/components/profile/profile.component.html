@@ -9,7 +9,13 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Admin" class="rounded-circle" width="150">
+                    <div>
+                      <img id="userPhoto" src="{{userDetails?.imageUrl}}" onclick="$('#userPhotoInput').trigger('click');" alt="Add photo" class="img rounded-circle" width="150">
+                      <input hidden type="file" id="userPhotoInput" (change)="addUserImage($event.target.files)">
+                      <div *ngIf="userDetails.imageUrl!=undefined && userDetails.imageUrl!='https://www.sinrumbofijo.com/wp-content/uploads/2016/05/default-placeholder.png'">
+                        <button type="button" class="btn btn-primary mt-3" (click)="removeUserImage()">Eliminar foto</button>
+                      </div>
+                    </div>
                     <div class="mt-3">
                       <h4>{{userDetails?.username}}</h4>
                       <div class="plan">
