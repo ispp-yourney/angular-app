@@ -22,7 +22,14 @@
                         <span class="badge badge-pill" [ngClass]="plan=='Gratis' ? 'badge-info': 'badge-warning'"><span *ngIf="plan!='Gratis'" class="fa fa-star">&nbsp;&nbsp;</span>{{plan}}</span><br>
                         <br><button *ngIf="plan=='Gratis' && expectedUser" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
                       </div>
-                      <br><a href="/perfil/{{userDetails?.username}}/itinerarios/1" class="btn btn-primary">Itinerarios</a>
+                      <br><button class="btn btn-primary" (click)="changeView()" [disabled]="showProfile">
+                        Datos
+                      </button>
+                      <br><button class="btn btn-primary" (click)="changeView()" [disabled]="!showProfile">
+                        Itinerarios
+                      </button>
+                      <!-- <br><a href="/perfil/{{userDetails?.username}}/itinerarios/1" class="btn btn-primary">Datos</a>
+                      <br><a href="/perfil/{{userDetails?.username}}/itinerarios/1" class="btn btn-primary">Itinerarios</a> -->
                     </div>
                   </div>
                 </div>
@@ -31,24 +38,94 @@
             <div class="col-md-8">
               <div class="card mb-3">
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Nombre</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{userDetails?.firstName}} {{userDetails?.lastName}}
+                  <div *ngIf="showProfile">
+                    <div *ngIf="expectedUser; then miPerfil else otroPerfil"></div>
+                  
+                      <ng-template #miPerfil>
+                        <form #f="ngForm" [formGroup]="editForm" (ngSubmit)="onUpdate()">
+                          <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Nombre de Usuario</label>
+                              <div class="col-sm-9">
+                                <input type="text" name="username" id="username" class="form-control" formControlName="username"
+                                    required minlength="3" maxlength="25" readonly>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nombre</label>
+                            <div class="col-sm-9">
+                              <input type="text" name="firstName" id="firstName" class="form-control" formControlName="firstName"
+                                  required minlength="3" maxlength="25">
+                              <div class="alert alert-danger"
+                                  *ngIf="editForm.get('firstName').touched && editForm.get('firstName').invalid">
+                                  <div *ngIf="editForm.get('firstName').errors.required">No puede quedar vacío</div>
+                                  <div *ngIf="editForm.get('firstName').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                  <div *ngIf="editForm.get('firstName').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Apellidos</label>
+                            <div class="col-sm-9">
+                              <input type="text" name="lastName" id="lastName" class="form-control" formControlName="lastName"
+                                  required minlength="3" maxlength="25">
+                              <div class="alert alert-danger"
+                                  *ngIf="editForm.get('lastName').touched && editForm.get('lastName').invalid">
+                                  <div *ngIf="editForm.get('lastName').errors.required">No puede quedar vacío</div>
+                                  <div *ngIf="editForm.get('lastName').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                  <div *ngIf="editForm.get('lastName').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                              <input type="text" name="email" id="email" class="form-control" formControlName="email"
+                                  required email minlength="5" maxlength="50" value="{{userDetails?.email}}">
+                              <div class="alert alert-danger"
+                                  *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
+                                  <div *ngIf="editForm.get('email').errors.required">No puede quedar vacío</div>
+                                  <div *ngIf="editForm.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>
+                                  <div *ngIf="editForm.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                                  <div *ngIf="editForm.get('email').errors.email">Formato no válido</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div style="text-align:center!important">
+                            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
+                          </div>
+                        </form>  
+                      </ng-template>
+
+                      <ng-template #otroPerfil>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Nombre</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{userDetails?.firstName}} {{userDetails?.lastName}}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{userDetails?.email}}
+                          </div>
+                        </div>
+                      </ng-template>
+                  
                     </div>
                   </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{userDetails?.email}}
-                    </div>
+
+                  <div *ngIf="!showProfile">
+                    <app-itinerarylist [username]="username"></app-itinerarylist>
                   </div>
-                </div>
               </div>
             </div>
           </div>
