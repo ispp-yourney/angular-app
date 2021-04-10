@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { bindNodeCallback } from 'rxjs';
 import { Activity, ActivityDto, Itinerary, ItineraryDto, Landmark, LandmarkDto } from 'src/app/models/itinerary';
 import { ActivityService } from 'src/app/services/activity.service';
+import { ImageService } from 'src/app/services/image.service';
 import { ItineraryService } from 'src/app/services/itinerary.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -17,7 +17,7 @@ export class ItineraryupdateComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private itineraryService: ItineraryService, private activityService: ActivityService, private landmarkService: LandmarkService, private route: ActivatedRoute, private tokenService: TokenService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private itineraryService: ItineraryService, private activityService: ActivityService, private landmarkService: LandmarkService, private route: ActivatedRoute, private tokenService: TokenService, private imageService: ImageService, private router: Router, private formBuilder: FormBuilder) {
     
     };
 
@@ -32,6 +32,7 @@ export class ItineraryupdateComponent implements OnInit {
   containError: boolean = false
   messageError: string
   activityTrash: number[] = []
+  itineraryImage: File
 
   ngOnInit(): void {
 
@@ -101,7 +102,8 @@ export class ItineraryupdateComponent implements OnInit {
               phone: [activityInfo.landmark.phone, Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
               website: [activityInfo.landmark.website, Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
               instagram: [activityInfo.landmark.instagram, Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-              twitter: [activityInfo.landmark.twitter, Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")]
+              twitter: [activityInfo.landmark.twitter, Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+              landmarkImage: this.formBuilder.control(File)
             });
               
             (day.controls['activities'] as FormArray).push(activity)
@@ -150,7 +152,8 @@ export class ItineraryupdateComponent implements OnInit {
       phone: ['',Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
       website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-      twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")]
+      twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      landmarkImage: this.formBuilder.control(File)
     });
 
     pepe.push(activity);
@@ -231,6 +234,10 @@ export class ItineraryupdateComponent implements OnInit {
     this.itineraryService.editar(newItinerary).subscribe(
       data => {
         // console.log(data)
+        if(this.itineraryImage != undefined){
+          this.uploadItineraryImage(this.itineraryImage, data.id)
+        }
+        
         var dia = 1
         for (let day of this.editForm.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
@@ -241,6 +248,9 @@ export class ItineraryupdateComponent implements OnInit {
               this.activityService.editar(newAct).subscribe(
                 data => {
                   // console.log(data);
+                  if(activity.value.landmarkImage!=undefined){
+                    this.uploadLandmarkImage(activity.value.landmarkImage, data.id)
+                  }
                 }, err => {
                   // console.log(err);
                 }
@@ -255,6 +265,9 @@ export class ItineraryupdateComponent implements OnInit {
                   this.landmarkService.nuevo(newLand).subscribe(
                     data => {
                       // console.log(data);
+                      if(activity.value.landmarkImage!=undefined){
+                        this.uploadLandmarkImage(activity.value.landmarkImage, data.id)
+                      }
                     }, err => {
                       // console.log(err)
                     }
@@ -271,6 +284,9 @@ export class ItineraryupdateComponent implements OnInit {
               this.landmarkService.editar(newLand).subscribe(
                 data => {
                   // console.log(data);
+                  if(activity.value.landmarkImage!=undefined){
+                    this.uploadLandmarkImage(activity.value.landmarkImage, data.id)
+                  }
                 }, err => {
                   // console.log(err);
                 }
@@ -282,6 +298,37 @@ export class ItineraryupdateComponent implements OnInit {
         wait()
       }, err => {
         // console.log(err);
+      }
+    )
+  }
+
+  addItineraryImage(files: FileList) {
+    this.itineraryImage = files.item(0)
+  }
+
+  addLandmarkImage(files: FileList, activity: FormGroup) {
+    const file = files.item(0)
+    activity.controls['landmarkImage'].setValue(file)
+  }
+
+  uploadItineraryImage(file: File, itineraryId: number) {
+    this.imageService.addItineraryPhoto(itineraryId, file).subscribe(
+      data => {
+        // console.log(data)
+      },
+      err => {
+        // console.log(err)
+      }
+    )
+  }
+
+  uploadLandmarkImage(file: File, landmarkId: number) {
+    this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
+      data => {
+        // console.log(data)
+      },
+      err => {
+        // console.log(err)
       }
     )
   }
