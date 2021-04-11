@@ -203,6 +203,23 @@
                               <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
                            
 
+
+                            <div class="form-group">
+                              <label class="col-form-label" for="landmarkImage">Imagen</label>
+                              <br>
+                              <input type="file" id="landmarkImage" formControlName="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
+                            </div>
+
+
+                            <br>
+                            <label for="category">Categoría</label>
+                            <input type="text" id="category" formControlName="category" class="form-control" placeholder="Restaurante">
+
+                            <br>
+                            <label for="email">Email</label>
+                            <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
+                          
+
                         </div>
                       </div>
                           </div>

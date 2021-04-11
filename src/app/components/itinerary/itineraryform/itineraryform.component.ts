@@ -18,8 +18,10 @@ export class ItineraryformComponent implements OnInit {
   newItinerary: ItineraryDto;
   auxItinerary: Itinerary;
   formItiner: FormGroup;
+
   createLandmark: string = "none"
   shareLandmark: string = "none"
+
   itineraryImage: File
 
   constructor(private formBuilder: FormBuilder,
@@ -80,8 +82,10 @@ export class ItineraryformComponent implements OnInit {
       website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-      landmarkImage: this.formBuilder.control(File) 
-    })
+
+      landmarkImage: this.formBuilder.control(File)
+    });
+
 
     activity.push(landmark); 
     
@@ -147,6 +151,7 @@ export class ItineraryformComponent implements OnInit {
             this.activityService.nuevo(newAct).subscribe(
               data => {
                 //console.log(data)
+
                 // var newLand = new LandmarkDto(0, activity.value.name, activity.value.description2, activity.value.price, activity.value.country,
                 //   activity.value.city, activity.value.latitude, activity.value.longitude, activity.value.category, activity.value.email,
                 //   activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id)
@@ -160,13 +165,13 @@ export class ItineraryformComponent implements OnInit {
                 //   }, err => {
                 //     //console.log(err)
                 //   })
+
               },
               err => {
                 //console.log(err)
               }
             )
-          
-            
+
           }
           dia++;
         }

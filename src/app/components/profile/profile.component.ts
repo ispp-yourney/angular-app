@@ -24,7 +24,9 @@ export class ProfileComponent implements OnInit {
   expectedUser: boolean =  false;
   paypalUrl: string
 
+
   showProfile: boolean = true;
+
   editForm: FormGroup;
 
   constructor(private tokenServide: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private imageService: ImageService) {
