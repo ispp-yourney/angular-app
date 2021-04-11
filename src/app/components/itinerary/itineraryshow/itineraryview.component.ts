@@ -14,12 +14,12 @@ export class ItineraryViewComponent implements OnInit  {
  
   constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService, private router: Router, ) { }
 
-  itinerary: Itinerary
-  days: Array<Array<Activity>>
-  listNumberDays: Array<number>
-  isMyItinerary: boolean
-  containError: boolean = false
-  messageError: string
+  itinerary: Itinerary;
+  days: Array<Array<Activity>>;
+  listNumberDays: Array<number>;
+  isMyItinerary: boolean;
+  containError: boolean = false;
+  messageError: string;
   loadedItineraries:boolean;
 
   ngOnInit(): void {

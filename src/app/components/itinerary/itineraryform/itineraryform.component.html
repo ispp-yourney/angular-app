@@ -95,7 +95,7 @@
 
 
                     <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Actividad {{j+1}}</h5>
@@ -117,56 +117,91 @@
                             <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
                               <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
                             </div>
+                            
 
-
-                            <h2 style="color:grey">Datos de la ubicación</h2>
-
-                            <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
-                            <input type="text" id="name" formControlName="name" class="form-control" placeholder="Bar Itaewon">
-                            <div class="alert alert-danger" *ngIf="activity.get('name').touched && activity.get('name').invalid">
-                              <div *ngIf="activity.get('name').errors.required">No puede quedar vacío</div>
-                            </div>
-                            <br>
-
-                            <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
-                            <textarea id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." cols="30" rows="10"></textarea>
-                            <!-- <input type="text" id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." > -->
-                            <div class="alert alert-danger" *ngIf="activity.get('description2').touched && activity.get('description2').invalid">
-                              <div *ngIf="activity.get('description2').errors.required">No puede quedar vacío</div>
-                            </div>
-                            <br>
-                            <label for="price">Precio <span style="color:#ff0000">*</span></label>
-                            <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
-                            <div class="alert alert-danger" *ngIf="activity.get('price').touched && activity.get('price').invalid">
-                              <div *ngIf="activity.get('price').errors.required">No puede estar vacío</div>
-                              <div *ngIf="activity.get('price').errors.min">El precio mínimo es 0</div>
-                            </div>
-                            <br>
-
-                            <label for="country">País</label>
-                            <input type="text" id="country" formControlName="country" class="form-control" placeholder="Corea" >
-
-                            <br>
-                            <label for="city">Ciudad</label>
-                            <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul">
-
-                            <br>
-                            <label for="latitude">Latitud</label>
-                            <input type="number" id="latitude" formControlName="latitude" class="form-control" placeholder="12">
-                            <div class="alert alert-danger" *ngIf="activity.get('latitude').touched && activity.get('latitude').invalid">
-                              <div *ngIf="activity.get('latitude').errors.min || activity.get('latitude').errors.max">El valor introducido debe de estar entre -90 y 90</div>
-                              <div *ngIf="activity.get('latitude').errors.pattern">El formato es inválido</div>
+                            <div style="text-align:center!important">
+                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="clickLandmarkShare()" >Añadir Landmark</a>
+                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="addLandmark(activity.get('landmark'))">Crear Landmark</a>
                             </div>
 
 
+                             <div class="landmarks" [style.display]="shareLandmark">
+                             
+                                  <app-buscador-landmark (landmarkId)="existLandmark(activity,$event)" [create]="true"></app-buscador-landmark>
+                             </div> 
 
-                            <br>
-                            <label for="longitude">Longitud</label>
-                            <input type="number" id="longitude" formControlName="longitude" class="form-control" placeholder="24">
-                            <div class="alert alert-danger" *ngIf="activity.get('longitude').touched && activity.get('longitude').invalid">
-                              <div *ngIf="activity.get('longitude').errors.min || activity.get('longitude').errors.max">El valor introducido debe de estar entre -180 y 180</div>
-                              <div *ngIf="activity.get('longitude').errors.pattern">El formato es inválido</div>
+                             <div *ngIf="activity.get('landmark')['controls'].length > 0" formArrayName="landmark">
+                            <div *ngFor="let l of activity.get('landmark')['controls']; let u = index" [formGroupName]="u">
+                              <h2 style="color:grey">Datos de la ubicación</h2>
+                            <div class="form-group">
+                              <label class="col-form-label" for="landmarkImage">Imagen</label>
+                              <br>
+                              <input type="file" id="landmarkImage" formControlName="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
                             </div>
+
+                              <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
+                              <input type="text" id="name" formControlName="name" class="form-control" placeholder="Bar Itaewon">
+                            
+                              <br>
+  
+                              <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
+                              <textarea id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." cols="30" rows="10"></textarea>
+                              <!-- <input type="text" id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." > -->
+                            
+                              <br>
+                              <label for="price">Precio <span style="color:#ff0000">*</span></label>
+                              <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
+                            
+                              <br>
+  
+                              <label for="country">País</label>
+                              <input type="text" id="country" formControlName="country" class="form-control" placeholder="Corea" >
+  
+                              <br>
+                              <label for="city">Ciudad</label>
+                              <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul">
+  
+                              <br>
+                              <label for="latitude">Latitud</label>
+                              <input type="number" id="latitude" formControlName="latitude" class="form-control" placeholder="12">
+                             
+  
+  
+  
+                              <br>
+                              <label for="longitude">Longitud</label>
+                              <input type="number" id="longitude" formControlName="longitude" class="form-control" placeholder="24">
+                            
+  
+                              <br>
+                              <label for="category">Categoría</label>
+                              <input type="text" id="category" formControlName="category" class="form-control" placeholder="Restaurante">
+  
+                              <br>
+                              <label for="email">Email</label>
+                              <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
+                            
+                              <br>
+  
+                              <label for="phone">Teléfono</label>
+                              <input type="text" id="phone" formControlName="phone" class="form-control" placeholder="+(82) 847192673 ">
+                           
+  
+  
+                              <br>
+                              <label for="website">Sitio web</label>
+                              <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com" >
+                             
+                              <br>
+                              <label for="instagram">Instagram</label>
+                              <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com">
+                             
+                            
+  
+                              <br>
+                              <label for="twitter">Twitter</label>
+                              <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
+                           
 
 
                             <div class="form-group">
@@ -183,42 +218,10 @@
                             <br>
                             <label for="email">Email</label>
                             <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
-                            <div class="alert alert-danger"
-                            *ngIf="activity.get('email').touched && activity.get('email').invalid">
-                              <div *ngIf="activity.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
-                              <div *ngIf="activity.get('email').errors.email || activity.get('email').errors.pattern">Formato no válido</div>
-                              
+                          
+
                         </div>
-                            <br>
-
-                            <label for="phone">Teléfono</label>
-                            <input type="text" id="phone" formControlName="phone" class="form-control" placeholder="+(82) 847192673 ">
-                            <div class="alert alert-danger" *ngIf="activity.get('phone').touched && activity.get('phone').invalid">
-                              <div *ngIf="activity.get('phone').errors.pattern">El formato es incorrecto</div>
-                            </div>
-
-
-                            <br>
-                            <label for="website">Sitio web</label>
-                            <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com" >
-                            <div class="alert alert-danger" *ngIf="activity.get('website').touched && activity.get('website').invalid">
-                              <div *ngIf="activity.get('website').errors.pattern">Debe ser una URL</div>
-                            </div>
-
-                            <br>
-                            <label for="instagram">Instagram</label>
-                            <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com">
-                            <div class="alert alert-danger" *ngIf="activity.get('instagram').touched && activity.get('instagram').invalid">
-                              <div *ngIf="activity.get('instagram').errors.pattern">Debe ser una URL</div>
-                            </div>
-
-                            <br>
-                            <label for="twitter">Twitter</label>
-                            <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
-                            <div class="alert alert-danger" *ngIf="activity.get('twitter').touched && activity.get('twitter').invalid">
-                              <div *ngIf="activity.get('twitter').errors.pattern">Debe ser una URL</div>
-                          </div>
-
+                      </div>
                           </div>
 
                           <div class="modal-footer">

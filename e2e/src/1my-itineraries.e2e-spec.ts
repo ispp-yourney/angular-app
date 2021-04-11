@@ -31,7 +31,9 @@ var accedePerfil = function () {
 }
 
 var accedeItinerariosDeUsuario = function () {
-  element(by.xpath('/html/body/app-root/app-profile/div/div/div/div[1]/div/div/div/div/a')).click(); //Boton de itinerarios del usuario 
+  ////*[@id="navbarColor03"]/ul[2]/li/div/a[2]
+  ///html/body/app-root/app-profile/div/div/div/div[1]/div/div/div/div[2]/button[2]
+  element(by.xpath('/html/body/app-root/app-profile/div/div/div/div[1]/div/div/div/div[2]/button[2]')).click(); //Boton de itinerarios del usuario 
   browser.sleep(5000)
   expect<any>(element(by.xpath('/html/body/app-root/app-itinerarylist/div[1]/h3/h2')).getText()).toEqual('alejandro1cortes'); //Texto de listado itinerarios
 
@@ -72,7 +74,7 @@ describe('Itinerarios', () => {
     accedePerfil();
     browser.sleep(5);
 
-    accedeItinerariosDeUsuario();
+    //accedeItinerariosDeUsuario();
   });
 
 
@@ -83,15 +85,14 @@ describe('Itinerarios', () => {
     accedePerfil()
     browser.sleep(5)
 
-    accedeItinerariosDeUsuario();
+    /*accedeItinerariosDeUsuario();
 
     accedeItinerario();
 
-    compruebaItinerario();
+    compruebaItinerario();*/
 
   });
 
-  //*[@id="navbarColor03"]/ul/li[7]/div/a[1]
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

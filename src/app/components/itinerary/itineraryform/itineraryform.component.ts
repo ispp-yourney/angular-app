@@ -3,9 +3,10 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/models/itinerary'
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
+
 
 @Component({
   selector: 'app-itineraryform',
@@ -13,10 +14,14 @@ import { ImageService } from 'src/app/services/image.service';
   styleUrls: ['./itineraryform.component.css']
 })
 export class ItineraryformComponent implements OnInit {
-
+  idLandmark: number;
   newItinerary: ItineraryDto;
   auxItinerary: Itinerary;
   formItiner: FormGroup;
+
+  createLandmark: string = "none"
+  shareLandmark: string = "none"
+
   itineraryImage: File
 
   constructor(private formBuilder: FormBuilder,
@@ -52,6 +57,18 @@ export class ItineraryformComponent implements OnInit {
     const activity = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
+      landmark: this.formBuilder.array([]),
+      landmarkId: ['']
+      
+    });
+
+    pepe.push(activity);
+  }
+
+  addLandmark(activity: FormArray){
+    
+    
+    const landmark = this.formBuilder.group({
       name: ['', Validators.required],
       description2: ['', Validators.required],
       price: ['0', Validators.min(0)],
@@ -65,10 +82,27 @@ export class ItineraryformComponent implements OnInit {
       website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+
       landmarkImage: this.formBuilder.control(File)
     });
 
-    pepe.push(activity);
+
+    activity.push(landmark); 
+    
+  }
+
+  existLandmark(activity: FormGroup, data){
+    console.log("sñoidfhasñoidfhñoasidhf")
+    activity.controls['landmarkId'].setValue(data)
+    
+
+  }
+
+
+  clickLandmarkShare(){
+    console.log("ñsdfhjsod")
+    this.shareLandmark = "block"
+    console.log(this.shareLandmark)
   }
 
 
@@ -108,23 +142,30 @@ export class ItineraryformComponent implements OnInit {
 
         for (let day of this.formItiner.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
-            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, 0)
+            let landmark = activity.value.landmarkId
+            console.log(activity.value.landmarkId)
+            if(landmark == 'undefined'){
+              let landmark = 0
+            }
+            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, activity.value.landmarkId)
             this.activityService.nuevo(newAct).subscribe(
               data => {
                 //console.log(data)
-                var newLand = new LandmarkDto(0, activity.value.name, activity.value.description2, activity.value.price, activity.value.country,
-                  activity.value.city, activity.value.latitude, activity.value.longitude, activity.value.category, activity.value.email,
-                  activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id)
-                this.landmarkService.nuevo(newLand).subscribe(
-                  data => {
-                    //console.log(data)
-                    if(activity.value.landmarkImage != undefined){
-                      this.uploadLandmarkImage(activity.value.landmarkImage, data.id)
-                    }
 
-                  }, err => {
-                    //console.log(err)
-                  })
+                // var newLand = new LandmarkDto(0, activity.value.name, activity.value.description2, activity.value.price, activity.value.country,
+                //   activity.value.city, activity.value.latitude, activity.value.longitude, activity.value.category, activity.value.email,
+                //   activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id)
+                // this.landmarkService.nuevo(newLand).subscribe(
+                //   data => {
+                //     //console.log(data)
+                //     if(activity.value.landmarkImage != undefined){
+                //       this.uploadLandmarkImage(activity.value.landmarkImage, data.id)
+                //     }
+
+                //   }, err => {
+                //     //console.log(err)
+                //   })
+
               },
               err => {
                 //console.log(err)

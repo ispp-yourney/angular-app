@@ -18,6 +18,7 @@ export interface Itinerary {
     username: string
     imageUrl: string
     comments: Array<Comment>
+    avgRating:number
 }
 
 export class ItineraryDto {
@@ -96,6 +97,7 @@ export interface Landmark {
     twitter: string
     createDate: Date
     views: number
+    image:Image
 }
 
 export class LandmarkDto  {
@@ -135,6 +137,8 @@ export class LandmarkDto  {
     this.activity = activity;
         }
 }
+
+
 
 export interface Author {
     id: number

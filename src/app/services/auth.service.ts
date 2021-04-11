@@ -38,5 +38,7 @@ export class AuthService {
     return this.httpClient.get<UpgradeUserDto>(environment.backendEndpoint + "/paypal/create/SUBSCRIPTION")
   }
 
+  
+
 
 }

@@ -22,6 +22,11 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommentformComponent } from './components/comment/commentform/commentform.component';
 import { NgxSliderModule } from "@angular-slider/ngx-slider";
+import { BuscadorLandmarkComponent } from './components/buscador-landmark/buscador-landmark.component';
+import { LandmarkShowComponent } from './components/landmark/landmark-show/landmark-show.component';
+import { HereMapComponent } from './components/here-map/here-map.component';
+import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +44,12 @@ import { NgxSliderModule } from "@angular-slider/ngx-slider";
     BuscadorComponent,
     FooterComponent,
     CommentformComponent,
+    BuscadorLandmarkComponent,
+    LandmarkShowComponent,
+    HereMapComponent,
+    LandmarkCreateComponent,
+   
+
     
   ],
   imports: [

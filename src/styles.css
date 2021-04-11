@@ -7,7 +7,7 @@
 html, body{ 
     /* height: 100%; */
     /* background:linear-gradient(0deg, rgba(119, 45, 45, 0.878), rgba(204, 98, 98, 0.844)); */
-    background:  linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)),url(./mountain.jpg);
+    background:  linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)),url(mountain.jpg);
    
     margin: 0;
     height: auto;
@@ -48,8 +48,7 @@ h1, h2, h3, h4{
     html, body{ 
         /* height: 100%; */
         /* background:linear-gradient(0deg, rgba(119, 45, 45, 0.878), rgba(204, 98, 98, 0.844)); */
-        background:  linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)),url(mountain.jpg);
-       
+       width: auto;
         margin: 0;
         height: auto;
         min-height: 1233px;

@@ -23,6 +23,8 @@ export class ProfileComponent implements OnInit {
   plan:String;
   expectedUser: boolean =  false;
   paypalUrl: string
+
+
   showProfile: boolean = true;
 
   editForm: FormGroup;

@@ -1,0 +1,105 @@
+<app-menu *ngIf="!create"></app-menu>
+
+<div class="container center-block">
+
+  <form class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
+
+
+
+
+    <div class="form-group">
+      <label for="country">Pais</label>
+      <select formControlName="country" value="España" class="form-control" id="country"
+        (change)="OnChange($event.target.value)">
+        <option *ngFor="let pais of country" [value]="pais"> {{pais}} </option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label for="city">Ciudad</label>
+      <select formControlName="city" class="form-control" id="city">
+        <option disabled selected value> -- Secciona una ciudad -- </option>
+        <option *ngFor="let ciudad of city" [value]="ciudad"> {{ciudad}} </option>
+      </select>
+    </div>
+
+
+
+    <button type="submit" [disabled]="!formFilter.valid" class="btn btn-primary"> Filtrar</button>
+
+    <a href="/buscadorLandmark" class="btn btn-primary">Resetear</a>
+
+    <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
+
+  </form>
+
+</div>
+
+
+<div *ngIf="noLandmarksFound; then noDataPresent else dataPresent"></div>
+<ng-template #dataPresent>
+
+
+
+  <div class="landmark" *ngFor="let item of landmarks">
+
+
+    <div class="center">
+      <div class="front-face"
+        [ngStyle]="{'background': 'linear-gradient(rgba(255, 60, 60, 0.2),rgba(0,0,0,.2)),url(' + item.image.imageUrl + ')', 'background-size': 'cover'}">
+
+        <div class="contents front">
+          <p>{{item.name}}</p>
+          <span>{{item.city}}</span>
+        </div>
+      </div>
+      <div class="back-face"
+        [ngStyle]="{'background': 'linear-gradient(rgba(21, 17, 17, 0.666),rgba(24, 5, 5, 0.2)),url(' + item.image.imageUrl + ')', 'background-size': 'cover'}">
+
+
+        <div class="contents back">
+          <h2 style="width: auto;"></h2>
+
+          <p *ngIf="item.phone"><em class="fa fa-phone-square" aria-hidden="true"></em> {{item.phone}}</p>
+          <p *ngIf="item.email"><em class="fa fa-envelope" aria-hidden="true"></em> {{item.email}}</p>
+
+          <a class="btn btn-dark btn-social mx-2" *ngIf="item.twitter" href="{{item.twitter}}"><em
+              class="fa fa-twitter"></em></a>
+          <a class="btn btn-dark btn-social mx-2" *ngIf="item.instagram"
+            href="{{item.instagram}}"><em class="fa fa-instagram"></em></a>
+          
+          <div class="icons">
+            <a type="button" *ngIf="!create"class="btn btn-outline-dark details" href="/punto_interes/{{item.id}}">Detalles</a>
+            <a *ngIf="create" class="btn btn-outline-dark details" (click)="passData(item.id)">Añadir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  <div class="div_pagination " *ngIf="search">
+    <ul class="pagination pagination-lg">
+      <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
+        <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
+          (click)="switchPage(currentPage-1)">&laquo;</a>
+      </li>
+      <li class="page-item" [ngClass]="{'active': page===currentPage}"
+        *ngFor="let bucle of count(totalPages); let page = index;">
+        <a class="page-link " (click)="switchPage(page)">{{page + 1}}</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
+        <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
+          (click)="switchPage(currentPage+1)">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+
+</ng-template>
+<ng-template #noDataPresent>
+  <div class="alert alert-danger"> {{noLandmarksFound}}</div>
+</ng-template>
