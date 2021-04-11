@@ -7,3 +7,6 @@ ng serve --open
 
 -- Generate component XXX
 ng g c XXX
+
+-- Generate messages in english
+ng extract-i18n --output-path locale

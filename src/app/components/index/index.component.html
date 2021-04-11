@@ -7,13 +7,13 @@
         <div class="middle-welcome">
             
             <div class="inner-welcome" *ngIf="isLoggged; else loggedOut">
-                <h1 class="title">Bienvenido/a</h1> 
+                <h1 class="title" i18n>Bienvenido/a</h1> 
                 <h2 class="name">{{username}}</h2>
                 
             </div>
             <ng-template #loggedOut>
                 <div class="inner-welcome">
-                    <h1 class="title">Bienvenido/a a Yourney</h1>
+                    <h1 class="title" i18n>Bienvenido/a a Yourney</h1>
                     
                 </div>
             </ng-template>
