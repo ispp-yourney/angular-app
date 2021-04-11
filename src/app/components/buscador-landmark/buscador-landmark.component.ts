@@ -72,8 +72,7 @@ export class BuscadorLandmarkComponent implements OnInit {
       var res = response;
       this.landmarks= res.content;
       this.totalPages= res.totalPages;
-      console.log(this.landmarks)
-      console.log(this.totalPages)
+
       this.search = true
       //console.log("Itinerarios: ",this.itineraries)
      
@@ -95,7 +94,7 @@ export class BuscadorLandmarkComponent implements OnInit {
           
       switchPage(page:number){
           this.currentPage=page;
-          console.log(this.currentPage)
+
           this.loadLandmarks(this.formFilter.controls.country.value,this.formFilter.controls.city.value,this.currentPage);
       }
 

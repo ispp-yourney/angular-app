@@ -88,7 +88,7 @@
   }
   
   .container{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.507);
     border-radius: 10px;
     position :relative !important; 
     top: 30px;
