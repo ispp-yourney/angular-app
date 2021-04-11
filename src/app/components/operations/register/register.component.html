@@ -8,55 +8,59 @@
         <div class="middle">
             <div class="inner">
                 <form #f="ngForm" [formGroup]="formRegister" (ngSubmit)="onRegister()">
-                    <div class="form-group">
-                        <label>Nombre de Usuario: </label>
-                        <input type="text" name="username" id="username" class="form-control" formControlName="username"
-                            required minlength="3" maxlength="25">
-                        <div class="alert alert-danger"
-                            *ngIf="formRegister.get('username').touched && formRegister.get('username').invalid">
-                            <div *ngIf="formRegister.get('username').errors.required">No puede quedar vacío</div>
-                            <div *ngIf="formRegister.get('username').errors.minlength">Debe de tener al menos 3 caracteres</div>
-                            <div *ngIf="formRegister.get('username').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Nombre de Usuario <span style="color:#ff0000">*</span></label>
+                            <input type="text" name="username" id="username" class="form-control" formControlName="username"
+                                required minlength="3" maxlength="25">
+                            <div class="alert alert-danger"
+                                *ngIf="formRegister.get('username').touched && formRegister.get('username').invalid">
+                                <div *ngIf="formRegister.get('username').errors.required">No puede quedar vacío</div>
+                                <div *ngIf="formRegister.get('username').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                <div *ngIf="formRegister.get('username').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Contraseña <span style="color:#ff0000">*</span></label>
+                            <input type="password" name="password" id="password" class="form-control" formControlName="password"
+                                required minlength="8" maxlength="25" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d.,:;\/\\\$@\_\-\¿\?\¡\!*\[\]\(\)\=\{\}]{8,}$"
+                                [ngClass]="{'is-invalid':formRegister.get('password').touched && formRegister.get('password').invalid}">
+                            <div class="alert alert-danger"
+                                *ngIf="formRegister.get('password').touched && formRegister.get('password').invalid">
+                                <div *ngIf="formRegister.get('password').errors.required">Debe insertar una contraseña</div>
+                                <div *ngIf="formRegister.get('password').errors.minlength">Debe de tener al menos 8 caracteres</div>
+                                <div *ngIf="formRegister.get('password').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                                <div *ngIf="formRegister.get('password').errors.pattern">Debe contener al menos una letra y un
+                                    número</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Nombre <span style="color:#ff0000">*</span></label>
+                            <input type="text" name="firstName" id="firstName" class="form-control" formControlName="firstName"
+                                required minlength="3" maxlength="25">
+                            <div class="alert alert-danger"
+                                *ngIf="formRegister.get('firstName').touched && formRegister.get('firstName').invalid">
+                                <div *ngIf="formRegister.get('firstName').errors.required">No puede quedar vacío</div>
+                                <div *ngIf="formRegister.get('firstName').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                <div *ngIf="formRegister.get('firstName').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Apellidos <span style="color:#ff0000">*</span></label>
+                            <input type="text" name="lastName" id="lastName" class="form-control" formControlName="lastName"
+                                required minlength="3" maxlength="25">
+                            <div class="alert alert-danger"
+                                *ngIf="formRegister.get('lastName').touched && formRegister.get('lastName').invalid">
+                                <div *ngIf="formRegister.get('lastName').errors.required">No puede quedar vacío</div>
+                                <div *ngIf="formRegister.get('lastName').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                <div *ngIf="formRegister.get('lastName').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Contraseña: </label>
-                        <input type="password" name="password" id="password" class="form-control" formControlName="password"
-                            required minlength="8" maxlength="25" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                            [ngClass]="{'is-invalid':formRegister.get('password').touched && formRegister.get('password').invalid}">
-                        <div class="alert alert-danger"
-                            *ngIf="formRegister.get('password').touched && formRegister.get('password').invalid">
-                            <div *ngIf="formRegister.get('password').errors.required">Debe insertar una contraseña</div>
-                            <div *ngIf="formRegister.get('password').errors.minlength">Debe de tener al menos 8 caracteres</div>
-                            <div *ngIf="formRegister.get('password').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
-                            <div *ngIf="formRegister.get('password').errors.pattern">Debe contener al menos una letra y un
-                                número</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre: </label>
-                        <input type="text" name="firstName" id="firstName" class="form-control" formControlName="firstName"
-                            required minlength="3" maxlength="25">
-                        <div class="alert alert-danger"
-                            *ngIf="formRegister.get('firstName').touched && formRegister.get('firstName').invalid">
-                            <div *ngIf="formRegister.get('firstName').errors.required">No puede quedar vacío</div>
-                            <div *ngIf="formRegister.get('firstName').errors.minlength">Debe de tener al menos 3 caracteres</div>
-                            <div *ngIf="formRegister.get('firstName').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Apellidos: </label>
-                        <input type="text" name="lastName" id="lastName" class="form-control" formControlName="lastName"
-                            required minlength="3" maxlength="25">
-                        <div class="alert alert-danger"
-                            *ngIf="formRegister.get('lastName').touched && formRegister.get('lastName').invalid">
-                            <div *ngIf="formRegister.get('lastName').errors.required">No puede quedar vacío</div>
-                            <div *ngIf="formRegister.get('lastName').errors.minlength">Debe de tener al menos 3 caracteres</div>
-                            <div *ngIf="formRegister.get('lastName').errors.maxlength">Debe de tener como máximo 25 caracteres</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email: </label>
+                        <label>Email <span style="color:#ff0000">*</span> </label>
                         <input type="text" name="email" id="email" class="form-control" formControlName="email"
                             required email minlength="5" maxlength="50">
                         <div class="alert alert-danger"
