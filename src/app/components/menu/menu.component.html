@@ -43,7 +43,7 @@
         <div class="dropdown-menu " >
           <a class="dropdown-item" href="/perfil/{{loggedUsername}}">Mi perfil</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/perfil/{{loggedUsername}}/itinerarios/1">Mis itinerarios</a>
+          <a class="dropdown-item" href="/itinerarios/crear">Crear itinerario</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" routerLink="/" *ngIf="isLogged" (click)="onLogout()" ><strong>Cerrar Sesión</strong></a>
         </div>

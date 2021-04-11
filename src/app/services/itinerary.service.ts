@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Itinerary, ItineraryDto } from '../models/itinerary';
@@ -15,12 +15,12 @@ export class ItineraryService {
   
   hostURL = environment.backendEndpoint;
 
-  public userItineraries(page:Number, username:String): Observable<ItineraryUserPage> {
+  public userItineraries(username:String,page:number): Observable<ItineraryUserPage> {
     var url=this.hostURL + '/itinerary/user/'+username;
-    //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
-    var url_params = "?page="+page;
-    var req=this.httpClient.get<ItineraryUserPage>(url+url_params);
-    //req.subscribe(res=>console.log(res))
+    let params = new HttpParams()
+    .set('page', page.toString() ?? "0");
+    var req=this.httpClient.get<ItineraryUserPage>(url, {params});
+ 
     return req;
   }
 

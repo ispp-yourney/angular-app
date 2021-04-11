@@ -101,6 +101,10 @@ input, textarea, select {
   
 }
 
+.container-search{
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+}
+
 
 
 .center,.front-face,
