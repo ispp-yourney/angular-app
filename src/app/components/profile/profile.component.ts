@@ -5,7 +5,7 @@ import { ActivityDto, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary
 import { ShowUser } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,6 +21,9 @@ export class ProfileComponent implements OnInit {
   incorrectUsername:boolean;
   plan:String;
   expectedUser: boolean =  false;
+
+  showProfile: boolean = true;
+  editForm: FormGroup;
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));

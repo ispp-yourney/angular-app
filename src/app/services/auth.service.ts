@@ -34,5 +34,9 @@ export class AuthService {
     return this.httpClient.get<any>(this.auth + "upgrade/");
   }
 
+  public updateUser(updateUser: NewUser): Observable<any>{
+    return this.httpClient.put<any>(this.auth + 'update', updateUser);
+  }
+
 
 }

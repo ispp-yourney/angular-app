@@ -30,7 +30,7 @@
 
     <a href="/buscadorLandmark" class="btn btn-primary">Resetear</a>
 
-    <app-landmark-create *ngIf="isLogged"></app-landmark-create>
+    <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
 
   </form>
 
@@ -71,7 +71,7 @@
           
           <div class="icons">
             <a type="button" *ngIf="!create"class="btn btn-outline-dark details" href="/punto_interes/{{item.id}}">Detalles</a>
-            <a type="button"*ngIf="create" class="btn btn-outline-dark details" href="/punto_interes/{{item.id}}">Añadir</a>
+            <a *ngIf="create" class="btn btn-outline-dark details" (click)="passData(item.id)">Añadir</a>
           </div>
         </div>
       </div>

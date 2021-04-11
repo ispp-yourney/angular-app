@@ -3,8 +3,9 @@ import { ItineraryService} from 'src/app/services/itinerary.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/models/itinerary'
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-itineraryform',
@@ -12,10 +13,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./itineraryform.component.css']
 })
 export class ItineraryformComponent implements OnInit {
-
+  idLandmark: number;
   newItinerary: ItineraryDto;
   auxItinerary: Itinerary;
   formItiner: FormGroup;
+  createLandmark: string = "none"
+  shareLandmark: string = "none"
 
   constructor(private formBuilder: FormBuilder,
               private itineraryService: ItineraryService,
@@ -50,6 +53,18 @@ export class ItineraryformComponent implements OnInit {
     const activity = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
+      landmark: this.formBuilder.array([]),
+      landmarkId: ['']
+      
+    });
+
+    pepe.push(activity);
+  }
+
+  addLandmark(activity: FormArray){
+    
+    
+    const landmark = this.formBuilder.group({
       name: ['', Validators.required],
       description2: ['', Validators.required],
       price: ['0', Validators.min(0)],
@@ -63,9 +78,24 @@ export class ItineraryformComponent implements OnInit {
       website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")]
-    });
+    })
 
-    pepe.push(activity);
+    activity.push(landmark); 
+    
+  }
+
+  existLandmark(activity: FormGroup, data){
+    console.log("sñoidfhasñoidfhñoasidhf")
+    activity.controls['landmarkId'].setValue(data)
+    
+
+  }
+
+
+  clickLandmarkShare(){
+    console.log("ñsdfhjsod")
+    this.shareLandmark = "block"
+    console.log(this.shareLandmark)
   }
 
 
@@ -101,24 +131,23 @@ export class ItineraryformComponent implements OnInit {
         
         for (let day of this.formItiner.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
-            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, 0)
+            let landmark = activity.value.landmarkId
+            console.log(activity.value.landmarkId)
+            if(landmark == 'undefined'){
+              let landmark = 0
+            }
+            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, activity.value.landmarkId)
             this.activityService.nuevo(newAct).subscribe(
               data => {
-             //console.log(data)
-                var newLand = new LandmarkDto(0, activity.value.name, activity.value.description2, activity.value.price, activity.value.country, 
-                  activity.value.city, activity.value.latitude, activity.value.longitude, activity.value.category, activity.value.email,
-                  activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id)
-                this.landmarkService.nuevo(newLand).subscribe(
-                  data => {
-                 //console.log(data)
-                  }, err => {
-                 //console.log(err)
-                  })
+                //console.log(data)
+                console.log(newAct)
+              
               },
               err => {
-             //console.log(err)
+                //console.log(err)
               }
             )
+          
             
           }
           dia++;
@@ -133,5 +162,7 @@ export class ItineraryformComponent implements OnInit {
 
     this.router.navigate(['/']);
   }
+
+ 
 
 }

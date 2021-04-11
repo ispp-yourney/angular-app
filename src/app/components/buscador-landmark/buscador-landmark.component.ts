@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Itinerary, Landmark } from 'src/app/models/itinerary';
@@ -15,6 +15,14 @@ import { TokenService } from 'src/app/services/token.service';
   styleUrls: ['./buscador-landmark.component.css']
 })
 export class BuscadorLandmarkComponent implements OnInit {
+
+  @Output()
+  landmarkId: EventEmitter<number> = new EventEmitter<number>();
+
+  passData(id: number){
+     
+      this.landmarkId.emit(id);
+  }
   
   //lastResult: string = ""
   //result : string = "";
