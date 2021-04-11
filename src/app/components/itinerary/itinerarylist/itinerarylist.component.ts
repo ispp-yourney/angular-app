@@ -15,12 +15,13 @@ export class ItinerarylistComponent implements OnInit {
 
   itineraries: Itinerary[] = [];
   numberOfElements: number;
-  totalPages: Array<Number> = [];
-  pageId: number;
+  //totalPages: Array<Number> = [];
   currentUrl: string;
   username:string;
   loggedUsername:string
 
+  totalPages:number;
+  currentPage: number = 0;
 
   /*@Input()
   username_input: String;*/
@@ -30,33 +31,16 @@ export class ItinerarylistComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.pageId = Number(this.activatedRoute.snapshot.paramMap.get('id')) - 1;
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
-    //var currentUrl=this.router.url.replace(/\d+/g, '');
-    /*if (this.base_url) {
-      this.currentUrl = this.base_url;
-    } else {
-      this.currentUrl = "/itinerarios"
-    }*/
+
     this.loggedUsername=this.tokenService.getUsername()
-    this.loadUserItineraries(this.pageId, this.username);
+    this.loadUserItineraries(this.username,0);
   }
-  loadUserItineraries(pageId: Number, username: String): void {
-    if (pageId < 0) {
-      this.router.navigateByUrl("/error")
-    }
-    this.itineraryService.userItineraries(pageId, username).subscribe(
+  loadUserItineraries(username: String,page:number): void {
+    this.itineraryService.userItineraries(username,page).subscribe(
       data => {
         this.itineraries = data.content;
-        var pageArray: Array<Number> = [];
-        for (var i = 0; i < data.totalPages; i++)
-          pageArray.push(i)
-        
-        this.totalPages = pageArray
-
-        if (this.totalPages.includes(pageId) == false && pageId!=0)
-          this.router.navigateByUrl("/error")
-        
+        this.totalPages= data.totalPages;
       },
       err => {
      //console.log(err);
@@ -64,4 +48,12 @@ export class ItinerarylistComponent implements OnInit {
     );
   }
 
+  count(totalPages:number): Array<number>{
+    return Array(totalPages);
+  }
+
+  switchPage(page:number){
+    this.currentPage=page;
+    this.loadUserItineraries(this.username,this.currentPage);
+}
 }
