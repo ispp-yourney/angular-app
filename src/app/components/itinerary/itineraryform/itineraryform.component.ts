@@ -104,6 +104,7 @@ export class ItineraryformComponent implements OnInit {
     
     activity.controls['landmarkId'].setValue(data)
     activity.get('landmark').disable()
+    activity.controls['searchLandmark'].setValue("none")
   }
 
 
