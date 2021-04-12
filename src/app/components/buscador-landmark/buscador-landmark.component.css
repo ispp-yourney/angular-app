@@ -209,8 +209,8 @@ i.fab{
   
 .landmarkAdd{
   position: relative;
-  left:7vw;
-  width: 40vw;
+  left:12vw;
+  width: 35vw;
   
 
 }
@@ -232,9 +232,9 @@ i.fab{
   .div_pagination{
    
     display: flex;
-    position: relative;
-    left:-23vw;
-    top: 120vh;
+    position:absolute;
+    top:150vh;
+    left: 45vw;
     z-index: 2;
     margin: 0;
     
@@ -246,10 +246,12 @@ i.fab{
   
   
   .page-link{
-    color: white;
+    color: rgb(187, 53, 53);
     background:  linear-gradient(0.2deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3))!important;
     border: none!important;
   }
+
+  
   .page-item.active {
     background-color: #FB7F64!important;
     border-color: #FB7F64;
@@ -263,7 +265,7 @@ i.fab{
     margin:5%;
     position: relative;
     width: auto;
-    left: 10vw;
+    left: 15vw;
     top: 20px;
   }
 
@@ -303,8 +305,10 @@ i.fab{
     position: relative;
     width: auto;
     left: 18vw;
-    top: 20px;
+    top: 25px;
     overflow: auto;
+    
+
     }
 
      

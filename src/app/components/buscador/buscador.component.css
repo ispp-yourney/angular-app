@@ -222,9 +222,9 @@ transform: rotateY(-180deg);
 .div_pagination{
    
   display: flex;
-  position: relative;
-  left:-23vw;
-  top: 120vh;
+  position:absolute;
+  top:150vh;
+  left: 45vw;
   z-index: 2;
   margin: 0;
   
@@ -244,7 +244,7 @@ transform: rotateY(-180deg);
  
 }
 .page-link{
-  color: white;
+  color: rgb(187, 53, 53);
   background:  linear-gradient(0.2deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3))!important;
   border: none!important;
 }
@@ -299,4 +299,3 @@ transform: rotateY(-180deg);
   
 }
 }
-
