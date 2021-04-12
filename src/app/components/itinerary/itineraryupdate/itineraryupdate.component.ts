@@ -21,10 +21,6 @@ export class ItineraryupdateComponent implements OnInit {
     
     };
 
-    
-    
-    
-
   itinerary: Itinerary
   days: Array<Array<Activity>>
   listNumberDays: Array<number>
@@ -33,6 +29,9 @@ export class ItineraryupdateComponent implements OnInit {
   messageError: string
   activityTrash: number[] = []
   itineraryImage: File
+
+  editLandmark: string = "none"
+  shareLandmark: string = "none"
 
   ngOnInit(): void {
 
@@ -52,7 +51,7 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).toPromise().then(
       data => {
-     //console.log(data)
+     console.log(data)
         this.itinerary = data;
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
         if(!this.isMyItinerary){
@@ -158,6 +157,38 @@ export class ItineraryupdateComponent implements OnInit {
 
     pepe.push(activity);
   }
+
+  addLandmark(activity: FormArray){
+    const landmark = this.formBuilder.group({
+      name: ['', Validators.required],
+      description2: ['', Validators.required],
+      price: ['0', Validators.min(0)],
+      country: [''],
+      city: [''],
+      latitude: ['', [Validators.min(-90), Validators.max(90)]],
+      longitude: ['', [Validators.min(-180), Validators.max(180)]],
+      category: [''],
+      email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
+      website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      landmarkImage: [this.formBuilder.control(File)]
+    });
+    activity.push(landmark); 
+  }
+
+  existLandmark(activity: FormGroup, data){
+    activity.controls['landmarkId'].setValue(data)
+    activity.get('landmark').disable()
+  }
+
+
+  clickLandmarkShare(activity: FormGroup, data){
+    console.log(activity.get('searchLandmark').value)
+    activity.controls['searchLandmark'].setValue("block")
+  }
+
 
   removeDay(i: number){
     let aux = this.editForm.get('days') as FormArray;
@@ -308,7 +339,8 @@ export class ItineraryupdateComponent implements OnInit {
 
   addLandmarkImage(files: FileList, activity: FormGroup) {
     const file = files.item(0)
-    activity.controls['landmarkImage'].setValue(file)
+    //activity.controls['landmarkImage'].setValue(file)
+    activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
   }
 
   uploadItineraryImage(file: File, itineraryId: number) {

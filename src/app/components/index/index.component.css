@@ -78,7 +78,8 @@ h4 {
     h1{
         font-size: 50px;
         position: relative;
-        right: 20px;
+        right: 25px;
+        text-align: center;
     }
     .name{
         position: relative;

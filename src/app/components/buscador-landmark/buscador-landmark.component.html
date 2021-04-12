@@ -1,3 +1,4 @@
+<div [style.display]="added">
 <app-menu *ngIf="!create"></app-menu>
 
 <div class="container center-block">
@@ -26,15 +27,20 @@
 
 
 
-    <button type="submit" [disabled]="!formFilter.valid" class="btn btn-primary"> Filtrar</button>
+    <button type="submit" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
-    <a href="/buscadorLandmark" class="btn btn-primary">Resetear</a>
+    <a href="/buscadorLandmark" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
     <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
+
+
+
+
 
   </form>
 
 </div>
+
 
 
 <div *ngIf="noLandmarksFound; then noDataPresent else dataPresent"></div>
@@ -42,7 +48,7 @@
 
 
 
-  <div class="landmark" *ngFor="let item of landmarks">
+  <div [className]="create ? 'landmarkAdd' : 'landmark'"  *ngFor="let item of landmarks">
 
 
     <div class="center">
@@ -59,39 +65,40 @@
 
 
         <div class="contents back">
-          <h2 style="width: auto;"></h2>
+          
 
           <p *ngIf="item.phone"><em class="fa fa-phone-square" aria-hidden="true"></em> {{item.phone}}</p>
           <p *ngIf="item.email"><em class="fa fa-envelope" aria-hidden="true"></em> {{item.email}}</p>
 
           <a class="btn btn-dark btn-social mx-2" *ngIf="item.twitter" href="{{item.twitter}}"><em
               class="fa fa-twitter"></em></a>
-          <a class="btn btn-dark btn-social mx-2" *ngIf="item.instagram"
-            href="{{item.instagram}}"><em class="fa fa-instagram"></em></a>
-          
+          <a class="btn btn-dark btn-social mx-2" *ngIf="item.instagram" href="{{item.instagram}}"><em
+              class="fa fa-instagram"></em></a>
+
           <div class="icons">
-            <a type="button" *ngIf="!create"class="btn btn-outline-dark details" href="/punto_interes/{{item.id}}">Detalles</a>
+            <a type="button" *ngIf="!create" class="btn btn-outline-dark details"
+              href="/punto_interes/{{item.id}}">Detalles</a>
             <a *ngIf="create" class="btn btn-outline-dark details" (click)="passData(item.id)">Añadir</a>
           </div>
         </div>
       </div>
     </div>
-
-
-
   </div>
 
-
-  <div class="div_pagination " *ngIf="search">
+  <div [className]="create ? 'addLandmark' : 'div_pagination'" *ngIf="search">
     <ul class="pagination pagination-lg">
       <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
         <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
           (click)="switchPage(currentPage-1)">&laquo;</a>
       </li>
-      <li class="page-item" [ngClass]="{'active': page===currentPage}"
-        *ngFor="let bucle of count(totalPages); let page = index;">
-        <a class="page-link " (click)="switchPage(page)">{{page + 1}}</a>
-      </li>
+
+      <div *ngFor="let i of initialPages;">
+        <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
+          <a class="page-link "  (click)="switchPage(i)">{{i + 1}}</a>
+
+        </li>
+      </div>
+
       <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
         <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
           (click)="switchPage(currentPage+1)">&raquo;</a>
@@ -103,3 +110,5 @@
 <ng-template #noDataPresent>
   <div class="alert alert-danger"> {{noLandmarksFound}}</div>
 </ng-template>
+
+</div>

@@ -62,7 +62,7 @@ export class ItineraryViewComponent implements OnInit  {
     this.itineraryService.delete(this.itinerary.id).subscribe(
       data => {
      //console.log(data)
-        this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername() + '/itinerarios/1')
+        this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername())
         this.containError = false
       },
       err => {
