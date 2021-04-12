@@ -1,15 +1,14 @@
 <app-menu></app-menu>
-
 <h1 class="card-tite">Crear itinerario</h1>
 <form [formGroup]="formItiner" (ngSubmit)="onCreate()">
   <section>
     <nav>
       <div class="card" >
         <div class="card-body">
-          <!---->
+        
 
               <div class="form-group">
-                <label class="col-form-label" for="name">Nombre</label>
+                <label class="col-form-label" for="name">Nombre<span style="color:#ff0000">*</span></label>
                 <input type="text" class="form-control" id="name" formControlName="name" required minlength="5" maxlength="50" placeholder="Viaje a Corea">
                 <div class="alert alert-danger" *ngIf="formItiner.get('name').touched && formItiner.get('name').invalid">
                   <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
@@ -24,7 +23,7 @@
               </div>
 
               <div class="form-group">
-                <label class="col-form-label" for="budget">Presupuesto</label>
+                <label class="col-form-label" for="budget">Presupuesto<span style="color:#ff0000">*</span></label>
                 <input type="number" class="form-control" id="budget" formControlName="budget" value="0" required min="0" placeholder="0">
                 <div class="alert alert-danger" *ngIf="formItiner.get('budget').touched && formItiner.get('budget').invalid">
                   <div *ngIf="formItiner.get('budget').errors.required">No puede quedar vacío</div>
@@ -35,11 +34,11 @@
               <div class="form-group">
                 <label class="col-form-label" for="itineraryImage">Imagen</label>
                 <br>
-                <input type="file" id="itineraryImage" formControlName="itineraryImage" class="file-input" (change)="addItineraryImage($event.target.files)">
+                <input type="file" id="itineraryImage" class="file-input" (change)="addItineraryImage($event.target.files)">
               </div>
 
               <div class="form-group mb-3">
-                <label class="col-form-label" for="season">Estación</label>
+                <label class="col-form-label" for="season">Estación<span style="color:#ff0000">*</span></label>
                 <select class="form-control" id="season" formControlName="recommendedSeason">
                   <option label="INVIERNO">WINTER</option>
                   <option label="PRIMAVERA">SPRING</option>
@@ -60,7 +59,7 @@
 
         <div *ngFor="let day of formItiner.get('days')['controls']; let i=index" [formGroupName]="i">
 
-
+          <br>
           <div class="card mb-3 dropdown" style="border: none; ">
 
             <div class="card-header d-flex">
@@ -87,7 +86,7 @@
                         Actividad {{j+1}} &nbsp;&nbsp;
 
                         <!--<button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)"> -->
-                          <em type="button" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
+                          <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
                         <!--</button>-->
                       </button>
 
@@ -113,19 +112,20 @@
                             <br>
                             <label for="description">Descripción <span style="color:#ff0000">*</span></label>
                             <textarea id="description" formControlName="description" class="form-control" placeholder="Nos lo pasamos increíble..." cols="30" rows="10"></textarea>
-                            <!-- <input type="text" id="description" formControlName="description" class="form-control" placeholder="Nos lo pasamos increíble..."> -->
                             <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
                               <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
                             </div>
                             
 
-                            <div style="text-align:center!important">
-                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="clickLandmarkShare()" >Añadir Landmark</a>
-                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="addLandmark(activity.get('landmark'))">Crear Landmark</a>
+                            <div style="text-align:center!important" *ngIf=" activity.controls['action'].value == 'true'">
+                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="clickLandmarkShare(activity)" >Añadir Landmark</a>
+                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="addLandmark(activity)">Crear Landmark</a>
                             </div>
 
 
-                             <div class="landmarks" [style.display]="shareLandmark">
+                            
+
+                             <div class="landmarks" [style.display]="activity.get('searchLandmark').value">
                              
                                   <app-buscador-landmark (landmarkId)="existLandmark(activity,$event)" [create]="true"></app-buscador-landmark>
                              </div> 
@@ -133,25 +133,22 @@
                              <div *ngIf="activity.get('landmark')['controls'].length > 0" formArrayName="landmark">
                             <div *ngFor="let l of activity.get('landmark')['controls']; let u = index" [formGroupName]="u">
                               <h2 style="color:grey">Datos de la ubicación</h2>
-                            <div class="form-group">
-                              <label class="col-form-label" for="landmarkImage">Imagen</label>
-                              <br>
-                              <input type="file" id="landmarkImage" formControlName="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
-                            </div>
+                            
 
                               <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
-                              <input type="text" id="name" formControlName="name" class="form-control" placeholder="Bar Itaewon">
-                            
+                              <input type="text" id="name" formControlName="name" class="form-control" placeholder="Bar Itaewon" required>
+                              <!-- <div class="alert alert-danger" *ngIf="activity.get('landmark')[0].touched && activity.get('landmark')[0].invalid">
+                                <div *ngIf="activity.get('landmark')[0].errors.required">No puede quedar vacío</div>
+                              </div> -->
                               <br>
   
                               <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
-                              <textarea id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." cols="30" rows="10"></textarea>
-                              <!-- <input type="text" id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." > -->
-                            
+                              <textarea id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." cols="30" rows="10" required></textarea>
+                           
                               <br>
                               <label for="price">Precio <span style="color:#ff0000">*</span></label>
                               <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
-                            
+                              
                               <br>
   
                               <label for="country">País</label>
@@ -207,7 +204,7 @@
                             <div class="form-group">
                               <label class="col-form-label" for="landmarkImage">Imagen</label>
                               <br>
-                              <input type="file" id="landmarkImage" formControlName="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
+                              <input type="file" id="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
                             </div>
 
 
@@ -218,7 +215,13 @@
                             <br>
                             <label for="email">Email</label>
                             <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
-                          
+                            <!-- <div class="alert alert-danger"
+                            *ngIf="activity.get('email').touched && activity.get('email').invalid">
+                              <div *ngIf="activity.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                              <div *ngIf="activity.get('email').errors.email || activity.get('email').errors.pattern">Formato no válido</div>
+                              
+                           </div> -->
+                            <br>
 
                         </div>
                       </div>

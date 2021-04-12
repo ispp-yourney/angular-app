@@ -219,22 +219,40 @@ i.fab{
 
   .div_pagination{
     justify-content: center;
-    display: flex;
+    display: inline-block;;
     margin:5%;
     position: relative;
-    right: 40vw;
-    top:120vh;
+    width: auto;
+    left: 30vw;
+    
   }
   
   .pagination {
     padding-bottom: 15px;
   }
   
-  
+  .page-link{
+    color: brown;
+  }
+
+ 
+
   .page-item.active .page-link {
     background-color: #FB7F64;
     border-color: #FB7F64;
   }
+
+  .addLandmark{
+    justify-content: center;
+    display: inline-block;;
+    margin:5%;
+    position: relative;
+    width: auto;
+    left: 2vw;
+    top: 20px;
+  }
+
+
   @media (max-width: 800px){
     .landmark {
       position: relative;
@@ -252,5 +270,30 @@ i.fab{
         
     }
 
+    .mobile{
+      display: none;
+    }
+    .div_pagination{
+      justify-content: center;
+    display: inline-block;;
+    margin:5%;
+    position: relative;
+    width: auto;
+    left: 30vw;
+    top: 20px;
+    }
+
+    .addLandmark{
+      justify-content: center;
+    display: inline-block;;
+    margin:5%;
+    position: relative;
+    width: auto;
+    left: 30vw;
+    top: 20px;
+    }
+
    
   }
+
+   
