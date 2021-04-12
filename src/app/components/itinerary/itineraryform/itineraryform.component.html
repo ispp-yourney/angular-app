@@ -124,11 +124,12 @@
 
 
                             
-
-                             <div class="landmarks" [style.display]="activity.get('searchLandmark').value">
+                            <div [style.display]="activity.get('searchLandmark').value">
+                             <div class="landmarks" >
                              
                                   <app-buscador-landmark (landmarkId)="existLandmark(activity,$event)" [create]="true"></app-buscador-landmark>
                              </div> 
+                            </div>
 
                              <div *ngIf="activity.get('landmark')['controls'].length > 0" formArrayName="landmark">
                             <div *ngFor="let l of activity.get('landmark')['controls']; let u = index" [formGroupName]="u">
