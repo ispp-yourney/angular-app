@@ -21,23 +21,29 @@
         </div>
       </div>
     </a>
- 
-    <div class="div_pagination ">
+
+    <div class="div_pagination">
       <ul class="pagination pagination-lg">
-          <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
-            <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
-              (click)="switchPage(currentPage-1)">&laquo;</a>
+        <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
+          <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
+            (click)="switchPage(currentPage-1)">&laquo;</a>
+        </li>
+  
+        <div *ngFor="let i of initialPages;">
+          <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
+            <a class="page-link " (click)="switchPage(i)">{{i + 1}}</a>
+  
           </li>
-          <li class="page-item" [ngClass]="{'active': page===currentPage}"
-            *ngFor="let bucle of count(totalPages); let page = index;">
-            <a class="page-link " (click)="switchPage(page)">{{page + 1}}</a>
-          </li>
-          <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
-            <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
-              (click)="switchPage(currentPage+1)">&raquo;</a>
-          </li>
-        </ul>
+        </div>
+  
+        <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
+          <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
+            (click)="switchPage(currentPage+1)">&raquo;</a>
+        </li>
+      </ul>
     </div>
+
+
   </div>
 
 </ng-template>

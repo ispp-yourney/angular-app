@@ -29,7 +29,7 @@
 
     <button type="submit" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
-    <a href="/buscadorLandmark" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
+    <a href="/buscadorLandmark" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
     <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
 
@@ -48,7 +48,7 @@
 
 
 
-  <div class="landmark" *ngFor="let item of landmarks">
+  <div [className]="create ? 'landmarkAdd' : 'landmark'"  *ngFor="let item of landmarks">
 
 
     <div class="center">
@@ -65,7 +65,7 @@
 
 
         <div class="contents back">
-          <h2 style="width: auto;"></h2>
+          
 
           <p *ngIf="item.phone"><em class="fa fa-phone-square" aria-hidden="true"></em> {{item.phone}}</p>
           <p *ngIf="item.email"><em class="fa fa-envelope" aria-hidden="true"></em> {{item.email}}</p>

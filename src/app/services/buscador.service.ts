@@ -37,7 +37,8 @@ export class BuscadorService {
     .set('city', city  ?? "")
     .set('maxBudget', maxBudget.toString()  ?? "")
     .set('maxDays', maxDays.toString()  ?? "")
-    .set('page', page.toString() ?? "0");
+    .set('page', page.toString() ?? "0")
+    .set('size', "8");
     var req=this.http.get<any>(this.itinerarySearch, {params});
     console.log(params)
     return req;

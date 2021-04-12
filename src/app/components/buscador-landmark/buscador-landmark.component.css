@@ -1,6 +1,7 @@
 
   .card-link{
     border-radius: 15px;
+    
   }
   
   /* if if is in large window, control cards width size */
@@ -10,7 +11,6 @@
       }
   }
   .card{
-    overflow: hidden;
     height: 100%;
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(0,0,0,0.18);
@@ -45,7 +45,6 @@
     margin: 10px 0 15px 0;
   }
   .details>.card-text{
-    overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 5; /* number of lines to show */
@@ -107,16 +106,17 @@
   position: absolute;
 }
 .center{
+ 
   position: relative;
   transform: translate(-50%, -50%);
   height: 500px;
   width: 300px;
   transform-style: preserve-3d;
-  
+  margin-right: 10px;
   float: left;
   top: 300px;
   margin-bottom: 30px;
-  margin-right: 30px;
+
 }
 .front-face, .back-face{
   height: 100%;
@@ -198,10 +198,22 @@ i.fab{
 
 .landmark{
     position: relative;
-    left:15vw;
+    left:25vw;
+    width: 70vw;
+    
+    
+   
   }
+
+
   
+.landmarkAdd{
+  position: relative;
+  left:12vw;
+  width: 35vw;
   
+
+}
 
 
 .details{
@@ -218,12 +230,13 @@ i.fab{
 
 
   .div_pagination{
-    justify-content: center;
-    display: inline-block;;
-    margin:5%;
-    position: relative;
-    width: auto;
-    left: 30vw;
+   
+    display: flex;
+    position:absolute;
+    top:150vh;
+    left: 45vw;
+    z-index: 2;
+    margin: 0;
     
   }
   
@@ -231,24 +244,28 @@ i.fab{
     padding-bottom: 15px;
   }
   
+  
   .page-link{
-    color: brown;
+    color: rgb(187, 53, 53);
+    background:  linear-gradient(0.2deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3))!important;
+    border: none!important;
   }
 
+  
+  .page-item.active {
+    background-color: #FB7F64!important;
+    border-color: #FB7F64;
+}
  
 
-  .page-item.active .page-link {
-    background-color: #FB7F64;
-    border-color: #FB7F64;
-  }
-
+  
   .addLandmark{
     justify-content: center;
     display: inline-block;;
     margin:5%;
     position: relative;
     width: auto;
-    left: 2vw;
+    left: 15vw;
     top: 20px;
   }
 
@@ -270,17 +287,15 @@ i.fab{
         
     }
 
-    .mobile{
-      display: none;
-    }
     .div_pagination{
-      justify-content: center;
-    display: inline-block;;
-    margin:5%;
-    position: relative;
-    width: auto;
-    left: 30vw;
-    top: 20px;
+   
+      display: flex;
+      position: relative;
+      left:-55vw;
+      top: 520vh;
+      z-index: 2;
+      margin: 0;
+      
     }
 
     .addLandmark{
@@ -289,11 +304,18 @@ i.fab{
     margin:5%;
     position: relative;
     width: auto;
-    left: 30vw;
-    top: 20px;
+    left: 18vw;
+    top: 25px;
+    overflow: auto;
+    
+
     }
 
-   
+     
+.landmarkAdd{
+  position: relative;
+  left:45vw;
+}
   }
 
    
