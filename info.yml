@@ -6,7 +6,7 @@ project:
     github:
       url: 'https://github.com/ispp-yourney/angular-app'
     heroku:
-      url: 'https://be-dev-yourney.herokuapp.com'
+      url: 'https://fe-dev-yourney.herokuapp.com'
     travis:
       url: 'https://travis-ci.org/github/ispp-yourney/angular-app'
   members:
