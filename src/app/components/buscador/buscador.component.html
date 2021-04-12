@@ -1,57 +1,58 @@
-
-  <app-menu></app-menu>
+<app-menu></app-menu>
 
 <div class="container center-block container-search">
 
-<form  class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
+  <form class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
 
 
-  <div class="form-group">
-    <label for="country">Pais</label>
-    <select  formControlName="country" value="España" class="form-control" id="country" (change)="OnChange($event.target.value)">
-      <option *ngFor="let pais of country"  [value]="pais"> {{pais}} </option>
-    </select>
-  </div>
-
-
-  <div class="form-group">
-    <label for="city">Ciudad</label>
-    <select formControlName="city" class="form-control" id="city">
-      <option disabled selected value> -- Secciona una ciudad --  </option>
-      <option *ngFor="let ciudad of city"  [value]="ciudad"> {{ciudad}} </option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label class="col-form-label">Presupuesto Máx.</label>
-    <input formControlName="maxBudget" type="number" class="form-control" min="0" id="maxBudget">
-    <div class="alert alert-danger" *ngIf="formFilter.get('maxBudget').touched && formFilter.get('maxBudget').invalid">
-      <div *ngIf="formFilter.get('maxBudget').errors.min" >El presupuesto no puede ser negativo.</div>
+    <div class="form-group">
+      <label for="country">Pais</label>
+      <select formControlName="country" value="España" class="form-control" id="country"
+        (change)="OnChange($event.target.value)">
+        <option *ngFor="let pais of country" [value]="pais"> {{pais}} </option>
+      </select>
     </div>
 
-  </div>
 
-  <div class="form-group">
-    <label class="col-form-label">Días Máx.</label>
-    <input formControlName="maxDays" type="number" class="form-control" min="0" id="maxDays">
-    <div class="alert alert-danger" *ngIf="formFilter.get('maxDays').touched && formFilter.get('maxDays').invalid">
-      <div *ngIf="formFilter.get('maxDays').errors.min" >El número de días no puede ser negativo.</div>
+    <div class="form-group">
+      <label for="city">Ciudad</label>
+      <select formControlName="city" class="form-control" id="city">
+        <option disabled selected value> -- Secciona una ciudad -- </option>
+        <option *ngFor="let ciudad of city" [value]="ciudad"> {{ciudad}} </option>
+      </select>
     </div>
 
-  </div>
+    <div class="form-group">
+      <label class="col-form-label">Presupuesto Máx.</label>
+      <input formControlName="maxBudget" type="number" class="form-control" min="0" id="maxBudget">
+      <div class="alert alert-danger"
+        *ngIf="formFilter.get('maxBudget').touched && formFilter.get('maxBudget').invalid">
+        <div *ngIf="formFilter.get('maxBudget').errors.min">El presupuesto no puede ser negativo.</div>
+      </div>
 
-  <button type="submit"  [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
+    </div>
 
-  <a href="/buscador" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
+    <div class="form-group">
+      <label class="col-form-label">Días Máx.</label>
+      <input formControlName="maxDays" type="number" class="form-control" min="0" id="maxDays">
+      <div class="alert alert-danger" *ngIf="formFilter.get('maxDays').touched && formFilter.get('maxDays').invalid">
+        <div *ngIf="formFilter.get('maxDays').errors.min">El número de días no puede ser negativo.</div>
+      </div>
 
-</form>
+    </div>
+
+    <button type="submit" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x"
+        aria-hidden="true"></em></button>
+
+    <a href="/buscador" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
+
+  </form>
 
 </div>
 <div *ngIf="noItinerariesFound; then noDataPresent else dataPresent"></div>
 <ng-template #dataPresent>
 
-<div class="itinerary" *ngFor="let item of itineraries">
-
+  <div class="itinerary" *ngFor="let item of itineraries">
 
     <div class="center">
       <div class="front-face"
@@ -59,23 +60,23 @@
 
         <div class="contents front">
           <p>{{item.name}}</p>
-          
-          <ul *ngIf="item.avgRating" class="list-inline d-sm-flex my-0 stars" >
-                  <li class="list-inline-item g-mr-20">
-                    <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                      <div *ngFor="let star of countStars(item.avgRating)" style="float: left;">
-                        <span class="fa fa-star checked" style="color: rgb(237, 83, 49);"></span>
 
-                      </div>
-                      <div *ngFor="let noStar of countNoStars(item.avgRating)" style="float: left;">
-                        <span class="fa fa-star"></span>
-                      </div>
+          <ul *ngIf="item.avgRating" class="list-inline d-sm-flex my-0 stars">
+            <li class="list-inline-item g-mr-20">
+              <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                <div *ngFor="let star of countStars(item.avgRating)" style="float: left;">
+                  <span class="fa fa-star checked" style="color: rgb(237, 83, 49);"></span>
 
-                    </div>
-                  </li>
-                </ul>
-          
-          
+                </div>
+                <div *ngFor="let noStar of countNoStars(item.avgRating)" style="float: left;">
+                  <span class="fa fa-star"></span>
+                </div>
+
+              </div>
+            </li>
+          </ul>
+
+
         </div>
       </div>
       <div class="back-face"
@@ -86,7 +87,8 @@
           <h2 style="width: auto;"></h2>
 
           <p><em class="fa fa-user-circle" aria-hidden="true"></em>&nbsp;&nbsp;{{item.username}}</p>
-          <p ><em class="fa fa-eye" aria-hidden="true" style="font-size:20px">&nbsp;&nbsp;</em>{{item?.views}} visitas</p>
+          <p><em class="fa fa-eye" aria-hidden="true" style="font-size:20px">&nbsp;&nbsp;</em>{{item?.views}} visitas
+          </p>
 
           <div class="icons">
             <a type="button" class="btn btn-outline-dark details" href="/itinerarios/{{item.id}}">Detalles</a>
@@ -94,9 +96,6 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 
   <div class="div_pagination" *ngIf="search">
@@ -108,7 +107,7 @@
 
       <div *ngFor="let i of initialPages;">
         <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
-          <a class="page-link "  (click)="switchPage(i)">{{i + 1}}</a>
+          <a class="page-link " (click)="switchPage(i)">{{i + 1}}</a>
 
         </li>
       </div>
@@ -121,6 +120,5 @@
   </div>
 </ng-template>
 <ng-template #noDataPresent>
-<div class="alert alert-danger"> {{noItinerariesFound}}</div>
+  <div class="alert alert-danger"> {{noItinerariesFound}}</div>
 </ng-template>
-

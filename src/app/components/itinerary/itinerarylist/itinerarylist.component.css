@@ -130,3 +130,12 @@ h3 {
 
   
 }*/
+.page-link{
+  color: white;
+  background:  linear-gradient(0.2deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3))!important;
+  border: none!important;
+}
+.page-item.active {
+  background-color: #FB7F64!important;
+  border-color: #FB7F64;
+}

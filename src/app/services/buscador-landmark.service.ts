@@ -42,7 +42,8 @@ export class BuscadorLandmarkService {
     let params = new HttpParams()
     .set('country', country ?? "")
     .set('city', city  ?? "")
-    .set('page', page.toString() ?? "0");
+    .set('page', page.toString() ?? "0")
+    .set('size', '8');
     var req=this.http.get<any>(this.landmarkSearch, {params});
 
     return req;
