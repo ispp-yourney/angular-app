@@ -27,9 +27,9 @@
 
 
 
-    <button type="submit" [disabled]="!formFilter.valid" class="btn btn-primary"> Filtrar</button>
+    <button type="submit" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
-    <a href="/buscadorLandmark" class="btn btn-primary">Resetear</a>
+    <a href="/buscadorLandmark" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
     <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
 

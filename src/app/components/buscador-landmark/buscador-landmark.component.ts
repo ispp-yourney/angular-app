@@ -79,10 +79,7 @@ export class BuscadorLandmarkComponent implements OnInit {
       var res = response;
       this.landmarks= res.content;
       this.totalPages= res.totalPages;
-      console.log(this.landmarks)
-      console.log(this.totalPages)
-      
-       
+
      
       if(this.totalPages>=3 && this.prueba == 0){
         for (let index = 0; index <3; index++) {
@@ -137,13 +134,12 @@ export class BuscadorLandmarkComponent implements OnInit {
                 
                     this.initialPages[index] = this.initialPages[index] + 1
             
-              
-            
                 }
         }
 }  
 }
 }
+
       this.search = true
       //console.log("Itinerarios: ",this.itineraries)
      
@@ -163,7 +159,7 @@ export class BuscadorLandmarkComponent implements OnInit {
       switchPage(page:number){
         
           this.currentPage=page;
-          console.log("La pagina actual es "+ this.currentPage)
+
           this.loadLandmarks(this.formFilter.controls.country.value,this.formFilter.controls.city.value,this.currentPage);
 
       }

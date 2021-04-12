@@ -1,41 +1,44 @@
-<app-menu></app-menu>
- <div class="align-items-center text-center">
-  <h3>
-    Itinerarios de 
-    <h2 >{{username}}</h2>
-  </h3>
+<div class="align-items-center text-center">
   <a *ngIf="loggedUsername == username" class="btn btn-primary" href="/itinerarios/crear">Crear itinerario</a>
 </div>
 <div *ngIf="itineraries.length>0; then thenBlock else elseBlock"></div>
 
 <ng-template #thenBlock>
-  <div class="cards">
+
+  <div class="container container-itineraries" [style.max-height]="loggedUsername===username ? '389px' : '405px'">
     <a class="card-link" href="/itinerarios/{{item.id}}" *ngFor="let item of itineraries">
-      <div class="card">
-        <img class="card-img-top" src={{item.imageUrl}} alt="Card image cap">
-        <div class="details">
-          <h2 class="card-title text-green">{{item.name}}</h2>
-          <p class="card-text">
-            {{item.description}}
-          </p>
-          <div class="card-footer text-right pr-3 pb-3 text-muted"><em class="fa fa-eye" aria-hidden="true" style="font-size:20px"></em> {{item.views}} visitas</div>
-        </div> 
+      <div class="card mb-3 card-my-itineraries" style="margin:5px">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img class="card-img" src={{item.imageUrl}} alt="Card image cap">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 style="text-align:center" class="card-title text-green">{{item.name}}</h5>
+              <p style="color:#333333" class="card-text text-right pr-3 pb-3"><em class="fa fa-eye" aria-hidden="true" style="font-size:20px"></em> {{item.views}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </a>
+ 
+    <div class="div_pagination ">
+      <ul class="pagination pagination-lg">
+          <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
+            <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
+              (click)="switchPage(currentPage-1)">&laquo;</a>
+          </li>
+          <li class="page-item" [ngClass]="{'active': page===currentPage}"
+            *ngFor="let bucle of count(totalPages); let page = index;">
+            <a class="page-link " (click)="switchPage(page)">{{page + 1}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
+            <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
+              (click)="switchPage(currentPage+1)">&raquo;</a>
+          </li>
+        </ul>
+    </div>
   </div>
-<div class="div_pagination ">
-  <ul class="pagination pagination-lg">
-    <li class=" page-item" [ngClass]="{'disabled': pageId==0}">
-      <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;" href="/perfil/{{username}}/itinerarios/{{pageId}}">&laquo;</a>
-    </li>
-    <li class="page-item" [ngClass]="{'active': page===pageId}" *ngFor="let page of totalPages"  >
-      <a class="page-link " href="/perfil/{{username}}/itinerarios/{{page + 1}}">{{page + 1}}</a>
-    </li>
-    <li class="page-item" [ngClass]="{'disabled': (totalPages.length - 1)==pageId}">
-      <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;" href="/perfil/{{username}}/itinerarios/{{pageId + 2}}">&raquo;</a>
-    </li>
-  </ul>
-</div>
 
 </ng-template>
 

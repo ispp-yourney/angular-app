@@ -1,7 +1,7 @@
 
   <app-menu></app-menu>
 
-<div class="container center-block">
+<div class="container center-block container-search">
 
 <form  class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
 
@@ -40,9 +40,9 @@
 
   </div>
 
-  <button type="submit"  [disabled]="!formFilter.valid" class="btn btn-primary"> Filtrar</button>
+  <button type="submit"  [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
-  <a href="/buscador" class="btn btn-primary">Resetear</a>
+  <a href="/buscador" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
 </form>
 
