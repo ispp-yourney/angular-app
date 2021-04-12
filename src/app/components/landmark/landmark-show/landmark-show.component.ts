@@ -19,6 +19,7 @@ export class LandmarkShowComponent implements OnInit {
   isAdmin:boolean;
   containError: boolean = false;
   messageError: string;
+  loaded: boolean = false;
 
   ngOnInit(): void {
     this.loadLandmark();
@@ -32,6 +33,7 @@ export class LandmarkShowComponent implements OnInit {
         //console.log(data)
         this.isAdmin=this.tokenService.getAuthorities().includes('admin')
         this.containError = false
+        this.loaded = true;
       },
       err => {
      //console.log(err)

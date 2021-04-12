@@ -59,15 +59,23 @@ nav {
   }
 
   /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-  @media (max-width: 600px) {
-    nav, article {
-      width: 100%;
-      height: auto;
-    }
-  }
+ 
 
 
 .landmarks{
-  overflow: auto;
-  height: 100vh;
+  overflow: hidden;
+  width: 700px;
+}
+
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+
+  .landmarks{
+    overflow: hidden;
+    width: auto;
+    left: -10px;
+  }
 }

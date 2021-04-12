@@ -23,6 +23,12 @@ export class ItineraryformComponent implements OnInit {
   shareLandmark: string = "none"
 
   itineraryImage: File
+  ocultdAddLandmark: boolean = false;
+
+ 
+
+
+ 
 
   constructor(private formBuilder: FormBuilder,
     private itineraryService: ItineraryService,
@@ -44,7 +50,7 @@ export class ItineraryformComponent implements OnInit {
   }
 
   addDay(){
-
+  
     const day = this.formBuilder.group({
       activities: this.formBuilder.array([], Validators.required)
     });
@@ -54,20 +60,24 @@ export class ItineraryformComponent implements OnInit {
   }
 
   addActivity(pepe: FormArray){
+
+  
     const activity = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      landmark: this.formBuilder.array([]),
-      landmarkId: ['']
+      landmark: this.formBuilder.array([],Validators.required ),
+      landmarkId: [''],
+      searchLandmark: ['none'],
+      action:['true']
       
     });
+
+
 
     pepe.push(activity);
   }
 
   addLandmark(activity: FormArray){
-    
-    
     const landmark = this.formBuilder.group({
       name: ['', Validators.required],
       description2: ['', Validators.required],
@@ -82,27 +92,25 @@ export class ItineraryformComponent implements OnInit {
       website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-
-      landmarkImage: this.formBuilder.control(File)
+      landmarkImage: [this.formBuilder.control(File)]
     });
-
-
-    activity.push(landmark); 
-    
+   
+    activity.controls['landmark'].push(landmark); 
+    activity.controls['action'].setValue("false")
+   
   }
 
   existLandmark(activity: FormGroup, data){
-    console.log("sñoidfhasñoidfhñoasidhf")
-    activity.controls['landmarkId'].setValue(data)
     
-
+    activity.controls['landmarkId'].setValue(data)
+    activity.get('landmark').disable()
   }
 
 
-  clickLandmarkShare(){
-    console.log("ñsdfhjsod")
-    this.shareLandmark = "block"
-    console.log(this.shareLandmark)
+  clickLandmarkShare(activity: FormGroup, data){
+    activity.controls['action'].setValue("false")
+    activity.controls['searchLandmark'].setValue("block")
+   
   }
 
 
@@ -144,28 +152,35 @@ export class ItineraryformComponent implements OnInit {
           for (let activity of day.get('activities')['controls']) {
             let landmark = activity.value.landmarkId
             console.log(activity.value.landmarkId)
-            if(landmark == 'undefined'){
-              let landmark = 0
+            if(landmark == ''){
+               landmark = 0
             }
-            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, activity.value.landmarkId)
+            console.log(activity.get('landmark'))
+            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, landmark)
+           console.log(newAct)
             this.activityService.nuevo(newAct).subscribe(
               data => {
-                //console.log(data)
+                console.log(data)
+                if(landmark == 0){
+                  
+                 var newLand = new LandmarkDto(0, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
+                   activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category,activity.value.landmark[0].email,
+                   activity.value.landmark[0].phone, activity.value.landmark[0].website,activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
+                   console.log(newLand)
+                 this.landmarkService.nuevo(newLand).subscribe(
+                 data => {
+                    //  console.log(data)
+                    //  console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
+                  if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != 'file'){
+                    
+                    this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
+                    }
 
-                // var newLand = new LandmarkDto(0, activity.value.name, activity.value.description2, activity.value.price, activity.value.country,
-                //   activity.value.city, activity.value.latitude, activity.value.longitude, activity.value.category, activity.value.email,
-                //   activity.value.phone, activity.value.website, activity.value.instagram, activity.value.twitter, data.id)
-                // this.landmarkService.nuevo(newLand).subscribe(
-                //   data => {
-                //     //console.log(data)
-                //     if(activity.value.landmarkImage != undefined){
-                //       this.uploadLandmarkImage(activity.value.landmarkImage, data.id)
-                //     }
-
-                //   }, err => {
-                //     //console.log(err)
-                //   })
-
+                 }, err => {
+                   console.log(err)
+                   })
+                  }
+              
               },
               err => {
                 //console.log(err)
@@ -175,12 +190,13 @@ export class ItineraryformComponent implements OnInit {
           }
           dia++;
         }
+        this.router.navigate(['/']);
       },
       err => {
         //console.log(err)
-      }
+      }  
     )
-    this.router.navigate(['/']);
+    
   }
 
   addItineraryImage(files: FileList) {
@@ -189,7 +205,8 @@ export class ItineraryformComponent implements OnInit {
 
   addLandmarkImage(files: FileList, activity: FormGroup) {
     const file = files.item(0)
-    activity.controls['landmarkImage'].setValue(file)
+   
+    activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
   }
 
   uploadItineraryImage(file: File, itineraryId: number) {

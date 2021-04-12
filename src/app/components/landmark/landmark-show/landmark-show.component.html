@@ -20,18 +20,18 @@
             <div class="card-body">
                 <h4 class="card-title titulo">{{landmark?.name}}</h4>
                 <p class="card-text"><em class="fa fa-map-marker" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.city}}, {{landmark?.country}}</p>
-                <img class="card-img-top mb-4" style="border-radius: 10px;" src={{landmark?.image.imageUrl}} alt="Card image cap">
+                <img class="card-img-top mb-4" style="border-radius: 10px;" height="30%" src={{landmark?.image.imageUrl}} alt="Card image cap">
                 <h6 class="card-subtitle mb-2">{{landmark?.description}}</h6>
                 <hr/>
-                <div class="card-body" *ngIf="landmark.email || landmark.phone || landmark.website || landmark.instagram || landmark.twitter">
+                <div class="card-body" *ngIf="landmark?.email || landmark?.phone || landmark?.website || landmark?.instagram || landmark?.twitter">
                     <p class="card-text">Categoría:&nbsp;&nbsp;{{landmark?.category}}</p>
                     <p class="card-text"><em class="fa fa-money" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.price}} €</p>
-                    <p *ngIf="landmark.email" href="#" class="card-text"><em class="fa fa-envelope-o" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.email}}</p>
-                    <p *ngIf="landmark.phone" href="#" class="card-text"><em class="fa fa-phone" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.phone}}</p>
+                    <p *ngIf="landmark?.email" href="#" class="card-text"><em class="fa fa-envelope-o" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.email}}</p>
+                    <p *ngIf="landmark?.phone" href="#" class="card-text"><em class="fa fa-phone" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.phone}}</p>
                     <hr/>
-                    <a *ngIf="landmark.website" href="{{landmark?.website}}" class="card-link"><em class="fa fa-globe" style="font-size:20px">&nbsp;&nbsp;</em></a>
-                    <a *ngIf="landmark.instagram" href="{{landmark?.instagram}}" class="card-link"><em class="fa fa-instagram" style="font-size:20px">&nbsp;&nbsp;</em></a>
-                    <a *ngIf="landmark.twitter" href="{{landmark?.twitter}}" class="card-link"><em class="fa fa-twitter" style="font-size:20px">&nbsp;&nbsp;</em></a>
+                    <a *ngIf="landmark?.website" href="{{landmark?.website}}" class="card-link"><em class="fa fa-globe" style="font-size:20px">&nbsp;&nbsp;</em></a>
+                    <a *ngIf="landmark?.instagram" href="{{landmark?.instagram}}" class="card-link"><em class="fa fa-instagram" style="font-size:20px">&nbsp;&nbsp;</em></a>
+                    <a *ngIf="landmark?.twitter" href="{{landmark?.twitter}}" class="card-link"><em class="fa fa-twitter" style="font-size:20px">&nbsp;&nbsp;</em></a>
                 </div>
                 <div class="card-footer text-right pr-3 pb-3 text-muted"><em class="fa fa-eye" aria-hidden="true" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.views}} visitas</div>    
 
@@ -45,7 +45,7 @@
     
 </section>
 <div class="barra" >
-    <here-map _apikey="_apikey" lat="{{landmark.latitude}}" lng="{{landmark.longitude}}" width=auto height="867px"></here-map>
+    <here-map _apikey="_apikey" *ngIf="loaded" lat="{{landmark.latitude}}" lng="{{landmark.longitude}}" width=auto height="867px"></here-map>
 </div>
 
 
