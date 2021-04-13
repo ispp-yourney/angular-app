@@ -51,3 +51,4 @@ node_modules/*
 #package.json
 src/db/db.json
 #angular.json
+coverage
