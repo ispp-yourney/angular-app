@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { LandmarkService } from './landmark.service';
-import { Landmark, Image, LandmarkDto } from '../models/itinerary';
+import { Landmark, LandmarkDto } from '../models/itinerary';
 import { Observable, of } from 'rxjs';
 
 class HttpClientMock {
@@ -9,13 +9,9 @@ class HttpClientMock {
   post = jasmine.createSpy('httpClient.post');
   put = jasmine.createSpy('httpClient.put')
 }
-class StorageServiceMock {
-  setItem = jasmine.createSpy('storageService.setItem');
-  getItem = jasmine.createSpy('storageService.getItem');
-}
+
 describe('LandmarkService', () => {
   let service: LandmarkService;
-  let storageServiceMock: StorageServiceMock;
   let httpClientMock: HttpClientMock;
   let landmarkMockResponse: Landmark;
   let landmarkMockDto: LandmarkDto;
