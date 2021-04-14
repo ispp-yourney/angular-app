@@ -82,8 +82,8 @@ export class ItineraryformComponent implements OnInit {
       name: ['', Validators.required],
       description2: ['', Validators.required],
       price: ['0', Validators.min(0)],
-      country: [''],
-      city: [''],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
       latitude: ['', [Validators.min(-90), Validators.max(90)]],
       longitude: ['', [Validators.min(-180), Validators.max(180)]],
       category: [''],
@@ -127,6 +127,15 @@ export class ItineraryformComponent implements OnInit {
 
 
   onCreate(): void {
+
+    const wait = (iterId) => {
+      return new Promise((resolve, reject) => {
+        setTimeout( () => {
+         resolve( this.router.navigate(['/itinerarios/' + iterId]).then( () => {window.location.reload()} ))
+        }, 2000)
+      })
+    };
+
     var totalDays = this.formItiner.controls.days as FormArray;
     //console.log(totalDays)
     var numb = totalDays.length;
@@ -191,7 +200,7 @@ export class ItineraryformComponent implements OnInit {
           }
           dia++;
         }
-        this.router.navigate(['/']);
+        wait(data.id)
       },
       err => {
         //console.log(err)

@@ -152,12 +152,12 @@
                               
                               <br>
   
-                              <label for="country">País</label>
-                              <input type="text" id="country" formControlName="country" class="form-control" placeholder="Corea" >
+                              <label for="country">País <span style="color:#ff0000">*</span></label>
+                              <input type="text" id="country" formControlName="country" class="form-control" placeholder="Corea" required>
   
                               <br>
-                              <label for="city">Ciudad</label>
-                              <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul">
+                              <label for="city">Ciudad <span style="color:#ff0000">*</span></label>
+                              <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul" required>
   
                               <br>
                               <label for="latitude">Latitud</label>
@@ -172,9 +172,25 @@
                             
   
                               <br>
+                              <div class="form-group mb-3">
                               <label for="category">Categoría</label>
-                              <input type="text" id="category" formControlName="category" class="form-control" placeholder="Restaurante">
-  
+                              <select class="form-control" id="category" formControlName="category">
+                              <option label="BAR">BAR</option>
+                              <option label="HOTEL">HOTEL</option>
+                              <option label="TIENDA">TIENDA</option>
+                              <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+                              <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+                              <option label="MONUMENTO">MONUMENTO</option>
+                              <option label="RESTAURANTE">RESTAURANTE</option>
+                              <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+                              <option label="SUPERMERCADO">SUPERMERCADO</option>
+                              <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+                              <option label="LIBRERÍA">LIBRERÍA</option>
+                              <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+                              <option label="CHIRINGUITO">CHIRINGUITO</option>
+                              <option label="OTROS">OTROS</option>
+                              </select>
+                              </div>
                               <br>
                               <label for="email">Email</label>
                               <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
