@@ -1,13 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
-import { LandmarkService } from './landmark.service';
-import { Landmark, Image, LandmarkDto, Itinerary, ItineraryDto, Author, Activity } from '../models/itinerary';
 import { Comment } from '../models/comment';
 import { Observable, of } from 'rxjs';
-import { ItineraryService } from './itinerary.service';
-import { ItineraryUserPage } from '../models/itineraryUserPage';
-import { ImageService } from './image.service';
 import { CommentService } from './comment.service';
+import { Author } from '../models/itinerary';
 
 class HttpClientMock {
   get = jasmine.createSpy('httpClient.get');
