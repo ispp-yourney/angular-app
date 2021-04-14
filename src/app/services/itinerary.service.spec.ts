@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { LandmarkService } from './landmark.service';
-import { Landmark, Image, LandmarkDto, Itinerary, ItineraryDto, Author, Activity } from '../models/itinerary';
+import { Landmark, Itinerary, ItineraryDto, Author, Activity } from '../models/itinerary';
 import { Comment } from '../models/comment';
 import { Observable, of } from 'rxjs';
 import { ItineraryService } from './itinerary.service';
@@ -209,7 +209,7 @@ describe('ItineraryService', () => {
       "numberOfElements": 3,
     }
 
-    itineraryMockResponse={
+    itineraryMockResponse = {
       "views": 43,
       "status": "PUBLISHED",
       "description": "Situada en la coste oeste de los Estados Unidos, Los Ángeles es una ciudad de gran atractivo turístico. En este itinerario, os llevaré por algunos de los lugares más interesantes de esta gran ciudad, desde la playa de Venice hasta Hollywood, pasando por el Observatorio Griffith y el distrito comercial.",
@@ -225,7 +225,7 @@ describe('ItineraryService', () => {
       "activities": activities, "author": author, "comments": comments
     }
 
-    itineraryMockDto= new ItineraryDto(0, "Itinerary test", "Description test", 1 ,100, "WINTER", "DRAFT")
+    itineraryMockDto = new ItineraryDto(0, "Itinerary test", "Description test", 1, 100, "WINTER", "DRAFT")
 
   });
 
@@ -275,7 +275,7 @@ describe('ItineraryService', () => {
   });
 
   it('should delete itinerary', () => {
-    const itineraryMockDelete={"text":"Itinerario eliminado correctamente"}
+    const itineraryMockDelete = { "text": "Itinerario eliminado correctamente" }
     const itineraryObservable: Observable<any> = of(itineraryMockDelete);
     httpClientMock.delete.and.returnValue(itineraryObservable);
     service.delete(1)
