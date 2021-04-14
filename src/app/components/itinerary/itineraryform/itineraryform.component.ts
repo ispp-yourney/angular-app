@@ -25,6 +25,7 @@ export class ItineraryformComponent implements OnInit {
   itineraryImage: File
   ocultdAddLandmark: boolean = false;
 
+
  
 
 
@@ -38,8 +39,8 @@ export class ItineraryformComponent implements OnInit {
     private router: Router) {
 
     this.formItiner = formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
+      name: ['',Validators.required, Validators.maxLength(50)],
+      description: ['', [Validators.required, Validators.maxLength(1000)]],
       budget: ['0', [Validators.required, Validators.min(0)]],
       recommendedSeason: ['', Validators.required],
       days: this.formBuilder.array([], Validators.required)
@@ -63,8 +64,8 @@ export class ItineraryformComponent implements OnInit {
 
   
     const activity = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      title: ['',Validators.required, Validators.maxLength(50)],
+      description:  ['', [Validators.required, Validators.maxLength(1000)]],
       landmark: this.formBuilder.array([],Validators.required ),
       landmarkId: [''],
       searchLandmark: ['none'],
@@ -79,17 +80,18 @@ export class ItineraryformComponent implements OnInit {
 
   addLandmark(activity: FormArray){
     const landmark = this.formBuilder.group({
-      name: ['', Validators.required],
-      description2: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description2: ['', [Validators.required, Validators.maxLength(1000)]],
       price: ['0', Validators.min(0)],
-      country: [''],
-      city: [''],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
       latitude: ['', [Validators.min(-90), Validators.max(90)]],
       longitude: ['', [Validators.min(-180), Validators.max(180)]],
       category: [''],
       email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
       website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      // website: [''],
       instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       landmarkImage: [this.formBuilder.control(File)]
@@ -127,6 +129,10 @@ export class ItineraryformComponent implements OnInit {
 
 
   onCreate(): void {
+
+    
+
+
     var totalDays = this.formItiner.controls.days as FormArray;
     //console.log(totalDays)
     var numb = totalDays.length;
@@ -143,6 +149,14 @@ export class ItineraryformComponent implements OnInit {
       data => {
         //console.log(data)
         var dia = 1
+
+        const wait = () => {
+          return new Promise((resolve, reject) => {
+            setTimeout( () => {
+             resolve( this.router.navigate(['/itinerarios/' + data.id]).then( () => {window.location.reload()} ))
+            }, 6000)
+          })
+        };
 
         // add photo
         if(this.itineraryImage!=undefined){
@@ -168,14 +182,15 @@ export class ItineraryformComponent implements OnInit {
                    activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category,activity.value.landmark[0].email,
                    activity.value.landmark[0].phone, activity.value.landmark[0].website,activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
                    console.log(newLand)
+                  
                  this.landmarkService.nuevo(newLand).subscribe(
                  data => {
                     //  console.log(data)
-                    //  console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
-                  if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != 'file'){
-                    
-                    this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
-                    }
+                     console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
+                    if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data){
+                      
+                      this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
+                      }
 
                  }, err => {
                    console.log(err)
@@ -191,7 +206,7 @@ export class ItineraryformComponent implements OnInit {
           }
           dia++;
         }
-        this.router.navigate(['/']);
+       // wait()
       },
       err => {
         //console.log(err)
@@ -206,7 +221,7 @@ export class ItineraryformComponent implements OnInit {
 
   addLandmarkImage(files: FileList, activity: FormGroup) {
     const file = files.item(0)
-   
+    
     activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
   }
 
@@ -231,4 +246,42 @@ export class ItineraryformComponent implements OnInit {
       }
     )
   }
+
+  resetForm(activity: FormGroup){
+    activity.reset()
+
+
+    activity.controls['description'].setValue("")
+    activity.controls['title'].setValue("")
+    
+
+    activity.get('landmark')['controls'].pop()
+   
+
+
+    activity.controls['action'].setValue("true")
+    activity.controls['searchLandmark'].setValue("none")
+    activity.controls['landmarkId'].setValue("")
+
+  
+    }
+  
+    getItineraryPrice(itinerary: FormGroup): Number{
+      let totalPrice: Number = 0;
+
+
+      for (let day of itinerary.get('days')['controls']) {
+        for (let activity of day.get('activities')['controls']) {
+
+          totalPrice = totalPrice + activity.value.landmark[0].price;
+
+
+        }
+      }
+
+      return totalPrice;
+
+
+    }
+
 }

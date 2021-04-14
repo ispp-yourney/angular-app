@@ -21,6 +21,7 @@
                 <label for="description">Descripción</label>
                 <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
               </div>
+              <p>Caracteres disponibles: {{1000-formItiner.get('description').value.length}}</p>
 
               <div class="form-group">
                 <label class="col-form-label" for="budget">Presupuesto<span style="color:#ff0000">*</span></label>
@@ -47,7 +48,7 @@
                 </select>
               </div>
           <div style="text-align:center!important">
-            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!formItiner.valid">Crear</button>
+            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!formItiner.valid">Crear Itinerario</button>
             <button type="button" class="btn btn-primary" style="margin:5px" (click)="addDay()">Añadir nuevo día</button>
           </div>
         </div>
@@ -72,35 +73,62 @@
               </button>
             </div>
 
+            <!-- Delete Day confirmation -->
+
+            <!-- end Delete Day confirmation -->
+
             <div class="card-body mb-3"  style="border: none; ">
 
               <div *ngIf="day.get('activities')['controls'].length > 0" formArrayName="activities">
                 <div *ngFor="let activity of day.get('activities')['controls']; let j=index" [formGroupName]="j">
 
-                  <div class="card mb-3 dropdown">
+                  <div class="card mb-3 dropdown" style="border: none; box-shadow: none; height: 30px;">
 
-                    <div style="text-align:center!important; ">
+           
 
-                      <button type="button" class="btn btn-primary btn-header-card" style="display:inline-block" data-toggle="modal" [attr.data-target]="'#day' +(i+1)+''+(j+1)">
+                      <span  class="btn btn-primary btn-header-card" style="float: left;" data-toggle="modal" [attr.data-target]="'#day' +(i+1)+''+(j+1)" data-backdrop="static" data-keyboard="false">
 
-                        Actividad {{j+1}} &nbsp;&nbsp;
+                        Actividad {{j+1}} {{ activity.get('title').value != null && activity.get('title').value != '' ? ': '+activity.get('title')?.value : ''}} &nbsp;&nbsp;
 
-                        <!--<button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)"> -->
-                          <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
-                        <!--</button>-->
-                      </button>
+                      
 
+                        </span>
+                      
+                  
+                    <div style="position: relative; bottom: 30px; left: 60vw; width: 10px;">
+                      <em type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteActivity' +(i+1)+''+(j+1)" class="fa fa-minus-circle" aria-hidden="true" style="color:rgb(255, 255, 255)"></em>
                     </div>
+                     <!-- Delete Activity confirmation -->
+  
+         
+                  <div class="modal fade" id="DeleteActivity{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                        </div>
+                        <div class="modal-body">
+                          ¿Quieres borrar la actividad?
+                        </div>
+                        <div class="modal-footer">
+                          <a type="button" class="btn btn-secondary"   data-dismiss="modal">Cancelar</a>
+                          <a type="button" class="btn btn-primary" (click)="removeActivity(day.get('activities'), j)" data-dismiss="modal">Confirmar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
 
-                    <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                     <!-- end Delete Day confirmation -->
+
+
+
+                    <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                       <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Actividad {{j+1}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                         
                           </div>
                           <div class="modal-body">
                             <label for="title">Título <span style="color:#ff0000">*</span></label>
@@ -115,9 +143,10 @@
                             <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
                               <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
                             </div>
-                            
+                            <p>Caracteres disponibles: {{1000-activity.get('description').value.length}}</p>
 
                             <div style="text-align:center!important" *ngIf=" activity.controls['action'].value == 'true'">
+                              <label for="description">Punto de interés <span style="color:#ff0000">*</span></label>
                               <a type="button" class="btn btn-primary" style="margin:5px" (click)="clickLandmarkShare(activity)" >Añadir Landmark</a>
                               <a type="button" class="btn btn-primary" style="margin:5px" (click)="addLandmark(activity)">Crear Landmark</a>
                             </div>
@@ -144,28 +173,26 @@
                               <br>
   
                               <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
+                              
                               <textarea id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." cols="30" rows="10" required></textarea>
-                           
+                              <p>Caracteres disponibles: {{1000-activity.get('landmark')['controls'][0]['controls'].description2.value.length}}</p>
                               <br>
                               <label for="price">Precio <span style="color:#ff0000">*</span></label>
                               <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
                               
                               <br>
   
-                              <label for="country">País</label>
+                              <label for="country">País<span style="color:#ff0000">*</span></label>
                               <input type="text" id="country" formControlName="country" class="form-control" placeholder="Corea" >
   
                               <br>
-                              <label for="city">Ciudad</label>
+                              <label for="city">Ciudad<span style="color:#ff0000">*</span></label>
                               <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul">
   
                               <br>
                               <label for="latitude">Latitud</label>
                               <input type="number" id="latitude" formControlName="latitude" class="form-control" placeholder="12">
-                             
-  
-  
-  
+                            
                               <br>
                               <label for="longitude">Longitud</label>
                               <input type="number" id="longitude" formControlName="longitude" class="form-control" placeholder="24">
@@ -188,7 +215,7 @@
   
                               <br>
                               <label for="website">Sitio web</label>
-                              <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com" >
+                              <input  id="website" formControlName="website" class="form-control" placeholder="https://www.website.com" >
                              
                               <br>
                               <label for="instagram">Instagram</label>
@@ -210,28 +237,66 @@
 
 
                             <br>
-                            <label for="category">Categoría</label>
-                            <input type="text" id="category" formControlName="category" class="form-control" placeholder="Restaurante">
-
-                            <br>
-                            <label for="email">Email</label>
-                            <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
+                            
                             <!-- <div class="alert alert-danger"
                             *ngIf="activity.get('email').touched && activity.get('email').invalid">
                               <div *ngIf="activity.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
                               <div *ngIf="activity.get('email').errors.email || activity.get('email').errors.pattern">Formato no válido</div>
                               
                            </div> -->
-                            <br>
+                           
 
                         </div>
                       </div>
                           </div>
 
                           <div class="modal-footer">
-                            
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+                            <a  class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#ConfirmationDay' +(i+1)+''+(j+1)" data-backdrop="static" data-keyboard="false">Cancelar</a>
+                            <button type="button" class="btn btn-primary" [disabled]="!activity.valid" data-dismiss="modal">Crear Actividad</button>
                           </div>
+
+                          <!-- Confirmation Activity modal-->
+         
+                          <div class="modal fade" id="ConfirmationDay{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                                </div>
+                                <div class="modal-body">
+                                  ¿Quieres conservar los datos de la actividad?
+                                </div>
+                                <div class="modal-footer">
+                                  <a type="button" class="btn btn-secondary" (click)="resetForm(activity)" data-dismiss="modal">Cancelar</a>
+                                  <a type="button" class="btn btn-primary" data-dismiss="modal">Confirmar</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        <!-- End activity confirmation modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                       </div>
                     </div>
@@ -247,3 +312,6 @@
     </article>
   </section>
 </form>
+
+
+

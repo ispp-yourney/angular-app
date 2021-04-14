@@ -26,7 +26,7 @@ export class BuscadorLandmarkComponent implements OnInit {
   passData(id: number){
      
       this.landmarkId.emit(id);
-      this.added = "none"
+      
 
   }
   
