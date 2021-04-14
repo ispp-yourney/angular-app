@@ -45,4 +45,28 @@ describe('TokenService', () => {
     let username = service.getUsername();
     expect(username).toBe('username');
   });
+
+  it('should return true from getAuthorities from localStorage after setting authorities', () => {
+    service.setAuthorities(['user','admin'])
+    expect(localStorage.getItem(AUTHORITIES_KEY)).toBeTruthy();
+  });
+
+  it('getting authorities after setting authorities', () => {
+    service.setAuthorities(['user','admin'])
+    let authorities = service.getAuthorities();
+    expect(authorities).toContain('user');
+    expect(authorities).toContain('admin');
+  });
+
+  it('getting authorities after not setting authorities', () => {
+    let authorities = service.getAuthorities();
+    expect(authorities).toEqual([]);
+  });
+
+  it('do logOut', () => {
+    service.logOut();
+    expect(localStorage.length).toEqual(0);
+  });
+
+
 });

@@ -42,7 +42,7 @@ export class TokenService {
     
     if(localStorage.getItem(AUTHORITIES_KEY)){
       JSON.parse(localStorage.getItem(AUTHORITIES_KEY) || '{}').forEach(adfcx => {
-        this.roles.push(adfcx.authority);
+        this.roles.push(adfcx);
       });
     }
    return this.roles;
