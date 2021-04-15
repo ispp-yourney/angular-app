@@ -43,15 +43,6 @@ img {
 }
 
 
-.list-names:after{
-  content: ", ";
-}
-
-.list-names:last-child::after{
-  content: "";
-}
-
-
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

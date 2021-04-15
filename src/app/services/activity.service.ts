@@ -10,25 +10,20 @@ export class ActivityService {
 
   constructor(private httpClient: HttpClient) { }
 
-  //hostURL = 'http://localhost:8080';
-
   hostURL = environment.backendEndpoint;
   
   public nuevo(activity: ActivityDto): Observable<any> {
     var url=this.hostURL + '/activity/create';
-    var req = this.httpClient.post<ActivityDto>(url, activity);
-    return req;
+    return this.httpClient.post<ActivityDto>(url, activity);
   }
 
   public editar(activity: ActivityDto): Observable<any> {
     var url=this.hostURL + '/activity/update';
-    var req = this.httpClient.put<ActivityDto>(url, activity);
-    return req;
+    return this.httpClient.put<ActivityDto>(url, activity);
   }
 
   public borrar(id: number): Observable<any> {
     var url = this.hostURL + '/activity/delete/' + id;
-    var req = this.httpClient.delete<ActivityDto>(url);
-    return req;
+    return this.httpClient.delete<ActivityDto>(url);
   }
 }

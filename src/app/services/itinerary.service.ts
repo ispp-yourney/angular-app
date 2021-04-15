@@ -11,7 +11,6 @@ import {environment} from '../../environments/environment-ci';
 export class ItineraryService {
 
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
-  //hostURL1 = 'http://localhost:3000/itineraries';
   
   hostURL = environment.backendEndpoint;
 
@@ -19,35 +18,29 @@ export class ItineraryService {
     var url=this.hostURL + '/itinerary/user/'+username;
     let params = new HttpParams()
     .set('page', page.toString() ?? "0");
-    var req=this.httpClient.get<ItineraryUserPage>(url, {params});
- 
-    return req;
+    return this.httpClient.get<ItineraryUserPage>(url, {params});
   }
 
   public vista(id:number): Observable<Itinerary> {
     var url=this.hostURL + '/itinerary/show/' + id
-    var req=this.httpClient.get<Itinerary>(url)
-    return req;
+    return this.httpClient.get<Itinerary>(url)
   }
 
   
   
   public nuevo(itinerary: ItineraryDto): Observable<any> {
     var url=this.hostURL + '/itinerary/create';
-    var req = this.httpClient.post<ItineraryDto>(url, itinerary);
-    return req;
+    return this.httpClient.post<ItineraryDto>(url, itinerary);
   }
 
   public editar(itinerary: ItineraryDto): Observable<any> {
     var url=this.hostURL + '/itinerary/update';
-    var req = this.httpClient.put<ItineraryDto>(url, itinerary);
-    return req;
+    return this.httpClient.put<ItineraryDto>(url, itinerary);
   }
   
   public delete(idDelete): Observable<any> {
-    var url=this.hostURL + '/itinerary/delete/' + idDelete
-    var req = this.httpClient.delete(url)
-    return req
+    var url=this.hostURL + '/itinerary/delete/' + idDelete;
+    return this.httpClient.delete(url);
   }
 
 }

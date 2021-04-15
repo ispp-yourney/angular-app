@@ -1,4 +1,4 @@
-export class searchFilter {
+export class SearchFilter {
 
     country: string;
     city: string;

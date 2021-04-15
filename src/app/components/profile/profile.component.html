@@ -10,8 +10,8 @@
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <div>
-                      <img *ngIf="!expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" class="img rounded-circle" width="150">
-                      <img *ngIf="expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" onclick="$('#userPhotoInput').trigger('click');" alt="Add photo" type="button" class="img rounded-circle my-img" width="150">
+                      <img *ngIf="!expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" class="img rounded-circle" alt="Foto de perfil" width="150">
+                      <img *ngIf="expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" onclick="$('#userPhotoInput').trigger('click');" alt="Mi foto de perfil" type="button" class="img rounded-circle my-img" width="150">
                       <input hidden type="file" id="userPhotoInput" (change)="addUserImage($event.target.files)">
                       <div *ngIf="userDetails?.imageUrl!=undefined && userDetails?.imageUrl!='https://www.sinrumbofijo.com/wp-content/uploads/2016/05/default-placeholder.png' && expectedUser">
                         <button type="button" class="btn btn-primary mt-3" (click)="removeUserImage()">Eliminar foto <em class="fa fa-trash" aria-hidden="true"></em></button>
@@ -28,8 +28,6 @@
                       <br><button style="font-size:15px" class="btn mt-2" (click)="changeView()" [disabled]="!showProfile">
                         Itinerarios <i class="fa fa-suitcase" aria-hidden="true"></i>
                       </button>
-                      <!-- <br><a href="/perfil/{{userDetails?.username}}/itinerarios/1" class="btn btn-primary">Datos</a>
-                      <br><a href="/perfil/{{userDetails?.username}}/itinerarios/1" class="btn btn-primary">Itinerarios</a> -->
                     </div>
                   </div>
                 </div>

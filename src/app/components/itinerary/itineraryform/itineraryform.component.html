@@ -85,9 +85,8 @@
 
                         Actividad {{j+1}} &nbsp;&nbsp;
 
-                        <!--<button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)"> -->
-                          <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
-                        <!--</button>-->
+                        <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
+                        
                       </button>
 
                     </div>
@@ -138,9 +137,6 @@
 
                               <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
                               <input type="text" id="name" formControlName="name" class="form-control" placeholder="Bar Itaewon" required>
-                              <!-- <div class="alert alert-danger" *ngIf="activity.get('landmark')[0].touched && activity.get('landmark')[0].invalid">
-                                <div *ngIf="activity.get('landmark')[0].errors.required">No puede quedar vacío</div>
-                              </div> -->
                               <br>
   
                               <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
@@ -232,12 +228,6 @@
                             <br>
                             <label for="email">Email</label>
                             <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
-                            <!-- <div class="alert alert-danger"
-                            *ngIf="activity.get('email').touched && activity.get('email').invalid">
-                              <div *ngIf="activity.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
-                              <div *ngIf="activity.get('email').errors.email || activity.get('email').errors.pattern">Formato no válido</div>
-                              
-                           </div> -->
                             <br>
 
                         </div>

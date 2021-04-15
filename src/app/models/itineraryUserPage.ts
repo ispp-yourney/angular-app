@@ -1,5 +1,4 @@
-import { Itinerary } from "./itinerary";
-import { Landmark } from "./itinerary";
+import { Itinerary, Landmark } from "./itinerary";
 
 export interface ItineraryUserPage {
     content: Itinerary[];

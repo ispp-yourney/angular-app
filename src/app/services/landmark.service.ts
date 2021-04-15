@@ -10,32 +10,26 @@ export class LandmarkService {
 
   constructor(private httpClient: HttpClient) { }
 
-  // hostURL = 'http://localhost:8080';
-
   hostURL = environment.backendEndpoint;
   
   public nuevo(landmark: LandmarkDto): Observable<any> {
     var url=this.hostURL + '/landmark/create';
-    var req = this.httpClient.post<LandmarkDto>(url, landmark);
-    return req;
+    return this.httpClient.post<LandmarkDto>(url, landmark);
   }
 
   public nuevoSinActividad(landmark: LandmarkDto): Observable<any> {
     var url=this.hostURL + '/landmark/create';
-    var req = this.httpClient.post<LandmarkDto>(url, landmark);
-    return req;
+    return this.httpClient.post<LandmarkDto>(url, landmark);
   }
 
   public editar(landmark: LandmarkDto): Observable<any> {
     var url=this.hostURL + '/landmark/update';
-    var req = this.httpClient.put<LandmarkDto>(url, landmark);
-    return req;
+    return this.httpClient.put<LandmarkDto>(url, landmark);
   }
 
   public mostrar(landmarkId: number): Observable<any> {
     var url=this.hostURL + '/landmark/show/'+landmarkId.toString();
-    var req = this.httpClient.get<Landmark>(url);
-    return req;
+    return this.httpClient.get<Landmark>(url);
   }
 
   public upgradeLandmark(landmarkId: number): Observable<any> {
