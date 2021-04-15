@@ -60,7 +60,9 @@
                 <div href="#" *ngFor="let day of days[i]">
 
                                 <div class="card-body">
-                                    <h5 class="card-title">{{day.landmark.name}}</h5>
+                                    <img style="border-radius: 5px; width:100%" src={{day?.landmark.image.imageUrl}} alt=" Imagen del punto de interes">
+                                    <hr/>
+                                    <a href="punto_interes/{{day.landmark.id}}"><h5 class="card-title">{{day.landmark.name}}&nbsp;<em class="fa fa-expand" aria-hidden="true"></em></h5></a>
                                     <h6 class="card-subtitle text-muted">{{day.landmark.description}}</h6>
                                 </div>
                                 <div class="card-body">
