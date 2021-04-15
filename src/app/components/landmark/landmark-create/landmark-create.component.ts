@@ -47,7 +47,7 @@ export class LandmarkCreateComponent implements OnInit {
     var newLand = new LandmarkDto(0, this.formLandmark.value.name, this.formLandmark.value.description2, this.formLandmark.value.price, this.formLandmark.value.country, 
       this.formLandmark.value.city, this.formLandmark.value.latitude, this.formLandmark.value.longitude, this.formLandmark.value.category, this.formLandmark.value.email,
       this.formLandmark.value.phone, this.formLandmark.value.website, this.formLandmark.value.instagram, this.formLandmark.value.twitter,null)
-    this.landmarkService.nuevoSinActividad(newLand).subscribe(
+    this.landmarkService.nuevo(newLand).subscribe(
           data => {
         //console.log(data)
         this.router.navigate(["buscadorLandmark/"]).then( () => window.location.reload())

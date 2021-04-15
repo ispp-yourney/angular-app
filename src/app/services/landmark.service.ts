@@ -20,12 +20,6 @@ export class LandmarkService {
     return req;
   }
 
-  public nuevoSinActividad(landmark: LandmarkDto): Observable<any> {
-    var url=this.hostURL + '/landmark/create';
-    var req = this.httpClient.post<LandmarkDto>(url, landmark);
-    return req;
-  }
-
   public editar(landmark: LandmarkDto): Observable<any> {
     var url=this.hostURL + '/landmark/update';
     var req = this.httpClient.put<LandmarkDto>(url, landmark);
