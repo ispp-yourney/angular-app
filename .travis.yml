@@ -26,9 +26,10 @@ addons:
 script:
   - yes | cp -r bootstrap.css node_modules/bootstrap/dist/css/bootstrap.min.css
   - npm link
-  - webdriver-manager update
-  # - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+  #- webdriver-manager update
+  #- npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
   #- ng e2e
+  - ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   - ng build --prod
   - sonar-scanner
 notifications:
