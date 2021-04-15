@@ -88,9 +88,8 @@
 
                         Actividad {{j+1}} &nbsp;&nbsp;
 
-                        <!--<button type="button" class="btn ml-auto p-2" (click)="removeActivity(day.get('activities'), j)"> -->
                           <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white;"></em>
-                        <!--</button>-->
+
                       </button>
 
                     </div>
@@ -115,7 +114,6 @@
                             <br>
                             <br>
                             <label for="description">Descripción <span style="color:#ff0000">*</span></label>
-                            <!-- <input type="text" id="description" formControlName="description" class="form-control"> -->
                             <textarea id="description" formControlName="description" class="form-control" cols="30" rows="10" placeholder="Nos lo pasamos increíble..."></textarea>
                             <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
                               <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
@@ -132,7 +130,6 @@
                             <br>
 
                             <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
-                            <!-- <input type="text" id="description2" formControlName="description2" class="form-control" > -->
                             <textarea id="description2" formControlName="description2" class="form-control" cols="30" rows="10" placeholder="Comida increíble..."></textarea>
                             <div class="alert alert-danger" *ngIf="activity.get('description2').touched && activity.get('description2').invalid">
                               <div *ngIf="activity.get('description2').errors.required">No puede quedar vacío</div>

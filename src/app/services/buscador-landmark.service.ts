@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment-ci';
-import { SearchFilterLandmark } from '../models/search-filters';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +34,6 @@ export class BuscadorLandmarkService {
     .set('city', city  )
     .set('page', page.toString() )
     .set('size', '8');
-    var req=this.http.get<any>(this.landmarkSearch, {params});
-    return req;
+    return this.http.get<any>(this.landmarkSearch, {params});
   }
 }

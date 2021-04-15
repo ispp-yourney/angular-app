@@ -13,8 +13,6 @@ import {environment} from '../../environments/environment-ci';
 })
 export class AuthService {
   auth = environment.backendEndpoint+'/auth/'
-  //auth='http://localhost:50482/auth/';
-  //auth = 'http://localhost:8080/auth/'
   constructor(private httpClient: HttpClient) { }
 
   public new(newUser: NewUser): Observable<any>{
@@ -23,7 +21,6 @@ export class AuthService {
 
   public login(loginUser: LoginUser): Observable<any>{
     return this.httpClient.post<JwtDto>(this.auth + 'login', loginUser);
-    //return this.httpClient.get<JwtDto>(this.auth+'login');
   }
 
   public showUser(username: String): Observable<any>{

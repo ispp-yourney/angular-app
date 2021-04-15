@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Activity, ActivityDto, Itinerary, ItineraryDto, Landmark, LandmarkDto } from 'src/app/models/itinerary';
+import { Activity, ActivityDto, Itinerary, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ActivityService } from 'src/app/services/activity.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ItineraryService } from 'src/app/services/itinerary.service';
@@ -68,7 +68,6 @@ export class ItineraryupdateComponent implements OnInit {
         
         let activitiesByDay = new Map(Object.entries(this.groupByDay(activities)))
         activitiesByDay.forEach((value, key) => {
-       //console.log(key);
 
           const day = this.formBuilder.group({
             activities: this.formBuilder.array([], Validators.required)
@@ -76,10 +75,8 @@ export class ItineraryupdateComponent implements OnInit {
 
           (this.editForm.controls['days'] as FormArray).push(day)
 
-       //console.log(activitiesByDay.get(key))
 
           let acts = (new Array(activitiesByDay.get(key) as Activity[]))[0];
-       //console.log(acts)
           
           for (let index = 0; index < acts.length; index++) {
             let activityInfo = acts[index]
@@ -112,7 +109,6 @@ export class ItineraryupdateComponent implements OnInit {
         
       },
       err => {
-     //console.log(err)
         var returned_error = err.error.text
         if(returned_error){
           this.router.navigate(["/"]).then( () => {window.location.reload()} )
@@ -198,7 +194,6 @@ export class ItineraryupdateComponent implements OnInit {
     for (let index = 0; index < activities.length; index++) {
       
       if (activities[index].id2 != undefined && activities[index].id2 > 0) {
-        // console.log(activities[index].id2)
         this.activityTrash.push(activities[index].id2);
       }
       
@@ -210,13 +205,11 @@ export class ItineraryupdateComponent implements OnInit {
 
   removeActivity(activityList: FormArray, i: number) {
     let activityId = activityList.controls[i].value['id2']
-    // console.log(activityId)
     if (activityId != undefined && activityId > 0) {
       this.activityTrash.push(activityId);
     }
 
     activityList.removeAt(i);
-    // console.log(this.activityTrash)
   }
 
   groupByDay(array){
@@ -236,30 +229,27 @@ export class ItineraryupdateComponent implements OnInit {
          resolve( this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then( () => {window.location.reload()} ))
         }, 2000)
       })
-    };
+    }
 
 
-    // Borramos las actividades de la lista
     for (let iId of this.activityTrash) {
       this.activityService.borrar(iId).subscribe(
         data => {
-          // console.log(data)
+
         }, err => {
-          // console.log(err)
+          
         }
       )
     }
 
     // Actualizamos itinerario
     var totalDays = this.editForm.controls.days as FormArray;
-    // console.log(totalDays)
     var numb = totalDays.length;
     var newItinerary = new ItineraryDto(this.editForm.value.id,
                                           this.editForm.value.name,
                                           this.editForm.value.description,
                                           numb,
                                           this.editForm.value.budget,
-                                          //this.formItiner.value.image,
                                           this.editForm.value.recommendedSeason,
                                           this.editForm.value.status);
     this.itineraryService.editar(newItinerary).subscribe(

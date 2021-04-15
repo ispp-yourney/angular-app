@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary';
-import { Router ,ActivatedRoute} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,9 +30,6 @@ export class BuscadorResultsComponent implements OnInit {
 
   }
     doItineraries(itineraries: Itinerary[], pageId: number, totalPagesInput: number){
- //console.log('AAAAAAAAAAAAAA ',itineraries)
- //console.log('BBBBBBBBBBBBBB ',pageId)
- //console.log('CCCCCCCCCCCCCC ',totalPagesInput)
 
     var pageArray: Array<Number> = [];
     for (var i = 0; i < totalPagesInput; i++)

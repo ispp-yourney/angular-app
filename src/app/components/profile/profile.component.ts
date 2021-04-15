@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { data } from 'jquery';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivityDto, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ShowUser } from 'src/app/models/show-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
@@ -64,10 +62,8 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
-     //console.log(err)
         this.incorrectUsername=true;
         this.messageError=err.error.text;
-        //this.router.navigateByUrl("/error");
     
       }
     );
@@ -76,7 +72,6 @@ export class ProfileComponent implements OnInit {
   updateUser() {
     this.editForm = this.formBuilder.group({
       username: new FormControl(['', Validators.required]),
-      // password: new FormControl(['', Validators.required]),
       firstName: new FormControl(['', Validators.required]),
       lastName: new FormControl(['', Validators.required]),
       email: new FormControl(['', Validators.required])
@@ -93,7 +88,6 @@ export class ProfileComponent implements OnInit {
         }
 
         this.editForm.controls['username'].setValue(this.userDetails.username);
-        // this.editForm.controls['password'].setValue(this.userDetails.password);
         this.editForm.controls['firstName'].setValue(this.userDetails.firstName);
         this.editForm.controls['lastName'].setValue(this.userDetails.lastName);
         this.editForm.controls['email'].setValue(data.email);
@@ -125,11 +119,10 @@ export class ProfileComponent implements OnInit {
     const file = files.item(0)
     this.imageService.addUserPhoto(file).subscribe(
       data => {
-        //console.log(data)
-        this.showUser(this.username)  // reload page
+        this.showUser(this.username)
       },
       err => {
-        // console.log(err)
+        
       }
     )
   }
@@ -137,11 +130,10 @@ export class ProfileComponent implements OnInit {
   removeUserImage() {
     this.imageService.deleteUserPhoto().subscribe(
       data => {
-        //console.log(data)
-        this.showUser(this.username)  // reload page
+        this.showUser(this.username)
       },
       err => {
-        // console.log(err)
+        
       }
     )
   }
@@ -165,7 +157,7 @@ export class ProfileComponent implements OnInit {
       data => {
         wait()
       }, err => {
-        // console.log(err);
+        
       }
     )
   }

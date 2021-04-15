@@ -3,7 +3,7 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/models/itinerary'
-import { FormBuilder, FormGroup, FormArray, Validators, Form } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 
@@ -179,8 +179,6 @@ export class ItineraryformComponent implements OnInit {
                    console.log(newLand)
                  this.landmarkService.nuevo(newLand).subscribe(
                  data => {
-                    //  console.log(data)
-                    //  console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
                   if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != 'file'){
                     
                     this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)

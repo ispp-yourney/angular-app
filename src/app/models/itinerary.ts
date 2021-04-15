@@ -27,7 +27,6 @@ export class ItineraryDto {
     description: string;
     estimatedDays: number;
     budget: number;
-    //image: string;
     recommendedSeason: string;
     status: string;
 
@@ -38,7 +37,6 @@ export class ItineraryDto {
             this.description = description;
             this.estimatedDays = estimatedDays;
             this.budget = budget;
-            //this.image = image;
             this.recommendedSeason = recommendedSeason;
             this.status = status;
     }
@@ -87,7 +85,7 @@ export interface Landmark {
     city: string
     latitude: number
     longitude: number
-    promoted: boolean
+    endPromotionDate: Date
     category: string
     email: string
     phone: string
@@ -137,6 +135,13 @@ export class LandmarkDto  {
         }
 }
 
+export class UpgradeLandmarkDto {
+    text: string
+
+    constructor(text: string){
+        this.text = text
+    }
+}
 
 
 export interface Author {

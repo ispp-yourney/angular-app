@@ -1,4 +1,3 @@
-import { tokenReference } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -52,31 +51,21 @@ export class RegisterComponent implements OnInit {
                               this.formRegister.value.lastName, 
                               this.formRegister.value.email);
 
- //console.log(this.newUser)
      this.authService.new(this.newUser).subscribe(
       response => {
         var res = response
 
-     //console.log("User " + res.username + "  sucessfully created.")
-
         this.authService.login(new LoginUser(this.formRegister.value.username, 
                                             this.formRegister.value.password)).subscribe(
           response => {
-            //var res = response
             var res = response
     
             this.isLogged = true;
             this.isLoginFail = false;
-    
-         //console.log("User token: " + res.token);
-         //console.log("Username: " + res.username);
-         //console.log("User roles: " + res.authorities);
-    
+
             this.tokenService.setToken(res.token);
             this.tokenService.setUsername(res.username);
             this.tokenService.setAuthorities(res.authorities);
-    
-            // console.log("User " + res.username + "  logged sucessfully.")
 
             this.router.navigate(['/']);
             
@@ -90,7 +79,6 @@ export class RegisterComponent implements OnInit {
               returned_error = 'Ha ocurrido un error'
             }
             this.messageError = returned_error;
-         //console.log(this.messageError)
             
           }
         )
@@ -104,7 +92,6 @@ export class RegisterComponent implements OnInit {
           returned_error = 'Ha ocurrido un error'
         }
         this.messageError = returned_error;
-        // console.log(this.messageError)
 
     
   }

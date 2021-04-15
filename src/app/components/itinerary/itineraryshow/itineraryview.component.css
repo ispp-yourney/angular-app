@@ -2,10 +2,6 @@
     box-sizing: border-box;
   }
 
-  card-space {
-      height: 300000px;
-  }
-
 .card-title {
   text-align: center;
 }
@@ -65,7 +61,6 @@ img {
 }
 
 .btn.btn-primary{
-    width: 40%;
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 1.25rem;

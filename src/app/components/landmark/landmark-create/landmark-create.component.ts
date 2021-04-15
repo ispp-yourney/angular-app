@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto, Activity } from 'src/app/models/itinerary'
+import { LandmarkDto, Activity } from 'src/app/models/itinerary'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -49,11 +49,11 @@ export class LandmarkCreateComponent implements OnInit {
       this.formLandmark.value.phone, this.formLandmark.value.website, this.formLandmark.value.instagram, this.formLandmark.value.twitter,null)
     this.landmarkService.nuevo(newLand).subscribe(
           data => {
-        //console.log(data)
+            
         this.router.navigate(["buscadorLandmark/"]).then( () => window.location.reload())
 
           }, err => {
-        //console.log(err)
+            
           })
       }
 

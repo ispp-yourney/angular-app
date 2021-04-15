@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Activity, Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
-import { CommentformComponent } from '../../comment/commentform/commentform.component';
 
 @Component({
   selector: 'app-itineraryview',
@@ -31,9 +30,7 @@ export class ItineraryViewComponent implements OnInit  {
   loadItinerary(): void {
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
-     //console.log(data)
         this.itinerary = data;
-        //console.log(data)
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
@@ -41,7 +38,6 @@ export class ItineraryViewComponent implements OnInit  {
         this.loadedItineraries = true;
       },
       err => {
-     //console.log(err)
         var returned_error = err.error.text
         if(returned_error == undefined){
           returned_error = 'Ha ocurrido un error'
@@ -61,12 +57,10 @@ export class ItineraryViewComponent implements OnInit  {
   deleteItinerary(): void {
     this.itineraryService.delete(this.itinerary.id).subscribe(
       data => {
-     //console.log(data)
         this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername())
         this.containError = false
       },
       err => {
-     //console.log(err)
         var returned_error = err.error.text
         if(returned_error == undefined){
           returned_error = 'Ha ocurrido un error'

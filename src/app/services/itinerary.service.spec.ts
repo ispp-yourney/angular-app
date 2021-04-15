@@ -63,6 +63,8 @@ describe('ItineraryService', () => {
       "imageUrl": "http://res.cloudinary.com/duriegi68/image/upload/v1618420215/x31d5h5vcptt0etbyj3a.jpg"
     }
 
+    
+    const endPromotionDate = new Date("2021-08-01T00:00:01");
     const landmark1: Landmark = {
       "id": 1,
       "name": "Teatro Chino de Grauman",
@@ -78,7 +80,7 @@ describe('ItineraryService', () => {
       "website": "http://www.tclchinesetheatres.com/",
       "instagram": null,
       "twitter": null,
-      "promoted": false,
+      "endPromotionDate": endPromotionDate,
       "createDate": createDate,
       "views": 44,
       "image": {
@@ -102,7 +104,7 @@ describe('ItineraryService', () => {
       "website": null,
       "instagram": null,
       "twitter": null,
-      "promoted": false,
+      "endPromotionDate": endPromotionDate,
       "createDate": createDate,
       "views": 44,
       "image": {

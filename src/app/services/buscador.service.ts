@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { searchFilter } from '../models/search-filters';
 import { JwtDto } from '../models/jwt-dto';
 import {environment} from '../../environments/environment-ci';
 @Injectable({
@@ -39,10 +38,7 @@ export class BuscadorService {
     .set('maxDays', maxDays.toString())
     .set('page', page.toString())
     .set('size', "8");
-    var req=this.http.get<any>(this.itinerarySearch, {params});
-
-    return req;
-    
+    return this.http.get<any>(this.itinerarySearch, {params});
   }
 
 }

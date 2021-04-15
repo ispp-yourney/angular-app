@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { LandmarkService } from './landmark.service';
-import { Landmark, LandmarkDto } from '../models/itinerary';
+import { Landmark, LandmarkDto, UpgradeLandmarkDto } from '../models/itinerary';
 import { Observable, of } from 'rxjs';
 
 class HttpClientMock {
@@ -15,6 +15,7 @@ describe('LandmarkService', () => {
   let httpClientMock: HttpClientMock;
   let landmarkMockResponse: Landmark;
   let landmarkMockDto: LandmarkDto;
+  let landmarkUpgradeMockDto: UpgradeLandmarkDto;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,6 +31,7 @@ describe('LandmarkService', () => {
     httpClientMock = TestBed.get(HttpClient);
 
     const createDate = new Date("2021-01-01T00:00:01");
+    const endPromotionDate = new Date("2021-08-01T00:00:01");
     landmarkMockResponse = {
       "id": 1,
       "name": "Teatro Chino de Grauman",
@@ -39,9 +41,8 @@ describe('LandmarkService', () => {
       "city": "Los Ángeles",
       "latitude": 34.1022362941919,
       "longitude": -118.34090682908928,
-      //"endPromotionDate": endPromotionDate,
+      "endPromotionDate": endPromotionDate,
       "category": "Cine",
-      "promoted": false,
       "email": "info@chinesetheatres.com",
       "phone": "+(01) 323464514",
       "website": "http://www.tclchinesetheatres.com/",
@@ -57,6 +58,8 @@ describe('LandmarkService', () => {
     };
 
     landmarkMockDto = new LandmarkDto(0, "Landmark test", "This is a landmark text", 0, "string", "string", 0, 0, "string", "string", "string", "string", "string", "string", null)
+
+    landmarkUpgradeMockDto = new UpgradeLandmarkDto("Paypal redirection")
   });
 
   it('should create', () => {
@@ -97,4 +100,14 @@ describe('LandmarkService', () => {
         expect(landmarkResponse.name).toEqual("Landmark test");
       });
   });
+
+  it('should upgrade landmark', () => {
+    const landmarkObservable: Observable<UpgradeLandmarkDto> = of(landmarkUpgradeMockDto);
+    httpClientMock.get.and.returnValue(landmarkObservable);
+    service.upgradeLandmark(1)
+      .subscribe(landmarkResponse => {
+        expect(landmarkResponse.text).toEqual("Paypal redirection")
+      });
+  });
+
 });
