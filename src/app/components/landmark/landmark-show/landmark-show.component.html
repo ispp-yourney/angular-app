@@ -6,16 +6,74 @@
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{{messageError}}.</p></div>
   
-  </ng-template>
+</ng-template>
 
 <ng-template #noError>
-<div class="section">
+
+<div class="container">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body" [ngClass]="{'premium-card': currentlySponsored}">
+                        <div *ngIf="currentlySponsored" style="text-align:center!important">
+                            <img class="premium" src="assets/img/corona.png" alt="Corona punto de interes patrocinado">
+                        </div>
+                        <h4 class="card-title titulo">{{landmark?.name}}</h4>
+                        <p class="card-text"><em class="fa fa-map-marker" >&nbsp;&nbsp;</em>{{landmark?.city}}, {{landmark?.country}}</p>
+                        <img class="card-img-top mb-4" style="border-radius: 10px;" height="30%" src={{landmark?.image.imageUrl}} alt="Card image cap">
+                        <h6 class="card-subtitle mb-2">{{landmark?.description}}</h6>
+                        <hr/>
+                        <div class="card-body" *ngIf="landmark?.email || landmark?.phone || landmark?.website || landmark?.instagram || landmark?.twitter">
+                            <p class="card-text">Categoría:&nbsp;&nbsp;{{landmark?.category}}</p>
+                            <p class="card-text"><em class="fa fa-money" >&nbsp;&nbsp;</em>{{landmark?.price}} €</p>
+                            <p *ngIf="landmark?.email" href="#" class="card-text"><em class="fa fa-envelope-o" >&nbsp;&nbsp;</em>{{landmark?.email}}</p>
+                            <p *ngIf="landmark?.phone" href="#" class="card-text"><em class="fa fa-phone" >&nbsp;&nbsp;</em>{{landmark?.phone}}</p>
+                            <hr/>
+                            <a *ngIf="landmark?.website" href="{{landmark?.website}}" class="card-link"><em class="fa fa-globe">&nbsp;&nbsp;</em></a>
+                            <a *ngIf="landmark?.instagram" href="{{landmark?.instagram}}" class="card-link"><em class="fa fa-instagram" >&nbsp;&nbsp;</em></a>
+                            <a *ngIf="landmark?.twitter" href="{{landmark?.twitter}}" class="card-link"><em class="fa fa-twitter" >&nbsp;&nbsp;</em></a>
+                        </div>
+                        <div style="text-align:center!important; margin:1rem">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" style="white-space:normal;width:100%;font-size:.7rem;background:none" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ¿Te gusta este sitio?<br>¡Patrocinalo!
+                                </button>
+                                <div class="dropdown-menu" style="text-align:center!important;width:100%">
+                                    <button type="button" style="white-space:normal" class="btn dropdown-item" (click)="upgradeLandmark()"><em class="fa fa-credit-card-alt" >&nbsp;&nbsp;</em>Patrocinar (200€)</button>
+                                    <div *ngIf="currentlySponsored">
+                                        <hr/>
+                                        <p class="dropdown-item" style="white-space:normal" *ngIf="currentlySponsored">Próxima fecha de expiración:<br>{{endSponsoredDate}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer text-right pr-3 pb-3"><em class="fa fa-eye" aria-hidden="true" >
+                            &nbsp;&nbsp;</em>{{landmark?.views}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card" style="margin:5px">
+                        <here-map _apikey="_apikey" *ngIf="loaded" lat="{{landmark.latitude}}" lng="{{landmark.longitude}}" width="auto" height="595px"></here-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="section">
 <section class="landmark">
     <nav>
         <div class="header">
-        <h1 class="card-tite marco">{{landmark?.name}}</h1>
-        <hr class="line" >
-    </div>
+            <h1 class="card-tite marco">{{landmark?.name}}</h1>
+            <hr class="line" >
+        </div>
         <div class="card" style="background-color: rgb(243, 243, 243);">
             <div class="card-body">
                 <h4 class="card-title titulo">{{landmark?.name}}</h4>
@@ -33,10 +91,12 @@
                     <a *ngIf="landmark?.instagram" href="{{landmark?.instagram}}" class="card-link"><em class="fa fa-instagram" style="font-size:20px">&nbsp;&nbsp;</em></a>
                     <a *ngIf="landmark?.twitter" href="{{landmark?.twitter}}" class="card-link"><em class="fa fa-twitter" style="font-size:20px">&nbsp;&nbsp;</em></a>
                 </div>
-                <div class="card-footer text-right pr-3 pb-3 text-muted"><em class="fa fa-eye" aria-hidden="true" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.views}} visitas</div>    
+                <div class="card-footer text-right pr-3 pb-3 text-muted"><em class="fa fa-eye" aria-hidden="true" style="font-size:20px">
+                    &nbsp;&nbsp;</em>{{landmark?.views}} visitas
+                </div>    
 
-                </div>
             </div>
+        </div>
 
           
            
@@ -49,7 +109,7 @@
 </div>
 
 
-</div>
+</div> -->
 </ng-template>
 
 

@@ -20,6 +20,8 @@ export class LandmarkShowComponent implements OnInit {
   containError: boolean = false;
   messageError: string;
   loaded: boolean = false;
+  currentlySponsored = false;
+  endSponsoredDate = null;
 
   ngOnInit(): void {
     this.loadLandmark();
@@ -34,6 +36,13 @@ export class LandmarkShowComponent implements OnInit {
         this.isAdmin=this.tokenService.getAuthorities().includes('admin')
         this.containError = false
         this.loaded = true;
+        console.log("Fecha actual " + String(new Date()))
+        console.log("Fecha caducidad " + String(new Date(this.landmark.endPromotionDate)))
+        console.log("Esta sponsorizado? " + (new Date(this.landmark.endPromotionDate) > new Date()))
+        if(new Date(this.landmark.endPromotionDate) > new Date()){
+          this.currentlySponsored = true;
+          this.endSponsoredDate = (new Date(this.landmark.endPromotionDate)).toLocaleString();
+        }
       },
       err => {
      //console.log(err)
@@ -45,6 +54,18 @@ export class LandmarkShowComponent implements OnInit {
         this.containError = true
       }
     );
+  }
+
+  upgradeLandmark(){
+    this.landmarkService.upgradeLandmark(this.landmark.id).subscribe(
+      data => {
+        window.location.href = data.text
+      },
+      err => {
+        this.messageError=err.error.text;
+      }
+    )
+    
   }
 
 }

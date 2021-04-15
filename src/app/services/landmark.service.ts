@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LandmarkDto,Landmark } from '../models/itinerary';
+import { UpgradeLandmarkDto, LandmarkDto,Landmark } from '../models/itinerary';
 import {environment} from '../../environments/environment-ci';
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,9 @@ export class LandmarkService {
     var url=this.hostURL + '/landmark/show/'+landmarkId.toString();
     var req = this.httpClient.get<Landmark>(url);
     return req;
+  }
+
+  public upgradeLandmark(landmarkId: number): Observable<any> {
+    return this.httpClient.get<UpgradeLandmarkDto>(this.hostURL + "/paypal/create/SPONSORSHIP?id=" + landmarkId.toString())
   }
 }

@@ -88,7 +88,7 @@ export interface Landmark {
     city: string
     latitude: number
     longitude: number
-    promoted: boolean
+    endPromotionDate: Date
     category: string
     email: string
     phone: string
@@ -138,6 +138,13 @@ export class LandmarkDto  {
         }
 }
 
+export class UpgradeLandmarkDto {
+    text: string
+
+    constructor(text: string){
+        this.text = text
+    }
+}
 
 
 export interface Author {
