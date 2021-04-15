@@ -24,7 +24,13 @@
 
               <div class="form-group">
                 <label class="col-form-label" for="budget">Presupuesto<span style="color:#ff0000">*</span></label>
-                <input type="number" class="form-control" id="budget" formControlName="budget" value="0" required min="0" placeholder="0">
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control" id="budget" formControlName="budget" value="0" required min="0" placeholder="0">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
+                </div>
+                
                 <div class="alert alert-danger" *ngIf="formItiner.get('budget').touched && formItiner.get('budget').invalid">
                   <div *ngIf="formItiner.get('budget').errors.required">No puede quedar vacío</div>
                   <div *ngIf="formItiner.get('budget').errors.min">El valor mínimo es 0</div>
@@ -144,7 +150,13 @@
                            
                               <br>
                               <label for="price">Precio <span style="color:#ff0000">*</span></label>
-                              <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
+                              <div class="input-group mb-3">
+                                <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">€</span>
+                                </div>
+                              </div>
+                              
                               
                               <br>
   
