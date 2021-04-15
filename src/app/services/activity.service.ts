@@ -24,6 +24,6 @@ export class ActivityService {
 
   public borrar(id: number): Observable<any> {
     var url = this.hostURL + '/activity/delete/' + id;
-    return this.httpClient.delete<ActivityDto>(url);
+    return this.httpClient.delete<any>(url);
   }
 }

@@ -8,7 +8,7 @@ export interface Itinerary {
     budget: number
     estimatedDays: number
     createDate: Date
-    views: 5
+    views: number
     image: Image
     recommendedSeason: string
     activities: Array<Activity>
@@ -73,7 +73,6 @@ export interface Activity {
     description: string
     day: number
     createDate: Date
-    views: number
     landmark: Landmark
 }
 
