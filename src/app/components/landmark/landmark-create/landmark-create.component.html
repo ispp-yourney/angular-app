@@ -28,7 +28,12 @@
           </div>
           <br>
           <label for="price">Precio <span style="color:#ff0000">*</span></label>
-          <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
+          <div class="input-group mb-3">
+            <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
+            <div class="input-group-prepend">
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
           <div class="alert alert-danger" *ngIf="formLandmark.get('price').touched && formLandmark.get('price').invalid">
             <div *ngIf="formLandmark.get('price').errors.required">No puede estar vacío</div>
             <div *ngIf="formLandmark.get('price').errors.min">El precio mínimo es 0</div>
