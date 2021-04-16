@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Activity, ActivityDto, Itinerary, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ActivityService } from 'src/app/services/activity.service';
+import { CountryService } from 'src/app/services/country.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ItineraryService } from 'src/app/services/itinerary.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
@@ -17,7 +18,15 @@ export class ItineraryupdateComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private itineraryService: ItineraryService, private activityService: ActivityService, private landmarkService: LandmarkService, private route: ActivatedRoute, private tokenService: TokenService, private imageService: ImageService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private itineraryService: ItineraryService, 
+    private activityService: ActivityService, 
+    private landmarkService: LandmarkService, 
+    private route: ActivatedRoute, 
+    private tokenService: TokenService, 
+    private imageService: ImageService, 
+    private router: Router, 
+    private formBuilder: FormBuilder,
+    private countryService: CountryService) {
     
     };
 
@@ -33,12 +42,12 @@ export class ItineraryupdateComponent implements OnInit {
   editLandmark: string = "none"
   shareLandmark: string = "none"
 
+  countries: Array<string>
+
   ngOnInit(): void {
 
+    this.countries = this.countryService.getAllCountries()
     
-
-
-
     this.editForm = this.formBuilder.group({
       id: new FormControl(''),
       name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),

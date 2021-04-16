@@ -6,6 +6,7 @@ import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/model
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
+import { CountryService } from 'src/app/services/country.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ItineraryformComponent implements OnInit {
   itineraryImage: File
   ocultdAddLandmark: boolean = false;
 
- 
+  countries: Array<string>
 
 
  
@@ -35,18 +36,22 @@ export class ItineraryformComponent implements OnInit {
     private activityService: ActivityService,
     private landmarkService: LandmarkService,
     private imageService: ImageService,
-    private router: Router) {
+    private router: Router,
+    private countryService: CountryService) {
 
     this.formItiner = formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       budget: ['0', [Validators.required, Validators.min(0)]],
       recommendedSeason: ['', Validators.required],
-      days: this.formBuilder.array([], Validators.required)
+      days: this.formBuilder.array([], Validators.required),
     })
+
+    
   }
 
   ngOnInit(): void {
+    this.countries = this.countryService.getAllCountries()
   }
 
   addDay(){

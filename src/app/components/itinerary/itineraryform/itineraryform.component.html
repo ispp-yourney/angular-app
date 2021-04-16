@@ -149,7 +149,9 @@
                               <br>
   
                               <label for="country">País <span style="color:#ff0000">*</span></label>
-                              <input type="text" id="country" formControlName="country" class="form-control" placeholder="Corea" required>
+                              <select class="form-control" id="country" formControlName="country" required>
+                                <option [value]="item" *ngFor="let item of countries">{{item}}</option>
+                              </select>
   
                               <br>
                               <label for="city">Ciudad <span style="color:#ff0000">*</span></label>

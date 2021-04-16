@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-landmark-create',
@@ -13,8 +14,13 @@ import { Router } from '@angular/router';
 export class LandmarkCreateComponent implements OnInit {
   
   formLandmark: FormGroup;
+  countries: Array<string>
   
-  constructor(private formBuilder: FormBuilder,private landmarkService: LandmarkService, private tokerService: TokenService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder,
+    private landmarkService: LandmarkService, 
+    private tokerService: TokenService, 
+    private router: Router,
+    private countryService: CountryService) { 
 
     
     this.formLandmark = this.formBuilder.group({
@@ -38,7 +44,7 @@ export class LandmarkCreateComponent implements OnInit {
   activity:Activity;
 
   ngOnInit(): void {
-
+    this.countries = this.countryService.getAllCountries()
 
   }
   
