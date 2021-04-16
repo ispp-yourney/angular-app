@@ -13,7 +13,7 @@ import { NewUser } from 'src/app/models/new-user';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  
   userDetails:ShowUser;
   username:String;
   messageError:String;
@@ -27,18 +27,18 @@ export class ProfileComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private tokenServide: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private imageService: ImageService) {
-   }
+  constructor(private tokenService: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private imageService: ImageService) {}
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
 
-    if(String(this.tokenServide.getUsername()) == this.username && this.tokenServide.getToken()){
+    if(String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()){
         this.expectedUser = true;
     }
 
     //Si no es su perfil
     if(!this.expectedUser){
+      this.expectedUser = false;
       this.showUser(this.username);
     }
 
@@ -46,8 +46,6 @@ export class ProfileComponent implements OnInit {
     else {
       this.updateUser();
     }
-    
-    
   }
 
   showUser(username:String){
@@ -94,19 +92,27 @@ export class ProfileComponent implements OnInit {
         
       },
       err => {
-        var returned_error = err.error.text
+        let returned_error = err.error.text
         if(returned_error){
-          this.router.navigate(["/"]).then( () => {window.location.reload()} )
+          this.router.navigate(["/"]).then( () => {this.reloadWindowLocation()} )
         }
         this.messageError = returned_error;
       }
     );
   }
 
+  reloadWindowLocation(){
+    window.location.reload()
+  }
+
+  hrefWindowLocation(data:any){
+    window.location.href= data.text
+  }
+
   upgradeUser(){
     this.authService.upgradeUser().subscribe(
       data => {
-        window.location.href = data.text
+        this.hrefWindowLocation(data)
       },
       err => {
         this.messageError=err.error.text;
@@ -139,14 +145,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpdate() {
-    const wait = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout( () => {
-         resolve( this.router.navigate(['/perfil/' + this.editForm.value.username]).then( () => {window.location.reload()} ))
-        }, 500)
-      })
-    };
-
     //Actualizar perfil
     var editedProfile = new NewUser(this.editForm.value.username,
                                           this.userDetails.password,
@@ -155,7 +153,13 @@ export class ProfileComponent implements OnInit {
                                           this.editForm.value.email);
     this.authService.updateUser(editedProfile).subscribe(
       data => {
-        wait()
+        () => {
+          return new Promise((resolve, reject) => {
+            setTimeout( () => {
+             resolve( this.router.navigate(['/perfil/' + this.editForm.value.username]).then( () => {window.location.reload()} ))
+            }, 500)
+          })
+        };
       }, err => {
         
       }
