@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { LoginUser } from 'src/app/models/login-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -69,7 +69,6 @@ export class LoginComponent implements OnInit {
           returned_error = 'Usuario incorrecto'
         }
         this.messageError = returned_error;
-        //console.log(this.messageError)
         this.toastr.error("Se ha producido un error al iniciar sesión.")
 
         

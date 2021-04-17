@@ -126,12 +126,12 @@ export class ProfileComponent implements OnInit {
     const file = files.item(0)
     this.imageService.addUserPhoto(file).subscribe(
       data => {
-        //console.log(data)
+        
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen cambiada correctamente.")
       },
       err => {
-        // console.log(err)
+      
         this.toastr.error("Se ha producido un error al cambiar la imagen.")
       }
     )
@@ -140,13 +140,12 @@ export class ProfileComponent implements OnInit {
   removeUserImage() {
     this.imageService.deleteUserPhoto().subscribe(
       data => {
-        //console.log(data)
+     
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen eliminada correctamente.")
 
       },
       err => {
-        // console.log(err)
         this.toastr.error("Se ha producido un error al eliminar la imagen.")
 
       }

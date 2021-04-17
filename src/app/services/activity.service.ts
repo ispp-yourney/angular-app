@@ -30,7 +30,7 @@ export class ActivityService {
 
   public show(id: number): Observable<any> {
     var url = this.hostURL + '/activity/show/' + id;
-    var req = this.httpClient.get<ActivityDto>(url);
-    return req;
+    
+    return this.httpClient.get<ActivityDto>(url);
   }
 }

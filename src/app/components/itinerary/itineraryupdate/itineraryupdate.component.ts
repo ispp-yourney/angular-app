@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild } from '@angular/core';
+
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -377,7 +377,7 @@ export class ItineraryupdateComponent implements OnInit {
           }
           dia++;
         }
-        //wait()
+        wait()
         this.toastr.success("Itinerario editado correctamente")
 
       }, err => {
@@ -492,7 +492,6 @@ export class ItineraryupdateComponent implements OnInit {
     }
   
     return inputClass
-    console.log(inputClass)
     }
    
 

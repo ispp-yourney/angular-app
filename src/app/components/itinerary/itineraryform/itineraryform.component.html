@@ -28,16 +28,7 @@
                 </div>
               </div>
              
-            
-<!-- 
-              <div class="form-group">
-                <label class="col-form-label" for="budget">Presupuesto<span style="color:#ff0000">*</span></label>
-                <input type="number" class="{{inputClass(formItiner, 'budget')}}" id="budget" formControlName="budget" required min="0" placeholder="0">
-                <div class="invalid-feedback" *ngIf="formItiner.get('budget').touched && formItiner.get('budget').invalid">
-                  <div *ngIf="formItiner.get('budget').errors.required">No puede quedar vacío</div>
-                  <div *ngIf="formItiner.get('budget').errors.min">El valor mínimo es 0</div>
-                </div>
-              </div> -->
+ 
 
               <div class="form-group">
                 <label class="col-form-label" for="itineraryImage">Imagen</label>
@@ -179,7 +170,7 @@
 
                             <h2 style="color:grey"> {{activity?.get('landmarkName').value}}  </h2>
                             <div style="text-align:center!important">
-                              <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkImage').value}}">
+                              <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkImage').value}}" alt="landmark">
                             </div>
 
                              <div *ngIf="activity.get('landmark')['controls'].length > 0" formArrayName="landmark">
@@ -327,13 +318,7 @@
 
                             <br>
                             
-                            <!-- <div class="alert alert-danger"
-                            *ngIf="activity.get('email').touched && activity.get('email').invalid">
-                              <div *ngIf="activity.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
-                              <div *ngIf="activity.get('email').errors.email || activity.get('email').errors.pattern">Formato no válido</div>
-                              
-                           </div> -->
-                           
+                       
 
                         </div>
                       </div>

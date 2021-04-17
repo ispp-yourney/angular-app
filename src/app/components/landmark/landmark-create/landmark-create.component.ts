@@ -99,7 +99,6 @@ export class LandmarkCreateComponent implements OnInit {
         }
       
         return inputClass
-        console.log(inputClass)
         }
 
         addLandmarkImage(files: FileList) {
