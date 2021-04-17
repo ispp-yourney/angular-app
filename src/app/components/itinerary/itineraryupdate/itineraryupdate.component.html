@@ -20,7 +20,7 @@
               </div>
 
               <div class="form-group">
-                <label for="description">Descripción</label>
+                <label for="description">Descripción<span style="color:#ff0000">*</span></label>
                 <textarea id="description" class="{{inputClass(editForm, 'description')}}"  rows="3" maxlength="1000" formControlName="description"></textarea>
                 <p>Caracteres disponibles: {{1000-editForm.get('description').value.length}}</p>
                 <div class="invalid-feedback " *ngIf="editForm.get('description').touched && editForm.get('description').invalid">
@@ -217,8 +217,11 @@
                               </div>
                               <br>
   
-                              <label for="country">País<span style="color:#ff0000">*</span></label>
-                              <input type="text" id="country" formControlName="country" class="{{inputClass(activity.get('landmark')['controls'][0], 'country')}}" placeholder="Corea" >
+                              <label for="country">País <span style="color:#ff0000">*</span></label>
+                              <select formControlName="country" id="country" class="{{inputClass(activity.get('landmark')['controls'][0], 'country')}}"  required>
+                                <option [value]="item" *ngFor="let item of countries">{{item}}</option>
+                              </select>
+
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('country').touched && activity.get('landmark')['controls'][0].get('country').invalid">
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('country').errors.required">No puede quedar vacío.</div>
                               </div>
@@ -233,25 +236,40 @@
 
                               <br>
                               <label for="latitude">Latitud</label>
-                              <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'latitude')}}" placeholder="12">
+                              <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'latitude')}}" placeholder="12"  >
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('latitude').touched && activity.get('landmark')['controls'][0].get('latitude').invalid">
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.pattern">El valor introducido debe de estar entre -90 y 90</div>
-                              
+                                
                               </div>
-                    
-
+                              
 
                               <br>
                               <label for="longitude">Longitud</label>
-                              <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'longitude')}}" placeholder="24">
+                              <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'longitude')}}" placeholder="24" >
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('longitude').touched && activity.get('landmark')['controls'][0].get('longitude').invalid">
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.pattern">El valor introducido debe de estar entre -180 y 180</div>
-                              
                               </div>
-  
+
                               <br>
-                              <label for="category">Categoría</label>
-                              <input type="text" id="category" formControlName="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}" placeholder="Restaurante">
+                              <div class="form-group mb-3">
+                                <label for="category">Categoría</label>
+                                <select class="form-control" id="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}">
+                                <option label="BAR">BAR</option>
+                                <option label="HOTEL">HOTEL</option>
+                                <option label="TIENDA">TIENDA</option>
+                                <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+                                <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+                                <option label="MONUMENTO">MONUMENTO</option>
+                                <option label="RESTAURANTE">RESTAURANTE</option>
+                                <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+                                <option label="SUPERMERCADO">SUPERMERCADO</option>
+                                <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+                                <option label="LIBRERÍA">LIBRERÍA</option>
+                                <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+                                <option label="CHIRINGUITO">CHIRINGUITO</option>
+                                <option label="OTROS">OTROS</option>
+                                </select>
+                                </div>
   
                               <br>
 

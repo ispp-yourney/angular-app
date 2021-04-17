@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Activity, ActivityDto, Itinerary, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ActivityService } from 'src/app/services/activity.service';
+import { CountryService } from 'src/app/services/country.service';
 
 import { ImageService } from 'src/app/services/image.service';
 import { ItineraryService } from 'src/app/services/itinerary.service';
@@ -27,7 +28,8 @@ export class ItineraryupdateComponent implements OnInit {
     private imageService: ImageService, 
     private router: Router, 
     private formBuilder: FormBuilder,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private countryService: CountryService) {
     
     };
 
@@ -46,6 +48,9 @@ export class ItineraryupdateComponent implements OnInit {
   countries: Array<string>
 
   ngOnInit(): void {
+    this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
+
+    this.countries = this.countryService.getAllCountries()
 
    
     
@@ -163,8 +168,8 @@ export class ItineraryupdateComponent implements OnInit {
       name: ['', Validators.required],
       description2: ['', Validators.required],
       price: ['0', Validators.min(0)],
-      country: [''],
-      city: [''],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
       latitude: ['', Validators.pattern("^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$")],
       longitude: ['', Validators.pattern("^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")],
       category: [''],
@@ -175,6 +180,10 @@ export class ItineraryupdateComponent implements OnInit {
       twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
       landmarkImage: [this.formBuilder.control(File)]
     });
+
+  
+
+
     activity.controls['landmark'].push(landmark); 
     activity.controls['action'].setValue("false") 
   }
@@ -202,6 +211,13 @@ export class ItineraryupdateComponent implements OnInit {
     let aux = this.editForm.get('days') as FormArray;
     let activities = aux.controls[i].value['activities']
 
+
+    if(i == 0){
+
+      this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
+
+    }
+
     this.toastr.success("Día eliminado correctamente")
     for (let index = 0; index < activities.length; index++) {
       
@@ -222,6 +238,7 @@ export class ItineraryupdateComponent implements OnInit {
     if (activityId != undefined && activityId > 0) {
       this.activityTrash.push(activityId);
     }
+    this.toastr.success("Actividad eliminada correctamente")
 
     activityList.removeAt(i);
   }
@@ -343,11 +360,15 @@ export class ItineraryupdateComponent implements OnInit {
                         }
                     }, err => {
                       // console.log(err)
+                      this.toastr.error("Se ha producido un error")
+
                     }
                   )
                 }
                 }, err => {
                   // console.log(err)
+                  this.toastr.error("Se ha producido un error")
+
                 }
               )
             }
@@ -355,9 +376,13 @@ export class ItineraryupdateComponent implements OnInit {
           }
           dia++;
         }
-        wait()
+        //wait()
+        this.toastr.success("Itinerario editado correctamente")
+
       }, err => {
         // console.log(err);
+        this.toastr.error("Se ha producido un error")
+
       }
     )
   }
@@ -492,5 +517,5 @@ export class ItineraryupdateComponent implements OnInit {
       }
 
    
-  
+      
 }

@@ -250,8 +250,25 @@
                               </div>
   
                               <br>
-                              <label for="category">Categoría</label>
-                              <input type="text" id="category" formControlName="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}" placeholder="Restaurante">
+                              <div class="form-group mb-3">
+                                <label for="category">Categoría</label>
+                                <select class="form-control" id="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}">
+                                <option label="BAR">BAR</option>
+                                <option label="HOTEL">HOTEL</option>
+                                <option label="TIENDA">TIENDA</option>
+                                <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+                                <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+                                <option label="MONUMENTO">MONUMENTO</option>
+                                <option label="RESTAURANTE">RESTAURANTE</option>
+                                <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+                                <option label="SUPERMERCADO">SUPERMERCADO</option>
+                                <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+                                <option label="LIBRERÍA">LIBRERÍA</option>
+                                <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+                                <option label="CHIRINGUITO">CHIRINGUITO</option>
+                                <option label="OTROS">OTROS</option>
+                                </select>
+                                </div>
   
                               <br>
 

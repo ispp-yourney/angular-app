@@ -191,7 +191,6 @@ export class ItineraryformComponent implements OnInit {
     
 
     this.getItineraryPrice(this.formItiner)
-    console.log("asdasdasdasdasdas "+this.getItineraryPrice(this.formItiner))
 
     this.newItinerary = new ItineraryDto(0,
       this.formItiner.value.name,
@@ -202,7 +201,6 @@ export class ItineraryformComponent implements OnInit {
       "PUBLISHED");
 
     
-      console.log(this.newItinerary)
 
     //console.log(this.newItinerary)
     this.itineraryService.nuevo(this.newItinerary).subscribe(
@@ -226,13 +224,10 @@ export class ItineraryformComponent implements OnInit {
         for (let day of this.formItiner.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
             let landmark = activity.value.landmarkId
-            console.log(activity.value.landmarkId )
           
             var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, landmark == '' ? 0 : activity.value.landmarkId.id)
-           console.log(newAct)
             this.activityService.nuevo(newAct).subscribe(
               data => {
-                console.log(data)
                 if(landmark == ''){
                   
                  var newLand = new LandmarkDto(0, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
@@ -243,14 +238,12 @@ export class ItineraryformComponent implements OnInit {
                  this.landmarkService.nuevo(newLand).subscribe(
                  data => {
                     //  console.log(data)
-                     console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
                     if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data){
                       
                       this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
                       }
 
                  }, err => {
-                   console.log(err)
                    this.toastr.error("Se ha producido un error")
                    })
                   }
