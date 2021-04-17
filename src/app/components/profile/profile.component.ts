@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
 import { TokenService } from 'src/app/services/token.service';
 import { NewUser } from 'src/app/models/new-user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,13 @@ export class ProfileComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private tokenServide: TokenService, private authService: AuthService,private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private imageService: ImageService) {
+  constructor(private tokenServide: TokenService, 
+              private authService: AuthService,
+              private activatedRoute: ActivatedRoute, 
+              private router: Router, 
+              private formBuilder: FormBuilder, 
+              private imageService: ImageService,
+              private toastr: ToastrService) {
    }
 
   ngOnInit(): void {
@@ -119,10 +126,13 @@ export class ProfileComponent implements OnInit {
     const file = files.item(0)
     this.imageService.addUserPhoto(file).subscribe(
       data => {
-        this.showUser(this.username)
+        
+        this.showUser(this.username)  // reload page
+        this.toastr.success("Imagen cambiada correctamente.")
       },
       err => {
-        
+      
+        this.toastr.error("Se ha producido un error al cambiar la imagen.")
       }
     )
   }
@@ -130,10 +140,14 @@ export class ProfileComponent implements OnInit {
   removeUserImage() {
     this.imageService.deleteUserPhoto().subscribe(
       data => {
-        this.showUser(this.username)
+     
+        this.showUser(this.username)  // reload page
+        this.toastr.success("Imagen eliminada correctamente.")
+
       },
       err => {
-        
+        this.toastr.error("Se ha producido un error al eliminar la imagen.")
+
       }
     )
   }
@@ -156,8 +170,12 @@ export class ProfileComponent implements OnInit {
     this.authService.updateUser(editedProfile).subscribe(
       data => {
         wait()
+        this.toastr.success("Perfil actualizado correctamente.")
+
       }, err => {
-        
+        // console.log(err);
+        this.toastr.success("Se ha producido un error en la actualización del perfil.")
+
       }
     )
   }

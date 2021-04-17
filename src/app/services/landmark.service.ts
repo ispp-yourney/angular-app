@@ -30,4 +30,6 @@ export class LandmarkService {
   public upgradeLandmark(landmarkId: number): Observable<any> {
     return this.httpClient.get<UpgradeLandmarkDto>(this.hostURL + "/paypal/create/SPONSORSHIP?id=" + landmarkId.toString())
   }
+
+  
 }

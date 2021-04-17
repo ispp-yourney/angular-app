@@ -61,12 +61,20 @@ nav {
   /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
  
 
+  .activities{
+    margin-bottom: none!important;
+    height: 30px; 
+  }
 
-
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   nav, article {
     width: 100%;
     height: auto;
+  }
+
+  .activities{
+    margin-bottom: 4vh!important;
+  
   }
 
  

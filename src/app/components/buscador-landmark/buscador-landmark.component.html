@@ -3,7 +3,7 @@
 
 <div class="container center-block">
 
-  <form class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter" (ngSubmit)="onRegister()">
+  <form class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter">
 
 
 
@@ -27,7 +27,7 @@
 
 
 
-    <button type="submit" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
+    <button type="submit" (click)="onRegister()" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
     <a href="/buscadorLandmark" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
@@ -78,14 +78,14 @@
           <div class="icons">
             <a type="button" *ngIf="!create" class="btn btn-outline-dark details"
               href="/punto_interes/{{item.id}}">Detalles</a>
-            <a *ngIf="create" class="btn btn-outline-dark details" (click)="passData(item.id)">Añadir</a>
+            <a *ngIf="create" class="btn btn-outline-dark details" (click)="passData(item)">Añadir</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div [className]="create ? 'addLandmark' : 'div_pagination'" *ngIf="search">
+  <div [className]="create ? 'addLandmark_pagination' : 'div_pagination'" *ngIf="search" style="text-align:center!important">
     <ul class="pagination pagination-lg">
       <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
         <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"

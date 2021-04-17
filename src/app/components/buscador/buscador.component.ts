@@ -54,12 +54,17 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
       this.search = true
 
       if(this.totalPages>=3 && this.prueba == 0){
+        console.log("holi")
+        this.currentPage = 0
+        this.initialPages = []
         for (let index = 0; index <3; index++) {
           this.initialPages.push(index)
           this.prueba++;
         }
       }else{
        if(this.totalPages>0 && this.totalPages <=2 && this.prueba==0){
+        this.currentPage = 0
+        this.initialPages = []
         this.initialPages[0] = 0
         this.prueba++;
       }else{
@@ -111,6 +116,7 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
   }
 
   onRegister(){
+    this.prueba = 0
     this.loadItineraries(this.formFilter.controls.country.value,this.formFilter.controls.city.value, this.formFilter.controls.maxBudget.value, this.formFilter.controls.maxDays.value,0);
   }
 

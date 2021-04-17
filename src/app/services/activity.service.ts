@@ -26,4 +26,11 @@ export class ActivityService {
     var url = this.hostURL + '/activity/delete/' + id;
     return this.httpClient.delete<any>(url);
   }
+
+
+  public show(id: number): Observable<any> {
+    var url = this.hostURL + '/activity/show/' + id;
+    
+    return this.httpClient.get<ActivityDto>(url);
+  }
 }
