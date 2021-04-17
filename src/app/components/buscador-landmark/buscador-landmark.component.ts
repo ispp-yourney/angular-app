@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isFunction } from 'jquery';
-import { Itinerary, Landmark } from 'src/app/models/itinerary';
+import {  Landmark } from 'src/app/models/itinerary';
 import { SearchFilterLandmark } from 'src/app/models/search-filters';
 
 

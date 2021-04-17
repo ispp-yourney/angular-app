@@ -3,11 +3,10 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/models/itinerary'
-import { FormBuilder, FormGroup, FormArray, Validators, Form } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { ToastrService } from 'ngx-toastr';
-import { stringify } from '@angular/compiler/src/util';
 import { CountryService } from 'src/app/services/country.service';
 
 
@@ -48,8 +47,10 @@ export class ItineraryformComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       budget: ['0', [Validators.required, Validators.min(0)]],
       recommendedSeason: ['', Validators.required],
-      days: this.formBuilder.array([], Validators.required)
+      days: this.formBuilder.array([], Validators.required),
     })
+
+    
   }
 
   ngOnInit(): void {
@@ -259,7 +260,7 @@ export class ItineraryformComponent implements OnInit {
           }
           dia++;
         }
-       //wait()
+       wait()
        this.toastr.success("Itinerario creado correctamente")
       },
       err => {

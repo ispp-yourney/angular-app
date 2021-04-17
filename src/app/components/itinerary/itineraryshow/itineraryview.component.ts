@@ -3,8 +3,7 @@ import { Activity, Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
-import { CommentformComponent } from '../../comment/commentform/commentform.component';
-import { stringify } from '@angular/compiler/src/util';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

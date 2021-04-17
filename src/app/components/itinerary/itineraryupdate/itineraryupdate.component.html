@@ -104,7 +104,9 @@
 
                         Actividad {{j+1}} {{ activity.get('title').value != null && activity.get('title').value != '' ? ': '+activity.get('title')?.value+' ' : ''}} {{ activity.invalid ? ' - Estado de la actividad: Incompleta ' : ' - Estado de la actividad: Completa'}} &nbsp;&nbsp;
 
-                      
+                          <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white;"></em>
+
+                    
 
                         </span>
                       

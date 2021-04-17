@@ -103,7 +103,9 @@
 
                         Actividad {{j+1}} {{ activity.get('title').value != null && activity.get('title').value != '' ? ': '+activity.get('title')?.value+' ' : ''}} {{ activity.invalid ? ' - Estado de la actividad: Incompleta ' : ' - Estado de la actividad: Completa'}} &nbsp;&nbsp;
 
-                      
+                        <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
+                        
+                  
 
                         </span>
                       
@@ -208,13 +210,17 @@
 
 
                               <label for="price">Precio <span style="color:#ff0000">*</span></label>
+                        <div class="input-group mb-3">
                               <input type="number" id="price" formControlName="price" class="{{inputClass(activity.get('landmark')['controls'][0], 'price')}}" value="0" required min="0" placeholder="0">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                              </div>
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('price').touched && activity.get('landmark')['controls'][0].get('price').invalid">
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.required">No puede quedar vacío o el formato es incorrecto.</div>
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.min">El precio mínimo debe ser 0.</div>
                               </div>
                               <br>
-  
+                            </div>
 
                               <label for="country">País <span style="color:#ff0000">*</span></label>
                               <select formControlName="country" id="country" class="{{inputClass(activity.get('landmark')['controls'][0], 'country')}}"  required>
