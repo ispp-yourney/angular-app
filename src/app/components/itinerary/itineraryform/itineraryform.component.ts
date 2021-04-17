@@ -6,6 +6,9 @@ import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/model
 import { FormBuilder, FormGroup, FormArray, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
+import { ToastrService } from 'ngx-toastr';
+import { stringify } from '@angular/compiler/src/util';
+import { CountryService } from 'src/app/services/country.service';
 
 
 @Component({
@@ -25,7 +28,7 @@ export class ItineraryformComponent implements OnInit {
   itineraryImage: File
   ocultdAddLandmark: boolean = false;
 
-
+  countries: Array<string>
  
 
 
@@ -36,10 +39,12 @@ export class ItineraryformComponent implements OnInit {
     private activityService: ActivityService,
     private landmarkService: LandmarkService,
     private imageService: ImageService,
-    private router: Router) {
+    private router: Router,
+    private toastr: ToastrService,
+    private countryService: CountryService) {
 
     this.formItiner = formBuilder.group({
-      name: ['',Validators.required, Validators.maxLength(50)],
+      name: ['',[Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       budget: ['0', [Validators.required, Validators.min(0)]],
       recommendedSeason: ['', Validators.required],
@@ -48,6 +53,9 @@ export class ItineraryformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
+    this.countries = this.countryService.getAllCountries()
+
   }
 
   addDay(){
@@ -64,12 +72,15 @@ export class ItineraryformComponent implements OnInit {
 
   
     const activity = this.formBuilder.group({
-      title: ['',Validators.required, Validators.maxLength(50)],
+      title: ['',[Validators.required, Validators.maxLength(50)]],
       description:  ['', [Validators.required, Validators.maxLength(1000)]],
       landmark: this.formBuilder.array([],Validators.required ),
       landmarkId: [''],
       searchLandmark: ['none'],
-      action:['true']
+      action:['true'],
+      landmarkImage:[''],
+      landmarkName:['']
+      
       
     });
 
@@ -85,8 +96,8 @@ export class ItineraryformComponent implements OnInit {
       price: ['0', Validators.min(0)],
       country: ['', Validators.required],
       city: ['', Validators.required],
-      latitude: ['', [Validators.min(-90), Validators.max(90)]],
-      longitude: ['', [Validators.min(-180), Validators.max(180)]],
+      latitude: ['', Validators.pattern("^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$")],
+      longitude: ['', Validators.pattern("^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")],
       category: [''],
       email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
@@ -103,8 +114,11 @@ export class ItineraryformComponent implements OnInit {
   }
 
   existLandmark(activity: FormGroup, data){
-    
+    console.log(data)
     activity.controls['landmarkId'].setValue(data)
+    activity.controls['landmarkImage'].setValue(data.image.imageUrl)
+    activity.controls['landmarkName'].setValue(data.name)
+
     activity.get('landmark').disable()
     activity.controls['searchLandmark'].setValue("none")
   }
@@ -119,12 +133,49 @@ export class ItineraryformComponent implements OnInit {
 
   removeDay(i: number){
     (this.formItiner.get('days') as FormArray).removeAt(i);
+
+    this.toastr.success("Día eliminado correctamente")
+
+    if(i == 0){
+
+      this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
+
+    }
+
   }
 
 
 
   removeActivity(daysList: FormArray, i: number){
     daysList.removeAt(i);
+    this.toastr.success("Actividad eliminada correctamente")
+
+  }
+
+  getItineraryPrice(itinerary: FormGroup){
+
+        let totalPrice: number = 0;
+
+          if(itinerary.get('days')['controls'].length > 0){
+
+            for (let day of itinerary.get('days')['controls']) {
+                if(day.get('activities')['controls'].length > 0){
+                    
+                  for (let activity of day.get('activities')['controls']) {
+                    if(activity.value.landmarkId == '' ){
+                      totalPrice = totalPrice + activity.value.landmark[0].price;
+                      console.log("precio:"+totalPrice)
+                    }else{
+                      totalPrice = totalPrice + activity.value.landmarkId.price;
+                      }
+
+                    }
+                }
+            }
+        }
+
+        return totalPrice;
+
   }
 
 
@@ -136,13 +187,22 @@ export class ItineraryformComponent implements OnInit {
     var totalDays = this.formItiner.controls.days as FormArray;
     //console.log(totalDays)
     var numb = totalDays.length;
+
+    
+
+    this.getItineraryPrice(this.formItiner)
+    console.log("asdasdasdasdasdas "+this.getItineraryPrice(this.formItiner))
+
     this.newItinerary = new ItineraryDto(0,
       this.formItiner.value.name,
       this.formItiner.value.description,
       numb,
-      this.formItiner.value.budget,
+      this.getItineraryPrice(this.formItiner),
       this.formItiner.value.recommendedSeason,
       "PUBLISHED");
+
+    
+      console.log(this.newItinerary)
 
     //console.log(this.newItinerary)
     this.itineraryService.nuevo(this.newItinerary).subscribe(
@@ -154,7 +214,7 @@ export class ItineraryformComponent implements OnInit {
           return new Promise((resolve, reject) => {
             setTimeout( () => {
              resolve( this.router.navigate(['/itinerarios/' + data.id]).then( () => {window.location.reload()} ))
-            }, 6000)
+            }, 3000)
           })
         };
 
@@ -166,17 +226,14 @@ export class ItineraryformComponent implements OnInit {
         for (let day of this.formItiner.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
             let landmark = activity.value.landmarkId
-            console.log(activity.value.landmarkId)
-            if(landmark == ''){
-               landmark = 0
-            }
-            console.log(activity.get('landmark'))
-            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, landmark)
+            console.log(activity.value.landmarkId )
+          
+            var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, landmark == '' ? 0 : activity.value.landmarkId.id)
            console.log(newAct)
             this.activityService.nuevo(newAct).subscribe(
               data => {
                 console.log(data)
-                if(landmark == 0){
+                if(landmark == ''){
                   
                  var newLand = new LandmarkDto(0, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
                    activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category,activity.value.landmark[0].email,
@@ -194,22 +251,27 @@ export class ItineraryformComponent implements OnInit {
 
                  }, err => {
                    console.log(err)
+                   this.toastr.error("Se ha producido un error")
                    })
                   }
               
               },
               err => {
                 //console.log(err)
+                this.toastr.error("Se ha producido un error")
               }
             )
 
           }
           dia++;
         }
-       // wait()
+       wait()
+       this.toastr.success("Itinerario creado correctamente")
       },
       err => {
         //console.log(err)
+       
+        this.toastr.error("Se ha producido un error")
       }  
     )
     
@@ -223,6 +285,7 @@ export class ItineraryformComponent implements OnInit {
     const file = files.item(0)
     
     activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
+    console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage)
   }
 
   uploadItineraryImage(file: File, itineraryId: number) {
@@ -262,26 +325,43 @@ export class ItineraryformComponent implements OnInit {
     activity.controls['action'].setValue("true")
     activity.controls['searchLandmark'].setValue("none")
     activity.controls['landmarkId'].setValue("")
+    activity.controls['landmarkImage'].setValue("")
+    activity.controls['landmarkName'].setValue("")
 
-  
+    if(!activity.valid){
+      this.toastr.error("La actividad no se ha completado.")
+    }
+
     }
   
-    getItineraryPrice(itinerary: FormGroup): Number{
-      let totalPrice: Number = 0;
+    
 
 
-      for (let day of itinerary.get('days')['controls']) {
-        for (let activity of day.get('activities')['controls']) {
+    showActivityCreated(){
+      this.toastr.success("Actividad creada correctamente")
+    }
 
-          totalPrice = totalPrice + activity.value.landmark[0].price;
+    checkActivity(activity: FormGroup){
 
-
-        }
+      if(!activity.valid){
+          this.toastr.error("Actividad no completada")
       }
 
-      return totalPrice;
-
-
     }
+
+inputClass(form:FormGroup,property: string){
+  let inputClass: string;
+
+  if(!form.get(property).touched){
+    inputClass = "form-control"
+  }else if(form?.get(property).touched && form?.get(property).valid){
+    inputClass = "form-control is-valid"
+  }else if(form?.get(property).touched && form?.get(property).invalid){
+    inputClass = "form-control is-invalid"
+  }
+
+  return inputClass
+  }
+ 
 
 }

@@ -37,4 +37,6 @@ export class LandmarkService {
     var req = this.httpClient.get<Landmark>(url);
     return req;
   }
+
+  
 }
