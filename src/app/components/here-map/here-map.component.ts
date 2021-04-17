@@ -54,7 +54,7 @@ export class HereMapComponent implements OnInit {
             this.mapElement.nativeElement,
             defaultLayers.vector.normal.map,
             {
-                zoom: 10,
+                zoom: 15,
                 center: { lat: this.lat, lng: this.lng },
                 marker: marker
             }

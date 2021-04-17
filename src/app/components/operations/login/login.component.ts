@@ -46,24 +46,15 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     this.loginUser = new LoginUser(this.formLogin.value.username, this.formLogin.value.password);
- //console.log(this.loginUser)
     this.authService.login(this.loginUser).subscribe(
       response => {
         var res = response
-        //var res = response[0]
-     //console.log(response)
         this.isLogged = true;
         this.isLoginFail = false;
-
-     //console.log("User token: " + res.token);
-     //console.log("Username: " + res.username);
-     //console.log("User roles: " + res.authorities);
 
         this.tokenService.setToken(res.token);
         this.tokenService.setUsername(res.username);
         this.tokenService.setAuthorities(res.authorities);
-
-     //console.log("User " + res.username + "  logged sucessfully.")
 
         this.router.navigate(['/']);
         this.toastr.success("Sesión iniciada correctamente.")
@@ -90,7 +81,6 @@ export class LoginComponent implements OnInit {
     this.tokenService.logOut();
     window.location.reload();
   }
-
 
 }
 

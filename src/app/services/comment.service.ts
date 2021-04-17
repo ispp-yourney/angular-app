@@ -14,13 +14,11 @@ export class CommentService {
 
   public nuevo(comment: Comment): Observable<any> {
     var url=this.hostURL + '/comment/create';
-    var req = this.httpClient.post<Comment>(url, comment);
-    return req;
+    return this.httpClient.post<Comment>(url, comment);
   }
 
   public borrar(id: number): Observable<any> {
     var url = this.hostURL + '/comment/delete/' + id;
-    var req = this.httpClient.delete<Comment>(url);
-    return req;
+    return this.httpClient.delete<Comment>(url);
   }
 }

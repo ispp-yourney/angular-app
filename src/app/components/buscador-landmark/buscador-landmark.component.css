@@ -37,9 +37,6 @@
     border-radius: 15px 15px 0 0;
     opacity: 0.7;
   }
-  .details{
-    padding: 20px 10px;
-  }
   .details>.card-title{
     color: #000000;
     font-weight: 600;
@@ -225,6 +222,7 @@ i.fab{
     background: linear-gradient(rgba(255, 60, 60, 0.666),
               rgba(204, 47, 47, 0.898));
     border-color: white;
+    padding: 20px 10px;
     
 }
 
@@ -265,7 +263,7 @@ i.fab{
   
   .addLandmark{
     justify-content: center;
-    display: inline-block;;
+    display: inline-block;
     margin:5%;
     position: relative;
     width: auto;
@@ -312,7 +310,7 @@ i.fab{
 
     .addLandmark{
       justify-content: center;
-    display: inline-block;;
+    display: inline-block;
     margin:5%;
     position: relative;
     width: auto;

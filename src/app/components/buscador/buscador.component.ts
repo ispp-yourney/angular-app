@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router ,ActivatedRoute} from '@angular/router';
-import {map, startWith} from 'rxjs/operators';
-import { searchFilter } from 'src/app/models/search-filters';
+import { SearchFilter } from 'src/app/models/search-filters';
 import { BuscadorService } from '../../services/buscador.service';
 import { Itinerary } from 'src/app/models/itinerary';
 
@@ -16,12 +14,10 @@ import { Itinerary } from 'src/app/models/itinerary';
   styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent implements OnInit {
-  //lastResult: string = ""
-  //result : string = "";
   city: string[] = [];
   country: string[] = [];
   formFilter: FormGroup;
-  filter: searchFilter;
+  filter: SearchFilter;
   itineraries: Itinerary[] = [];
   noItinerariesFound:string;
 
@@ -97,8 +93,6 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
 }  
 }
 }
-   //console.log("Itinerarios: ",this.itineraries)
-      //this.router.navigate(['/buscador']); 
       if(!(this.itineraries.length>0)){
         this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."
       }else{
@@ -107,7 +101,7 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
       }
      },
      err => {
-    //console.log(err);
+       
      })                         
   }
 

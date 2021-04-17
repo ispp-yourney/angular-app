@@ -58,8 +58,7 @@ describe('Profile', ()=> {
       
     TestBed.configureTestingModule({
         imports:[
-          Router,
-          ActivatedRoute,
+         
           
         ],
         declarations:[

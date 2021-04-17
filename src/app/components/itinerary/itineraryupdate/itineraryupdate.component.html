@@ -43,7 +43,7 @@
               <div class="form-group">
                 <label class="col-form-label" for="itineraryImage">Imagen</label>
                 <br>
-                <input type="file" id="itineraryImage" class="file-input" (change)="addItineraryImage($event.target.files)">
+                <input type="file" #itineraryImage id="itineraryImage" class="file-input" accept="image/*"  (change)="addItineraryImage($event.target.files, itineraryImage)">
               </div>
 
               <div class="form-group mb-3">
@@ -316,7 +316,9 @@
                             <div class="form-group">
                               <label class="col-form-label" for="landmarkImage">Imagen</label>
                               <br>
-                              <input type="file" id="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
+                              <input type="file" #landmarkImage id="landmarkImage" accept="image/*"  class="file-input"   (change)="addLandmarkImage($event.target.files,activity, landmarkImage)">
+                             
+
                             </div>
 
 
@@ -399,6 +401,3 @@
     </article>
   </section>
 </form>
-
-
-

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto, Activity } from 'src/app/models/itinerary'
+import { LandmarkDto, Activity } from 'src/app/models/itinerary'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CountryService } from 'src/app/services/country.service';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-landmark-create',
@@ -14,8 +16,15 @@ import { ToastrService } from 'ngx-toastr';
 export class LandmarkCreateComponent implements OnInit {
   
   formLandmark: FormGroup;
+  countries: Array<string>
   
-  constructor(private formBuilder: FormBuilder,private landmarkService: LandmarkService, private tokerService: TokenService, private router: Router, private toastr: ToastrService) { 
+  constructor(private formBuilder: FormBuilder,
+    private landmarkService: LandmarkService, 
+    private tokerService: TokenService, 
+    private router: Router,
+    private toastr: ToastrService,
+    private countryService: CountryService,
+    private imageService: ImageService) { 
 
     
     this.formLandmark = this.formBuilder.group({
@@ -31,7 +40,9 @@ export class LandmarkCreateComponent implements OnInit {
             phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
             website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
             instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-            twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")]
+            twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+            landmarkImage: [this.formBuilder.control(File)]
+
   });
 
   }
@@ -39,21 +50,35 @@ export class LandmarkCreateComponent implements OnInit {
   activity:Activity;
 
   ngOnInit(): void {
-
+    this.countries = this.countryService.getAllCountries()
 
   }
   
   onCreate(){
-    
+   
     var newLand = new LandmarkDto(0, this.formLandmark.value.name, this.formLandmark.value.description2, this.formLandmark.value.price, this.formLandmark.value.country, 
       this.formLandmark.value.city, this.formLandmark.value.latitude, this.formLandmark.value.longitude, this.formLandmark.value.category, this.formLandmark.value.email,
       this.formLandmark.value.phone, this.formLandmark.value.website, this.formLandmark.value.instagram, this.formLandmark.value.twitter,null)
     this.landmarkService.nuevo(newLand).subscribe(
           data => {
-        //console.log(data)
-        this.router.navigate(["punto_interes/" + data.id]).then( () => window.location.reload())
-        this.toastr.success("Punto de interés creado correctamente.")
+            const wait = () => {
+              return new Promise((resolve, reject) => {
+                setTimeout( () => {
+                  this.router.navigate(["punto_interes/" + data.id]).then( () => window.location.reload())
+        
+                }, 2000)
+              })
+            }
+        console.log(this.formLandmark.controls['landmarkImage'].value )
+        console.log(data.id)
+        if(this.formLandmark.controls['landmarkImage'].value != undefined && data){
+                      
+          this.uploadLandmarkImage(this.formLandmark.controls['landmarkImage'].value, data.id)
 
+          }
+        
+        this.toastr.success("Punto de interés creado correctamente.")
+        wait()
           }, err => {
         //console.log(err)
         this.toastr.error("Se ha producido un error en la creación del punto de interés.")
@@ -75,6 +100,26 @@ export class LandmarkCreateComponent implements OnInit {
       
         return inputClass
         console.log(inputClass)
+        }
+
+        addLandmarkImage(files: FileList) {
+          const file = files.item(0)
+   
+            
+          this.formLandmark.controls['landmarkImage'].setValue(file)
+      
+         
+        }
+
+        uploadLandmarkImage(file: File, landmarkId: number) {
+          this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
+            data => {
+              // console.log(data)
+            },
+            err => {
+              // console.log(err)
+            }
+          )
         }
 
 

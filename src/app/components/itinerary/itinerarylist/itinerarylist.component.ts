@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class ItinerarylistComponent implements OnInit {
 
   itineraries: Itinerary[] = [];
   numberOfElements: number;
-  //totalPages: Array<Number> = [];
   currentUrl: string;
   username:string;
   loggedUsername:string
@@ -24,12 +23,6 @@ export class ItinerarylistComponent implements OnInit {
   currentPage: number = 0;
   initialPages: Array<number> = [];
   prueba: number  = 0;
-
-  /*@Input()
-  username_input: String;*/
-
- /* @Input()
-  base_url: String;*/
 
 
   ngOnInit(): void {
@@ -81,7 +74,7 @@ export class ItinerarylistComponent implements OnInit {
   }
       },
       err => {
-     //console.log(err);
+        
       }
     );
   }

@@ -1,5 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +7,6 @@ import { SearchFilterLandmark } from 'src/app/models/search-filters';
 
 
 import { BuscadorLandmarkService } from 'src/app/services/buscador-landmark.service';
-import { BuscadorService } from 'src/app/services/buscador.service';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -31,8 +28,6 @@ export class BuscadorLandmarkComponent implements OnInit {
 
   }
   
-  //lastResult: string = ""
-  //result : string = "";
   city: string[] = [];
   name:string[] = [];
   country: string[] = [];
@@ -151,16 +146,15 @@ export class BuscadorLandmarkComponent implements OnInit {
 }
 
       this.search = true
-      //console.log("Itinerarios: ",this.itineraries)
      
-      if(!(this.landmarks.length>0)){
+      if(this.landmarks.length<=0){
         this.noLandmarksFound="No hay puntos de interés según el criterio de busqueda introducido."
       }else{
         this.noLandmarksFound=""
       }
      },
      err => {
-         //console.log(err);
+       
      });
 
     }

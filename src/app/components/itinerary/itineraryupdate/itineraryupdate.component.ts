@@ -1,3 +1,4 @@
+import { ElementRef, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -387,15 +388,73 @@ export class ItineraryupdateComponent implements OnInit {
     )
   }
 
-  addItineraryImage(files: FileList) {
-    this.itineraryImage = files.item(0)
+  addedImages(form: FormGroup){
+    
+    let fileNames: Array<any> = [];
+
+    if(form.get('days')['controls'].length > 0){
+
+      for (let day of form.get('days')['controls']) {
+          if(day.get('activities')['controls'].length > 0){
+              
+            for (let activity of day.get('activities')['controls']) {
+
+              if(activity.value.landmarkId == '' && activity.get('createActivity').value == 'true' && activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined  ){
+                  console.log("fefefw "+activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name )
+                  console.log(fileNames)
+                fileNames.push(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
+                
+              }
+
+              }
+          }
+      }
   }
 
-  addLandmarkImage(files: FileList, activity: FormGroup) {
-    const file = files.item(0)
-    //activity.controls['landmarkImage'].setValue(file)
-    activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
+  return fileNames;
+
   }
+
+  addItineraryImage(files: FileList, value) {
+    const file = files.item(0)
+    let fileNames: Array<any> = this.addedImages(this.editForm)
+    if(fileNames.indexOf(file?.name) == -1){
+      this.itineraryImage = files.item(0)
+
+    }else{
+      value.value = ""
+      
+      
+      this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+    }
+  }
+
+  
+ 
+  
+
+  addLandmarkImage(files: FileList, activity: FormGroup,value) {
+    const file = files.item(0)
+  
+    let fileNames: Array<any> = this.addedImages(this.editForm)
+    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1){
+      
+      activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
+
+    }else{
+      
+        console.log(value)
+        value.value = ""
+      
+      
+      this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+    }
+   
+  }
+
+  
+
+
 
   uploadItineraryImage(file: File, itineraryId: number) {
     this.imageService.addItineraryPhoto(itineraryId, file).subscribe(
