@@ -24,78 +24,73 @@ export class RegisterComponent implements OnInit {
   formRegister: FormGroup;
 
   constructor(private authService: AuthService,
-              private tokenService: TokenService,
-              private router: Router,
-              private formBuilder: FormBuilder) {
+    private tokenService: TokenService,
+    private router: Router,
+    private formBuilder: FormBuilder) {
 
-                this.formRegister = formBuilder.group({
-                  username: ['', Validators.required],
-                  password: ['', Validators.required],
-                  firstName: ['', Validators.required],
-                  lastName: ['', Validators.required],
-                  email: ['', Validators.required]
-                })
-               }
-
-  ngOnInit(): void {
-      if(this.tokenService.getToken()){
-        this.isLogged= true;
-      }
+    this.formRegister = formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required]
+    })
   }
 
-  onRegister(): void{
+  ngOnInit(): void {
+    if (this.tokenService.getToken()) {
+      this.isLogged = true;
+    }
+  }
 
-    this.newUser = new NewUser(this.formRegister.value.username, 
-                              this.formRegister.value.password,
-                              this.formRegister.value.firstName,
-                              this.formRegister.value.lastName, 
-                              this.formRegister.value.email);
+  onRegister(): void {
+    this.newUser = new NewUser(this.formRegister.value.username,
+      this.formRegister.value.password,
+      this.formRegister.value.firstName,
+      this.formRegister.value.lastName,
+      this.formRegister.value.email);
 
-     this.authService.new(this.newUser).subscribe(
+    this.authService.new(this.newUser).subscribe(
       response => {
         var res = response
 
-        this.authService.login(new LoginUser(this.formRegister.value.username, 
-                                            this.formRegister.value.password)).subscribe(
-          response => {
-            var res = response
-    
-            this.isLogged = true;
-            this.isLoginFail = false;
+        this.authService.login(new LoginUser(this.formRegister.value.username,
+          this.formRegister.value.password)).subscribe(
+            response => {
+              var res = response
 
-            this.tokenService.setToken(res.token);
-            this.tokenService.setUsername(res.username);
-            this.tokenService.setAuthorities(res.authorities);
+              this.isLogged = true;
+              this.isLoginFail = false;
 
-            this.router.navigate(['/']);
-            
+              this.tokenService.setToken(res.token);
+              this.tokenService.setUsername(res.username);
+              this.tokenService.setAuthorities(res.authorities);
 
-          }, err =>{
-            this.isLogged = false;
-            this.isLoginFail = true;
+              this.router.navigate(['/']);
 
-            var returned_error = err.error.text
-            if(returned_error == undefined){
-              returned_error = 'Ha ocurrido un error'
+            }, err => {
+              this.isLogged = false;
+              this.isLoginFail = true;
+
+              var returned_error = err.error.text
+              if (returned_error == undefined) {
+                returned_error = 'Ha ocurrido un error'
+              }
+              this.messageError = returned_error;
+
             }
-            this.messageError = returned_error;
-            
-          }
-        )
+          )
 
-      }, err =>{
+      }, err => {
         this.isLogged = false;
         this.isLoginFail = true;
 
         var returned_error = err.error.text
-        if(returned_error == undefined){
+        if (returned_error == undefined) {
           returned_error = 'Ha ocurrido un error'
         }
         this.messageError = returned_error;
-
-    
+      }
+    );
   }
-  );
-  
-}
 }
