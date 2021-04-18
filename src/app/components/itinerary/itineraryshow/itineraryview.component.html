@@ -22,10 +22,11 @@
                 <p class="card-text"><em class="fa fa-calendar" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.estimatedDays}} días</p>
                 <p class="card-text">{{itinerary?.recommendedSeason}}</p>
                 <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
-                <p class="card-text"><strong>Estación recomendada: </strong>{{getSeason(itinerary?.recommendedSeason)}}</p>
-                <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
-                    <a class="btn btn-primary" style="margin:5px" href="itinerarios/actualizar/{{itinerary.id}}">Modificar</a>
-                    <a type="button"  data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteItinerarie' +itinerary?.id" class="btn btn-primary" style="margin:5px">Eliminar</a>
+                    <p class="card-text"><strong>Estación recomendada: </strong>{{getSeason(itinerary?.recommendedSeason)}}</p>
+                    <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
+                        <a class="btn btn-primary" style="margin:5px" href="itinerarios/actualizar/{{itinerary.id}}">Modificar</a>
+                        <a type="button"  data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteItinerarie' +itinerary?.id" class="btn btn-primary" style="margin:5px">Eliminar</a>
+                    </div>
                 </div>
             </div>
         </div>

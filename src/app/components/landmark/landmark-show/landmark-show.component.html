@@ -3,8 +3,9 @@
 
 <ng-template #hasError>
     <div class="alert alert-dismissible alert-danger">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <p>{{messageError}}.</p></div>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p>{{messageError}}.</p>
+    </div>
   
 </ng-template>
 
@@ -46,146 +47,145 @@
                                         <p class="dropdown-item" style="white-space:normal" *ngIf="currentlySponsored">Próxima fecha de expiración:<br>{{endSponsoredDate}}</p>
                                     </div>
                                 </div>
-
-                                <div *ngIf="isAdmin" style="text-align:center!important;width:100%">
-                                    <br>
-                                    <button style="margin:10px" *ngIf="isAdmin && !tieneActividades" type="button" class="btn btn-primary" (click)="onDelete()">
-                                        Eliminar
-                                    </button>
-                                    <button *ngIf="isAdmin" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificar">
-                                        Modificar
-                                    </button>
-
-                                    <div  class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div  class="modal-dialog" role="document">
-                                    <div  class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modificar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                
-                                            <form #f="ngForm" *ngIf="isAdmin" [formGroup]="editForm" (ngSubmit)="onUpdate()">
-
-                                            <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
-                                            <input type="text" id="name" formControlName="name" class="form-control" name="name">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('name').touched && editForm.get('name').invalid">
-                                            <div *ngIf="editForm.get('name').errors.required">No puede quedar vacío</div>
-                                            </div>
-                                            <br>
-
-                                            <label for="description">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
-                                            <textarea name="description" id="description" formControlName="description" class="form-control" cols="30" rows="10"></textarea>
-                                            <div class="alert alert-danger" *ngIf="editForm.get('description').touched && editForm.get('description').invalid">
-                                            <div *ngIf="editForm.get('description').errors.required">No puede quedar vacío</div>
-                                            </div>
-                                            <br>
-                                            <label for="price">Precio <span style="color:#ff0000">*</span></label>
-                                            <div class="input-group mb-3">
-                                            <input type="number" name="price" id="price" formControlName="price" class="form-control" value="0" required min="0">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">€</span>
-                                            </div>
-                                            </div>
-
-                                            <div class="alert alert-danger" *ngIf="editForm.get('price').touched && editForm.get('price').invalid">
-                                            <div *ngIf="editForm.get('price').errors.required">No puede estar vacío</div>
-                                            <div *ngIf="editForm.get('price').errors.min">El precio mínimo es 0</div>
-                                            </div>
-                                            <br>
-        
-                                            <label for="country">País</label>
-                                            <input name="country" id="country" class="form-control" formControlName="country"
-                                                required minlength="3" maxlength="25" readonly>
-
-
-                                            <br>
-                                            <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
-                                            <input type="number" id="latitude" formControlName="latitude" class="form-control" required placeholder="12">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('latitude').touched && editForm.get('latitude').invalid">
-                                            <div *ngIf="editForm.get('latitude').errors.min || editForm.get('latitude').errors.max">El valor introducido debe de estar entre -90 y 90</div>
-                                            <div *ngIf="editForm.get('latitude').errors.pattern">El formato es inválido</div>
-                                            </div>
-
-
-
-                                            <br>
-                                            <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
-                                            <input type="number" id="longitude" formControlName="longitude" class="form-control" required placeholder="24">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('longitude').touched && editForm.get('longitude').invalid">
-                                            <div *ngIf="editForm.get('longitude').errors.min || editForm.get('longitude').errors.max">El valor introducido debe de estar entre -180 y 180</div>
-                                            <div *ngIf="editForm.get('longitude').errors.pattern">El formato es inválido</div>
-                                            </div>
-
-                                            <!--<div class="form-group">
-                                            <label class="col-form-label" for="landmarkImage">Imagen</label>
-                                            <br>
-                                            <input type="file" id="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
-                                            </div> -->
-
-                                            <br>
-                                            <label for="category">Categoría</label>
-                                            <input type="text" id="category" formControlName="category" class="form-control" readonly>
-                                            
-
-                                            <br>
-                                            <label for="email">Email</label>
-                                            <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
-                                            <div class="alert alert-danger"
-                                            *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
-                                            <div *ngIf="editForm.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
-                                            <div *ngIf="editForm.get('email').errors.email || editForm.get('email').errors.pattern">Formato no válido</div>
-                              
-                                            </div>
-                                            <br>
-
-                                            <label for="phone">Teléfono</label>
-                                            <input type="text" id="phone" formControlName="phone" class="form-control" placeholder="+(82) 847192673">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('phone').touched && editForm.get('phone').invalid">
-                                                <div *ngIf="editForm.get('phone').errors.pattern">El formato es incorrecto</div>
-                                            </div>
-
-                                            <br>
-                                            <label for="website">Sitio web</label>
-                                            <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('website').touched && editForm.get('website').invalid">
-                                            <div *ngIf="editForm.get('website').errors.pattern">Debe ser una URL</div>
-                                            </div>
-
-                                            <br>
-                                            <label for="instagram">Instagram</label>
-                                            <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('instagram').touched && editForm.get('instagram').invalid">
-                                            <div *ngIf="activity.get('instagram').errors.pattern">Debe ser una URL</div>
-                                            </div>
-
-                                            <br>
-                                            <label for="twitter">Twitter</label>
-                                            <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
-                                            <div class="alert alert-danger" *ngIf="editForm.get('twitter').touched && editForm.get('twitter').invalid">
-                                            <div *ngIf="editForm.get('twitter').errors.pattern">Debe ser una URL</div>
-                                        </div>
-                                            <div style="text-align:center!important">
-                                                <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
-                                            </div>
-                                        </form>  
-                                        </div>
-                                        
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
                             </div>
+                            <div *ngIf="isAdmin" style="text-align:center!important;width:100%">
+                                <br>
+                                <button style="margin:10px" *ngIf="isAdmin && !tieneActividades" type="button" class="btn btn-primary" (click)="onDelete()">
+                                    Eliminar
+                                </button>
+                                <button *ngIf="isAdmin" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificar">
+                                    Modificar
+                                </button>
 
-                        </div>
+                                <div  class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div  class="modal-dialog" role="document">
+                                        <div  class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Modificar</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                
+                                                <form #f="ngForm" *ngIf="isAdmin" [formGroup]="editForm" (ngSubmit)="onUpdate()">
+
+                                                <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
+                                                <input type="text" id="name" formControlName="name" class="form-control" name="name">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('name').touched && editForm.get('name').invalid">
+                                                    <div *ngIf="editForm.get('name').errors.required">No puede quedar vacío</div>
+                                                </div>
+                                                <br>
+
+                                                <label for="description">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
+                                                <textarea name="description" id="description" formControlName="description" class="form-control" cols="30" rows="10"></textarea>
+                                                <div class="alert alert-danger" *ngIf="editForm.get('description').touched && editForm.get('description').invalid">
+                                                    <div *ngIf="editForm.get('description').errors.required">No puede quedar vacío</div>
+                                                </div>
+                                                <br>
+                                            
+                                                <label for="price">Precio <span style="color:#ff0000">*</span></label>
+                                                <div class="input-group mb-3">
+                                                    <input type="number" name="price" id="price" formControlName="price" class="form-control" value="0" required min="0">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">€</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="alert alert-danger" *ngIf="editForm.get('price').touched && editForm.get('price').invalid">
+                                                    <div *ngIf="editForm.get('price').errors.required">No puede estar vacío</div>
+                                                    <div *ngIf="editForm.get('price').errors.min">El precio mínimo es 0</div>
+                                                </div>
+                                                <br>
+        
+                                                <label for="country">País</label>
+                                                <input name="country" id="country" class="form-control" formControlName="country"
+                                                    required minlength="3" maxlength="25" readonly>
+                                                <br>
+                                            
+                                                <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
+                                                <input type="number" id="latitude" formControlName="latitude" class="form-control" required placeholder="12">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('latitude').touched && editForm.get('latitude').invalid">
+                                                    <div *ngIf="editForm.get('latitude').errors.min || editForm.get('latitude').errors.max">El valor introducido debe de estar entre -90 y 90</div>
+                                                    <div *ngIf="editForm.get('latitude').errors.pattern">El formato es inválido</div>
+                                                </div>
+
+
+
+                                                <br>
+                                                <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
+                                                <input type="number" id="longitude" formControlName="longitude" class="form-control" required placeholder="24">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('longitude').touched && editForm.get('longitude').invalid">
+                                                    <div *ngIf="editForm.get('longitude').errors.min || editForm.get('longitude').errors.max">El valor introducido debe de estar entre -180 y 180</div>
+                                                    <div *ngIf="editForm.get('longitude').errors.pattern">El formato es inválido</div>
+                                                </div>
+
+                                                    <!--<div class="form-group">
+                                                    <label class="col-form-label" for="landmarkImage">Imagen</label>
+                                                    <br>
+                                                    <input type="file" id="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
+                                                    </div> -->
+
+                                                <br>
+                                                <label for="category">Categoría</label>
+                                                <input type="text" id="category" formControlName="category" class="form-control" readonly>
+                                                <br>
+                                            
+                                                <label for="email">Email</label>
+                                                <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
+                                                    <div *ngIf="editForm.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                                                    <div *ngIf="editForm.get('email').errors.email || editForm.get('email').errors.pattern">Formato no válido</div>                              
+                                                </div>
+                                                <br>
+
+                                                <label for="phone">Teléfono</label>
+                                                <input type="text" id="phone" formControlName="phone" class="form-control" placeholder="+(82) 847192673">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('phone').touched && editForm.get('phone').invalid">
+                                                    <div *ngIf="editForm.get('phone').errors.pattern">El formato es incorrecto</div>
+                                                </div>
+
+                                                <br>
+                                                <label for="website">Sitio web</label>
+                                                <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('website').touched && editForm.get('website').invalid">
+                                                    <div *ngIf="editForm.get('website').errors.pattern">Debe ser una URL</div>
+                                                </div>
+
+                                                <br>
+                                                <label for="instagram">Instagram</label>
+                                                <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('instagram').touched && editForm.get('instagram').invalid">
+                                                    <div *ngIf="activity.get('instagram').errors.pattern">Debe ser una URL</div>
+                                                </div>
+
+                                                <br>
+                                                <label for="twitter">Twitter</label>
+                                                <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
+                                                <div class="alert alert-danger" *ngIf="editForm.get('twitter').touched && editForm.get('twitter').invalid">
+                                                    <div *ngIf="editForm.get('twitter').errors.pattern">Debe ser una URL</div>
+                                                </div>
+                                                    
+                                                <div style="text-align:center!important">
+                                                    <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
+                                                </div>
+                                                    
+                                                </form>  
+                                            </div><!--modalBody-->
+                                        
+                                        </div><!--modalContent-->
+                                    </div><!--modalDialog-->
+                                </div> <!--Modal-->
+                            </div><!--isAdmin-->
+                            <!--</div> creo que es este, pero sigue fallando -->
+
+                        </div><!--textAlign-->
                         <div class="card-footer text-right pr-3 pb-3"><em class="fa fa-eye" aria-hidden="true" >
                             &nbsp;&nbsp;</em>{{landmark?.views}}
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </div><!--cardBody-->
+                </div><!--card-->
+            </div><!--colmd4-->
 
             <div class="col-md-8">
                 <div class="card mb-3">
@@ -194,53 +194,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </div><!--rowGutters-->
+    </div><!--mainBody-->
+</div><!--container-->
 
-<!-- <div class="section">
-<section class="landmark">
-    <nav>
-        <div class="header">
-            <h1 class="card-tite marco">{{landmark?.name}}</h1>
-            <hr class="line" >
-        </div>
-        <div class="card" style="background-color: rgb(243, 243, 243);">
-            <div class="card-body">
-                <h4 class="card-title titulo">{{landmark?.name}}</h4>
-                <p class="card-text"><em class="fa fa-map-marker" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.city}}, {{landmark?.country}}</p>
-                <img class="card-img-top mb-4" style="border-radius: 10px;" height="30%" src={{landmark?.image.imageUrl}} alt="Card image cap">
-                <h6 class="card-subtitle mb-2">{{landmark?.description}}</h6>
-                <hr/>
-                <div class="card-body" *ngIf="landmark?.email || landmark?.phone || landmark?.website || landmark?.instagram || landmark?.twitter">
-                    <p class="card-text">Categoría:&nbsp;&nbsp;{{landmark?.category}}</p>
-                    <p class="card-text"><em class="fa fa-money" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.price}} €</p>
-                    <p *ngIf="landmark?.email" href="#" class="card-text"><em class="fa fa-envelope-o" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.email}}</p>
-                    <p *ngIf="landmark?.phone" href="#" class="card-text"><em class="fa fa-phone" style="font-size:20px">&nbsp;&nbsp;</em>{{landmark?.phone}}</p>
-                    <hr/>
-                    <a *ngIf="landmark?.website" href="{{landmark?.website}}" class="card-link"><em class="fa fa-globe" style="font-size:20px">&nbsp;&nbsp;</em></a>
-                    <a *ngIf="landmark?.instagram" href="{{landmark?.instagram}}" class="card-link"><em class="fa fa-instagram" style="font-size:20px">&nbsp;&nbsp;</em></a>
-                    <a *ngIf="landmark?.twitter" href="{{landmark?.twitter}}" class="card-link"><em class="fa fa-twitter" style="font-size:20px">&nbsp;&nbsp;</em></a>
-                </div>
-                <div class="card-footer text-right pr-3 pb-3 text-muted"><em class="fa fa-eye" aria-hidden="true" style="font-size:20px">
-                    &nbsp;&nbsp;</em>{{landmark?.views}} visitas
-                </div>    
-
-            </div>
-        </div>
-
-          
-           
-
-    </nav>
-    
-</section>
-<div class="barra" >
-    <here-map _apikey="_apikey" *ngIf="loaded" lat="{{landmark.latitude}}" lng="{{landmark.longitude}}" width=auto height="867px"></here-map>
-</div>
-
-
-</div> -->
 </ng-template>
 
 
