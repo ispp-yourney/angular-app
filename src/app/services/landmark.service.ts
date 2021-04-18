@@ -30,4 +30,18 @@ export class LandmarkService {
   public upgradeLandmark(landmarkId: number): Observable<any> {
     return this.httpClient.get<UpgradeLandmarkDto>(this.hostURL + "/paypal/create/SPONSORSHIP?id=" + landmarkId.toString())
   }
+
+  public updateLandmark(updateLandmark: LandmarkDto): Observable<any>{
+    return this.httpClient.put<any>(this.hostURL + '/landmark/update', updateLandmark);
+  }
+
+  public deleteLandmark(id: number): Observable<any> {
+    var url = this.hostURL + '/landmark/delete/' + id;
+    return this.httpClient.delete<any>(url);
+  }
+
+  public tieneActividades(landmarkId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(this.hostURL + "/landmark/hasActivity/" + landmarkId.toString())
+  }
+
 }
