@@ -10,6 +10,8 @@
           max-width: 305px;
       }
   }
+
+  
   .card{
     height: 100%;
     border-radius: 15px;
@@ -197,7 +199,8 @@ i.fab{
     position: relative;
     left:25vw;
     width: 70vw;
-    
+    zoom: 100%;
+    min-height: 2px;
     
    
   }
@@ -207,8 +210,9 @@ i.fab{
 .landmarkAdd{
   position: relative;
   left:12vw;
-  width: 35vw;
-  
+  zoom: 0.8;
+  /* width: 35vw;
+  zoom: 0.5; */
 
 }
 
@@ -264,7 +268,15 @@ i.fab{
     position: relative;
     width: auto;
     left: 15vw;
-    top: 20px;
+    top:146vh;
+  }
+
+  .addLandmark_pagination{
+    justify-content: center;
+    display: inline-block;
+    position: absolute;
+    width: auto;
+    bottom:0rem;
   }
 
 
@@ -315,5 +327,3 @@ i.fab{
   left:45vw;
 }
   }
-
-   

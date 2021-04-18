@@ -8,6 +8,7 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { TokenService } from 'src/app/services/token.service';
 
 import { Options } from "@angular-slider/ngx-slider";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-commentform',
@@ -38,7 +39,10 @@ export class CommentformComponent implements OnInit {
   @Input()
   itinerary:Itinerary
 
-  constructor(private formBuilder: FormBuilder, private itineraryService: ItineraryService,private commentService: CommentService, private tokenService: TokenService, private router: ActivatedRoute,private route:Router) { 
+  constructor(private formBuilder: FormBuilder, private itineraryService: ItineraryService,
+    private commentService: CommentService, private tokenService: TokenService,
+     private router: ActivatedRoute,private route:Router,
+     private toastr: ToastrService) { 
 
           this.formComment = formBuilder.group({
             content: ['', Validators.required],
@@ -80,9 +84,13 @@ onCreate(){
   this.commentService.nuevo(this.comment).subscribe(
     data => {
       //console.log(data)
+      this.toastr.success("Comentario realizado correctamente.")
+
       this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {window.location.reload()} )
     }
   ,err=>{
+    this.toastr.error("Se ha producido un error en la publicación del comentario.")
+
     console.log(err)
   }
   )
@@ -93,8 +101,11 @@ removeComment(commentId:number){
   this.commentService.borrar(commentId).subscribe(data => {
     // console.log(data)
     this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {window.location.reload()} )
+    this.toastr.success("Comentario eliminado correctamente.")
   }, err => {
     // console.log(err)
+    this.toastr.error("Se ha producido un error en la eliminación del comentario.")
+
   })
 
 }

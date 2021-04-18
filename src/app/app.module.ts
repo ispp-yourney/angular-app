@@ -26,6 +26,7 @@ import { BuscadorLandmarkComponent } from './components/buscador-landmark/buscad
 import { LandmarkShowComponent } from './components/landmark/landmark-show/landmark-show.component';
 import { HereMapComponent } from './components/here-map/here-map.component';
 import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { LandmarkCreateComponent } from './components/landmark/landmark-create/l
     LandmarkShowComponent,
     HereMapComponent,
     LandmarkCreateComponent,
-   
+    
 
     
   ],
@@ -60,6 +61,9 @@ import { LandmarkCreateComponent } from './components/landmark/landmark-create/l
     FormsModule,
     ReactiveFormsModule,
     NgxSliderModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    })
   ],
   providers: [
     interceptor
