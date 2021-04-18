@@ -24,7 +24,8 @@ export class CommentformComponent implements OnInit {
   display:string = "none";
   comment: Comment;
   isLogged: boolean = false;
-  loggedUsername:string
+  loggedUsername:string;
+  isAdmin: boolean = false;
 
   options: Options = {
     floor: 1,
@@ -48,6 +49,7 @@ export class CommentformComponent implements OnInit {
 }
   ngOnInit(): void {
     this.loggedUsername=this.tokenService.getUsername()
+    this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
     this.loadComments()
     if (this.tokenService.getToken()) {
         this.isLogged = true;
