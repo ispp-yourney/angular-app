@@ -74,7 +74,7 @@ export class ItineraryupdateComponent implements OnInit {
      console.log(data)
         this.itinerary = data;
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
-        if(!this.isMyItinerary){
+        if(!this.isMyItinerary && this.tokenService.getAuthorities()[0]['authority'] != 'ROLE_ADMIN'){
           this.router.navigate(["/itinerarios/" + this.itinerary.id])
         }
         this.editForm.controls['id'].setValue(data.id);

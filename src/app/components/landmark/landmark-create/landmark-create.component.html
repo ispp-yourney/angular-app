@@ -68,11 +68,10 @@
             <div *ngIf="formLandmark.get('city').errors.pattern">Debe de contener solamente letras</div>
           </div> 
           <br>
-
-          <label for="latitude">Latitud</label>
-          <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(formLandmark, 'latitude')}}" placeholder="12">
+              
+          <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
+          <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(formLandmark, 'latitude')}}" required placeholder="12">
           <div class="invalid-feedback" *ngIf="formLandmark.get('latitude').touched && formLandmark.get('latitude').invalid">
-            
             <div *ngIf="formLandmark.get('latitude').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
             <div *ngIf="formLandmark.get('latitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
           </div>
@@ -80,13 +79,11 @@
 
 
           <br>
-          <label for="longitude">Longitud</label>
-          <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(formLandmark, 'longitude')}}" placeholder="24">
+          <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
+          <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(formLandmark, 'longitude')}}" required placeholder="24">
           <div class="invalid-feedback" *ngIf="formLandmark.get('longitude').touched && formLandmark.get('longitude').invalid">
-
             <div *ngIf="formLandmark.get('longitude').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
             <div *ngIf="formLandmark.get('longitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
-          
           </div>
 
 
