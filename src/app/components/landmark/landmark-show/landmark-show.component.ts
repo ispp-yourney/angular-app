@@ -49,7 +49,7 @@ export class LandmarkShowComponent implements OnInit {
   loadLandmark(): void {
     this.landmarkService.mostrar(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
-        console.log(data)
+
         this.landmark = data;
         this.landmarkService.tieneActividades(this.landmark.id).subscribe(data => this.tieneActividades = data);
         this.containError = false
@@ -88,10 +88,14 @@ export class LandmarkShowComponent implements OnInit {
     );
   }
 
+  hrefWindowLocation(data:any){
+    window.location.href= data.text
+  }
+
   upgradeLandmark(){
     this.landmarkService.upgradeLandmark(this.landmark.id).subscribe(
       data => {
-        window.location.href = data.text
+        this.hrefWindowLocation(data)
       },
       err => {
         this.messageError=err.error.text;
@@ -101,13 +105,6 @@ export class LandmarkShowComponent implements OnInit {
   }
 
   onUpdate() {
-    const wait = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout( () => {
-         resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {window.location.reload()} ))
-        }, 500)
-      })
-    };
 
     //Actualizar landmark
     var editedLandmark = new LandmarkDto(
@@ -128,7 +125,13 @@ export class LandmarkShowComponent implements OnInit {
       0);
     this.landmarkService.editar(editedLandmark).subscribe(
       data => {
-        wait()
+        () => {
+          return new Promise((resolve, reject) => {
+            setTimeout( () => {
+             resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {window.location.reload()} ))
+            }, 500)
+          })
+        };
       }, err => {
         
       }
