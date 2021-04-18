@@ -44,7 +44,7 @@
           <br>
 
           <label for="country">País <span style="color:#ff0000">*</span></label>
-          <input type="text" id="country" formControlName="country" class="{{inputClass(formLandmark, 'country')}}" placeholder="Corea" >
+          <input type="text" id="country" formControlName="country" class="{{inputClass(formLandmark, 'country')}}" placeholder="Corea" required >
           <div class="invalid-feedback" *ngIf="formLandmark.get('country').touched && formLandmark.get('country').invalid">
             <div *ngIf="formLandmark.get('country').errors.required">No puede quedar vacío.</div>
           </div> 
@@ -56,22 +56,22 @@
             <div *ngIf="formLandmark.get('city').errors.required">No puede quedar vacío.</div>
           </div> 
           <br>
-
-          <label for="latitude">Latitud</label>
-          <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(formLandmark, 'latitude')}}" placeholder="12">
+              
+          <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
+          <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(formLandmark, 'latitude')}}" required placeholder="12">
           <div class="invalid-feedback" *ngIf="formLandmark.get('latitude').touched && formLandmark.get('latitude').invalid">
-            
+            <div *ngIf="formLandmark.get('latitude').errors.required">No puede quedar vacío</div>
             <div *ngIf="formLandmark.get('latitude').errors.pattern">El valor introducido debe de estar entre -90 y 90</div>
           </div>
 
 
 
           <br>
-          <label for="longitude">Longitud</label>
-          <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(formLandmark, 'longitude')}}" placeholder="24">
+          <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
+          <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(formLandmark, 'longitude')}}" required placeholder="24">
           <div class="invalid-feedback" *ngIf="formLandmark.get('longitude').touched && formLandmark.get('longitude').invalid">
             <div *ngIf="formLandmark.get('longitude').errors.pattern">El valor introducido debe de estar entre -180 y 180</div>
-          
+            <div *ngIf="formLandmark.get('longitude').errors.required">No puede quedar vacío</div>
           </div>
 
 
