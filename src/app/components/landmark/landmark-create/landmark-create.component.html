@@ -39,7 +39,7 @@
           </div>
           <div class="invalid-feedback" *ngIf="formLandmark.get('price').touched && formLandmark.get('price').invalid">
             <div *ngIf="formLandmark.get('price').errors.required">No puede estar vacío</div>
-            <div *ngIf="formLandmark.get('price').errors.min">El precio mínimo es 0</div>
+            <div *ngIf="formLandmark.get('price').errors.maxPrice">El precio debe estar entre 0 y 10000</div>
           </div> 
           <br>
 

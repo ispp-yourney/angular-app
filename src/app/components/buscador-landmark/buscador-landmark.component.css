@@ -211,8 +211,6 @@ i.fab{
   position: relative;
   left:12vw;
   zoom: 0.8;
-  /* width: 35vw;
-  zoom: 0.5; */
 
 }
 
@@ -232,18 +230,18 @@ i.fab{
 
 
   .div_pagination{
-   
+    width:40%;
+    margin-left:auto;
+    margin-right: auto;
     display: flex;
-    position:absolute;
-    top:150vh;
-    left: 45vw;
-    z-index: 2;
-    margin: 0;
     
   }
   
   .pagination {
     padding-bottom: 15px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top:40px;
   }
   
   
@@ -273,10 +271,9 @@ i.fab{
 
   .addLandmark_pagination{
     justify-content: center;
-    display: inline-block;
-    position: absolute;
-    width: auto;
-    bottom:0rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
   }
 
 
@@ -298,13 +295,11 @@ i.fab{
     }
 
     .div_pagination{
-   
+      display:flex;
+      width:40%;
+      margin-left:auto;
+      margin-right: auto;
       display: flex;
-      position: relative;
-      left:-55vw;
-      top: 520vh;
-      z-index: 2;
-      margin: 0;
       
     }
 

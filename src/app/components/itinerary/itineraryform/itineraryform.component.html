@@ -206,7 +206,7 @@
                                 <span class="input-group-text">€</span>
                               </div>
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('price').touched && activity.get('landmark')['controls'][0].get('price').invalid">
-                               
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.required">No puede estar vacío</div>
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.maxPrice">El precio debe estar entre 0 y 10000</div>
                               </div>
                               <br>
@@ -273,7 +273,7 @@
                               <label for="email">Email</label>
                               <input type="text" id="email" formControlName="email" email class="{{inputClass(activity.get('landmark')['controls'][0], 'email')}}" placeholder="example@gmail.com" maxlength="100">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('email').touched && activity.get('landmark')['controls'][0].get('email').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.email">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.email || activity.get('landmark')['controls'][0].get('email').errors.pattern">El formato introducido es no es válido.</div>
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.maxlength">No puede introducirse más de 100 caracteres</div>
                               </div>
 
@@ -335,7 +335,7 @@
 
                           <!-- Confirmation Activity modal-->
          
-                          <div class="modal fade" id="ConfirmationDay{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal  fade" id="ConfirmationDay{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -345,6 +345,7 @@
                                   ¿Quieres conservar los datos de la actividad introducidos?
                                 </div>
                                 <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Seguir editando</button>
                                   <a type="button" class="btn btn-secondary" (click)="resetForm(activity)" data-dismiss="modal">Cancelar</a>
                                   <a type="button" class="btn btn-primary" (click)="checkActivity(activity)" data-dismiss="modal">Confirmar</a>
                                 </div>
@@ -355,27 +356,10 @@
                         <!-- End activity confirmation modal -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
+
+                        
+
                       </div>
                     </div>
                   </div>
