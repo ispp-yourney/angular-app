@@ -33,8 +33,8 @@ export class BuscadorComponent implements OnInit {
                 this.formFilter = formBuilder.group({
                   country: [''],
                   city: [''],
-                  maxBudget: ['', Validators.min(0)],
-                  maxDays: ['', Validators.min(0)],
+                  maxBudget: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$"), Validators.maxLength(8)] ],
+                  maxDays: ['', Validators.pattern("^\\d{1,3}$") ],
                 });
               }
 
@@ -133,5 +133,19 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
   
   return Array(5-Math.round( stars ))
 }
+
+inputClass(form:FormGroup,property: string){
+  let inputClass: string;
+
+  if(!form.get(property).touched){
+    inputClass = "form-control"
+  }else if(form?.get(property).touched && form?.get(property).valid){
+    inputClass = "form-control is-valid"
+  }else if(form?.get(property).touched && form?.get(property).invalid){
+    inputClass = "form-control is-invalid"
+  }
+
+  return inputClass
+  }
 
 }

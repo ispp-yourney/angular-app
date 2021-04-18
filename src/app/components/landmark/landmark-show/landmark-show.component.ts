@@ -3,7 +3,8 @@ import { Landmark, LandmarkDto } from 'src/app/models/itinerary';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { TokenService } from 'src/app/services/token.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { checkRange } from '../../itinerary/itineraryupdate/itineraryupdate.component';
 
 @Component({
   selector: 'app-landmark-show',
@@ -23,24 +24,38 @@ export class LandmarkShowComponent implements OnInit {
   endSponsoredDate = null;
   editForm: FormGroup;
   tieneActividades: boolean = true;
+  isAnonymous: boolean = true;
+
+  checkPrice(control: AbstractControl): {[key: string]: any} | null {
+    const price =  parseFloat(control.value)
+    if(price<0 || price >10000 ){
+        return {'maxPrice': true}
+    }else{
+      return null
+    }
+
+  }
 
   ngOnInit(): void {
-    this.isAdmin=this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN'
+    if(this.tokenService.getAuthorities().length > 0){
+      this.isAdmin=this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+      this.isAnonymous=false;
+    }
     if(this.isAdmin){
       this.editForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        description:['', Validators.required],
-        price: ['0', Validators.min(0)],
-        country: [''],
+        name: ['', [Validators.required,Validators.maxLength(50)]],
+        description:['', [Validators.required,Validators.maxLength(1000)]],
+        price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
+        country: ['', Validators.required],
         category: [''],
         city: [''],
-        latitude: ['', [Validators.min(-90), Validators.max(90)]],
-        longitude: ['', [Validators.min(-180), Validators.max(180)]],
-        email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-        phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
-        website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-        instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-        twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")]
+        latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
+        longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
+        email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
+        phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
+        website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
+        instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"),Validators.maxLength(300)]],
+        twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]]
       })
     }
     this.loadLandmark();

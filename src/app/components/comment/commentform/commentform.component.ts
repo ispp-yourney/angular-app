@@ -53,7 +53,9 @@ export class CommentformComponent implements OnInit {
 }
   ngOnInit(): void {
     this.loggedUsername=this.tokenService.getUsername()
-    this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+    if(this.tokenService.getAuthorities().length > 0){
+      this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+    }
     this.loadComments()
     if (this.tokenService.getToken()) {
         this.isLogged = true;

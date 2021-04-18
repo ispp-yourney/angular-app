@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) { 
     this.formLogin = formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
     })
 
   }
