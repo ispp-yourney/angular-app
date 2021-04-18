@@ -94,7 +94,6 @@
 
                         Actividad {{j+1}} {{ activity.get('title').value != null && activity.get('title').value != '' ? ': '+activity.get('title')?.value+' ' : ''}} {{ activity.invalid ? ' - Estado de la actividad: Incompleta ' : ' - Estado de la actividad: Completa'}} &nbsp;&nbsp;
 
-                        <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
                         
                   
 
@@ -169,7 +168,7 @@
                             </div>
 
                             <h2 style="color:grey"> {{activity?.get('landmarkName').value}}  </h2>
-                            <div style="text-align:center!important">
+                            <div style="text-align:center!important" *ngIf="activity.get('landmarkImage').value != ''">
                               <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkImage').value}}" alt="landmark">
                             </div>
 
@@ -202,13 +201,13 @@
 
                               <label for="price">Precio <span style="color:#ff0000">*</span></label>
                         <div class="input-group mb-3">
-                              <input type="number" id="price" formControlName="price" class="{{inputClass(activity.get('landmark')['controls'][0], 'price')}}" value="0" required min="0" placeholder="0">
+                              <input type="number" id="price" formControlName="price" class="{{inputClass(activity.get('landmark')['controls'][0], 'price')}}" value="0" required min="0"  max="10000" placeholder="0">
                               <div class="input-group-prepend">
                                 <span class="input-group-text">€</span>
                               </div>
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('price').touched && activity.get('landmark')['controls'][0].get('price').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.required">No puede quedar vacío o el formato es incorrecto.</div>
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.min">El precio mínimo debe ser 0.</div>
+                               
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.maxPrice">El precio debe estar entre 0 y 10000</div>
                               </div>
                               <br>
                             </div>
@@ -225,9 +224,11 @@
                               <br>
 
                               <label for="city">Ciudad<span style="color:#ff0000">*</span></label>
-                              <input type="text" id="city" formControlName="city" class="{{inputClass(activity.get('landmark')['controls'][0], 'city')}}" placeholder="Seoul">
+                              <input type="text" id="city" formControlName="city" class="{{inputClass(activity.get('landmark')['controls'][0], 'city')}}" placeholder="Seoul" maxlength="100">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('city').touched && activity.get('landmark')['controls'][0].get('city').invalid">
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('city').errors.required">No puede quedar vacío.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('city').errors.maxlength">No puede introducirse más de 100 caracteres</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('city').errors.pattern">Debe de contener solamente letras</div>
                               </div>
 
                               <br>
@@ -270,10 +271,10 @@
                               <br>
 
                               <label for="email">Email</label>
-                              <input type="text" id="email" formControlName="email" email class="{{inputClass(activity.get('landmark')['controls'][0], 'email')}}" placeholder="example@gmail.com">
+                              <input type="text" id="email" formControlName="email" email class="{{inputClass(activity.get('landmark')['controls'][0], 'email')}}" placeholder="example@gmail.com" maxlength="100">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('email').touched && activity.get('landmark')['controls'][0].get('email').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.pattern || activity.get('landmark')['controls'][0].get('email').errors.email
-                                ">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.email">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.maxlength">No puede introducirse más de 100 caracteres</div>
                               </div>
 
                               <br>
@@ -281,31 +282,34 @@
                               <label for="phone">Teléfono</label>
                               <input type="text" id="phone" formControlName="phone" class="{{inputClass(activity.get('landmark')['controls'][0], 'phone')}}" placeholder="+(82) 847192673 ">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('phone').touched && activity.get('landmark')['controls'][0].get('phone').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('phone').errors.pattern">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('phone').errors.pattern">El formato introducido es no es válido, debe contener un formato: +(34) 987654321 o 987654321</div>
                               </div>
   
   
                               <br>
                               <label for="website">Sitio web</label>
-                              <input  id="website" formControlName="website" class="{{inputClass(activity.get('landmark')['controls'][0], 'website')}}" placeholder="https://www.website.com" >
+                              <input  id="website" formControlName="website" class="{{inputClass(activity.get('landmark')['controls'][0], 'website')}}" placeholder="https://www.website.com" maxlength="300">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('website').touched && activity.get('landmark')['controls'][0].get('website').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('website').errors.pattern">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('website').errors.pattern">El formato introducido es no es válido</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('website').errors.maxlength">No puede introducirse más de 300 caracteres</div>
                               </div>
 
 
                               <br>
                               <label for="instagram">Instagram</label>
-                              <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(activity.get('landmark')['controls'][0], 'instagram')}}" placeholder="https://www.instagram.com">
+                              <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(activity.get('landmark')['controls'][0], 'instagram')}}" placeholder="https://www.instagram.com" maxlength="300">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('instagram').touched && activity.get('landmark')['controls'][0].get('instagram').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('instagram').errors.pattern">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('instagram').errors.pattern">El formato introducido es no es válido</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('instagram').errors.maxlength">No puede introducirse más de 300 caracteres</div>
                               </div>
                             
   
                               <br>
                               <label for="twitter">Twitter</label>
-                              <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(activity.get('landmark')['controls'][0], 'twitter')}}" placeholder="https://www.twitter.com">
+                              <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(activity.get('landmark')['controls'][0], 'twitter')}}" placeholder="https://www.twitter.com" maxlength="300">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('twitter').touched && activity.get('landmark')['controls'][0].get('twitter').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('twitter').errors.pattern">El formato introducido es no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('twitter').errors.pattern">El formato introducido es no es válido</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('twitter').errors.maxlength">No puede introducirse más de 300 caracteres</div>
                               </div>
 
 

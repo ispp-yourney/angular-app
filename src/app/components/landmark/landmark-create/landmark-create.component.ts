@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CountryService } from 'src/app/services/country.service';
 import { ImageService } from 'src/app/services/image.service';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-landmark-create',
@@ -18,29 +19,42 @@ export class LandmarkCreateComponent implements OnInit {
   formLandmark: FormGroup;
   countries: Array<string>
   
+  checkPrice(control: AbstractControl): {[key: string]: any} | null {
+    const price =  parseFloat(control.value)
+    console.log(control.value )
+    if(price>=0 && price <=10000 ){
+        return null
+    }else{
+      return {'maxPrice': true}
+    }
+
+  }
+  
   constructor(private formBuilder: FormBuilder,
     private landmarkService: LandmarkService, 
     private tokerService: TokenService, 
     private router: Router,
     private toastr: ToastrService,
     private countryService: CountryService,
-    private imageService: ImageService) { 
+    private imageService: ImageService,
+    ) { 
 
     
     this.formLandmark = this.formBuilder.group({
             name: ['', [Validators.required,Validators.maxLength(50)]],
             description2: ['', [Validators.required, Validators.maxLength(1000)]],
-            price: ['0', Validators.min(0)],
+            price: ['0', this.checkPrice],
             country: ['', Validators.required],
-            city: ['', Validators.required],
+            city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
             latitude: ['', Validators.pattern("^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$")],
             longitude: ['', Validators.pattern("^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")],
             category: [''],
-            email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-            phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
-            website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-            instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-            twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+            email: ['', Validators.email],
+            phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
+            website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
+         
+            instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"),Validators.maxLength(300)]],
+            twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
             landmarkImage: [this.formBuilder.control(File)]
 
   });

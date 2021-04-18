@@ -43,17 +43,18 @@
           </div> 
           <br>
 
+        
           <label for="country">País <span style="color:#ff0000">*</span></label>
-          <input type="text" id="country" formControlName="country" class="{{inputClass(formLandmark, 'country')}}" placeholder="Corea" >
-          <div class="invalid-feedback" *ngIf="formLandmark.get('country').touched && formLandmark.get('country').invalid">
-            <div *ngIf="formLandmark.get('country').errors.required">No puede quedar vacío.</div>
-          </div> 
-          <br>
+          <select formControlName="country" id="country" class="{{inputClass(formLandmark, 'country')}}"  required>
+            <option [value]="item" *ngFor="let item of countries">{{item}}</option>
+          </select>
 
           <label for="city">Ciudad <span style="color:#ff0000">*</span></label>
-          <input type="text" id="city" formControlName="city" class="{{inputClass(formLandmark, 'city')}}" placeholder="Seoul">
+          <input type="text" id="city" formControlName="city" class="{{inputClass(formLandmark, 'city')}}" placeholder="Seoul" maxlength="100">
           <div class="invalid-feedback" *ngIf="formLandmark.get('city').touched && formLandmark.get('city').invalid">
             <div *ngIf="formLandmark.get('city').errors.required">No puede quedar vacío.</div>
+            <div *ngIf="formLandmark.get('city').errors.required.maxlength">No puede introducirse más de 100 caracteres</div>
+            <div *ngIf="formLandmark.get('city').errors.required.pattern">Debe de contener solamente letras</div>
           </div> 
           <br>
 
@@ -79,17 +80,32 @@
 
 
           <br>
-          <label for="category">Categoría</label>
-          <input type="text" id="category" formControlName="category" class="form-control" placeholder="Restaurante">
+          <div class="form-group mb-3">
+            <label for="category">Categoría</label>
+            <select class="form-control" id="category" class="{{inputClass(formLandmark, 'category')}}">
+            <option label="BAR">BAR</option>
+            <option label="HOTEL">HOTEL</option>
+            <option label="TIENDA">TIENDA</option>
+            <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+            <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+            <option label="MONUMENTO">MONUMENTO</option>
+            <option label="RESTAURANTE">RESTAURANTE</option>
+            <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+            <option label="SUPERMERCADO">SUPERMERCADO</option>
+            <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+            <option label="LIBRERÍA">LIBRERÍA</option>
+            <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+            <option label="CHIRINGUITO">CHIRINGUITO</option>
+            <option label="OTROS">OTROS</option>
+            </select>
+            </div>
 
           <br>
           <label for="email">Email</label>
-          <input type="text" id="email" formControlName="email" email class="{{inputClass(formLandmark, 'email')}}" placeholder="example@gmail.com">
-          <div class="invalid-feedback"
-          *ngIf="formLandmark.get('email').touched && formLandmark.get('email').invalid">
-           
+          <input type="text" id="email" formControlName="email" email class="{{inputClass(formLandmark, 'email')}}" placeholder="example@gmail.com" maxlength="100">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('email').touched && formLandmark.get('email').invalid">
             <div *ngIf="formLandmark.get('email').errors.email || formLandmark.get('email').errors.pattern">Formato no válido</div>
-            
+            <div *ngIf="formLandmark.get('email').errors.maxlength">No puede introducirse más de 100 caracteres</div>
           </div>
 
           <br>
@@ -97,29 +113,32 @@
           <label for="phone">Teléfono</label>
           <input type="text" id="phone" formControlName="phone" class="{{inputClass(formLandmark, 'phone')}}" placeholder="+(82) 847192673 ">
           <div class="invalid-feedback" *ngIf="formLandmark.get('phone').touched && formLandmark.get('phone').invalid">
-            <div *ngIf="formLandmark.get('phone').errors.pattern">El formato es incorrecto</div>
+            <div *ngIf="formLandmark.get('phone').errors.pattern">El formato introducido es no es válido, debe contener un formato: +(321) 987654321 o 987654321</div>
           </div>
 
 
           <br>
           <label for="website">Sitio web</label>
-          <input type="url" id="website" formControlName="website" class="{{inputClass(formLandmark, 'website')}}" placeholder="https://www.website.com" >
+          <input type="url" id="website" formControlName="website" class="{{inputClass(formLandmark, 'website')}}" placeholder="https://www.website.com" maxlength="300">
           <div class="invalid-feedback" *ngIf="formLandmark.get('website').touched && formLandmark.get('website').invalid">
             <div *ngIf="formLandmark.get('website').errors.pattern">Debe ser una URL</div>
+            <div *ngIf="formLandmark.get('website').errors.maxlength">No puede introducirse más de 300 caracteres</div>
           </div>
 
           <br>
           <label for="instagram">Instagram</label>
-          <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(formLandmark, 'instagram')}}" placeholder="https://www.instagram.com">
+          <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(formLandmark, 'instagram')}}" placeholder="https://www.instagram.com" maxlength="300">
            <div class="invalid-feedback" *ngIf="formLandmark.get('instagram').touched && formLandmark.get('instagram').invalid">
             <div *ngIf="formLandmark.get('instagram').errors.pattern">Debe ser una URL</div>
+            <div *ngIf="formLandmark.get('instagram').errors.maxlength">No puede introducirse más de 300 caracteres</div>
           </div> 
 
           <br>
           <label for="twitter">Twitter</label>
-          <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(formLandmark, 'twitter')}}" placeholder="https://www.twitter.com">
+          <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(formLandmark, 'twitter')}}" placeholder="https://www.twitter.com" maxlength="300">
           <div class="invalid-feedback" *ngIf="formLandmark.get('twitter').touched && formLandmark.get('twitter').invalid">
             <div *ngIf="formLandmark.get('twitter').errors.pattern">Debe ser una URL</div>
+            <div *ngIf="formLandmark.get('twitter').errors.maxlength">No puede introducirse más de 300 caracteres</div>
         </div>
 
         <div class="form-group">

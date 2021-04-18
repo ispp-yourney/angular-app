@@ -21,10 +21,13 @@
 
             <div class="form-group">
               <label>Comentario</label>
-              <textarea class="form-control" id="content" rows="3" formControlName="content" required></textarea>
+              <textarea class="form-control" id="content" rows="3" formControlName="content" required maxlength="1000"></textarea>
+              <p>Caracteres disponibles: {{1000-formComment.get('content').value.length}}</p>
+
               <div class="alert alert-danger"
                 *ngIf="formComment.get('content').touched && formComment.get('content').invalid">
                 <div *ngIf="formComment.get('content').errors.required">No puede quedar vacío</div>
+                <div *ngIf="formComment.get('content').errors.maxlength">Máximo número de caracteres 1000.</div>
               </div>
             </div>
             <div *ngIf="isLogged" class="modal-footer">

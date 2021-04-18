@@ -44,7 +44,7 @@ export class CommentformComponent implements OnInit {
      private toastr: ToastrService) { 
 
           this.formComment = formBuilder.group({
-            content: ['', Validators.required],
+            content: ['', [Validators.required, Validators.maxLength(1000)]],
             rating: [1, [Validators.required,Validators.min(1),Validators.max(5)]],
         });
 
