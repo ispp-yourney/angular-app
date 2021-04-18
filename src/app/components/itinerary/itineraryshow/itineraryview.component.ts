@@ -4,6 +4,8 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-itineraryview',
   templateUrl: './itineraryview.component.html',
@@ -11,7 +13,7 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class ItineraryViewComponent implements OnInit  {
  
-  constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService, private router: Router, ) { }
+  constructor(private itineraryService: ItineraryService, private route: ActivatedRoute, private tokenService: TokenService, private router: Router, private toastr: ToastrService ) { }
 
   itinerary: Itinerary;
   days: Array<Array<Activity>>;
@@ -59,6 +61,7 @@ export class ItineraryViewComponent implements OnInit  {
       data => {
         this.router.navigateByUrl('/perfil/' + this.tokenService.getUsername())
         this.containError = false
+        this.toastr.success("Itinerario eliminado correctamente.")
       },
       err => {
         var returned_error = err.error.text
@@ -67,6 +70,7 @@ export class ItineraryViewComponent implements OnInit  {
         }
         this.messageError = returned_error;
         this.containError = true
+        this.toastr.error("Se ha producido un error en la eliminación.")
       }
     )
   }
@@ -79,5 +83,25 @@ export class ItineraryViewComponent implements OnInit  {
       }, Object.create(null));
     return a
   }
+
+  
+  getSeason(season: string){
+      let recommendedSeason: string;
+
+      if(season == 'WINTER'){
+        recommendedSeason = 'Invierno'
+      }else if(season == 'SUMMER'){
+        recommendedSeason = 'Verano'
+      }else if(season == 'FALL'){
+        recommendedSeason = 'Otoño'
+      }else if(season == 'SPRING'){
+        recommendedSeason = 'Primavera'
+      }else{
+        recommendedSeason = 'Cualquiera'
+      }
+
+      return recommendedSeason;
+  }
+
 
 }

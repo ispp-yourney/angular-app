@@ -9,58 +9,57 @@
 
               <div class="form-group">
                 <label class="col-form-label" for="name">Nombre<span style="color:#ff0000">*</span></label>
-                <input type="text" class="form-control" id="name" formControlName="name" required minlength="5" maxlength="50" placeholder="Viaje a Corea">
-                <div class="alert alert-danger" *ngIf="formItiner.get('name').touched && formItiner.get('name').invalid">
+                <input type="text" class="{{inputClass(formItiner, 'name')}}" id="name" formControlName="name" required minlength="5" maxlength="50" placeholder="Viaje a Corea">
+                <div class="invalid-feedback " *ngIf="formItiner.get('name').touched && formItiner.get('name').invalid">
                   <div *ngIf="formItiner.get('name').errors.required">No puede quedar vacío</div>
                   <div *ngIf="formItiner.get('name').errors.minlength">Debe de tener al menos 5 caracteres</div>
                   <div *ngIf="formItiner.get('name').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
                 </div>
-              </div>
-
-              <div class="form-group">
-                <label for="description">Descripción</label>
-                <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
-              </div>
-
-              <div class="form-group">
-                <label class="col-form-label" for="budget">Presupuesto<span style="color:#ff0000">*</span></label>
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" id="budget" formControlName="budget" value="0" required min="0" placeholder="0">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">€</span>
-                  </div>
-                </div>
                 
-                <div class="alert alert-danger" *ngIf="formItiner.get('budget').touched && formItiner.get('budget').invalid">
-                  <div *ngIf="formItiner.get('budget').errors.required">No puede quedar vacío</div>
-                  <div *ngIf="formItiner.get('budget').errors.min">El valor mínimo es 0</div>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Descripción<span style="color:#ff0000">*</span></label>
+                <textarea id="description" class="{{inputClass(formItiner, 'description')}}"  rows="3" maxlength="1000" formControlName="description"></textarea>
+                <p>Caracteres disponibles: {{1000-formItiner.get('description').value.length}}</p>
+                <div class="invalid-feedback " *ngIf="formItiner.get('description').touched && formItiner.get('description').invalid">
+                  <div *ngIf="formItiner.get('description').errors.required">No puede quedar vacío.</div> 
+                  <div *ngIf="formItiner.get('description').errors.maxlength">La longitud máxima es de 1000 caracteres.</div> 
                 </div>
               </div>
+             
+ 
 
               <div class="form-group">
                 <label class="col-form-label" for="itineraryImage">Imagen</label>
                 <br>
-                <input type="file" id="itineraryImage" class="file-input" (change)="addItineraryImage($event.target.files)">
+                <input type="file" id="itineraryImage"  #itineraryImage class="file-input" accept="image/*"  (change)="addItineraryImage($event.target.files, itineraryImage)">
               </div>
 
               <div class="form-group mb-3">
                 <label class="col-form-label" for="season">Estación<span style="color:#ff0000">*</span></label>
-                <select class="form-control" id="season" formControlName="recommendedSeason">
+                <select class="{{inputClass(formItiner, 'recommendedSeason')}}" id="season" formControlName="recommendedSeason">
                   <option label="INVIERNO">WINTER</option>
                   <option label="PRIMAVERA">SPRING</option>
                   <option label="VERANO">SUMMER</option>
                   <option label="OTOÑO">FALL</option>
+                  <option label="CUALQUIERA">ANYTIME</option>
                 </select>
+                <div class="invalid-feedback" *ngIf="formItiner?.get('recommendedSeason').touched && formItiner?.get('recommendedSeason').invalid">
+                  <div *ngIf="formItiner?.get('recommendedSeason').errors.required">No puede quedar vacío</div>
+                </div>
               </div>
+
+              
           <div style="text-align:center!important">
-            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!formItiner.valid">Crear</button>
+            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!formItiner.valid">Crear Itinerario</button>
             <button type="button" class="btn btn-primary" style="margin:5px" (click)="addDay()">Añadir nuevo día</button>
           </div>
         </div>
       </div>
     </nav>
 
-    <article>
+    <article style="overflow: auto; height: 65vh;">
       <div *ngIf="formItiner.get('days')['controls'].length > 0" formArrayName="days">
 
         <div *ngFor="let day of formItiner.get('days')['controls']; let i=index" [formGroupName]="i">
@@ -78,51 +77,84 @@
               </button>
             </div>
 
+            <!-- Delete Day confirmation -->
+
+            <!-- end Delete Day confirmation -->
+
             <div class="card-body mb-3"  style="border: none; ">
 
               <div *ngIf="day.get('activities')['controls'].length > 0" formArrayName="activities">
                 <div *ngFor="let activity of day.get('activities')['controls']; let j=index" [formGroupName]="j">
 
-                  <div class="card mb-3 dropdown">
+                  <div class="card mb-3 dropdown activities" style="border: none; box-shadow: none; ">
 
-                    <div style="text-align:center!important; ">
+           
 
-                      <button type="button" class="btn btn-primary btn-header-card" style="display:inline-block" data-toggle="modal" [attr.data-target]="'#day' +(i+1)+''+(j+1)">
+                      <span  class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#day' +(i+1)+''+(j+1)" data-backdrop="static" data-keyboard="false">
 
-                        Actividad {{j+1}} &nbsp;&nbsp;
+                        Actividad {{j+1}} {{ activity.get('title').value != null && activity.get('title').value != '' ? ': '+activity.get('title')?.value+' ' : ''}} {{ activity.invalid ? ' - Estado de la actividad: Incompleta ' : ' - Estado de la actividad: Completa'}} &nbsp;&nbsp;
 
                         <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white"></em>
                         
-                      </button>
+                  
 
+                        </span>
+                      
+                  
+                    <div style="position: relative; bottom: 30px; left: 60vw; width: 10px;">
+                      <em type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteActivity' +(i+1)+''+(j+1)" class="fa fa-minus-circle" aria-hidden="true" style="color:rgb(255, 255, 255)"></em>
                     </div>
+                     <!-- Delete Activity confirmation -->
+  
+         
+                  <div class="modal fade" id="DeleteActivity{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                        </div>
+                        <div class="modal-body">
+                          ¿Quieres borrar la actividad?
+                        </div>
+                        <div class="modal-footer">
+                          <a type="button" class="btn btn-secondary"   data-dismiss="modal">Cancelar</a>
+                          <a type="button" class="btn btn-primary" (click)="removeActivity(day.get('activities'), j)" data-dismiss="modal">Confirmar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
 
-                    <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                     <!-- end Delete Day confirmation -->
+
+
+
+                    <div class="modal fade" id="day{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                       <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Actividad {{j+1}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                         
                           </div>
                           <div class="modal-body">
                             <label for="title">Título <span style="color:#ff0000">*</span></label>
-                            <input type="text" id="title" formControlName="title" class="form-control" placeholder="Visita Seoul">
-                            <div class="alert alert-danger" *ngIf="activity.get('title').touched && activity.get('title').invalid">
+                            <input type="text" id="title" formControlName="title" class="{{inputClass(activity, 'title')}}" maxlength="50" placeholder="Visita Seoul">
+                            <div class="invalid-feedback" *ngIf="activity.get('title').touched && activity.get('title').invalid">
                               <div *ngIf="activity.get('title').errors.required">No puede quedar vacío</div>
+                              <div *ngIf="activity.get('title').errors.maxlength">La longitud máxima es de 50 caracteres.</div>
                             </div>
                             <br>
                             <br>
                             <label for="description">Descripción <span style="color:#ff0000">*</span></label>
-                            <textarea id="description" formControlName="description" class="form-control" placeholder="Nos lo pasamos increíble..." cols="30" rows="10"></textarea>
-                            <div class="alert alert-danger" *ngIf="activity.get('description').touched && activity.get('description').invalid">
+                            <textarea id="description" formControlName="description" class="{{inputClass(activity, 'description')}}" maxlength="1000" placeholder="Nos lo pasamos increíble..." cols="30" rows="10"></textarea>
+                            <div class="invalid-feedback" *ngIf="activity.get('description').touched && activity.get('description').invalid">
                               <div *ngIf="activity.get('description').errors.required">No puede quedar vacío</div>
+                              <div *ngIf="activity.get('description').errors.maxlength">La longitud máxima es de 1000 caracteres.</div>
                             </div>
-                            
+                            <p>Caracteres disponibles: {{1000-activity.get('description').value.length}}</p>
 
                             <div style="text-align:center!important" *ngIf=" activity.controls['action'].value == 'true'">
+                              <label for="description">Punto de interés <span style="color:#ff0000">*</span></label>
                               <a type="button" class="btn btn-primary" style="margin:5px" (click)="clickLandmarkShare(activity)" >Añadir Landmark</a>
                               <a type="button" class="btn btn-primary" style="margin:5px" (click)="addLandmark(activity)">Crear Landmark</a>
                             </div>
@@ -136,122 +168,209 @@
                              </div> 
                             </div>
 
+                            <h2 style="color:grey"> {{activity?.get('landmarkName').value}}  </h2>
+                            <div style="text-align:center!important">
+                              <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkImage').value}}" alt="landmark">
+                            </div>
+
                              <div *ngIf="activity.get('landmark')['controls'].length > 0" formArrayName="landmark">
                             <div *ngFor="let l of activity.get('landmark')['controls']; let u = index" [formGroupName]="u">
                               <h2 style="color:grey">Datos de la ubicación</h2>
                             
 
                               <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
-                              <input type="text" id="name" formControlName="name" class="form-control" placeholder="Bar Itaewon" required>
+                              <input type="text" id="name" formControlName="name" class="{{inputClass(activity.get('landmark')['controls'][0], 'name')}}" maxlength="50" placeholder="Bar Itaewon" required>
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('name').touched && activity.get('landmark')['controls'][0].get('name').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('name').errors.required">No puede quedar vacío o el formato es incorrecto.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('name').errors.maxlength">La longitud máxima es de 50 caracteres.</div>
+                              </div>
                               <br>
   
                               <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
-                              <textarea id="description2" formControlName="description2" class="form-control" placeholder="Comida increíble..." cols="30" rows="10" required></textarea>
-                           
-                              <br>
-                              <label for="price">Precio <span style="color:#ff0000">*</span></label>
-                              <div class="input-group mb-3">
-                                <input type="number" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">€</span>
-                                </div>
+                              
+                              <textarea id="description2" formControlName="description2" class="{{inputClass(activity.get('landmark')['controls'][0], 'description2')}}" 
+                              placeholder="Comida increíble..." cols="30" rows="10" maxlength="1000" required></textarea>
+                              <p>Caracteres disponibles: {{1000-activity.get('landmark')['controls'][0]['controls'].description2.value.length}}</p>
+
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('description2').touched && activity.get('landmark')['controls'][0].get('description2').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('description2').errors.required">No puede quedar vacío</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('description2').errors.maxlength">La longitud máxima es de 1000 caracteres.</div>
                               </div>
-                              
-                              
+
                               <br>
-  
+
+
+                              <label for="price">Precio <span style="color:#ff0000">*</span></label>
+                        <div class="input-group mb-3">
+                              <input type="number" id="price" formControlName="price" class="{{inputClass(activity.get('landmark')['controls'][0], 'price')}}" value="0" required min="0" placeholder="0">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                              </div>
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('price').touched && activity.get('landmark')['controls'][0].get('price').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.required">No puede quedar vacío o el formato es incorrecto.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.min">El precio mínimo debe ser 0.</div>
+                              </div>
+                              <br>
+                            </div>
+
                               <label for="country">País <span style="color:#ff0000">*</span></label>
-                              <select class="form-control" id="country" formControlName="country" required>
+                              <select formControlName="country" id="country" class="{{inputClass(activity.get('landmark')['controls'][0], 'country')}}"  required>
                                 <option [value]="item" *ngFor="let item of countries">{{item}}</option>
                               </select>
-  
+
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('country').touched && activity.get('landmark')['controls'][0].get('country').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('country').errors.required">No puede quedar vacío.</div>
+                              </div>
+
                               <br>
-                              <label for="city">Ciudad <span style="color:#ff0000">*</span></label>
-                              <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul" required>
-  
+
+                              <label for="city">Ciudad<span style="color:#ff0000">*</span></label>
+                              <input type="text" id="city" formControlName="city" class="{{inputClass(activity.get('landmark')['controls'][0], 'city')}}" placeholder="Seoul">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('city').touched && activity.get('landmark')['controls'][0].get('city').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('city').errors.required">No puede quedar vacío.</div>
+                              </div>
+
                               <br>
                               <label for="latitude">Latitud</label>
-                              <input type="number" id="latitude" formControlName="latitude" class="form-control" placeholder="12">
-                             
-  
-  
-  
+                              <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'latitude')}}" placeholder="12">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('latitude').touched && activity.get('landmark')['controls'][0].get('latitude').invalid">
+            
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.pattern">El valor introducido debe de estar entre -90 y 90</div>
+                              </div>
+
                               <br>
                               <label for="longitude">Longitud</label>
-                              <input type="number" id="longitude" formControlName="longitude" class="form-control" placeholder="24">
-                            
+                              <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'longitude')}}" placeholder="24">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('longitude').touched && activity.get('landmark')['controls'][0].get('longitude').invalid">
+            
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.pattern">El valor introducido debe de estar entre -180 y 180</div>
+                              </div>
   
                               <br>
                               <div class="form-group mb-3">
-                              <label for="category">Categoría</label>
-                              <select class="form-control" id="category" formControlName="category">
-                              <option label="BAR">BAR</option>
-                              <option label="HOTEL">HOTEL</option>
-                              <option label="TIENDA">TIENDA</option>
-                              <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
-                              <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
-                              <option label="MONUMENTO">MONUMENTO</option>
-                              <option label="RESTAURANTE">RESTAURANTE</option>
-                              <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
-                              <option label="SUPERMERCADO">SUPERMERCADO</option>
-                              <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
-                              <option label="LIBRERÍA">LIBRERÍA</option>
-                              <option label="PARQUE NATURAL">PARQUE NATURAL</option>
-                              <option label="CHIRINGUITO">CHIRINGUITO</option>
-                              <option label="OTROS">OTROS</option>
-                              </select>
-                              </div>
+                                <label for="category">Categoría</label>
+                                <select class="form-control" id="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}">
+                                <option label="BAR">BAR</option>
+                                <option label="HOTEL">HOTEL</option>
+                                <option label="TIENDA">TIENDA</option>
+                                <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+                                <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+                                <option label="MONUMENTO">MONUMENTO</option>
+                                <option label="RESTAURANTE">RESTAURANTE</option>
+                                <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+                                <option label="SUPERMERCADO">SUPERMERCADO</option>
+                                <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+                                <option label="LIBRERÍA">LIBRERÍA</option>
+                                <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+                                <option label="CHIRINGUITO">CHIRINGUITO</option>
+                                <option label="OTROS">OTROS</option>
+                                </select>
+                                </div>
+  
                               <br>
+
                               <label for="email">Email</label>
-                              <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
-                            
+                              <input type="text" id="email" formControlName="email" email class="{{inputClass(activity.get('landmark')['controls'][0], 'email')}}" placeholder="example@gmail.com">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('email').touched && activity.get('landmark')['controls'][0].get('email').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('email').errors.pattern || activity.get('landmark')['controls'][0].get('email').errors.email
+                                ">El formato introducido es no es válido.</div>
+                              </div>
+
                               <br>
   
                               <label for="phone">Teléfono</label>
-                              <input type="text" id="phone" formControlName="phone" class="form-control" placeholder="+(82) 847192673 ">
-                           
+                              <input type="text" id="phone" formControlName="phone" class="{{inputClass(activity.get('landmark')['controls'][0], 'phone')}}" placeholder="+(82) 847192673 ">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('phone').touched && activity.get('landmark')['controls'][0].get('phone').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('phone').errors.pattern">El formato introducido es no es válido.</div>
+                              </div>
   
   
                               <br>
                               <label for="website">Sitio web</label>
-                              <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com" >
-                             
+                              <input  id="website" formControlName="website" class="{{inputClass(activity.get('landmark')['controls'][0], 'website')}}" placeholder="https://www.website.com" >
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('website').touched && activity.get('landmark')['controls'][0].get('website').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('website').errors.pattern">El formato introducido es no es válido.</div>
+                              </div>
+
+
                               <br>
                               <label for="instagram">Instagram</label>
-                              <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com">
-                             
+                              <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(activity.get('landmark')['controls'][0], 'instagram')}}" placeholder="https://www.instagram.com">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('instagram').touched && activity.get('landmark')['controls'][0].get('instagram').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('instagram').errors.pattern">El formato introducido es no es válido.</div>
+                              </div>
                             
   
                               <br>
                               <label for="twitter">Twitter</label>
-                              <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com">
-                           
+                              <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(activity.get('landmark')['controls'][0], 'twitter')}}" placeholder="https://www.twitter.com">
+                              <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('twitter').touched && activity.get('landmark')['controls'][0].get('twitter').invalid">
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('twitter').errors.pattern">El formato introducido es no es válido.</div>
+                              </div>
 
 
                             <div class="form-group">
                               <label class="col-form-label" for="landmarkImage">Imagen</label>
                               <br>
-                              <input type="file" id="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
+                              <input type="file" #landmarkImage id="landmarkImage" class="file-input"  accept="image/*" (change)="addLandmarkImage($event.target.files,activity,landmarkImage)">
                             </div>
 
 
                             <br>
-                            <label for="category">Categoría</label>
-                            <input type="text" id="category" formControlName="category" class="form-control" placeholder="Restaurante">
-
-                            <br>
-                            <label for="email">Email</label>
-                            <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com">
-                            <br>
+                            
+                       
 
                         </div>
                       </div>
                           </div>
 
                           <div class="modal-footer">
-                            
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+                            <a  class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#ConfirmationDay' +(i+1)+''+(j+1)" data-backdrop="static" data-keyboard="false">Cancelar</a>
+                            <button type="button" class="btn btn-primary" [disabled]="!activity.valid" data-dismiss="modal" (click)="showActivityCreated()">Crear Actividad</button>
                           </div>
+
+                          <!-- Confirmation Activity modal-->
+         
+                          <div class="modal fade" id="ConfirmationDay{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                                </div>
+                                <div class="modal-body">
+                                  ¿Quieres conservar los datos de la actividad introducidos?
+                                </div>
+                                <div class="modal-footer">
+                                  <a type="button" class="btn btn-secondary" (click)="resetForm(activity)" data-dismiss="modal">Cancelar</a>
+                                  <a type="button" class="btn btn-primary" (click)="checkActivity(activity)" data-dismiss="modal">Confirmar</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        <!-- End activity confirmation modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                       </div>
                     </div>
@@ -267,3 +386,5 @@
     </article>
   </section>
 </form>
+
+

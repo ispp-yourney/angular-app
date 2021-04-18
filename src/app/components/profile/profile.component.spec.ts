@@ -1,4 +1,4 @@
-import { ComponentFixture,  fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture,  fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProfileComponent } from './profile.component';
 import { MenuComponent } from '../menu/menu.component';
@@ -17,6 +17,8 @@ import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
 import { ShowUser } from 'src/app/models/show-user';
 import { ImageService } from 'src/app/services/image.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -55,7 +57,9 @@ describe('Profile', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule
+        ReactiveFormsModule, FormsModule,
+        NoopAnimationsModule,
+        ToastrModule.forRoot()
       ],
       declarations: [
         ProfileComponent,
@@ -295,6 +299,7 @@ describe('Profile', () => {
     expect(component.editForm.value.username).toEqual('testUser')
     expect(component.editForm.value.firstName).toEqual('John')
     expect(component.editForm.value.lastName).toEqual('Doe')
+    flush();
   }));
 
   it('should fail to use updateUser function ', fakeAsync(() => {
@@ -314,6 +319,7 @@ describe('Profile', () => {
     fixture.detectChanges();
     expect(component.userDetails).toEqual(showUserPlan0);
     component.onUpdate();
+    flush();
   }));
 
 
@@ -327,6 +333,7 @@ describe('Profile', () => {
     expect(component.expectedUser).toEqual(true)
     tick();
     component.removeUserImage();
+    flush();
   }));
 
   it('should fail to use removeUserImage function ', fakeAsync(() => {
@@ -343,6 +350,7 @@ describe('Profile', () => {
     expect(component.expectedUser).toEqual(true)
     tick();
     component.removeUserImage();
+    flush();
   }));
 
 
@@ -371,6 +379,7 @@ describe('Profile', () => {
     };
     
     component.addUserImage(getFileList());
+    flush();
   }));
 
   it('should fail use addUserImage function ', fakeAsync(() => {
@@ -403,6 +412,7 @@ describe('Profile', () => {
     };
     
     component.addUserImage(getFileList());
+    flush();
   }));
 
 

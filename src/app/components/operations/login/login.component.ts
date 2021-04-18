@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginUser } from 'src/app/models/login-user';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private tokenService: TokenService,
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ) { 
     this.formLogin = formBuilder.group({
       username: ['', Validators.required],
@@ -55,6 +57,8 @@ export class LoginComponent implements OnInit {
         this.tokenService.setAuthorities(res.authorities);
 
         this.router.navigate(['/']);
+        this.toastr.success("Sesión iniciada correctamente.")
+        
         
       }, err =>{
         this.isLogged = false;
@@ -65,6 +69,8 @@ export class LoginComponent implements OnInit {
           returned_error = 'Usuario incorrecto'
         }
         this.messageError = returned_error;
+        this.toastr.error("Se ha producido un error al iniciar sesión.")
+
         
       }
     )

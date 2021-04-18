@@ -16,6 +16,8 @@ import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
 import { LoginUser } from 'src/app/models/login-user';
 import { NewUser } from 'src/app/models/new-user';
+import { ToastrModule } from 'ngx-toastr';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let component: LoginComponent;
 let fixture: ComponentFixture<LoginComponent>;
@@ -52,7 +54,9 @@ describe('Login', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule
+        ReactiveFormsModule, FormsModule,
+        NoopAnimationsModule,
+        ToastrModule.forRoot()
       ],
       declarations: [
         LoginComponent,

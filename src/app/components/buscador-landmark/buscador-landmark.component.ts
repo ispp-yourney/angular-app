@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Landmark } from 'src/app/models/itinerary';
+import {  Landmark } from 'src/app/models/itinerary';
 import { SearchFilterLandmark } from 'src/app/models/search-filters';
 
 
@@ -18,12 +18,12 @@ export class BuscadorLandmarkComponent implements OnInit {
   added: string = "block";
 
   @Output()
-  landmarkId: EventEmitter<number> = new EventEmitter<number>();
+  landmarkId: EventEmitter<Landmark> = new EventEmitter<Landmark>();
 
-  passData(id: number){
+  passData(landmark: Landmark){
      
-      this.landmarkId.emit(id);
-      this.added = "none"
+      this.landmarkId.emit(landmark);
+      
 
   }
   
@@ -39,6 +39,8 @@ export class BuscadorLandmarkComponent implements OnInit {
   currentPage: number = 0;
   initialPages: Array<number> = [];
   prueba: number  = 0;
+  filterClick: boolean = false;
+
   @Input()
   create:boolean;
 
@@ -77,14 +79,20 @@ export class BuscadorLandmarkComponent implements OnInit {
 
      
       if(this.totalPages>=3 && this.prueba == 0){
+        
+        this.currentPage = 0
+        this.initialPages = []
         for (let index = 0; index <3; index++) {
           this.initialPages.push(index)
           this.prueba++;
           
         }
       }else{
-
+        
        if(this.totalPages>0 && this.totalPages <=2 && this.prueba==0){
+       
+        this.currentPage = 0
+        this.initialPages = []
         this.initialPages[0] = 0
         this.prueba++;
       }else{
@@ -102,6 +110,7 @@ export class BuscadorLandmarkComponent implements OnInit {
       console.log((this.currentPage) == this.initialPages[this.initialPages.length - 1])
       
       if(this.totalPages>=3 && this.prueba>0 ){
+        
         if((this.currentPage) == this.initialPages[0]){
           if(this.initialPages[this.initialPages.length -1]+1 - 3 > 0){
             for (let index = 0; index < 3; index++) {
@@ -159,11 +168,13 @@ export class BuscadorLandmarkComponent implements OnInit {
       }
 
       onRegister(){
+        this.prueba = 0
         this.loadLandmarks(this.formFilter.controls.country.value,this.formFilter.controls.city.value,0);
       }
       
    
      OnChange(pais:string) {
+      
        this.buscadorLandmarkService.getCityByCountry(pais).subscribe(c => {this.city = c; this.formFilter.controls['city'].setValue('');} )
      }
 

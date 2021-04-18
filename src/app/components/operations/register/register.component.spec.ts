@@ -185,7 +185,7 @@ describe('Register', () => {
     expect(component.isLoginFail).toEqual(true)
   }));
 
-  it('should fail to login and undefined error', fakeAsync(() => {
+  it('should fail to login and return undefined error', fakeAsync(() => {
     spyTokenService.getToken.and.returnValue("tokenTest");
     spyOn(authService, 'new').and.returnValue(of(newUser))
     spyOn(authService, 'login').and.returnValue(throwError({
