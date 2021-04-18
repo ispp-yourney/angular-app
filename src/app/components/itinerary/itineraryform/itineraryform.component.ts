@@ -3,11 +3,12 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { ActivityDto, ItineraryDto, Itinerary, LandmarkDto } from 'src/app/models/itinerary'
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { ToastrService } from 'ngx-toastr';
 import { CountryService } from 'src/app/services/country.service';
+import { checkRange } from '../itineraryupdate/itineraryupdate.component';
 
 
 @Component({
@@ -90,22 +91,34 @@ export class ItineraryformComponent implements OnInit {
     pepe.push(activity);
   }
 
+  checkPrice(control: AbstractControl): {[key: string]: any} | null {
+    const price =  parseFloat(control.value)
+    if(price<0 || price >10000 ){
+        return {'maxPrice': true}
+    }else{
+      return null
+    }
+
+  }
+
+
+
   addLandmark(activity: FormArray){
     const landmark = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description2: ['', [Validators.required, Validators.maxLength(1000)]],
-      price: ['0', Validators.min(0)],
+      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
       country: ['', Validators.required],
-      city: ['', Validators.required],
-      latitude: ['', Validators.pattern("^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$")],
-      longitude: ['', Validators.pattern("^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")],
-      category: [''],
-      email: ['', [Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      phone: ['', Validators.pattern("^[+]*\\([0-9]{1,4}\\)[-\\s\\./0-9]*$")],
-      website: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
+      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-90,90)]],
+      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-180,180)]],
+      category: [''], 
+      email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
+      phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
+      website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
       // website: [''],
-      instagram: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
-      twitter: ['', Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$")],
+      instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"),Validators.maxLength(300)]],
+      twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
       landmarkImage: [this.formBuilder.control(File)]
     });
    
@@ -165,7 +178,7 @@ export class ItineraryformComponent implements OnInit {
                   for (let activity of day.get('activities')['controls']) {
                     if(activity.value.landmarkId == '' ){
                       totalPrice = totalPrice + activity.value.landmark[0].price;
-                      console.log("precio:"+totalPrice)
+                      console.log(":"+totalPrice)
                     }else{
                       totalPrice = totalPrice + activity.value.landmarkId.price;
                       }
@@ -213,7 +226,7 @@ export class ItineraryformComponent implements OnInit {
           return new Promise((resolve, reject) => {
             setTimeout( () => {
              resolve( this.router.navigate(['/itinerarios/' + data.id]).then( () => {window.location.reload()} ))
-            }, 3000)
+            }, 2000)
           })
         };
 
@@ -233,8 +246,8 @@ export class ItineraryformComponent implements OnInit {
                 if(landmark == ''){
                   
                  var newLand = new LandmarkDto(0, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
-                   activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category,activity.value.landmark[0].email,
-                   activity.value.landmark[0].phone, activity.value.landmark[0].website,activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
+                   activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category, activity.value.landmark[0].email == '' ? null : activity.value.landmark[0].email,
+                   activity.value.landmark[0].phone == '' ? null : activity.value.landmark[0].phone, activity.value.landmark[0].website,activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
                    console.log(newLand)
                   
                  this.landmarkService.nuevo(newLand).subscribe(
@@ -282,6 +295,7 @@ export class ItineraryformComponent implements OnInit {
           if(day.get('activities')['controls'].length > 0){
               
             for (let activity of day.get('activities')['controls']) {
+              if(activity.get('landmark')['controls'].length > 0){
 
               if(activity.value.landmarkId == '' && activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined  ){
                   console.log("fefefw "+activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name )
@@ -289,6 +303,7 @@ export class ItineraryformComponent implements OnInit {
                 fileNames.push(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
                 
               }
+            }
 
               }
           }
@@ -395,6 +410,8 @@ export class ItineraryformComponent implements OnInit {
           this.toastr.error("Actividad no completada")
       }
 
+      
+
     }
 
 inputClass(form:FormGroup,property: string){
@@ -410,6 +427,8 @@ inputClass(form:FormGroup,property: string){
 
   return inputClass
   }
+
  
+
 
 }

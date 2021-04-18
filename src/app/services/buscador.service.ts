@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment-ci';
 export class BuscadorService {
 
   baseUrl:string = environment.backendEndpoint;
-  private listCountries:string = this.baseUrl+"/landmark/country/list";
+  private listCountries:string = this.baseUrl+"/landmark/country/list?itinerary=true";
   private listCities:string = this.baseUrl+"/landmark/city/list";
   private listCitiesByCountry:string = this.baseUrl+"/landmark/country/";
   private itinerarySearch:string = this.baseUrl+ '/itinerary/search/'
