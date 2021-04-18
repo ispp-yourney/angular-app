@@ -1,6 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -168,25 +170,29 @@ export class ItineraryupdateComponent implements OnInit {
   
   checkPrice(control: AbstractControl): {[key: string]: any} | null {
     const price =  parseFloat(control.value)
-    console.log(control.value )
-    if(price>=0 && price <=10000 ){
-        return null
+    if(price<0 || price >10000 ){
+        return {'maxPrice': true}
     }else{
-      return {'maxPrice': true}
+      return null
     }
 
   }
+
+ 
+
+ 
+  
 
   addLandmark(activity: FormArray){
     const landmark = this.formBuilder.group({
       id3: [-1],
       name: ['', Validators.required],
       description2: ['', Validators.required],
-      price: ['0', [Validators.required,this.checkPrice]],
+      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
       country: ['', Validators.required],
       city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
-      latitude: ['', Validators.pattern("^(\\-?([0-8]?[0-9](\\.\\d+)?|90(.[0]+)?)\\s?)$")],
-      longitude: ['', Validators.pattern("^(\\-?([1]?[0-7]?[0-9](\\.\\d+)?|180((.[0]+)?)))$")],
+      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-90,90)]],
+      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-180,180)]],
       category: [''],
       email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
       phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
@@ -308,7 +314,7 @@ export class ItineraryupdateComponent implements OnInit {
       return new Promise((resolve, reject) => {
         setTimeout( () => {
          resolve( this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then( () => {window.location.reload()} ))
-        }, 2000)
+        },2000)
       })
     }
 
@@ -589,6 +595,24 @@ export class ItineraryupdateComponent implements OnInit {
   
       }
 
+    
    
       
+}
+
+export function checkRange( min: number, max: number): ValidatorFn  {
+
+  return (control: AbstractControl): ValidationErrors | null => {
+    
+    const value =  parseFloat(control.value)
+    if(value<min|| value >max ){
+        return {'range': true}
+    }else{
+      return null
+    }
+
+  }
+
+  
+
 }
