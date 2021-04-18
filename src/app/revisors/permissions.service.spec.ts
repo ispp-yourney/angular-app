@@ -56,8 +56,7 @@ describe('PermissionsService', () => {
     }).compileComponents().then(() => {
 
 
-      // Returns a service with the MockBackend so we can test with dummy responses
-      //spyAuthService.showUser.and.returnValue(showUser);
+      permissionsService = TestBed.inject(PermissionsService);
       tokenService = TestBed.inject(TokenService);
       // Inject the http service and test controller for each test
       httpTestingController = TestBed.inject(HttpTestingController);

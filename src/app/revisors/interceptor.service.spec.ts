@@ -1,33 +1,33 @@
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuComponent } from './menu.component';
 import { TokenService } from 'src/app/services/token.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
 
-import { routes } from "../../app-routing.module";
+import { routes } from "../app-routing.module";
 import { Location } from '@angular/common';
-import { of, throwError } from 'rxjs';
+import { InterceptorService } from './interceptor.service';
+import { HttpHandler, HttpRequest } from '@angular/common/http';
+import { interceptor } from './interceptor.service';
+import { getPlatform } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
-
-let component: MenuComponent;
-let fixture: ComponentFixture<MenuComponent>;
-
+let interceptorService:InterceptorService
 let tokenService: TokenService;
 let httpTestingController: HttpTestingController;
 //Stubs
 let activatedRoute: ActivatedRoute
 let router: Router
 let location: Location;
-let routerSpy;
+
 let spyTokenService;
+let fixture
 
 
-
-describe('Menu', () => {
+describe('InterceptorService', () => {
 
   beforeEach(async () => {
     let activatedRouteMock: any = {
@@ -38,30 +38,23 @@ describe('Menu', () => {
 
     spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername", "getAuthorities", "setToken", "setUsername", "setAuthorities","logOut"]);
     spyTokenService.getUsername.and.returnValue("alejandro1cortes");
-    spyTokenService.getAuthorities.and.returnValue(['user']);
+    spyTokenService.getToken.and.returnValue("tokenTest");
 
-    routerSpy = jasmine.createSpyObj(Router, ["navigate"]);
-
-    
-    
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        //RouterTestingModule.withRoutes(routes),
+        RouterTestingModule.withRoutes(routes),
       ],
       declarations: [
-        MenuComponent
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
-        { provide: Router, useValue: routerSpy },
       ]
 
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(MenuComponent);
-      component = fixture.componentInstance;
 
+      interceptorService = TestBed.inject(InterceptorService);
       tokenService = TestBed.inject(TokenService);
       // Inject the http service and test controller for each test
       httpTestingController = TestBed.inject(HttpTestingController);
@@ -69,40 +62,43 @@ describe('Menu', () => {
       router = TestBed.inject(Router);
       location = TestBed.inject(Location);
 
+      router.initialNavigation();
     });
   });
 
   afterEach(() => {
-    fixture = null;
-    component = null;
     tokenService = null;
   });
 
-  it('should create', () => {
-    spyTokenService.logOut.and.returnValue();
+
+  it('should use intercept function with token', fakeAsync(() => {
+
     spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(component, 'reloadMenu').and.returnValue();
-    routerSpy.navigate.and.returnValue(Promise.resolve(''));
-    fixture.detectChanges();
-
-    component.ngOnInit()
-
-    fixture.detectChanges();
-    expect(component.onLogout).toBeTruthy();
-  });
-
-  it('should logOut', fakeAsync(() => {
-    spyTokenService.logOut.and.returnValue();
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(component, 'reloadMenu').and.returnValue();
-    routerSpy.navigate.and.returnValue(Promise.resolve(''));
-    fixture.detectChanges();
-
-    component.ngOnInit()
-
-    fixture.detectChanges();
-    component.onLogout();
-    expect(component.onLogout).toBeTruthy();
+    const req = new HttpRequest<any>('GET', 'hhtp://test.com');
+    const next: any = {
+      handle: (request: HttpRequest<any>) => {
+        return of({ test: 'test' });
+      }
+    };
+    tick()
+    expect(interceptorService.intercept).toBeTruthy();
+    interceptorService.intercept(req,next )
   }));
 
+  it('should use intercept function without token', fakeAsync(() => {
+    spyTokenService.getToken.and.returnValue();
+    const req = new HttpRequest<any>('GET', 'hhtp://test.com');
+    const next: any = {
+      handle: (request: HttpRequest<any>) => {
+        return of({ test: 'test' });
+      }
+    };
+    tick()
+    expect(interceptorService.intercept).toBeTruthy();
+    interceptorService.intercept(req,next )
+
+  }));
+
+
+ 
 })
