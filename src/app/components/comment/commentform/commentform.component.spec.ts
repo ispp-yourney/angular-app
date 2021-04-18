@@ -23,6 +23,7 @@ import { Activity, Author, Landmark } from 'src/app/models/itinerary';
 import { CommentService } from 'src/app/services/comment.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ItineraryViewComponent } from '../../itinerary/itineraryshow/itineraryview.component';
 
 
 
@@ -224,11 +225,13 @@ describe('Commentform', () => {
       }
     }
 
-    /*let routerSpy = {
-      navigate: jasmine.createSpy('navigate')
-    }*/
-    spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername"]);
+    spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername","getAuthorities"]);
     spyTokenService.getUsername.and.returnValue("alejandro1cortes");
+    spyTokenService.getAuthorities.and.returnValue([
+      {
+        "authority": "ROLE_ADMIN"
+      }
+    ]);
 
     spyCommentService = jasmine.createSpyObj(CommentService, ["nuevo", "borrar"]);
     routerSpy = jasmine.createSpyObj(Router, ["navigate"]);
@@ -237,7 +240,7 @@ describe('Commentform', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule,
+        ReactiveFormsModule, FormsModule, 
         NgxSliderModule,
         NoopAnimationsModule,
         ToastrModule.forRoot()
@@ -245,14 +248,15 @@ describe('Commentform', () => {
       ],
       declarations: [
         CommentformComponent,
-        MenuComponent
+        MenuComponent,
+        ItineraryViewComponent
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
         { provide: CommentService, useValue: spyCommentService },
         { provide: Router, useValue: routerSpy },
-        AuthService,
+        AuthService, ItineraryService
         //Options
       ]
 
@@ -280,6 +284,7 @@ describe('Commentform', () => {
     component = null;
     authService = null;
     tokenService = null;
+    itineraryService=null;
   });
 
   it('should loadComments from ngOnInit', () => {

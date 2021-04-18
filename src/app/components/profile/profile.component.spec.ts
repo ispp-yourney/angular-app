@@ -49,9 +49,14 @@ describe('Profile', () => {
       }
     }
 
-    spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername"]);
+    spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername","getAuthorities"]);
     spyTokenService.getToken.and.returnValue("tokenTest");
     spyTokenService.getUsername.and.returnValue("alejandro1cortes");
+    spyTokenService.getAuthorities.and.returnValue([
+      {
+        "authority": "ROLE_ADMIN"
+      }
+    ]);
 
     TestBed.configureTestingModule({
       imports: [
@@ -148,6 +153,7 @@ describe('Profile', () => {
     expect(component.expectedUser).toEqual(true)
     tick(1000);
     fixture.detectChanges();
+
     expect(component.userDetails).toEqual(showUserPlan0);
     expect(component.userDetails.plan).toEqual(0);
 

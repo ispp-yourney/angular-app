@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   plan:String;
   expectedUser: boolean =  false;
   paypalUrl: string
+  isAdmin:boolean=false;
 
 
   showProfile: boolean = true;
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
-
+    this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
     if(String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()){
         this.expectedUser = true;
     }
@@ -160,13 +161,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpdate() {
-    // const wait = () => {
-    //   return new Promise((resolve, reject) => {
-    //     setTimeout( () => {
-    //      resolve( this.router.navigate(['/perfil/' + this.editForm.value.username]).then( () => {window.location.reload()} ))
-    //     }, 500)
-    //   })
-    // };
 
     //Actualizar perfil
     var editedProfile = new NewUser(this.editForm.value.username,

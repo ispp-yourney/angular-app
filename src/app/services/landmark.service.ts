@@ -31,5 +31,13 @@ export class LandmarkService {
     return this.httpClient.get<UpgradeLandmarkDto>(this.hostURL + "/paypal/create/SPONSORSHIP?id=" + landmarkId.toString())
   }
 
-  
+  public deleteLandmark(id: number): Observable<any> {
+    var url = this.hostURL + '/landmark/delete/' + id;
+    return this.httpClient.delete<any>(url);
+  }
+
+  public tieneActividades(landmarkId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(this.hostURL + "/landmark/hasActivity/" + landmarkId.toString())
+  }
+
 }
