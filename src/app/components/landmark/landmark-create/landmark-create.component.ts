@@ -43,7 +43,7 @@ export class LandmarkCreateComponent implements OnInit {
     this.formLandmark = this.formBuilder.group({
             name: ['', [Validators.required,Validators.maxLength(50)]],
             description2: ['', [Validators.required, Validators.maxLength(1000)]],
-            price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
+            price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
             country: ['', Validators.required],
             city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
             latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],

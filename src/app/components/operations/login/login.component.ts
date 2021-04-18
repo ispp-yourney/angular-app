@@ -81,5 +81,19 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
+  inputClass(form:FormGroup,property: string){
+    let inputClass: string;
+  
+    if(!form.get(property).touched){
+      inputClass = "form-control"
+    }else if(form?.get(property).touched && form?.get(property).valid){
+      inputClass = "form-control is-valid"
+    }else if(form?.get(property).touched && form?.get(property).invalid){
+      inputClass = "form-control is-invalid"
+    }
+  
+    return inputClass
+    }
+
 }
 
