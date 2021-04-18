@@ -40,31 +40,36 @@
           </div> 
           <br>
 
-          <label for="country">País</label>
+          <label for="country">País <span style="color:#ff0000">*</span></label>
           <select class="form-control" id="country" formControlName="country" required>
             <option [value]="item" *ngFor="let item of countries">{{item}}</option>
           </select>
 
           <br>
-          <label for="city">Ciudad</label>
+          <label for="city">Ciudad <span style="color:#ff0000">*</span></label>
           <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul">
+          <div class="alert alert-danger" *ngIf="formLandmark.get('city').touched && formLandmark.get('city').invalid">
+            <div *ngIf="formLandmark.get('city').errors.required">No puede quedar vacío</div>
+          </div>
 
           <br>
-          <label for="latitude">Latitud</label>
-          <input type="number" id="latitude" formControlName="latitude" class="form-control" placeholder="12">
+          <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
+          <input type="number" id="latitude" formControlName="latitude" class="form-control" placeholder="12" required>
           <div class="alert alert-danger" *ngIf="formLandmark.get('latitude').touched && formLandmark.get('latitude').invalid">
             <div *ngIf="formLandmark.get('latitude').errors.min || formLandmark.get('latitude').errors.max">El valor introducido debe de estar entre -90 y 90</div>
             <div *ngIf="formLandmark.get('latitude').errors.pattern">El formato es inválido</div>
+            <div *ngIf="formLandmark.get('city').errors.required">No puede quedar vacío</div>
           </div>
 
 
 
           <br>
-          <label for="longitude">Longitud</label>
-          <input type="number" id="longitude" formControlName="longitude" class="form-control" placeholder="24">
+          <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
+          <input type="number" id="longitude" formControlName="longitude" class="form-control" placeholder="24" required>
           <div class="alert alert-danger" *ngIf="formLandmark.get('longitude').touched && formLandmark.get('longitude').invalid">
             <div *ngIf="formLandmark.get('longitude').errors.min || formLandmark.get('longitude').errors.max">El valor introducido debe de estar entre -180 y 180</div>
             <div *ngIf="formLandmark.get('longitude').errors.pattern">El formato es inválido</div>
+            <div *ngIf="formLandmark.get('city').errors.required">No puede quedar vacío</div>
           </div>
 
 
