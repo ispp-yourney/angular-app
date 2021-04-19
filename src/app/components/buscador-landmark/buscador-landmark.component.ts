@@ -76,6 +76,16 @@ export class BuscadorLandmarkComponent implements OnInit {
       this.landmarks= res.content;
       this.totalPages= res.totalPages;
 
+      console.log(res.totalPages < page);
+      
+     
+      if (res.totalPages - 1 < page) {
+        this.initialPages = [];
+        this.currentPage = 0
+        this.initialPages[0] = 0
+        this.loadLandmarks(country,city, 0);
+        return;
+      }
      
       if(this.totalPages>=3 && this.prueba == 0){
         

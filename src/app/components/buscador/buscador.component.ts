@@ -51,6 +51,15 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
       this.itineraries=res.content;
       this.totalPages= res.totalPages;
 
+      if (res.totalPages - 1 < page) {
+        this.initialPages = [];
+        this.currentPage = 0
+        this.initialPages[0] = 0
+        this.loadItineraries(country, city, maxBudget, maxDays, 0);
+        return;
+      }
+      
+
       this.search = true
 
       if(this.totalPages>=3 && this.prueba == 0){
