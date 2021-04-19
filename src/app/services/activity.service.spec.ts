@@ -71,4 +71,13 @@ describe('ActivityService', () => {
       });
   });
 
+  it('should show activity', () => {
+    const activityObservable: Observable<any> = of(activityDto);
+    httpClientMock.get.and.returnValue(activityObservable);
+    service.show(1)
+      .subscribe(activityResponse => {
+        expect(activityResponse.title).toEqual("Test Activity")
+      });
+  });
+
 });

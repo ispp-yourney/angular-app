@@ -106,7 +106,7 @@
                               </div>
                             </div>
                             
-                            <button *ngIf="plan=='Gratis' && expectedUser && (userDetails?.roles[0].roleType != 'ROLE_ADMIN')" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
+                            <button *ngIf="plan=='Gratis' && expectedUser && !isAdmin" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
                           </div>
                         </form>  
                       </ng-template>

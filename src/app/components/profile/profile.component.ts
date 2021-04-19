@@ -15,13 +15,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit {
 
-  userDetails:ShowUser;
-  username:String;
-  messageError:String;
-  incorrectUsername:boolean;
-  plan:String;
-  expectedUser: boolean =  false;
+  userDetails: ShowUser;
+  username: String;
+  messageError: String;
+  incorrectUsername: boolean;
+  plan: String;
+  expectedUser: boolean = false;
   paypalUrl: string
+  isAdmin: boolean = false;
 
   urlPattern = "((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\+~%\\/.\\w-_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)"
 
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private tokenServide: TokenService, 
+  constructor(private tokenService: TokenService, 
+
               private authService: AuthService,
               private activatedRoute: ActivatedRoute, 
               private router: Router, 
@@ -40,13 +42,14 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
-
-    if(String(this.tokenServide.getUsername()) == this.username && this.tokenServide.getToken()){
-        this.expectedUser = true;
+    this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+    if (String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()) {
+      this.expectedUser = true;
     }
 
     //Si no es su perfil
-    if(!this.expectedUser){
+    if (!this.expectedUser) {
+      this.expectedUser = false;
       this.showUser(this.username);
     }
 
@@ -54,15 +57,13 @@ export class ProfileComponent implements OnInit {
     else {
       this.updateUser();
     }
-    
-    
   }
 
-  showUser(username:String){
+  showUser(username: String) {
     this.authService.showUser(username).subscribe(
       data => {
-        this.userDetails=data;
-        this.incorrectUsername=false;
+        this.userDetails = data;
+        this.incorrectUsername = false;
         if (this.userDetails.plan == 0) {
           this.plan = "Gratis";
         } else {
@@ -70,9 +71,9 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
-        this.incorrectUsername=true;
-        this.messageError=err.error.text;
-    
+        this.incorrectUsername = true;
+        this.messageError = err.error.text;
+
       }
     );
   }
@@ -101,25 +102,33 @@ export class ProfileComponent implements OnInit {
         
       },
       err => {
-        var returned_error = err.error.text
-        if(returned_error){
-          this.router.navigate(["/"]).then( () => {window.location.reload()} )
+        let returned_error = err.error.text
+        if (returned_error) {
+          this.router.navigate(["/"]).then(() => { this.reloadWindowLocation() })
         }
         this.messageError = returned_error;
       }
     );
   }
 
-  upgradeUser(){
+  reloadWindowLocation() {
+    window.location.reload()
+  }
+
+  hrefWindowLocation(data: any) {
+    window.location.href = data.text
+  }
+
+  upgradeUser() {
     this.authService.upgradeUser().subscribe(
       data => {
-        window.location.href = data.text
+        this.hrefWindowLocation(data)
       },
       err => {
-        this.messageError=err.error.text;
+        this.messageError = err.error.text;
       }
     )
-    
+
   }
 
   addUserImage(files: FileList,value) {
@@ -165,7 +174,7 @@ export class ProfileComponent implements OnInit {
   removeUserImage() {
     this.imageService.deleteUserPhoto().subscribe(
       data => {
-     
+
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen eliminada correctamente.")
 
@@ -178,24 +187,21 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpdate() {
-    const wait = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout( () => {
-         resolve( this.router.navigate(['/perfil/' + this.editForm.value.username]).then( () => {window.location.reload()} ))
-        }, 500)
-      })
-    };
 
     //Actualizar perfil
     var editedProfile = new NewUser(this.editForm.value.username,
-                                          this.userDetails.password,
-                                          this.editForm.value.firstName,
-                                          this.editForm.value.lastName,
-                                          this.editForm.value.email);
+      this.userDetails.password,
+      this.editForm.value.firstName,
+      this.editForm.value.lastName,
+      this.editForm.value.email);
     this.authService.updateUser(editedProfile).subscribe(
       data => {
-        wait()
         this.toastr.success("Perfil actualizado correctamente.")
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(this.router.navigate(['/perfil/' + this.editForm.value.username]).then(() => { this.reloadWindowLocation() }))
+          }, 2000)
+        })
 
       }, err => {
         this.toastr.success("Se ha producido un error en la actualización del perfil.")

@@ -88,12 +88,14 @@ onCreate(){
       
       this.toastr.success("Comentario realizado correctamente.")
 
-      this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {window.location.reload()} )
+
+      this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {this.reloadCommentsPage()} )
+
     }
   ,err=>{
     this.toastr.error("Se ha producido un error en la publicación del comentario.")
 
-    console.log(err)
+
   }
   )
 
@@ -101,16 +103,18 @@ onCreate(){
 
 removeComment(commentId:number){
   this.commentService.borrar(commentId).subscribe(data => {
-  
-    this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {window.location.reload()} )
+    this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {this.reloadCommentsPage()} )
+
     this.toastr.success("Comentario eliminado correctamente.")
   }, err => {
-
     this.toastr.error("Se ha producido un error en la eliminación del comentario.")
 
   })
 
 }
+  reloadCommentsPage() {
+    window.location.reload()
+  }
   
 
 }

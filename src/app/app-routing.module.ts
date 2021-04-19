@@ -14,7 +14,7 @@ import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate
 import { BuscadorLandmarkComponent } from './components/buscador-landmark/buscador-landmark.component';
 import { LandmarkShowComponent } from './components/landmark/landmark-show/landmark-show.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {path: '' , component: IndexComponent},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'buscador', component: BuscadorComponent, pathMatch: 'full'},

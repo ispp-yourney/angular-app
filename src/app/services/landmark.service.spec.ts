@@ -8,6 +8,7 @@ class HttpClientMock {
   get = jasmine.createSpy('httpClient.get');
   post = jasmine.createSpy('httpClient.post');
   put = jasmine.createSpy('httpClient.put')
+  delete = jasmine.createSpy('httpClient.delete')
 }
 
 describe('LandmarkService', () => {
@@ -16,6 +17,7 @@ describe('LandmarkService', () => {
   let landmarkMockResponse: Landmark;
   let landmarkMockDto: LandmarkDto;
   let landmarkUpgradeMockDto: UpgradeLandmarkDto;
+  let landmarkDeleteResponse: { text: string; }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -60,6 +62,8 @@ describe('LandmarkService', () => {
     landmarkMockDto = new LandmarkDto(0, "Landmark test", "This is a landmark text", 0, "string", "string", 0, 0, "string", "string", "string", "string", "string", "string", null)
 
     landmarkUpgradeMockDto = new UpgradeLandmarkDto("Paypal redirection")
+
+    landmarkDeleteResponse ={"text":"El punto de interes se ha borrado correctamente"};
   });
 
   it('should create', () => {
@@ -107,6 +111,24 @@ describe('LandmarkService', () => {
     service.upgradeLandmark(1)
       .subscribe(landmarkResponse => {
         expect(landmarkResponse.text).toEqual("Paypal redirection")
+      });
+  });
+
+  it('should delete landmark', () => {
+    const landmarkObservable: Observable<any> = of(landmarkDeleteResponse);
+    httpClientMock.delete.and.returnValue(landmarkObservable);
+    service.deleteLandmark(1)
+      .subscribe(landmarkResponse => {
+        expect(landmarkResponse.text).toEqual("El punto de interes se ha borrado correctamente")
+      });
+  });
+
+  it('should determine activities existence', () => {
+    const landmarkObservable: Observable<boolean> = of(true);
+    httpClientMock.get.and.returnValue(landmarkObservable);
+    service.tieneActividades(1)
+      .subscribe(landmarkResponse => {
+        expect(landmarkResponse).toEqual(true)
       });
   });
 

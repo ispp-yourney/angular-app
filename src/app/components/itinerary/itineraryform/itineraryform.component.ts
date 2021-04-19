@@ -50,7 +50,7 @@ export class ItineraryformComponent implements OnInit {
       days: this.formBuilder.array([], Validators.required),
     })
 
-    
+
   }
 
   ngOnInit(): void {
@@ -59,8 +59,8 @@ export class ItineraryformComponent implements OnInit {
 
   }
 
-  addDay(){
-  
+  addDay() {
+
     const day = this.formBuilder.group({
       activities: this.formBuilder.array([], Validators.required)
     });
@@ -69,9 +69,9 @@ export class ItineraryformComponent implements OnInit {
 
   }
 
-  addActivity(pepe: FormArray){
+  addActivity(pepe: FormArray) {
 
-  
+
     const activity = this.formBuilder.group({
       title: ['',[Validators.required, Validators.maxLength(50)]],
       description:  ['', [Validators.required, Validators.maxLength(1000)]],
@@ -121,10 +121,10 @@ export class ItineraryformComponent implements OnInit {
       twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
       landmarkImage: [this.formBuilder.control(File)]
     });
-   
-    activity.controls['landmark'].push(landmark); 
+
+    activity.controls['landmark'].push(landmark);
     activity.controls['action'].setValue("false")
-   
+
   }
 
   existLandmark(activity: FormGroup, data){
@@ -138,14 +138,14 @@ export class ItineraryformComponent implements OnInit {
   }
 
 
-  clickLandmarkShare(activity: FormGroup, data){
+  clickLandmarkShare(activity: FormGroup, data) {
     activity.controls['action'].setValue("false")
     activity.controls['searchLandmark'].setValue("block")
-   
+
   }
 
 
-  removeDay(i: number){
+  removeDay(i: number) {
     (this.formItiner.get('days') as FormArray).removeAt(i);
 
     this.toastr.success("Día eliminado correctamente")
@@ -160,49 +160,40 @@ export class ItineraryformComponent implements OnInit {
 
 
 
-  removeActivity(daysList: FormArray, i: number){
+  removeActivity(daysList: FormArray, i: number) {
     daysList.removeAt(i);
     this.toastr.success("Actividad eliminada correctamente")
-
   }
 
-  getItineraryPrice(itinerary: FormGroup){
+  getItineraryPrice(itinerary: FormGroup) {
 
-        let totalPrice: number = 0;
+    let totalPrice: number = 0;
 
-          if(itinerary.get('days')['controls'].length > 0){
+    if (itinerary.get('days')['controls'].length > 0) {
 
-            for (let day of itinerary.get('days')['controls']) {
-                if(day.get('activities')['controls'].length > 0){
-                    
-                  for (let activity of day.get('activities')['controls']) {
-                    if(activity.value.landmarkId == '' ){
-                      totalPrice = totalPrice + parseFloat(activity.value.landmark[0].price);
-                      console.log(":"+totalPrice)
-                    }else{
-                      totalPrice = totalPrice + parseFloat(activity.value.landmarkId.price);
-                      }
+      for (let day of itinerary.get('days')['controls']) {
+        if (day.get('activities')['controls'].length > 0) {
 
-                    }
-                }
+          for (let activity of day.get('activities')['controls']) {
+            if (activity.value.landmarkId == '') {
+              totalPrice = totalPrice + activity.value.landmark[0].price;
+              console.log(":" + totalPrice)
+            } else {
+              totalPrice = totalPrice + activity.value.landmarkId.price;
             }
+          }
         }
-
-        return totalPrice;
-
+      }
+    }
+    return totalPrice;
   }
+
 
 
   onCreate(): void {
-
-    
-
-
     var totalDays = this.formItiner.controls.days as FormArray;
     
     var numb = totalDays.length;
-
-    
 
     this.getItineraryPrice(this.formItiner)
 
@@ -214,12 +205,9 @@ export class ItineraryformComponent implements OnInit {
       this.formItiner.value.recommendedSeason,
       "PUBLISHED");
 
-    
-
-    
     this.itineraryService.nuevo(this.newItinerary).subscribe(
       data => {
-     
+
         var dia = 1
 
         const wait = () => {
@@ -273,17 +261,24 @@ export class ItineraryformComponent implements OnInit {
           }
           dia++;
         }
-       wait()
-       this.toastr.success("Itinerario creado correctamente")
+        this.toastr.success("Itinerario creado correctamente")
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(this.router.navigate(['/itinerarios/' + data.id]).then(() => { this.reloadPage() }))
+          }, 2000)
+        })
+        
       },
       err => {
-     
-       
         this.toastr.error("Se ha producido un error")
-      }  
+      }
+
     )
-    
+
   }
+
+  reloadPage(){window.location.reload()}
+
 
   addedImages(form: FormGroup){
     
@@ -309,9 +304,7 @@ export class ItineraryformComponent implements OnInit {
           }
       }
   }
-
   return fileNames;
-
   }
 
   addItineraryImage(files: FileList,value) {

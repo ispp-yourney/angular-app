@@ -116,10 +116,14 @@ export class LandmarkShowComponent implements OnInit {
     );
   }
 
+  hrefWindowLocation(data:any){
+    window.location.href= data.text
+  }
+
   upgradeLandmark(){
     this.landmarkService.upgradeLandmark(this.landmark.id).subscribe(
       data => {
-        window.location.href = data.text
+        this.hrefWindowLocation(data)
       },
       err => {
         this.messageError=err.error.text;
@@ -129,13 +133,7 @@ export class LandmarkShowComponent implements OnInit {
   }
 
   onUpdate() {
-    const wait = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout( () => {
-         resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {window.location.reload()} ))
-        }, 500)
-      })
-    };
+
 
     //Actualizar landmark
     var editedLandmark = new LandmarkDto(
@@ -154,7 +152,7 @@ export class LandmarkShowComponent implements OnInit {
       this.editForm.value.instagram,
       this.editForm.value.twitter,
       0);
-    this.landmarkService.updateLandmark(editedLandmark).subscribe(
+    this.landmarkService.editar(editedLandmark).subscribe(
       data => {
 
         if(this.editForm.controls['landmarkImage'].value.name != undefined && data){
@@ -163,17 +161,19 @@ export class LandmarkShowComponent implements OnInit {
 
           }
 
-
-
-
-
-
-        wait()
+          return new Promise((resolve, reject) => {
+            setTimeout( () => {
+             resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {this.reloadPage()} ))
+            }, 500)
+          })
       }, err => {
         
       }
     )
   }
+
+  reloadPage(){window.location.reload()}
+
 
   onDelete(){
     this.landmarkService.deleteLandmark(this.landmark.id).subscribe(data => {

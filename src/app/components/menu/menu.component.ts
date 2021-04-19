@@ -22,9 +22,12 @@ export class MenuComponent implements OnInit {
   }
 
 
-  
+  reloadMenu(){
+    window.location.reload()
+  }
   onLogout(): void {
     this.tokenService.logOut();
-    this.router.navigate(["/"]).then( () => {window.location.reload()} )
+    this.router.navigate(["/"]).then( () => {this.reloadMenu()} )
+
   }
 }
