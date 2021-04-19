@@ -230,9 +230,10 @@ i.fab{
 
 
   .div_pagination{
-      position: absolute;
-      left: 40vw;
-      top: 140vh;
+    width:40%;
+    margin-left:auto;
+    margin-right: auto;
+    display: flex;
     
   }
   
@@ -269,9 +270,10 @@ i.fab{
   }
 
   .addLandmark_pagination{
-    position: absolute;
-    left:11vw!important;
-    top:139vh;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
   }
 
 
@@ -295,9 +297,10 @@ i.fab{
     }
 
     .div_pagination{
-      position: absolute;
-      left: 20vw;
-      top: 550vh;
+      display:flex;
+      width:40%;
+      margin-left:auto;
+      margin-right: auto;
       
     }
 
@@ -320,9 +323,4 @@ i.fab{
   left:45vw;
 }
 
-.addLandmark_pagination{
-  position: absolute;
-  left:9vw!important;
-  top: 150vh;
-}
   }

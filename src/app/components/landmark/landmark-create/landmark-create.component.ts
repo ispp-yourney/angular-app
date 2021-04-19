@@ -19,17 +19,16 @@ export class LandmarkCreateComponent implements OnInit {
 
   formLandmark: FormGroup;
   countries: Array<string>
-
-  checkPrice(control: AbstractControl): { [key: string]: any } | null {
-    const price = parseFloat(control.value)
-    if (price < 0 || price > 10000) {
-      return { 'maxPrice': true }
-    } else {
+  
+  checkPrice(control: AbstractControl): {[key: string]: any} | null {
+    const price =  parseFloat(control.value)
+    if(price<0 || price >10000 ){
+        return {'maxPrice': true}
+    }else{
       return null
     }
 
   }
-
   constructor(private formBuilder: FormBuilder,
     private landmarkService: LandmarkService,
     private tokenService: TokenService,
@@ -40,23 +39,23 @@ export class LandmarkCreateComponent implements OnInit {
   ) {
 
     this.formLandmark = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      description2: ['', [Validators.required, Validators.maxLength(1000)]],
-      price: ['0', [Validators.required, this.checkPrice, Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
-      country: ['', Validators.required],
-      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"), Validators.maxLength(100)]],
-      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-90, 90)]],
-      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-180, 180)]],
-      category: [''],
-      email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
-      phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
-      website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
+            name: ['', [Validators.required,Validators.maxLength(50)]],
+            description2: ['', [Validators.required, Validators.maxLength(1000)]],
+            price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
+            country: ['', Validators.required],
+            city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
+            latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
+            longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
+            category: [''],
+            email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
+            phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
+            website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
+         
+            instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"),Validators.maxLength(300)]],
+            twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
+            landmarkImage: [this.formBuilder.control(File)]
 
-      instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
-      twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
-      landmarkImage: [this.formBuilder.control(File)]
-
-    });
+  });
 
   }
 
@@ -90,19 +89,21 @@ export class LandmarkCreateComponent implements OnInit {
 
 
 
-  inputClass(form: FormGroup, property: string) {
-    let inputClass: string;
+      inputClass(form:FormGroup,property: string){
+        let inputClass: string;
+      
+        if(!form.get(property).touched){
+          inputClass = "form-control"
+        }else if(form?.get(property).touched && form?.get(property).valid){
+          inputClass = "form-control is-valid"
+        }else if(form?.get(property).touched && form?.get(property).invalid){
+          inputClass = "form-control is-invalid"
+        }
+      
+        return inputClass
+        }
 
-    if (!form.get(property).touched) {
-      inputClass = "form-control"
-    } else if (form?.get(property).touched && form?.get(property).valid) {
-      inputClass = "form-control is-valid"
-    } else if (form?.get(property).touched && form?.get(property).invalid) {
-      inputClass = "form-control is-invalid"
-    }
 
-    return inputClass
-  }
 
   addLandmarkImage(files: FileList) {
     const file = files.item(0)

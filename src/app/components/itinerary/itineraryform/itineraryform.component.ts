@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit  } from '@angular/core';
 import { ItineraryService } from 'src/app/services/itinerary.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { LandmarkService } from 'src/app/services/landmark.service';
@@ -29,6 +29,7 @@ export class ItineraryformComponent implements OnInit {
   ocultdAddLandmark: boolean = false;
 
   countries: Array<string>
+ 
 
 
 
@@ -74,16 +75,16 @@ export class ItineraryformComponent implements OnInit {
 
 
     const activity = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(1000)]],
-      landmark: this.formBuilder.array([], Validators.required),
+      title: ['',[Validators.required, Validators.maxLength(50)]],
+      description:  ['', [Validators.required, Validators.maxLength(1000)]],
+      landmark: this.formBuilder.array([],Validators.required ),
       landmarkId: [''],
       searchLandmark: ['none'],
-      action: ['true'],
-      landmarkImage: [''],
-      landmarkName: ['']
-
-
+      action:['true'],
+      landmarkImage:[''],
+      landmarkName:['']
+      
+      
     });
 
 
@@ -91,11 +92,11 @@ export class ItineraryformComponent implements OnInit {
     pepe.push(activity);
   }
 
-  checkPrice(control: AbstractControl): { [key: string]: any } | null {
-    const price = parseFloat(control.value)
-    if (price < 0 || price > 10000) {
-      return { 'maxPrice': true }
-    } else {
+  checkPrice(control: AbstractControl): {[key: string]: any} | null {
+    const price =  parseFloat(control.value)
+    if(price<0 || price >10000 ){
+        return {'maxPrice': true}
+    }else{
       return null
     }
 
@@ -103,21 +104,21 @@ export class ItineraryformComponent implements OnInit {
 
 
 
-  addLandmark(activity: FormArray) {
+  addLandmark(activity: FormArray){
     const landmark = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description2: ['', [Validators.required, Validators.maxLength(1000)]],
-      price: ['0', [Validators.required, this.checkPrice, Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
+      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
-      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"), Validators.maxLength(100)]],
-      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-90, 90)]],
-      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-180, 180)]],
-      category: [''],
+      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
+      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
+      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
+      category: [''], 
       email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
       phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
       website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
       // website: [''],
-      instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
+      instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"),Validators.maxLength(300)]],
       twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
       landmarkImage: [this.formBuilder.control(File)]
     });
@@ -194,15 +195,9 @@ export class ItineraryformComponent implements OnInit {
 
 
   onCreate(): void {
-
-
-
-
     var totalDays = this.formItiner.controls.days as FormArray;
     //console.log(totalDays)
     var numb = totalDays.length;
-
-
 
     this.getItineraryPrice(this.formItiner)
 
@@ -213,7 +208,6 @@ export class ItineraryformComponent implements OnInit {
       this.getItineraryPrice(this.formItiner),
       this.formItiner.value.recommendedSeason,
       "PUBLISHED");
-
 
     this.itineraryService.nuevo(this.newItinerary).subscribe(
       data => {
@@ -229,30 +223,30 @@ export class ItineraryformComponent implements OnInit {
         for (let day of this.formItiner.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
             let landmark = activity.value.landmarkId
-
+          
             var newAct = new ActivityDto(0, activity.value.title, activity.value.description, dia, data.id, landmark == '' ? 0 : activity.value.landmarkId.id)
             this.activityService.nuevo(newAct).subscribe(
               data => {
-                if (landmark == '') {
-
-                  var newLand = new LandmarkDto(0, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
-                    activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category, activity.value.landmark[0].email == '' ? null : activity.value.landmark[0].email,
-                    activity.value.landmark[0].phone == '' ? null : activity.value.landmark[0].phone, activity.value.landmark[0].website, activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
-                  console.log(newLand)
-
-                  this.landmarkService.nuevo(newLand).subscribe(
-                    data => {
-                      //  console.log(data)
-                      if (activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data) {
-
-                        this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
+                if(landmark == ''){
+                  
+                 var newLand = new LandmarkDto(0, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
+                   activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category, activity.value.landmark[0].email == '' ? null : activity.value.landmark[0].email,
+                   activity.value.landmark[0].phone == '' ? null : activity.value.landmark[0].phone, activity.value.landmark[0].website,activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
+                   console.log(newLand)
+                  
+                 this.landmarkService.nuevo(newLand).subscribe(
+                 data => {
+                    //  console.log(data)
+                    if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data){
+                      
+                      this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
                       }
 
-                    }, err => {
-                      this.toastr.error("Se ha producido un error")
-                    })
-                }
-
+                 }, err => {
+                   this.toastr.error("Se ha producido un error")
+                   })
+                  }
+              
               },
               err => {
                 //console.log(err)
@@ -263,15 +257,15 @@ export class ItineraryformComponent implements OnInit {
           }
           dia++;
         }
+        this.toastr.success("Itinerario creado correctamente")
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(this.router.navigate(['/itinerarios/' + data.id]).then(() => { this.reloadPage() }))
           }, 2000)
         })
-        this.toastr.success("Itinerario creado correctamente")
+        
       },
       err => {
-        //console.log(err)
 
         this.toastr.error("Se ha producido un error")
       }
@@ -281,70 +275,71 @@ export class ItineraryformComponent implements OnInit {
 
   reloadPage(){window.location.reload()}
 
-  addedImages(form: FormGroup) {
 
+  addedImages(form: FormGroup){
+    
     let fileNames: Array<any> = [];
 
-    if (form.get('days')['controls'].length > 0) {
+    if(form.get('days')['controls'].length > 0){
 
       for (let day of form.get('days')['controls']) {
-        if (day.get('activities')['controls'].length > 0) {
+          if(day.get('activities')['controls'].length > 0){
+              
+            for (let activity of day.get('activities')['controls']) {
+              if(activity.get('landmark')['controls'].length > 0){
 
-          for (let activity of day.get('activities')['controls']) {
-            if (activity.get('landmark')['controls'].length > 0) {
-
-              if (activity.value.landmarkId == '' && activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined) {
-                console.log("fefefw " + activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
-                console.log(fileNames)
+              if(activity.value.landmarkId == '' && activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined  ){
+                  console.log("fefefw "+activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name )
+                  console.log(fileNames)
                 fileNames.push(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
-
+                
               }
             }
 
+              }
           }
-        }
       }
-    }
+  }
 
-    return fileNames;
+  return fileNames;
 
   }
 
-  addItineraryImage(files: FileList, value) {
+  addItineraryImage(files: FileList,value) {
     const file = files.item(0)
     let fileNames: Array<any> = this.addedImages(this.formItiner)
-    if (fileNames.indexOf(file?.name) == -1) {
+    if(fileNames.indexOf(file?.name) == -1){
       this.itineraryImage = files.item(0)
 
-    } else {
+    }else{
       value.value = ""
-
-
+      
+      
       this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
     }
-
+    
   }
+  
+ 
+  
 
-
-
-
-  addLandmarkImage(files: FileList, activity: FormGroup, value) {
+  addLandmarkImage(files: FileList, activity: FormGroup,value) {
     const file = files.item(0)
-
+  
     let fileNames: Array<any> = this.addedImages(this.formItiner)
-    if (file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1) {
-
+    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1){
+      
       activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
 
-    } else {
-
-
-      value.value = ""
-
-
+    }else{
+      
+        console.log(value)
+        value.value = ""
+      
+      
       this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
     }
-
+   
   }
 
   uploadItineraryImage(file: File, itineraryId: number) {
@@ -390,11 +385,7 @@ export class ItineraryformComponent implements OnInit {
     if (!activity.valid) {
       this.toastr.error("La actividad no se ha completado.")
     }
-
   }
-
-
-
 
   showActivityCreated() {
     this.toastr.success("Actividad creada correctamente")
@@ -405,8 +396,6 @@ export class ItineraryformComponent implements OnInit {
     if (!activity.valid) {
       this.toastr.error("Actividad no completada")
     }
-
-
 
   }
 
@@ -420,11 +409,7 @@ export class ItineraryformComponent implements OnInit {
     } else if (form?.get(property).touched && form?.get(property).invalid) {
       inputClass = "form-control is-invalid"
     }
-
     return inputClass
   }
-
-
-
 
 }

@@ -12,15 +12,14 @@ import {
 
 
 import { routes } from "../../../app-routing.module";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule, AbstractControl } from "@angular/forms";
 import { Location } from '@angular/common';
 import { Observable, of, throwError } from 'rxjs';
 import { ShowUser } from '../../../models/show-user';
 import { LandmarkService } from '../../../services/landmark.service';
 import { Landmark, LandmarkDto } from '../../../models/itinerary';
 import { FormBuilder } from '@angular/forms';
-import { HereMapComponent } from '../../here-map/here-map.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 
@@ -102,6 +101,8 @@ let spyTokenService;
 let spyLandmarkService;
 let routerSpy;
 
+
+
 describe('LandmarkShow', () => {
 
   beforeEach(async () => {
@@ -126,7 +127,7 @@ describe('LandmarkShow', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule,
+        ReactiveFormsModule, FormsModule
       ],
       declarations: [
         LandmarkShowComponent,

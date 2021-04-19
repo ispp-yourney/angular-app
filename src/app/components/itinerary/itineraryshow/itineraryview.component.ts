@@ -37,7 +37,9 @@ export class ItineraryViewComponent implements OnInit  {
         this.loadDays()
         this.listNumberDays = Array.from({length: Object.keys(this.days).length}, (_, i) => i + 1)
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
-        this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+        if(this.tokenService.getAuthorities().length > 0){
+          this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+        }
         this.containError = false
         this.loadedItineraries = true;
       },

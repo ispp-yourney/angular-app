@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) { 
     this.formLogin = formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
     })
 
   }
@@ -83,6 +83,20 @@ export class LoginComponent implements OnInit {
     this.tokenService.logOut();
     this.reloadWindow();
   }
+
+  inputClass(form:FormGroup,property: string){
+    let inputClass: string;
+  
+    if(!form.get(property).touched){
+      inputClass = "form-control"
+    }else if(form?.get(property).touched && form?.get(property).valid){
+      inputClass = "form-control is-valid"
+    }else if(form?.get(property).touched && form?.get(property).invalid){
+      inputClass = "form-control is-invalid"
+    }
+  
+    return inputClass
+    }
 
 }
 
