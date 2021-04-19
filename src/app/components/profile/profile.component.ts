@@ -14,39 +14,39 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  
-  userDetails:ShowUser;
-  username:String;
-  messageError:String;
-  incorrectUsername:boolean;
-  plan:String;
-  expectedUser: boolean =  false;
+
+  userDetails: ShowUser;
+  username: String;
+  messageError: String;
+  incorrectUsername: boolean;
+  plan: String;
+  expectedUser: boolean = false;
   paypalUrl: string
-  isAdmin:boolean=false;
+  isAdmin: boolean = false;
 
 
   showProfile: boolean = true;
 
   editForm: FormGroup;
 
-  constructor(private tokenService: TokenService, 
-              private authService: AuthService,
-              private activatedRoute: ActivatedRoute, 
-              private router: Router, 
-              private formBuilder: FormBuilder, 
-              private imageService: ImageService,
-              private toastr: ToastrService) {
-   }
+  constructor(private tokenService: TokenService,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private imageService: ImageService,
+    private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
     this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
-    if(String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()){
-        this.expectedUser = true;
+    if (String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()) {
+      this.expectedUser = true;
     }
 
     //Si no es su perfil
-    if(!this.expectedUser){
+    if (!this.expectedUser) {
       this.expectedUser = false;
       this.showUser(this.username);
     }
@@ -57,11 +57,11 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  showUser(username:String){
+  showUser(username: String) {
     this.authService.showUser(username).subscribe(
       data => {
-        this.userDetails=data;
-        this.incorrectUsername=false;
+        this.userDetails = data;
+        this.incorrectUsername = false;
         if (this.userDetails.plan == 0) {
           this.plan = "Gratis";
         } else {
@@ -69,9 +69,9 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
-        this.incorrectUsername=true;
-        this.messageError=err.error.text;
-    
+        this.incorrectUsername = true;
+        this.messageError = err.error.text;
+
       }
     );
   }
@@ -98,48 +98,48 @@ export class ProfileComponent implements OnInit {
         this.editForm.controls['firstName'].setValue(this.userDetails.firstName);
         this.editForm.controls['lastName'].setValue(this.userDetails.lastName);
         this.editForm.controls['email'].setValue(data.email);
-        
+
       },
       err => {
         let returned_error = err.error.text
-        if(returned_error){
-          this.router.navigate(["/"]).then( () => {this.reloadWindowLocation()} )
+        if (returned_error) {
+          this.router.navigate(["/"]).then(() => { this.reloadWindowLocation() })
         }
         this.messageError = returned_error;
       }
     );
   }
 
-  reloadWindowLocation(){
+  reloadWindowLocation() {
     window.location.reload()
   }
 
-  hrefWindowLocation(data:any){
-    window.location.href= data.text
+  hrefWindowLocation(data: any) {
+    window.location.href = data.text
   }
 
-  upgradeUser(){
+  upgradeUser() {
     this.authService.upgradeUser().subscribe(
       data => {
         this.hrefWindowLocation(data)
       },
       err => {
-        this.messageError=err.error.text;
+        this.messageError = err.error.text;
       }
     )
-    
+
   }
 
   addUserImage(files: FileList) {
     const file = files.item(0)
     this.imageService.addUserPhoto(file).subscribe(
       data => {
-        
+
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen cambiada correctamente.")
       },
       err => {
-      
+
         this.toastr.error("Se ha producido un error al cambiar la imagen.")
       }
     )
@@ -148,7 +148,7 @@ export class ProfileComponent implements OnInit {
   removeUserImage() {
     this.imageService.deleteUserPhoto().subscribe(
       data => {
-     
+
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen eliminada correctamente.")
 
@@ -164,23 +164,23 @@ export class ProfileComponent implements OnInit {
 
     //Actualizar perfil
     var editedProfile = new NewUser(this.editForm.value.username,
-                                          this.userDetails.password,
-                                          this.editForm.value.firstName,
-                                          this.editForm.value.lastName,
-                                          this.editForm.value.email);
+      this.userDetails.password,
+      this.editForm.value.firstName,
+      this.editForm.value.lastName,
+      this.editForm.value.email);
     this.authService.updateUser(editedProfile).subscribe(
       data => {
-        () => {
-          return new Promise((resolve, reject) => {
-            setTimeout( () => {
-             resolve( this.router.navigate(['/perfil/' + this.editForm.value.username]).then( () => {window.location.reload()} ))
-            }, 500)
-          })
-        };
         this.toastr.success("Perfil actualizado correctamente.")
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(this.router.navigate(['/perfil/' + this.editForm.value.username]).then(() => { this.reloadWindowLocation() }))
+          }, 2000)
+        })
+
+
 
       }, err => {
-        // console.log(err);
+
         this.toastr.success("Se ha producido un error en la actualización del perfil.")
 
       }

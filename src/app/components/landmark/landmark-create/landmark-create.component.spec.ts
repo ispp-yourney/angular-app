@@ -2,8 +2,8 @@ import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, TestBed, tick
 import { RouterTestingModule } from '@angular/router/testing';
 import { LandmarkCreateComponent } from './landmark-create.component';
 import { MenuComponent } from '../../menu/menu.component';
-import { TokenService } from 'src/app/services/token.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { TokenService } from '../../../services/token.service';
+import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   HttpClientTestingModule,
@@ -12,18 +12,19 @@ import {
 
 
 import { routes } from "../../../app-routing.module";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule, AbstractControl } from "@angular/forms";
 import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
-import { ShowUser } from 'src/app/models/show-user';
-import { ImageService } from 'src/app/services/image.service';
+import { ShowUser } from '../../../models/show-user';
+import { ImageService } from '../../../services/image.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { LandmarkService } from 'src/app/services/landmark.service';
-import { CountryService } from 'src/app/services/country.service';
-import { LandmarkDto } from 'src/app/models/itinerary';
+import { LandmarkService } from '../../../services/landmark.service';
+import { CountryService } from '../../../services/country.service';
+import { LandmarkDto } from '../../../models/itinerary';
 import { ItineraryformComponent } from '../../itinerary/itineraryform/itineraryform.component';
 import { FormBuilder } from '@angular/forms';
+import { BuscadorLandmarkComponent } from '../../buscador-landmark/buscador-landmark.component';
 
 
 
@@ -94,7 +95,8 @@ describe('LandmarkCreate', () => {
       declarations: [
         LandmarkCreateComponent,
         MenuComponent,
-        ItineraryformComponent
+        ItineraryformComponent,
+        BuscadorLandmarkComponent
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
@@ -132,10 +134,11 @@ describe('LandmarkCreate', () => {
     countryService = null;
   });
 
-  it('should use onCreate', fakeAsync(() => {
+  it('should use onCreate function', fakeAsync(() => {
     spyOn(landmarkService, "nuevo").and.returnValue(of(''))
     spyCountryService.getAllCountries.and.returnValue(countries);
     spyOn(component, 'reloadWindow').and.returnValue();
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     spyToastr.error.and.returnValue();
     fixture.detectChanges();
 
@@ -145,10 +148,29 @@ describe('LandmarkCreate', () => {
     expect(component.onCreate).toBeTruthy()
     component.onCreate()
     flush()
+    
+  }));
+
+  it('should use onCreate function with negative price', fakeAsync(() => {
+    component.formLandmark.controls['price'].setValue(-50)
+    spyOn(landmarkService, "nuevo").and.returnValue(of(''))
+    spyCountryService.getAllCountries.and.returnValue(countries);
+    spyOn(component, 'reloadWindow').and.returnValue();
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
+    spyToastr.error.and.returnValue();
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+
+    expect(component.onCreate).toBeTruthy()
+    component.onCreate()
+    flush()
+    
   }));
 
   it('should use onCreate with landmark image', fakeAsync(() => {
-    component.formLandmark.controls['landmarkImage'].setValue(undefined)
+    component.formLandmark.controls['landmarkImage'].setValue({ name: "nombre" })
     spyOn(landmarkService, "nuevo").and.returnValue(of(''))
     spyCountryService.getAllCountries.and.returnValue(countries);
     spyOn(component, 'reloadWindow').and.returnValue();
@@ -230,6 +252,7 @@ describe('LandmarkCreate', () => {
       blob["lastModifiedDate"] = "";
       blob["name"] = "filename";
       const file = <File>blob;
+      // @ts-ignore
       const fileList: FileList = {
         0: file,
         1: file,
@@ -247,7 +270,7 @@ describe('LandmarkCreate', () => {
   it('should use uploadLandmarkImage function', fakeAsync(() => {
     fixture.detectChanges();
     //spyImageService.addLandmarkPhoto.and.returnValue('test')
-    spyOn(imageService,"addLandmarkPhoto").and.returnValue(of('test'))
+    spyOn(imageService, "addLandmarkPhoto").and.returnValue(of('test'))
     expect(component.ngOnInit).toBeTruthy()
     component.ngOnInit()
     component.uploadLandmarkImage(imageMock, 1)
@@ -256,7 +279,7 @@ describe('LandmarkCreate', () => {
   it('should use uploadLandmarkImage function with errors', fakeAsync(() => {
     fixture.detectChanges();
     //spyImageService.addLandmarkPhoto.and.returnValue('test')
-    spyOn(imageService,"addLandmarkPhoto").and.returnValue(throwError({
+    spyOn(imageService, "addLandmarkPhoto").and.returnValue(throwError({
       status: 404,
       error: {
         text: 'Error'

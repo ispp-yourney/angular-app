@@ -52,6 +52,29 @@
 <div *ngIf="noItinerariesFound; then noDataPresent else dataPresent"></div>
 <ng-template #dataPresent>
   
+  <div class="container-itineraries">
+
+  <div class="div_pagination" *ngIf="search">
+    <ul class="pagination pagination-lg">
+      <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
+        <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
+          (click)="switchPage(currentPage-1)">&laquo;</a>
+      </li>
+
+      <div *ngFor="let i of initialPages;">
+        <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
+          <a class="page-link " (click)="switchPage(i)">{{i + 1}}</a>
+
+        </li>
+      </div>
+
+      <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
+        <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
+          (click)="switchPage(currentPage+1)">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+
   <div class="itinerary" *ngFor="let item of itineraries">
 
     <div class="center">
@@ -97,27 +120,8 @@
       </div>
     </div>
   </div>
-
-  <div class="div_pagination" *ngIf="search">
-    <ul class="pagination pagination-lg">
-      <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
-        <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
-          (click)="switchPage(currentPage-1)">&laquo;</a>
-      </li>
-
-      <div *ngFor="let i of initialPages;">
-        <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
-          <a class="page-link " (click)="switchPage(i)">{{i + 1}}</a>
-
-        </li>
-      </div>
-
-      <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
-        <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
-          (click)="switchPage(currentPage+1)">&raquo;</a>
-      </li>
-    </ul>
   </div>
+  
 </ng-template>
 <ng-template #noDataPresent>
   <div class="alert alert-danger"> {{noItinerariesFound}}</div>

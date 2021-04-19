@@ -290,7 +290,8 @@ describe('Profile', () => {
     spyOn(authService, 'showUser').and.returnValue(of(showUserPlan0))
     const userUpdateResponseMock = { "text": "Usuario actualizado correctamente" }
     spyOn(authService, 'updateUser').and.returnValue(of(userUpdateResponseMock))
-
+    spyOn(component, 'reloadWindowLocation').and.returnValue();
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     fixture.detectChanges();
     component.ngOnInit()
 

@@ -95,7 +95,6 @@
 
                         Actividad {{j+1}} {{ activity.get('title').value != null && activity.get('title').value != '' ? ': '+activity.get('title')?.value+' ' : ''}} {{ activity.invalid ? ' - Estado de la actividad: Incompleta ' : ' - Estado de la actividad: Completa'}} &nbsp;&nbsp;
 
-                          <em type="button" style="margin-left: 30px;" (click)="removeActivity(day.get('activities'), j)" class="fa fa-minus-circle" aria-hidden="true" style="color:white;"></em>
 
                     
 
@@ -103,7 +102,7 @@
                       
                   
                     <div style="position: relative; bottom: 30px; left: 60vw; width: 10px;">
-                      <em type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteActivity' +(i+1)+''+(j+1)" class="fa fa-minus-circle" aria-hidden="true" style="color:rgb(255, 255, 255)"></em>
+                      <em type="button" style="margin-left: 30px;"  data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteActivity' +(i+1)+''+(j+1)" class="fa fa-minus-circle" aria-hidden="true" style="color:rgb(255, 255, 255)"></em>
                     </div>
                      <!-- Delete Activity confirmation -->
   
@@ -171,7 +170,7 @@
                             </div>
                             
                             <h2 style="color:grey"> {{activity.get('landmarkLoadName').value}}  </h2>
-                            <div style="text-align:center!important">
+                            <div style="text-align:center!important" *ngIf="activity.get('landmarkLoadImage').value != ''">
                               <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkLoadImage').value}}" alt="landmark">
                             </div>
 
@@ -203,10 +202,15 @@
 
 
                               <label for="price">Precio <span style="color:#ff0000">*</span></label>
-                              <input type="number" id="price" formControlName="price" class="{{inputClass(activity.get('landmark')['controls'][0], 'price')}}" value="0" required min="0" placeholder="0">
+                              <input type="text" id="price" formControlName="price" class="{{inputClass(activity.get('landmark')['controls'][0], 'price')}}" value="0" required min="0"  maxlength="20">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('price').touched && activity.get('landmark')['controls'][0].get('price').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.required">No puede quedar vacío o el formato es incorrecto.</div>
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.min">El precio mínimo debe ser 0.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.required">No puede estar vacío o el formato no es válido.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.maxPrice ">El precio debe estar entre 0-10000.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.maxlength">El número máximo de dígitos es 20.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('price').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+
+                              <br>
+
                               </div>
                               <br>
   
@@ -225,14 +229,17 @@
                               <input type="text" id="city" formControlName="city" class="{{inputClass(activity.get('landmark')['controls'][0], 'city')}}" placeholder="Seoul">
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('city').touched && activity.get('landmark')['controls'][0].get('city').invalid">
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('city').errors.required">No puede quedar vacío.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('city').errors.pattern">Debe de contener solamente letras.</div>
+
                               </div>
 
                               <br>
                               <label for="latitude">Latitud</label>
                               <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'latitude')}}" placeholder="12"  >
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('latitude').touched && activity.get('landmark')['controls'][0].get('latitude').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.pattern">El valor introducido debe de estar entre -90 y 90</div>
-                                
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
+
                               </div>
                               
 
@@ -240,7 +247,9 @@
                               <label for="longitude">Longitud</label>
                               <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'longitude')}}" placeholder="24" >
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('longitude').touched && activity.get('landmark')['controls'][0].get('longitude').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.pattern">El valor introducido debe de estar entre -180 y 180</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.range">El valor introducido debe de estar entre -180 y 180</div>
+
                               </div>
 
                               <br>
@@ -325,7 +334,7 @@
                           </div>
 
                           <div class="modal-footer">
-                            <a  class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#ConfirmationDay' +(i+1)+''+(j+1)" data-backdrop="static" data-keyboard="false">Cancelar</a>
+                            <a  class="btn btn-primary" data-toggle="modal"  [attr.data-target]="'#ConfirmationDay' +(i+1)+''+(j+1)" data-backdrop="static" data-keyboard="false">Cancelar</a>
                             <button type="button" class="btn btn-primary" [disabled]="!activity.valid" *ngIf="activity.get('newActivity').value == 'true'" data-dismiss="modal" (click)="notificationActivity(activity)">Crear Actividad</button>
                             <button type="button" class="btn btn-primary" [disabled]="!activity.valid" *ngIf="activity.get('newActivity').value == 'false' " data-dismiss="modal" (click)="notificationActivity(activity)">Editar Actividad</button>
 
@@ -333,16 +342,19 @@
 
                           <!-- Confirmation Activity modal-->
          
-                          <div class="modal fade" id="ConfirmationDay{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal fade"  id="ConfirmationDay{{(i+1)+''+(j+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                                
                                 </div>
                                 <div class="modal-body">
                                   ¿Quieres conservar los datos de la actividad introducidos?
                                 </div>
                                 <div class="modal-footer">
+                                  <a type="button" class="btn btn-secondary"  data-dismiss="modal">Seguir editando</a>
+
                                   <a type="button" class="btn btn-secondary" *ngIf="  activity.get('createActivity').value == 'true'" (click)="resetNewForm(activity)" data-dismiss="modal">Cancelar</a>
                                   <a type="button" class="btn btn-secondary" *ngIf=" activity.get('newActivity').value == 'false' && activity.get('createActivity').value == 'false' " (click)="resetForm(activity)" data-dismiss="modal">Cancelar</a>
                                   <a type="button" class="btn btn-primary" (click)="checkActivity(activity)" data-dismiss="modal">Confirmar</a>

@@ -2,8 +2,8 @@ import { ComponentFixture,  discardPeriodicTasks,  fakeAsync, flush, TestBed, ti
 import { RouterTestingModule } from '@angular/router/testing';
 import { LandmarkShowComponent } from './landmark-show.component';
 import { MenuComponent } from '../../menu/menu.component';
-import { TokenService } from 'src/app/services/token.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { TokenService } from '../../../services/token.service';
+import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   HttpClientTestingModule,
@@ -15,9 +15,9 @@ import { routes } from "../../../app-routing.module";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { Location } from '@angular/common';
 import { Observable, of, throwError } from 'rxjs';
-import { ShowUser } from 'src/app/models/show-user';
-import { LandmarkService } from 'src/app/services/landmark.service';
-import { Landmark, LandmarkDto } from 'src/app/models/itinerary';
+import { ShowUser } from '../../../models/show-user';
+import { LandmarkService } from '../../../services/landmark.service';
+import { Landmark, LandmarkDto } from '../../../models/itinerary';
 import { FormBuilder } from '@angular/forms';
 import { HereMapComponent } from '../../here-map/here-map.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -102,7 +102,7 @@ let spyTokenService;
 let spyLandmarkService;
 let routerSpy;
 
-describe('LandmarkCreate', () => {
+describe('LandmarkShow', () => {
 
   beforeEach(async () => {
     let activatedRouteMock: any = {
@@ -263,15 +263,18 @@ describe('LandmarkCreate', () => {
 
   it('should use onUpdate', fakeAsync(() => {
     spyOn(landmarkService,"editar").and.returnValue(of('text'))
+    spyOn(component, 'reloadPage').and.returnValue();
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     expect(component.upgradeLandmark).toBeTruthy()
     component.landmark=landmarkMock1
     component.ngOnInit()
     component.onUpdate()
     tick()
     fixture.detectChanges();
+    flush()
   }));
 
-  it('should use onUpdate with error', fakeAsync(() => {
+  it('should use onUpdate with errors', fakeAsync(() => {
     spyOn(landmarkService,"editar").and.returnValue(throwError({
       status: 404,
       error: {

@@ -49,7 +49,6 @@ export class LandmarkShowComponent implements OnInit {
   loadLandmark(): void {
     this.landmarkService.mostrar(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
-
         this.landmark = data;
         this.landmarkService.tieneActividades(this.landmark.id).subscribe(data => this.tieneActividades = data);
         this.containError = false
@@ -125,18 +124,19 @@ export class LandmarkShowComponent implements OnInit {
       0);
     this.landmarkService.editar(editedLandmark).subscribe(
       data => {
-        () => {
+        
           return new Promise((resolve, reject) => {
             setTimeout( () => {
-             resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {window.location.reload()} ))
+             resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {this.reloadPage()} ))
             }, 500)
           })
-        };
       }, err => {
         
       }
     )
   }
+
+  reloadPage(){window.location.reload()}
 
   onDelete(){
     this.landmarkService.deleteLandmark(this.landmark.id).subscribe(data => {
