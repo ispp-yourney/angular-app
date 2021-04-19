@@ -67,7 +67,7 @@
               </div>
             </div>
 
-            <button *ngIf="!isAdmin" type="button" class="btn btn-primary" style="margin:5px" (click)="addDay()">Añadir nuevo día</button>
+            <button *ngIf="!isAdmin || isMyItinerary" type="button" class="btn btn-primary" style="margin:5px" (click)="addDay()">Añadir nuevo día</button>
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
 
             <div class="card-header d-flex">
             <h2 class="p-2 mt-3">Día {{i+1}}</h2>
-              <button *ngIf="!isAdmin" type="button" class="btn ml-auto p-2" (click)="addActivity(day.get('activities'))">
+              <button *ngIf="!isAdmin || isMyItinerary" type="button" class="btn ml-auto p-2" (click)="addActivity(day.get('activities'))">
                 <em class="fa fa-plus-circle fa-3x" aria-hidden="true" style="color:white;"></em>
               </button>
               <button type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteDay'+(i+1)" [ngClass]="isAdmin ? 'ml-auto' : 'ml'" class="btn p-2">
@@ -96,12 +96,15 @@
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" *ngIf="!(editForm.get('days')['controls'].length == 1) ">
                       ¿Quieres borrar el día?
+                    </div>
+                    <div class="modal-body" *ngIf="editForm.get('days')['controls'].length == 1 ">
+                      Un itinerario debe contener al menos un día.
                     </div>
                     <div class="modal-footer">
                       <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
-                      <a type="button" class="btn btn-primary" (click)="removeDay(i)" data-dismiss="modal">Confirmar</a>
+                      <a type="button" class="btn btn-primary"   *ngIf="!(editForm.get('days')['controls'].length == 1 )" (click)="removeDay(i)" data-dismiss="modal">Confirmar</a>
                     </div>
                   </div>
                 </div>
@@ -144,12 +147,15 @@
                         <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" *ngIf="!(day.get('activities')['controls'].length == 1 && editForm.get('days')['controls'].length == 1)">
                           ¿Quieres borrar la actividad?
+                        </div>
+                        <div class="modal-body" *ngIf="day.get('activities')['controls'].length == 1 && editForm.get('days')['controls'].length == 1">
+                          Un día debe contener al menos una actividad.
                         </div>
                         <div class="modal-footer">
                           <a type="button" class="btn btn-secondary"   data-dismiss="modal">Cancelar</a>
-                          <a type="button" class="btn btn-primary" (click)="removeActivity(day.get('activities'), j)" data-dismiss="modal">Confirmar</a>
+                          <a type="button" class="btn btn-primary" *ngIf="!(day.get('activities')['controls'].length == 1 && editForm.get('days')['controls'].length == 1)"  (click)="removeActivity(day.get('activities'), j)" data-dismiss="modal">Confirmar</a>
                         </div>
                       </div>
                     </div>

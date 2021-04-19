@@ -176,10 +176,10 @@ export class ItineraryformComponent implements OnInit {
 
           for (let activity of day.get('activities')['controls']) {
             if (activity.value.landmarkId == '') {
-              totalPrice = totalPrice + activity.value.landmark[0].price;
-              console.log(":" + totalPrice)
+              totalPrice = totalPrice + parseFloat(activity.value.landmark[0].price);
+              
             } else {
-              totalPrice = totalPrice + activity.value.landmarkId.price;
+              totalPrice = totalPrice + parseFloat(activity.value.landmarkId.price);
             }
           }
         }
