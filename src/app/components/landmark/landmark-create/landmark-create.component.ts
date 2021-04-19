@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LandmarkDto, Activity } from 'src/app/models/itinerary'
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LandmarkService } from 'src/app/services/landmark.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { checkRange } from '../../itinerary/itineraryupdate/itineraryupdate.comp
   styleUrls: ['./landmark-create.component.css']
 })
 export class LandmarkCreateComponent implements OnInit {
-  
+
   formLandmark: FormGroup;
   countries: Array<string>
   
@@ -29,17 +29,17 @@ export class LandmarkCreateComponent implements OnInit {
     }
 
   }
-  
+
   constructor(private formBuilder: FormBuilder,
-    private landmarkService: LandmarkService, 
-    private tokerService: TokenService, 
+    private landmarkService: LandmarkService,
+    private tokenService: TokenService,
     private router: Router,
     private toastr: ToastrService,
     private countryService: CountryService,
     private imageService: ImageService,
-    ) { 
+  ) {
 
-    
+
     this.formLandmark = this.formBuilder.group({
             name: ['', [Validators.required,Validators.maxLength(50)]],
             description2: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -61,47 +61,38 @@ export class LandmarkCreateComponent implements OnInit {
 
   }
 
-  activity:Activity;
+  activity: Activity;
 
   ngOnInit(): void {
     this.countries = this.countryService.getAllCountries()
-
   }
-  
-  onCreate(){
-   
-    var newLand = new LandmarkDto(0, this.formLandmark.value.name, this.formLandmark.value.description2, this.formLandmark.value.price, this.formLandmark.value.country, 
-      this.formLandmark.value.city, this.formLandmark.value.latitude, this.formLandmark.value.longitude, this.formLandmark.value.category, this.formLandmark.value.email == '' ? null : this.formLandmark.value.email ,
-      this.formLandmark.value.phone == '' ? null : this.formLandmark.value.phone , this.formLandmark.value.website, this.formLandmark.value.instagram, this.formLandmark.value.twitter,null)
+
+  onCreate() {
+
+
+    var newLand = new LandmarkDto(0, this.formLandmark.value.name, this.formLandmark.value.description2, this.formLandmark.value.price, this.formLandmark.value.country,
+      this.formLandmark.value.city, this.formLandmark.value.latitude, this.formLandmark.value.longitude, this.formLandmark.value.category, this.formLandmark.value.email == '' ? null : this.formLandmark.value.email,
+      this.formLandmark.value.phone == '' ? null : this.formLandmark.value.phone, this.formLandmark.value.website, this.formLandmark.value.instagram, this.formLandmark.value.twitter, null)
     this.landmarkService.nuevo(newLand).subscribe(
-          data => {
-            const wait = () => {
-              return new Promise((resolve, reject) => {
-                setTimeout( () => {
-                  this.router.navigate(["punto_interes/" + data.id]).then( () => window.location.reload())
-        
-                }, 2000)
-              })
-            }
-        console.log(this.formLandmark.controls['landmarkImage'].value )
-        console.log(data.id)
-        if(this.formLandmark.controls['landmarkImage'].value.name != undefined && data){
-                      
+      data => {
+        if (this.formLandmark.controls['landmarkImage'].value.name != undefined && data) {
           this.uploadLandmarkImage(this.formLandmark.controls['landmarkImage'].value, data.id)
-
-          }
-        
+        }
         this.toastr.success("Punto de interés creado correctamente.")
-        wait()
-          }, err => {
-        //console.log(err)
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            this.router.navigate(["punto_interes/" + data.id]).then(() => this.reloadWindow())
+          }, 2000)
+        })
+      }, err => {
         this.toastr.error("Se ha producido un error en la creación del punto de interés.")
-          })
-      }
+      })
+  }
 
-     
 
-      inputClass(form:FormGroup,property: string){
+
+
+ inputClass(form:FormGroup,property: string){
         let inputClass: string;
       
         if(!form.get(property).touched){
@@ -115,25 +106,29 @@ export class LandmarkCreateComponent implements OnInit {
         return inputClass
         }
 
-        addLandmarkImage(files: FileList) {
-          const file = files.item(0)
-   
-            
-          this.formLandmark.controls['landmarkImage'].setValue(file)
-      
-         
-        }
 
-        uploadLandmarkImage(file: File, landmarkId: number) {
-          this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
-            data => {
-              // console.log(data)
-            },
-            err => {
-              // console.log(err)
-            }
-          )
-        }
 
+
+  addLandmarkImage(files: FileList) {
+    const file = files.item(0)
+
+
+    this.formLandmark.controls['landmarkImage'].setValue(file)
+
+
+  }
+
+  uploadLandmarkImage(file: File, landmarkId: number) {
+    this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
+      data => {
+      },
+      err => {
+      }
+    )
+  }
+
+  reloadWindow() {
+    window.location.reload()
+  }
 
 }

@@ -94,7 +94,8 @@
 
                           <div style="text-align:center!important">
                             <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
-                            <button *ngIf="plan=='Gratis' && expectedUser && (userDetails?.roles[0].roleType != 'ROLE_ADMIN')" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
+                            <button *ngIf="plan=='Gratis' && expectedUser && !isAdmin" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
+
                           </div>
                         </form>  
                       </ng-template>

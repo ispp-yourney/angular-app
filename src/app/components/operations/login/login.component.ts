@@ -76,9 +76,12 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  reloadWindow(){
+    window.location.reload()
+  }
   onLogout(): void {
     this.tokenService.logOut();
-    window.location.reload();
+    this.reloadWindow();
   }
 
   inputClass(form:FormGroup,property: string){

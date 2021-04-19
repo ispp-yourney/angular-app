@@ -25,18 +25,18 @@ export class ItineraryupdateComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private itineraryService: ItineraryService, 
-    private activityService: ActivityService, 
-    private landmarkService: LandmarkService, 
-    private route: ActivatedRoute, 
-    private tokenService: TokenService, 
-    private imageService: ImageService, 
-    private router: Router, 
+  constructor(private itineraryService: ItineraryService,
+    private activityService: ActivityService,
+    private landmarkService: LandmarkService,
+    private route: ActivatedRoute,
+    private tokenService: TokenService,
+    private imageService: ImageService,
+    private router: Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private countryService: CountryService) {
-    
-    };
+
+  };
 
   itinerary: Itinerary
   days: Array<Array<Activity>>
@@ -57,8 +57,6 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.countries = this.countryService.getAllCountries()
 
-   
-    
     this.editForm = this.formBuilder.group({
       id: new FormControl(''),
       name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
@@ -71,7 +69,7 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).toPromise().then(
       data => {
-     console.log(data)
+        console.log(data)
         this.itinerary = data;
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
         if(this.tokenService.getAuthorities().length > 0){
@@ -85,9 +83,9 @@ export class ItineraryupdateComponent implements OnInit {
         this.editForm.controls['budget'].setValue(data.budget);
         this.editForm.controls['recommendedSeason'].setValue(data.recommendedSeason);
         this.editForm.controls['status'].setValue(data.status);
-        
+
         let activities: Array<Activity> = data.activities
-        
+
         let activitiesByDay = new Map(Object.entries(this.groupByDay(activities)))
         activitiesByDay.forEach((value, key) => {
 
@@ -99,7 +97,7 @@ export class ItineraryupdateComponent implements OnInit {
 
 
           let acts = (new Array(activitiesByDay.get(key) as Activity[]))[0];
-          
+
           for (let index = 0; index < acts.length; index++) {
             let activityInfo = acts[index]
 
@@ -126,32 +124,33 @@ export class ItineraryupdateComponent implements OnInit {
           }
 
         });
-        
+
       },
       err => {
         var returned_error = err.error.text
-        if(returned_error){
-          this.router.navigate(["/"]).then( () => {window.location.reload()} )
+        if (returned_error) {
+          this.router.navigate(["/"]).then(() => { this.reloadPage() })
         }
         this.messageError = returned_error;
         this.containError = true
       }
     );
   }
+  reloadPage(){window.location.reload()}
 
-  addDay(){
+  addDay() {
 
     const day = this.formBuilder.group({
       activities: this.formBuilder.array([], Validators.required)
     });
-    
+
     (this.editForm.get('days') as FormArray).push(day);
 
   }
 
-  addActivity(pepe: FormArray){
+  addActivity(pepe: FormArray) {
     const activity = this.formBuilder.group({
-      id2: [-1], 
+      id2: [-1],
       title: ['', Validators.required],
       description: ['', Validators.required],
       landmark: this.formBuilder.array([],Validators.required ),
@@ -205,8 +204,6 @@ export class ItineraryupdateComponent implements OnInit {
       landmarkImage: [this.formBuilder.control(File)]
     });
 
-  
-
 
     activity.controls['landmark'].push(landmark); 
     activity.controls['action'].setValue("false") 
@@ -244,14 +241,14 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.toastr.success("Día eliminado correctamente")
     for (let index = 0; index < activities.length; index++) {
-      
+
       if (activities[index].id2 != undefined && activities[index].id2 > 0) {
         this.activityTrash.push(activities[index].id2);
       }
-      
+
     }
 
-    
+
     (this.editForm.get('days') as FormArray).removeAt(i);
   }
 
@@ -267,12 +264,12 @@ export class ItineraryupdateComponent implements OnInit {
     activityList.removeAt(i);
   }
 
-  groupByDay(array){
+  groupByDay(array) {
     var a = array.reduce((r, a) => {
-          r[a.day] = r[a.day] || [];
-          r[a.day].push(a);
-          return r;
-      }, Object.create(null));
+      r[a.day] = r[a.day] || [];
+      r[a.day].push(a);
+      return r;
+    }, Object.create(null));
     return a
   }
 
@@ -308,23 +305,15 @@ export class ItineraryupdateComponent implements OnInit {
 
 }
 
-  onUpdate() {
-    
-    const wait = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout( () => {
-         resolve( this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then( () => {window.location.reload()} ))
-        },2000)
-      })
-    }
 
+  onUpdate() {
 
     for (let iId of this.activityTrash) {
       this.activityService.borrar(iId).subscribe(
         data => {
 
         }, err => {
-          
+
         }
       )
     }
@@ -343,10 +332,10 @@ export class ItineraryupdateComponent implements OnInit {
     this.itineraryService.editar(newItinerary).subscribe(
       data => {
         // console.log(data)
-        if(this.itineraryImage != undefined){
+        if (this.itineraryImage != undefined) {
           this.uploadItineraryImage(this.itineraryImage, data.id)
         }
-        
+
         var dia = 1
         for (let day of this.editForm.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
@@ -361,7 +350,7 @@ export class ItineraryupdateComponent implements OnInit {
                   // console.log(data);
                  
                 }, err => {
-                  // console.log(err);
+
                 }
               )
             } else {
@@ -394,20 +383,18 @@ export class ItineraryupdateComponent implements OnInit {
                 }
               )
             }
-          
           }
           dia++;
         }
-        wait()
-        setTimeout( () => {
-          this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then( () => {window.location.reload()} )
-         },2000)
+
         this.toastr.success("Itinerario editado correctamente")
-
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then(() => { this.reloadPage() }))
+          }, 2000)
+        })
       }, err => {
-        // console.log(err);
         this.toastr.error("Se ha producido un error")
-
       }
     )
   }
@@ -452,6 +439,7 @@ export class ItineraryupdateComponent implements OnInit {
       this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
     }
   }
+
 
   
  
@@ -615,7 +603,5 @@ export function checkRange( min: number, max: number): ValidatorFn  {
     }
 
   }
-
-  
 
 }
