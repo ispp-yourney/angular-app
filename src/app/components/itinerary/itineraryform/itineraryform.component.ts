@@ -107,11 +107,11 @@ export class ItineraryformComponent implements OnInit {
     const landmark = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description2: ['', [Validators.required, Validators.maxLength(1000)]],
-      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
+      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
       city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
-      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-90,90)]],
-      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-180,180)]],
+      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
+      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
       category: [''], 
       email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
       phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
@@ -177,10 +177,10 @@ export class ItineraryformComponent implements OnInit {
                     
                   for (let activity of day.get('activities')['controls']) {
                     if(activity.value.landmarkId == '' ){
-                      totalPrice = totalPrice + activity.value.landmark[0].price;
+                      totalPrice = totalPrice + parseFloat(activity.value.landmark[0].price);
                       console.log(":"+totalPrice)
                     }else{
-                      totalPrice = totalPrice + activity.value.landmarkId.price;
+                      totalPrice = totalPrice + parseFloat(activity.value.landmarkId.price);
                       }
 
                     }

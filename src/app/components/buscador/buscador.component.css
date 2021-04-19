@@ -218,9 +218,10 @@ transform: rotateY(-180deg);
 
 
 .div_pagination{
-  position: absolute;
-  left: 45vw;
-  top: 130vh;
+  display: flex;
+  width:40%;
+  margin-left:auto;
+  margin-right: auto;
 
 }
 
@@ -273,10 +274,10 @@ transform: rotateY(-180deg);
   }
 
   .div_pagination{
-    position: absolute;
-    left: 30vw;
-    top: 550vh;
-    
+    display: flex;
+    width:40%;
+    margin-left:auto;
+    margin-right: auto;
   }
 
  

@@ -24,19 +24,24 @@
 
     <div class="form-group">
       <label class="col-form-label">Presupuesto Máx.</label>
-      <input formControlName="maxBudget" type="number" class="form-control" min="0" id="maxBudget">
-      <div class="alert alert-danger"
+      <input formControlName="maxBudget" type="text" class="{{inputClass(formFilter, 'maxBudget')}}" min="0" id="maxBudget" maxlength="8">
+     
+      <div class="invalid-feedback"
         *ngIf="formFilter.get('maxBudget').touched && formFilter.get('maxBudget').invalid">
-        <div *ngIf="formFilter.get('maxBudget').errors.min">El presupuesto no puede ser negativo.</div>
+        
+        <div *ngIf="formFilter.get('maxBudget').errors.maxlength">El máximo de digitos es 8.</div>
+        <div *ngIf="formFilter.get('maxBudget').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
       </div>
 
     </div>
 
     <div class="form-group">
       <label class="col-form-label">Días Máx.</label>
-      <input formControlName="maxDays" type="number" class="form-control" min="0" id="maxDays">
-      <div class="alert alert-danger" *ngIf="formFilter.get('maxDays').touched && formFilter.get('maxDays').invalid">
-        <div *ngIf="formFilter.get('maxDays').errors.min">El número de días no puede ser negativo.</div>
+      <input formControlName="maxDays" type="text" class="{{inputClass(formFilter, 'maxDays')}}"  min="0"  maxlength="3" id="maxDays">
+      <div class="invalid-feedback" *ngIf="formFilter.get('maxDays').touched && formFilter.get('maxDays').invalid">
+        <div *ngIf="formFilter.get('maxDays').errors.pattern">Debe contener 3 números máximo y ser dígitos.</div>
+       
+
       </div>
 
     </div>

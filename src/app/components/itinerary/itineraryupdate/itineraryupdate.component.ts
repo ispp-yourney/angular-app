@@ -74,8 +74,10 @@ export class ItineraryupdateComponent implements OnInit {
      console.log(data)
         this.itinerary = data;
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
-        if(!this.isMyItinerary && this.tokenService.getAuthorities()[0]['authority'] != 'ROLE_ADMIN'){
-          this.router.navigate(["/itinerarios/" + this.itinerary.id])
+        if(this.tokenService.getAuthorities().length > 0){
+          if(!this.isMyItinerary && this.tokenService.getAuthorities()[0]['authority'] != 'ROLE_ADMIN'){
+            this.router.navigate(["/itinerarios/" + this.itinerary.id])
+          }
         }
         this.editForm.controls['id'].setValue(data.id);
         this.editForm.controls['name'].setValue(data.name);
@@ -188,11 +190,11 @@ export class ItineraryupdateComponent implements OnInit {
       id3: [-1],
       name: ['', Validators.required],
       description2: ['', Validators.required],
-      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$")]],
+      price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
       city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
-      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-90,90)]],
-      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,5}$"), checkRange(-180,180)]],
+      latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
+      longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
       category: [''],
       email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
       phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
@@ -288,16 +290,14 @@ export class ItineraryupdateComponent implements OnInit {
                 if(activity.value.landmarkId == '' ){
 
                   if(activity.value.landmarkLoadPrice == -1){
-                    totalPrice = totalPrice + activity.value.landmark[0].price;
+                    totalPrice = totalPrice + parseFloat(activity.value.landmark[0].price);
 
                   }else{
-                    totalPrice = totalPrice + activity.value.landmarkLoadPrice;
+                    totalPrice = totalPrice + parseFloat(activity.value.landmarkLoadPrice);
 
                   }
                  
-                }else{
-                  totalPrice = totalPrice + activity.value.landmarkId.price;
-                  }
+                }
 
                 }
             }
@@ -398,7 +398,10 @@ export class ItineraryupdateComponent implements OnInit {
           }
           dia++;
         }
-        //wait()
+        wait()
+        setTimeout( () => {
+          this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then( () => {window.location.reload()} )
+         },2000)
         this.toastr.success("Itinerario editado correctamente")
 
       }, err => {

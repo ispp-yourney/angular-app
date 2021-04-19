@@ -230,27 +230,29 @@
                               </div>
 
                               <br>
-                              <label for="latitude">Latitud</label>
-                              <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'latitude')}}" placeholder="12"  >
+                              <label for="latitude">Latitud<span style="color:#ff0000">*</span></label>
+                              <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'latitude')}}" placeholder="12" required>
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('latitude').touched && activity.get('landmark')['controls'][0].get('latitude').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.required">No puede quedar vacío.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.pattern">Deben ser dígitos y con un máximo de 10 decimales.</div>
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('latitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
 
                               </div>
                               
 
                               <br>
-                              <label for="longitude">Longitud</label>
-                              <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'longitude')}}" placeholder="24" >
+                              <label for="longitude">Longitud<span style="color:#ff0000">*</span></label>
+                              <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(activity.get('landmark')['controls'][0], 'longitude')}}" placeholder="24" required>
                               <div class="invalid-feedback" *ngIf="activity.get('landmark')['controls'][0].get('longitude').touched && activity.get('landmark')['controls'][0].get('longitude').invalid">
-                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.required">No puede quedar vacío.</div>
+                                <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.pattern">Deben ser dígitos y con un máximo de 10 decimales.</div>
                                 <div *ngIf="activity.get('landmark')['controls'][0].get('longitude').errors.range">El valor introducido debe de estar entre -180 y 180</div>
 
                               </div>
                               <br>
                               <div class="form-group mb-3">
                                 <label for="category">Categoría</label>
-                                <select class="form-control" id="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}">
+                                <select class="form-control"  formControlName="category" id="category" class="{{inputClass(activity.get('landmark')['controls'][0], 'category')}}">
                                 <option label="BAR">BAR</option>
                                 <option label="HOTEL">HOTEL</option>
                                 <option label="TIENDA">TIENDA</option>

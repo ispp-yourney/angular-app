@@ -78,10 +78,11 @@ export class ProfileComponent implements OnInit {
 
   updateUser() {
     this.editForm = this.formBuilder.group({
-      username: new FormControl(['', Validators.required]),
-      firstName: new FormControl(['', Validators.required]),
-      lastName: new FormControl(['', Validators.required]),
-      email: new FormControl(['', Validators.required])
+                   username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
+                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
 
     })
 
@@ -131,8 +132,13 @@ export class ProfileComponent implements OnInit {
         this.toastr.success("Imagen cambiada correctamente.")
       },
       err => {
-      
-        this.toastr.error("Se ha producido un error al cambiar la imagen.")
+       
+        if(err.error.text){
+          this.toastr.error(err.error.text)
+        }else{
+          this.toastr.error("Se ha producido un error al actualizar la imagen.")
+        }
+       
       }
     )
   }
@@ -184,4 +190,17 @@ export class ProfileComponent implements OnInit {
     this.showProfile = !this.showProfile;
   }
 
+  inputClass(form:FormGroup,property: string){
+    let inputClass: string;
+  
+    if(!form.get(property).touched){
+      inputClass = "form-control"
+    }else if(form?.get(property).touched && form?.get(property).valid){
+      inputClass = "form-control is-valid"
+    }else if(form?.get(property).touched && form?.get(property).invalid){
+      inputClass = "form-control is-invalid"
+    }
+  
+    return inputClass
+    }
 }

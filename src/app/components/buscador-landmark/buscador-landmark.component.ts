@@ -70,7 +70,6 @@ export class BuscadorLandmarkComponent implements OnInit {
 
 
   loadLandmarks(country:string,city:string,page:number){
-
     this.buscadorLandmarkService.landmarkPage(country,city,page).subscribe(
     response => {
       var res = response;
