@@ -31,6 +31,8 @@ export class ItineraryformComponent implements OnInit {
   countries: Array<string>
  
 
+  
+
   constructor(private formBuilder: FormBuilder,
     private itineraryService: ItineraryService,
     private activityService: ActivityService,
@@ -98,6 +100,8 @@ export class ItineraryformComponent implements OnInit {
 
   }
 
+ 
+
 
 
   addLandmark(activity: FormArray){
@@ -106,14 +110,13 @@ export class ItineraryformComponent implements OnInit {
       description2: ['', [Validators.required, Validators.maxLength(1000)]],
       price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
-      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
+      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
       latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
       longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
       category: [''], 
       email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
       phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
       website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
-      // website: [''],
       instagram: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"),Validators.maxLength(300)]],
       twitter: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
       landmarkImage: [this.formBuilder.control(File)]
@@ -189,7 +192,7 @@ export class ItineraryformComponent implements OnInit {
 
   onCreate(): void {
     var totalDays = this.formItiner.controls.days as FormArray;
-    //console.log(totalDays)
+    
     var numb = totalDays.length;
 
     this.getItineraryPrice(this.formItiner)
@@ -217,7 +220,7 @@ export class ItineraryformComponent implements OnInit {
 
         // add photo
         if(this.itineraryImage != undefined){
-          console.log(this.itineraryImage)
+          
           this.uploadItineraryImage(this.itineraryImage, data.id)
         }
 
@@ -237,7 +240,7 @@ export class ItineraryformComponent implements OnInit {
                   
                  this.landmarkService.nuevo(newLand).subscribe(
                  data => {
-                    //  console.log(data)
+                    
                     if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data){
                       
                       this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
@@ -250,7 +253,7 @@ export class ItineraryformComponent implements OnInit {
               
               },
               err => {
-                //console.log(err)
+                
                 this.toastr.error("Se ha producido un error")
               }
             )
@@ -267,7 +270,6 @@ export class ItineraryformComponent implements OnInit {
         
       },
       err => {
-
         this.toastr.error("Se ha producido un error")
       }
 
@@ -307,15 +309,27 @@ export class ItineraryformComponent implements OnInit {
 
   addItineraryImage(files: FileList,value) {
     const file = files.item(0)
+
     let fileNames: Array<any> = this.addedImages(this.formItiner)
-    if(fileNames.indexOf(file?.name) == -1){
+    if(fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
       this.itineraryImage = files.item(0)
 
     }else{
       value.value = ""
       
+      if(!(file?.type == 'image/jpeg' || file?.type == 'image/png')){
+
+        this.toastr.error("Las imágenes deben ser de tipo jpg o png.")
+
+      }else if(!(fileNames.indexOf(file?.name) == -1) ){
+
+        this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+
+      }else if(!(file.size <= 4000000)){
+        this.toastr.error("Las imágenes no pueden ser superiores a 4mb.")
+
+      }
       
-      this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
     }
     
   }
@@ -327,17 +341,27 @@ export class ItineraryformComponent implements OnInit {
     const file = files.item(0)
   
     let fileNames: Array<any> = this.addedImages(this.formItiner)
-    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1){
+    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
       
       activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
 
     }else{
       
-        console.log(value)
-        value.value = ""
+      value.value = ""
       
-      
-      this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+      if(!(file?.type == 'image/jpeg' || file?.type == 'image/png')){
+
+        this.toastr.error("Las imágenes deben ser de tipo jpg o png.")
+
+      }else if(!(fileNames.indexOf(file?.name) == -1) ){
+
+        this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+
+      }else if(!(file.size <= 4000000)){
+        this.toastr.error("Las imágenes no pueden ser superiores a 4mb.")
+
+      }
+
     }
    
   }
@@ -345,10 +369,12 @@ export class ItineraryformComponent implements OnInit {
   uploadItineraryImage(file: File, itineraryId: number) {
     this.imageService.addItineraryPhoto(itineraryId, file).subscribe(
       data => {
-        // console.log(data)
+        
       },
       err => {
-        // console.log(err)
+        
+        this.toastr.error("Se ha producido un error al subir la imagen del itinerario.")
+
       }
     )
   }
@@ -356,10 +382,12 @@ export class ItineraryformComponent implements OnInit {
   uploadLandmarkImage(file: File, landmarkId: number) {
     this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
       data => {
-        // console.log(data)
+        
       },
       err => {
-        // console.log(err)
+      
+        this.toastr.error("Se ha producido un error al subir la imagen del punto de interés.")
+
       }
     )
   }
@@ -392,7 +420,7 @@ export class ItineraryformComponent implements OnInit {
 
 
     showActivityCreated(){
-      this.toastr.success("Actividad creada correctamente")
+      this.toastr.success("Actividad añadida correctamente")
     }
 
     checkActivity(activity: FormGroup){

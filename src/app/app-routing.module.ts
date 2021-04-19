@@ -25,7 +25,6 @@ export const routes: Routes = [
   {path: 'itinerarios/:id', component: ItineraryViewComponent,pathMatch: 'full'},
   {path: 'punto_interes/:id', component: LandmarkShowComponent,pathMatch: 'full'},
   {path: 'error', component: NotFoundComponent},
-  // {path:'itinerarios/:id', component: ItinerarylistComponent,pathMatch: 'full'},
   {path:'perfil/:username', component: ProfileComponent, pathMatch: 'full'},
   {path:'perfil/:username/itinerarios/:id', component: ItinerarylistComponent,pathMatch: 'full'},
   {path: '**', component: NotFoundComponent}

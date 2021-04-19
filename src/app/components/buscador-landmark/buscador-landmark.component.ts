@@ -106,7 +106,7 @@ export class BuscadorLandmarkComponent implements OnInit {
        
       }
     }
-      console.log((this.currentPage) == this.initialPages[this.initialPages.length - 1])
+    
       
       if(this.totalPages>=3 && this.prueba>0 ){
         

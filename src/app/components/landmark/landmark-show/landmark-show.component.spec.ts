@@ -20,6 +20,8 @@ import { LandmarkService } from '../../../services/landmark.service';
 import { Landmark, LandmarkDto } from '../../../models/itinerary';
 import { FormBuilder } from '@angular/forms';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -127,7 +129,9 @@ describe('LandmarkShow', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule
+        ReactiveFormsModule, FormsModule,
+        NoopAnimationsModule,
+        ToastrModule.forRoot()
       ],
       declarations: [
         LandmarkShowComponent,

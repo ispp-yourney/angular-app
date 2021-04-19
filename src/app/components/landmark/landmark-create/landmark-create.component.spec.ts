@@ -148,7 +148,7 @@ describe('LandmarkCreate', () => {
     expect(component.onCreate).toBeTruthy()
     component.onCreate()
     flush()
-    
+
   }));
 
   it('should use onCreate function with negative price', fakeAsync(() => {
@@ -166,7 +166,7 @@ describe('LandmarkCreate', () => {
     expect(component.onCreate).toBeTruthy()
     component.onCreate()
     flush()
-    
+
   }));
 
   it('should use onCreate with landmark image', fakeAsync(() => {
@@ -245,27 +245,27 @@ describe('LandmarkCreate', () => {
     component.inputClass(formMock, 'text')
   }));
 
-  it('should use addLandmarkImage function', fakeAsync(() => {
-    fixture.detectChanges();
-    const getFileList = () => {
-      const blob = new Blob([""], { type: "text/html" });
-      blob["lastModifiedDate"] = "";
-      blob["name"] = "filename";
-      const file = <File>blob;
-      // @ts-ignore
-      const fileList: FileList = {
-        0: file,
-        1: file,
-        length: 2,
-        item: (index: number) => file
-      };
-      return fileList;
-    };
-    component.ngOnInit()
-    component.addLandmarkImage(getFileList())
-    expect(component.inputClass(formMock, 'text')).toBeTruthy()
-    component.inputClass(formMock, 'text')
-  }));
+  // it('should use addLandmarkImage function', fakeAsync(() => {
+  //   fixture.detectChanges();
+  //   const getFileList = () => {
+  //     const blob = new Blob([""], { type: "text/html" });
+  //     blob["lastModifiedDate"] = "";
+  //     blob["name"] = "filename";
+  //     const file = <File>blob;
+  //     // @ts-ignore
+  //     const fileList: FileList = {
+  //       0: file,
+  //       1: file,
+  //       length: 2,
+  //       item: (index: number) => file
+  //     };
+  //     return fileList;
+  //   };
+  //   component.ngOnInit()
+  //   component.addLandmarkImage(getFileList())
+  //   expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  //   component.inputClass(formMock, 'text')
+  // }));
 
   it('should use uploadLandmarkImage function', fakeAsync(() => {
     fixture.detectChanges();

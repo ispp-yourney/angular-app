@@ -47,14 +47,14 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
     this.buscadorService.postFilter(country,city,maxBudget,maxDays,page).subscribe(
      response => {
       var res = response;
-      console.log(res)
+      
       this.itineraries=res.content;
       this.totalPages= res.totalPages;
 
       this.search = true
 
       if(this.totalPages>=3 && this.prueba == 0){
-        console.log("holi")
+       
         this.currentPage = 0
         this.initialPages = []
         for (let index = 0; index <3; index++) {

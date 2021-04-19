@@ -85,7 +85,7 @@ onCreate(){
   this.comment = new Comment(this.itinerary.id, this.formComment.value.content, this.formComment.value.rating);
   this.commentService.nuevo(this.comment).subscribe(
     data => {
-      //console.log(data)
+      
       this.toastr.success("Comentario realizado correctamente.")
 
 

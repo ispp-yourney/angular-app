@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   paypalUrl: string
   isAdmin: boolean = false;
 
+  urlPattern = "((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\+~%\\/.\\w-_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)"
 
   showProfile: boolean = true;
 
@@ -76,11 +77,9 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
   updateUser() {
     this.editForm = this.formBuilder.group({
                    username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-                  password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
                   firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
                   lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
                   email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
@@ -99,8 +98,8 @@ export class ProfileComponent implements OnInit {
         this.editForm.controls['username'].setValue(this.userDetails.username);
         this.editForm.controls['firstName'].setValue(this.userDetails.firstName);
         this.editForm.controls['lastName'].setValue(this.userDetails.lastName);
-        this.editForm.controls['email'].setValue(data.email);
-
+        this.editForm.controls['email'].setValue(this.userDetails.email);
+        
       },
       err => {
         let returned_error = err.error.text
@@ -132,24 +131,44 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  addUserImage(files: FileList) {
+  addUserImage(files: FileList,value) {
+    
     const file = files.item(0)
-    this.imageService.addUserPhoto(file).subscribe(
-      data => {
-
-        this.showUser(this.username)  // reload page
-        this.toastr.success("Imagen cambiada correctamente.")
-      },
-      err => {
-       
-        if(err.error.text){
-          this.toastr.error(err.error.text)
-        }else{
-          this.toastr.error("Se ha producido un error al actualizar la imagen.")
+    if( file?.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+      
+      this.imageService.addUserPhoto(file).subscribe(
+        data => {
+          
+          this.showUser(this.username)  // reload page
+          this.toastr.success("Imagen cambiada correctamente.")
+        },
+        err => {
+         
+          if(err.error.text){
+            this.toastr.error(err.error.text)
+          }else{
+            this.toastr.error("Se ha producido un error al actualizar la imagen.")
+          }
+         
         }
-       
+      )
+
+    }else{
+      
+      value.value = ""
+      
+      if(!(file?.type == 'image/jpeg' || file?.type == 'image/png')){
+
+        this.toastr.error("Las imágenes deben ser de tipo jpg o png.")
+
+      }else if(!(file?.size <= 4000000)){
+        this.toastr.error("Las imágenes no pueden ser superiores a 4mb.")
+
       }
-    )
+    }
+
+
+   
   }
 
   removeUserImage() {
@@ -185,8 +204,6 @@ export class ProfileComponent implements OnInit {
         })
 
       }, err => {
-
-
         this.toastr.success("Se ha producido un error en la actualización del perfil.")
 
       }
