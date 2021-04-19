@@ -62,7 +62,7 @@ export class ItineraryupdateComponent implements OnInit {
       id: new FormControl(''),
       name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       description: new FormControl('data.description', [Validators.required, Validators.maxLength(1000)]),
-      budget: new FormControl('0', [Validators.required, Validators.min(0)]),
+      budget: new FormControl('0',[Validators.required, Validators.min(0)]),
       recommendedSeason: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required),
       days: this.formBuilder.array([])
@@ -108,16 +108,19 @@ export class ItineraryupdateComponent implements OnInit {
               description: [activityInfo.description, Validators.required],
               id3: [activityInfo.landmark.id],
               landmark: this.formBuilder.array([]),
-              landmarkLoadImage: [activityInfo.landmark.image.imageUrl],
+              landmarkLoadImage:  [activityInfo.landmark.image.imageUrl],
               landmarkLoadName: [activityInfo.landmark.name],
               landmarkLoadPrice: [activityInfo.landmark.price],
               landmarkId: [''],
               searchLandmark: ['none'],
-              action: ['false'],
-              newActivity: ['false'],
-              createActivity: ['false']
+              action:['false'],
+              newActivity:['false'],
+              createActivity:['false']
+             
             });
 
+
+            
             (day.controls['activities'] as FormArray).push(activity)
           }
 
@@ -177,7 +180,12 @@ export class ItineraryupdateComponent implements OnInit {
 
   }
 
-  addLandmark(activity: FormArray) {
+ 
+
+ 
+  
+
+  addLandmark(activity: FormArray){
     const landmark = this.formBuilder.group({
       id3: [-1],
       name: ['', Validators.required],
@@ -221,12 +229,12 @@ export class ItineraryupdateComponent implements OnInit {
 
 
 
-  removeDay(i: number) {
+  removeDay(i: number){
     let aux = this.editForm.get('days') as FormArray;
     let activities = aux.controls[i].value['activities']
 
 
-    if (i == 0) {
+    if(i == 0){
 
       this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
 
@@ -486,109 +494,113 @@ export class ItineraryupdateComponent implements OnInit {
 
 
 
-  inputClass(form: FormGroup, property: string) {
+  inputClass(form:FormGroup,property: string){
     let inputClass: string;
-
-    if (!form.get(property).touched) {
+  
+    if(!form.get(property).touched){
       inputClass = "form-control"
-    } else if (form?.get(property).touched && form?.get(property).valid) {
+    }else if(form?.get(property).touched && form?.get(property).valid){
       inputClass = "form-control is-valid"
-    } else if (form?.get(property).touched && form?.get(property).invalid) {
+    }else if(form?.get(property).touched && form?.get(property).invalid){
       inputClass = "form-control is-invalid"
     }
-
+  
     return inputClass
-  }
-
-
-  resetNewForm(activity: FormGroup) {
-
-    activity.reset()
-
-
-    activity.controls['description'].setValue("")
-    activity.controls['title'].setValue("")
-
-
-    activity.get('landmark')['controls'].pop()
-
-
-
-    activity.controls['action'].setValue("true")
-    activity.controls['searchLandmark'].setValue("none")
-    activity.controls['landmarkId'].setValue("")
-    activity.controls['landmarkLoadImage'].setValue("")
-    activity.controls['landmarkLoadName'].setValue("")
-    activity.controls['newActivity'].setValue("true")
-    activity.controls['createActivity'].setValue("true")
-
-    if (!activity.valid) {
-      this.toastr.error("La actividad no se ha completado.")
-
     }
+   
 
-  }
-
-
-  resetForm(activity: FormGroup) {
-    console.log('activity id ' + activity)
-    this.activityService.show(activity.get('id2').value).subscribe(data => {
-      console.log("activity" + data)
-      let activityInfo = data
-      activity.controls['title'].reset()
-      activity.controls['title'].setValue(activityInfo.title)
-      activity.controls['description'].reset()
-      activity.controls['description'].setValue(activityInfo.description)
-
-
-
-    })
-
-
-
-  }
-
-
-
-
-  notificationActivity(activity: FormGroup) {
-
-    if (activity.get('newActivity').value == 'false') {
-      this.toastr.success("Actividad editada correctamente")
-    } else {
-      this.toastr.success("Actividad creada correctamente")
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          activity.controls['newActivity'].setValue('false')
-        }, 1000)
-      })
-    }
-
-  }
+    resetNewForm(activity: FormGroup){
+      
+      activity.reset()
+  
+  
+      activity.controls['description'].setValue("")
+      activity.controls['title'].setValue("")
+      
+  
+      activity.get('landmark')['controls'].pop()
+     
+  
+  
+      activity.controls['action'].setValue("true")
+      activity.controls['searchLandmark'].setValue("none")
+      activity.controls['landmarkId'].setValue("")
+      activity.controls['landmarkLoadImage'].setValue("")
+      activity.controls['landmarkLoadName'].setValue("")
+      activity.controls['newActivity'].setValue("true")
+      activity.controls['createActivity'].setValue("true")
+      
+      if(!activity.valid){
+        this.toastr.error("La actividad no se ha completado.")
+        
+      }
+  
+      }
 
 
+      resetForm(activity: FormGroup){
+          console.log('activity id '+ activity)
+          this.activityService.show(activity.get('id2').value).subscribe(data =>{
+            console.log("activity" + data)
+            let activityInfo = data
+            activity.controls['title'].reset()
+            activity.controls['title'].setValue(activityInfo.title)
+            activity.controls['description'].reset()
+            activity.controls['description'].setValue(activityInfo.description)
+            
+        
+       
+          })
 
-  checkActivity(activity: FormGroup) {
+        
+    
+        }
+    
+      
+  
+  
+      notificationActivity(activity: FormGroup){
 
-    if (!activity.valid) {
-      this.toastr.error("Actividad no completada")
-    }
+        const wait = () => {
+          return new Promise((resolve, reject) => {
+            setTimeout( () => {
+              activity.controls['newActivity'].setValue('false')
+            }, 1000)
+          })
+        }
+    
+        if(activity.get('newActivity').value == 'false'){
+          this.toastr.success("Actividad editada correctamente")
+        }else{
+          this.toastr.success("Actividad creada correctamente")
+          wait()
+        }
+        
+      }
+  
 
-  }
+      
+      checkActivity(activity: FormGroup){
+  
+        if(!activity.valid){
+            this.toastr.error("Actividad no completada")
+        }
+  
+      }
 
-
-
-
+    
+   
+      
 }
 
-export function checkRange(min: number, max: number): ValidatorFn {
+export function checkRange( min: number, max: number): ValidatorFn  {
 
   return (control: AbstractControl): ValidationErrors | null => {
-
-    const value = parseFloat(control.value)
-    if (value < min || value > max) {
-      return { 'range': true }
-    } else {
+    
+    const value =  parseFloat(control.value)
+    if(value<min|| value >max ){
+        return {'range': true}
+    }else{
       return null
     }
 

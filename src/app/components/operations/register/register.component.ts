@@ -96,7 +96,6 @@ export class RegisterComponent implements OnInit {
     };
   
 
-
 inputClass(form:FormGroup,property: string){
   let inputClass: string;
 

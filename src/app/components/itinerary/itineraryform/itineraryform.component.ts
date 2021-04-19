@@ -45,7 +45,7 @@ export class ItineraryformComponent implements OnInit {
     private countryService: CountryService) {
 
     this.formItiner = formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
+      name: ['',[Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       budget: ['0', [Validators.required, Validators.min(0)]],
       recommendedSeason: ['', Validators.required],
@@ -128,7 +128,7 @@ export class ItineraryformComponent implements OnInit {
 
   }
 
-  existLandmark(activity: FormGroup, data) {
+  existLandmark(activity: FormGroup, data){
     console.log(data)
     activity.controls['landmarkId'].setValue(data)
     activity.controls['landmarkImage'].setValue(data.image.imageUrl)
@@ -151,7 +151,7 @@ export class ItineraryformComponent implements OnInit {
 
     this.toastr.success("Día eliminado correctamente")
 
-    if (i == 0) {
+    if(i == 0){
 
       this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
 
@@ -214,8 +214,16 @@ export class ItineraryformComponent implements OnInit {
 
         var dia = 1
 
+        const wait = () => {
+          return new Promise((resolve, reject) => {
+            setTimeout( () => {
+             resolve( this.router.navigate(['/itinerarios/' + data.id]).then( () => {window.location.reload()} ))
+            }, 2000)
+          })
+        };
+
         // add photo
-        if (this.itineraryImage != undefined) {
+        if(this.itineraryImage != undefined){
           console.log(this.itineraryImage)
           this.uploadItineraryImage(this.itineraryImage, data.id)
         }
@@ -364,16 +372,16 @@ export class ItineraryformComponent implements OnInit {
     )
   }
 
-  resetForm(activity: FormGroup) {
+  resetForm(activity: FormGroup){
     activity.reset()
 
 
     activity.controls['description'].setValue("")
     activity.controls['title'].setValue("")
-
+    
 
     activity.get('landmark')['controls'].pop()
-
+   
 
 
     activity.controls['action'].setValue("true")
@@ -382,34 +390,44 @@ export class ItineraryformComponent implements OnInit {
     activity.controls['landmarkImage'].setValue("")
     activity.controls['landmarkName'].setValue("")
 
-    if (!activity.valid) {
+    if(!activity.valid){
       this.toastr.error("La actividad no se ha completado.")
     }
-  }
 
-  showActivityCreated() {
-    this.toastr.success("Actividad creada correctamente")
-  }
+    }
+  
+    
 
-  checkActivity(activity: FormGroup) {
 
-    if (!activity.valid) {
-      this.toastr.error("Actividad no completada")
+    showActivityCreated(){
+      this.toastr.success("Actividad creada correctamente")
     }
 
-  }
+    checkActivity(activity: FormGroup){
 
-  inputClass(form: FormGroup, property: string) {
-    let inputClass: string;
+      if(!activity.valid){
+          this.toastr.error("Actividad no completada")
+      }
 
-    if (!form.get(property).touched) {
-      inputClass = "form-control"
-    } else if (form?.get(property).touched && form?.get(property).valid) {
-      inputClass = "form-control is-valid"
-    } else if (form?.get(property).touched && form?.get(property).invalid) {
-      inputClass = "form-control is-invalid"
+      
+
     }
-    return inputClass
+
+inputClass(form:FormGroup,property: string){
+  let inputClass: string;
+
+  if(!form.get(property).touched){
+    inputClass = "form-control"
+  }else if(form?.get(property).touched && form?.get(property).valid){
+    inputClass = "form-control is-valid"
+  }else if(form?.get(property).touched && form?.get(property).invalid){
+    inputClass = "form-control is-invalid"
   }
+
+  return inputClass
+  }
+
+ 
+
 
 }
