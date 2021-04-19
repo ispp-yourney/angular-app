@@ -6,6 +6,7 @@ import { ValidatorFn } from '@angular/forms';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 import { Activity, ActivityDto, Itinerary, ItineraryDto, LandmarkDto } from 'src/app/models/itinerary';
 import { ActivityService } from 'src/app/services/activity.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -55,8 +56,6 @@ export class ItineraryupdateComponent implements OnInit {
     this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
 
     this.countries = this.countryService.getAllCountries()
-
-
 
     this.editForm = this.formBuilder.group({
       id: new FormControl(''),
@@ -384,7 +383,6 @@ export class ItineraryupdateComponent implements OnInit {
                 }
               )
             }
-
           }
           dia++;
         }
@@ -397,7 +395,6 @@ export class ItineraryupdateComponent implements OnInit {
         })
       }, err => {
         this.toastr.error("Se ha producido un error")
-
       }
     )
   }
@@ -442,6 +439,7 @@ export class ItineraryupdateComponent implements OnInit {
       this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
     }
   }
+
 
   
  
@@ -605,6 +603,5 @@ export function checkRange( min: number, max: number): ValidatorFn  {
     }
 
   }
-
 
 }

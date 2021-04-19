@@ -64,6 +64,7 @@ export class LandmarkShowComponent implements OnInit {
   loadLandmark(): void {
     this.landmarkService.mostrar(Number(this.route.snapshot.paramMap.get('id'))).subscribe(
       data => {
+
         this.landmark = data;
         this.landmarkService.tieneActividades(this.landmark.id).subscribe(data => this.tieneActividades = data);
         this.containError = false
@@ -120,6 +121,7 @@ export class LandmarkShowComponent implements OnInit {
 
   onUpdate() {
 
+
     //Actualizar landmark
     var editedLandmark = new LandmarkDto(
       this.landmark.id,
@@ -145,6 +147,7 @@ export class LandmarkShowComponent implements OnInit {
              resolve( this.router.navigate(['/punto_interes/' + this.landmark.id]).then( () => {this.reloadPage()} ))
             }, 500)
           })
+
       }, err => {
         
       }
@@ -152,6 +155,7 @@ export class LandmarkShowComponent implements OnInit {
   }
 
   reloadPage(){window.location.reload()}
+
 
   onDelete(){
     this.landmarkService.deleteLandmark(this.landmark.id).subscribe(data => {

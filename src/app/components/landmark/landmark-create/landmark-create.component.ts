@@ -29,6 +29,7 @@ export class LandmarkCreateComponent implements OnInit {
     }
 
   }
+
   constructor(private formBuilder: FormBuilder,
     private landmarkService: LandmarkService,
     private tokenService: TokenService,
@@ -37,6 +38,7 @@ export class LandmarkCreateComponent implements OnInit {
     private countryService: CountryService,
     private imageService: ImageService,
   ) {
+
 
     this.formLandmark = this.formBuilder.group({
             name: ['', [Validators.required,Validators.maxLength(50)]],
@@ -89,7 +91,8 @@ export class LandmarkCreateComponent implements OnInit {
 
 
 
-      inputClass(form:FormGroup,property: string){
+
+ inputClass(form:FormGroup,property: string){
         let inputClass: string;
       
         if(!form.get(property).touched){
@@ -102,6 +105,7 @@ export class LandmarkCreateComponent implements OnInit {
       
         return inputClass
         }
+
 
 
 

@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
   editForm: FormGroup;
 
   constructor(private tokenService: TokenService, 
+
               private authService: AuthService,
               private activatedRoute: ActivatedRoute, 
               private router: Router, 
@@ -135,6 +136,7 @@ export class ProfileComponent implements OnInit {
     const file = files.item(0)
     this.imageService.addUserPhoto(file).subscribe(
       data => {
+
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen cambiada correctamente.")
       },
@@ -153,6 +155,7 @@ export class ProfileComponent implements OnInit {
   removeUserImage() {
     this.imageService.deleteUserPhoto().subscribe(
       data => {
+
         this.showUser(this.username)  // reload page
         this.toastr.success("Imagen eliminada correctamente.")
 
@@ -182,6 +185,7 @@ export class ProfileComponent implements OnInit {
         })
 
       }, err => {
+
 
         this.toastr.success("Se ha producido un error en la actualización del perfil.")
 

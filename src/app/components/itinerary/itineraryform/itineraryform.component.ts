@@ -31,10 +31,6 @@ export class ItineraryformComponent implements OnInit {
   countries: Array<string>
  
 
-
-
-
-
   constructor(private formBuilder: FormBuilder,
     private itineraryService: ItineraryService,
     private activityService: ActivityService,
@@ -164,7 +160,6 @@ export class ItineraryformComponent implements OnInit {
   removeActivity(daysList: FormArray, i: number) {
     daysList.removeAt(i);
     this.toastr.success("Actividad eliminada correctamente")
-
   }
 
   getItineraryPrice(itinerary: FormGroup) {
@@ -183,15 +178,13 @@ export class ItineraryformComponent implements OnInit {
             } else {
               totalPrice = totalPrice + activity.value.landmarkId.price;
             }
-
           }
         }
       }
     }
-
     return totalPrice;
-
   }
+
 
 
   onCreate(): void {
@@ -277,6 +270,7 @@ export class ItineraryformComponent implements OnInit {
 
         this.toastr.error("Se ha producido un error")
       }
+
     )
 
   }
@@ -308,9 +302,7 @@ export class ItineraryformComponent implements OnInit {
           }
       }
   }
-
   return fileNames;
-
   }
 
   addItineraryImage(files: FileList,value) {

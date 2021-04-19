@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 
 
+
 let component: ProfileComponent;
 let fixture: ComponentFixture<ProfileComponent>;
 
@@ -456,3 +457,4 @@ describe('Profile', () => {
     expect(component.messageError).toEqual('Error')
   }));
 })
+
