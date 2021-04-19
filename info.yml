@@ -1,0 +1,40 @@
+project:
+  name: 'ispp-yourney-frontend'
+  owner: 'morning'
+  teamId: '1'
+  identities:
+    github:
+      url: 'https://github.com/ispp-yourney/angular-app'
+    heroku:
+      url: 'https://fe-dev-yourney.herokuapp.com'
+    travis:
+      url: 'https://travis-ci.org/github/ispp-yourney/angular-app'
+  members:
+    member1:
+      name: 'Daniel'
+      surname: 'Arellano Martinez'
+      githubUsername: 'danaremar'
+    member2:
+      name: 'Maria'
+      surname: 'Laso Escot'
+      githubUsername: 'marlasesc'
+    member3:
+      name: 'Javier'
+      surname: 'Navarro Pliego' 
+      githubUsername: 'muzta'
+    member4:
+      name: 'Juan'
+      surname: 'Noguerol Tirado' 
+      githubUsername: 'juanogtir'
+    member5:
+      name: 'Pablo'
+      surname: 'Rodriguez Garrido'
+      githubUsername: 'PabloRodriguezGarrido11'
+    member6:
+      name: 'Jose'
+      surname: 'Salado Asenjo'
+      githubUsername: 'jossalase'
+    member7:
+      name: 'Alejandro'
+      surname: 'Sanchez Saavedra'
+      githubUsername: 'alesansaa'

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { searchFilter } from '../models/search-filters';
 import { JwtDto } from '../models/jwt-dto';
 import {environment} from '../../environments/environment-ci';
 @Injectable({
@@ -9,8 +8,8 @@ import {environment} from '../../environments/environment-ci';
 })
 export class BuscadorService {
 
-  private baseUrl:string = environment.backendEndpoint;
-  private listCountries:string = this.baseUrl+"/landmark/country/list";
+  baseUrl:string = environment.backendEndpoint;
+  private listCountries:string = this.baseUrl+"/landmark/country/list?itinerary=true";
   private listCities:string = this.baseUrl+"/landmark/city/list";
   private listCitiesByCountry:string = this.baseUrl+"/landmark/country/";
   private itinerarySearch:string = this.baseUrl+ '/itinerary/search/'
@@ -31,17 +30,15 @@ export class BuscadorService {
     return this.http.get<string[]>(this.listCitiesByCountry + pais + "/city/list");
   }
 
-  public postFilter(searchFilter: searchFilter): Observable<any>{
+  public postFilter(country:string,city:string,maxBudget:number,maxDays:number,page:number): Observable<any>{
     let params = new HttpParams()
-    .set('country', searchFilter.country ?? "")
-    .set('city', searchFilter.city  ?? "")
-    .set('maxBudget', searchFilter.maxBudget  ?? "")
-    .set('maxDays', searchFilter.maxDays  ?? "")
-    .set('size', '1000');
-    var req=this.http.get<any>(this.itinerarySearch, {params});
- //console.log(req)
-    return req;
-    
+    .set('country', country )
+    .set('city', city )
+    .set('maxBudget', maxBudget.toString() )
+    .set('maxDays', maxDays.toString())
+    .set('page', page.toString())
+    .set('size', "8");
+    return this.http.get<any>(this.itinerarySearch, {params});
   }
 
 }

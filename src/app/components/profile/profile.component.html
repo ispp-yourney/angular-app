@@ -9,14 +9,25 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Admin" class="rounded-circle" width="150">
-                    <div class="mt-3">
-                      <h4>{{userDetails?.username}}</h4>
-                      <div class="plan">
-                        <span class="badge badge-pill" [ngClass]="plan=='Gratis' ? 'badge-info': 'badge-warning'"><span *ngIf="plan!='Gratis'" class="fa fa-star">&nbsp;&nbsp;</span>{{plan}}</span><br>
-                        <br><button *ngIf="plan=='Gratis' && expectedUser" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
+                    <div>
+                      <img *ngIf="!expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" class="img rounded-circle" alt="Foto de perfil" width="150">
+                      <img *ngIf="expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" onclick="$('#userPhotoInput').trigger('click');" alt="Mi foto de perfil" type="button" class="img rounded-circle my-img" width="150">
+                      <input hidden type="file" #userImage accept="image/*" id="userPhotoInput" (change)="addUserImage($event.target.files, userImage)">
+                      <div *ngIf="userDetails?.imageUrl!=undefined && userDetails?.imageUrl!='https://www.sinrumbofijo.com/wp-content/uploads/2016/05/default-placeholder.png' && expectedUser">
+                        <button type="button" class="btn btn-primary mt-3" (click)="removeUserImage()">Eliminar foto <em class="fa fa-trash" aria-hidden="true"></em></button>
                       </div>
-                      <br><a href="/perfil/{{userDetails?.username}}/itinerarios/1" class="btn btn-primary">Itinerarios</a>
+                    </div>
+                    <div class="mt-3">
+                      <h3 style="font-size:150%;color:#333333">@{{userDetails?.username}}</h3>
+                      <div class="plan">
+                        <span class="badge badge-pill" [ngClass]="plan=='Gratis' ? 'badge-info': 'badge-warning'"><span *ngIf="plan!='Gratis'" class="fa fa-star" style="color:orange">&nbsp;&nbsp;</span>{{plan}}</span><br>
+                      </div>
+                      <br><button style="font-size:15px" class="btn mt-2" (click)="changeView()" [disabled]="showProfile">
+                        Datos <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                      </button>
+                      <br><button style="font-size:15px" class="btn mt-2" (click)="changeView()" [disabled]="!showProfile">
+                        Itinerarios <i class="fa fa-suitcase" aria-hidden="true"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -24,25 +35,108 @@
             </div>
             <div class="col-md-8">
               <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Nombre</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{userDetails?.firstName}} {{userDetails?.lastName}}
+                <div *ngIf="showProfile" class="card-body">
+                  <div *ngIf="showProfile">
+                    <div *ngIf="expectedUser; then miPerfil else otroPerfil"></div>
+                  
+                      <ng-template #miPerfil>
+                        <form #f="ngForm" [formGroup]="editForm" (ngSubmit)="onUpdate()">
+                          <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Nombre de Usuario</label>
+                              <div class="col-sm-9">
+                                <input type="text" name="username" id="username" class="form-control" formControlName="username"
+                                    required minlength="3" maxlength="25" readonly>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nombre</label>
+                            <div class="col-sm-9">
+                              <input type="text" name="firstName" id="firstName" class="{{inputClass(editForm, 'firstName')}}" formControlName="firstName"
+                                  required minlength="3" maxlength="50">
+                              <div class="invalid-feedback"
+                                  *ngIf="editForm.get('firstName').touched && editForm.get('firstName').invalid">
+                                  <div *ngIf="editForm.get('firstName').errors.required">No puede quedar vacío</div>
+                                  <div *ngIf="editForm.get('firstName').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                  <div *ngIf="editForm.get('firstName').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Apellidos</label>
+                            <div class="col-sm-9">
+                              <input type="text" name="lastName" id="lastName" class="{{inputClass(editForm, 'lastName')}}" formControlName="lastName"
+                                  required minlength="3" maxlength="50">
+                              <div class="invalid-feedback"
+                                  *ngIf="editForm.get('lastName').touched && editForm.get('lastName').invalid">
+                                  <div *ngIf="editForm.get('lastName').errors.required">No puede quedar vacío</div>
+                                  <div *ngIf="editForm.get('lastName').errors.minlength">Debe de tener al menos 3 caracteres</div>
+                                  <div *ngIf="editForm.get('lastName').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                              <input type="text" name="email" id="email" class="{{inputClass(editForm, 'email')}}" formControlName="email"
+                                  required email minlength="5" maxlength="50" value="{{userDetails?.email}}">
+                              <div class="invalid-feedback" *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
+                                  <div *ngIf="editForm.get('email').errors.required">No puede quedar vacío</div>
+                                  <div *ngIf="editForm.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>
+                                  <div *ngIf="editForm.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                                  <div *ngIf="editForm.get('email').errors.email || editForm.get('email').errors.pattern ">Formato no válido</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div style="text-align:center!important">
+                            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Actualizar</button>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" style="background: none;" role="document">
+                                <div class="modal-content">
+                                  <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                                      <span class="sr-only">Loading...</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <button *ngIf="plan=='Gratis' && expectedUser && !isAdmin" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
+                          </div>
+                        </form>  
+                      </ng-template>
+
+                      <ng-template #otroPerfil>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Nombre</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{userDetails?.firstName}} {{userDetails?.lastName}}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{userDetails?.email}}
+                          </div>
+                        </div>
+                      </ng-template>
+                  
                     </div>
                   </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{userDetails?.email}}
-                    </div>
+
+                  <div *ngIf="!showProfile">
+                    <app-itinerarylist></app-itinerarylist>
                   </div>
-                </div>
               </div>
             </div>
           </div>

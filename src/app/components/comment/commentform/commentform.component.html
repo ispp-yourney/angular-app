@@ -1,0 +1,118 @@
+<div style="text-align:center!important; position: relative; top:80px; right:10px;">
+  <button class="btn btn-primary btn-header-card btn-comment" data-toggle="modal" data-target="#comment">Deja aquí tu
+    comentario</button>
+  <div class="modal" id="comment" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Comentario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form *ngIf="isLogged" [formGroup]="formComment" (ngSubmit)="onCreate()">
+
+            <div class="form-group">
+              <label>Puntuación</label>
+                <ngx-slider [(value)]="rating_value" [options]="options" formControlName="rating"></ngx-slider>
+              
+            </div>
+
+            <div class="form-group">
+              <label>Comentario</label>
+              <textarea class="form-control" id="content" rows="3" formControlName="content" required maxlength="1000"></textarea>
+              <p>Caracteres disponibles: {{1000-formComment.get('content').value.length}}</p>
+
+              <div class="alert alert-danger"
+                *ngIf="formComment.get('content').touched && formComment.get('content').invalid">
+                <div *ngIf="formComment.get('content').errors.required">No puede quedar vacío</div>
+                <div *ngIf="formComment.get('content').errors.maxlength">Máximo número de caracteres 1000.</div>
+              </div>
+            </div>
+            <div *ngIf="isLogged" class="modal-footer">
+              <button type="submit" [disabled]="!formComment.valid" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Comentar</button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="background: none;" role="document">
+                  <div class="modal-content">
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+
+          <p *ngIf="!isLogged">Para comentar debe iniciar sesión</p>
+          <div *ngIf="!isLogged" class="modal-footer">
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<article class="barra">
+
+  <div class="container">
+
+    <div *ngFor="let comment of comments">
+
+      <div class="comments">
+        <div class="row">
+          <div class="col-md-8 comment">
+            <div class="media g-mb-30 media-comment">
+              <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                src="{{comment.author.imageUrl}}" alt="Image Description">
+              <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30" style="max-width:89%; word-wrap:break-word">
+                <div class="g-mb-15">
+                  <h5 class="h5 g-color-gray-dark-v1 mb-0">{{comment.author.username}}</h5>
+
+                  <span class="g-color-gray-dark-v4 g-font-size-12">{{ comment.createDate | date:'dd/MM/yyyy' }}</span>
+                </div>
+
+                <p>{{comment.content}}</p>
+
+                <ul class="list-inline d-sm-flex my-0">
+                  <li class="list-inline-item g-mr-20">
+                    <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                      <div *ngFor="let star of countStars(comment.rating)" style="float: left;">
+                        <span class="fa fa-star checked" style="color: rgb(237, 83, 49);"></span>
+
+                      </div>
+                      <div *ngFor="let noStar of countNoStars(comment.rating)" style="float: left;">
+                        <span class="fa fa-star"></span>
+                      </div>
+                      <button class="btn btn-danger ml-2 eliminar" *ngIf="comment.author.username==loggedUsername || isAdmin"
+                        (click)=removeComment(comment.id)>Eliminar</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+</article>

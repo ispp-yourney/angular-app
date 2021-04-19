@@ -1,0 +1,189 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLandmark">Añadir punto de interés</button>
+
+<div class="modal fade" id="addLandmark" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Punto de interés</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formLandmark" (ngSubmit)="onCreate()">
+
+          <h2 style="color:grey">Datos de la ubicación</h2>
+
+          <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
+          <input type="text" id="name" formControlName="name" class="{{inputClass(formLandmark, 'name')}}" placeholder="Bar Itaewon" maxlength="50" required>
+           <div class="invalid-feedback" *ngIf="formLandmark.get('name').touched && formLandmark.get('name').invalid">
+            <div *ngIf="formLandmark.get('name').errors.required">No puede quedar vacío</div>
+            <div *ngIf="formLandmark.get('name').errors.maxlength">La longitud máxima son 50 caracteres.</div>
+          </div>
+          <br> 
+
+          <label for="description2">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
+          <textarea id="description2" formControlName="description2" class="{{inputClass(formLandmark, 'description2')}}" maxlength="1000" placeholder="Comida increíble..." cols="30" rows="10"></textarea>
+          <p>Caracteres disponibles: {{1000-formLandmark.get('description2').value.length}}</p>
+          <div class="invalid-feedback" *ngIf="formLandmark.get('description2').touched && formLandmark.get('description2').invalid">
+            <div *ngIf="formLandmark.get('description2').errors.required">No puede quedar vacío</div>
+            <div *ngIf="formLandmark.get('description2').errors.maxlength">La longitud máxima son 1000 caracteres.</div>
+          </div>
+          <br>
+          <label for="price">Precio <span style="color:#ff0000">*</span></label>
+          <div class="input-group mb-3">
+            <input type="text" id="price" formControlName="price" class="{{inputClass(formLandmark, 'price')}}" value="0" required min="0" placeholder="0"  maxlength="20">
+           
+            <div class="input-group-prepend" >
+              <span class="input-group-text">€</span>
+            </div>
+       
+          <div class="invalid-feedback" *ngIf="formLandmark.get('price').touched && formLandmark.get('price').invalid">
+            
+            <div *ngIf="formLandmark.get('price').errors.required">No puede estar vacío o el formato no es válido.</div>
+            <div *ngIf="formLandmark.get('price').errors.maxPrice ">El precio debe estar entre 0-10000.</div>
+            <div *ngIf="formLandmark.get('price').errors.maxlength">El número máximo de dígitos es 20.</div>
+            <div *ngIf="formLandmark.get('price').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+          </div> 
+         
+        </div>
+         
+          <br>
+
+        
+          <label for="country">País <span style="color:#ff0000">*</span></label>
+          <select formControlName="country" id="country" class="{{inputClass(formLandmark, 'country')}}"  required>
+            <option [value]="item" *ngFor="let item of countries">{{item}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="formLandmark.get('country').touched && formLandmark.get('country').invalid">
+            <div *ngIf="formLandmark.get('country').errors.required">No puede estar vacío</div>
+           
+          </div> 
+
+          <label for="city">Ciudad <span style="color:#ff0000">*</span></label>
+          <input type="text" id="city" formControlName="city" class="{{inputClass(formLandmark, 'city')}}" placeholder="Seoul" maxlength="100">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('city').touched && formLandmark.get('city').invalid">
+            <div *ngIf="formLandmark.get('city').errors.required">No puede quedar vacío.</div>
+            <div *ngIf="formLandmark.get('city').errors.maxlength">No puede introducirse más de 100 caracteres</div>
+            <div *ngIf="formLandmark.get('city').errors.pattern">Debe de contener solamente letras</div>
+          </div> 
+          <br>
+              
+          <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
+          <input type="text" id="latitude" formControlName="latitude" class="{{inputClass(formLandmark, 'latitude')}}" required placeholder="12">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('latitude').touched && formLandmark.get('latitude').invalid">
+            <div *ngIf="formLandmark.get('latitude').errors.required">No puede quedar vacío.</div>
+            <div *ngIf="formLandmark.get('latitude').errors.pattern">Deben ser dígitos y con un máximo de 10 decimales.</div>
+            <div *ngIf="formLandmark.get('latitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
+          </div>
+
+
+
+          <br>
+          <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
+          <input type="text" id="longitude" formControlName="longitude" class="{{inputClass(formLandmark, 'longitude')}}" required placeholder="24">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('longitude').touched && formLandmark.get('longitude').invalid">
+            <div *ngIf="formLandmark.get('longitude').errors.required">No puede quedar vacío.</div>
+            <div *ngIf="formLandmark.get('longitude').errors.pattern">Deben ser dígitos y con un máximo de 10 decimales.</div>
+            <div *ngIf="formLandmark.get('longitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
+          </div>
+
+
+
+
+
+          <br>
+          <div class="form-group mb-3">
+            <label for="category">Categoría</label>
+            <select class="form-control" formControlName="category" id="category" class="{{inputClass(formLandmark, 'category')}}">
+            <option label="BAR">BAR</option>
+            <option label="HOTEL">HOTEL</option>
+            <option label="TIENDA">TIENDA</option>
+            <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+            <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+            <option label="MONUMENTO">MONUMENTO</option>
+            <option label="RESTAURANTE">RESTAURANTE</option>
+            <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+            <option label="SUPERMERCADO">SUPERMERCADO</option>
+            <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+            <option label="LIBRERÍA">LIBRERÍA</option>
+            <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+            <option label="CHIRINGUITO">CHIRINGUITO</option>
+            <option label="OTROS">OTROS</option>
+            </select>
+            </div>
+
+          <br>
+          <label for="email">Email</label>
+          <input type="text" id="email" formControlName="email" email class="{{inputClass(formLandmark, 'email')}}" placeholder="example@gmail.com" maxlength="100">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('email').touched && formLandmark.get('email').invalid">
+            <div *ngIf="formLandmark.get('email').errors.email || formLandmark.get('email').errors.pattern">Formato no válido</div>
+            <div *ngIf="formLandmark.get('email').errors.maxlength">No puede introducirse más de 100 caracteres</div>
+          </div>
+
+          <br>
+
+          <label for="phone">Teléfono</label>
+          <input type="text" id="phone" formControlName="phone" class="{{inputClass(formLandmark, 'phone')}}" placeholder="+(82) 847192673 ">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('phone').touched && formLandmark.get('phone').invalid">
+            <div *ngIf="formLandmark.get('phone').errors.pattern">El formato introducido es no es válido, debe contener un formato: +(321) 987654321 o 987654321</div>
+          </div>
+
+
+          <br>
+          <label for="website">Sitio web</label>
+          <input type="url" id="website" formControlName="website" class="{{inputClass(formLandmark, 'website')}}" placeholder="https://www.website.com" maxlength="300">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('website').touched && formLandmark.get('website').invalid">
+            <div *ngIf="formLandmark.get('website').errors.pattern">Debe ser una URL</div>
+            <div *ngIf="formLandmark.get('website').errors.maxlength">No puede introducirse más de 300 caracteres</div>
+          </div>
+
+          <br>
+          <label for="instagram">Instagram</label>
+          <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(formLandmark, 'instagram')}}" placeholder="https://www.instagram.com" maxlength="300">
+           <div class="invalid-feedback" *ngIf="formLandmark.get('instagram').touched && formLandmark.get('instagram').invalid">
+            <div *ngIf="formLandmark.get('instagram').errors.pattern">Debe ser una URL</div>
+            <div *ngIf="formLandmark.get('instagram').errors.maxlength">No puede introducirse más de 300 caracteres</div>
+          </div> 
+
+          <br>
+          <label for="twitter">Twitter</label>
+          <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(formLandmark, 'twitter')}}" placeholder="https://www.twitter.com" maxlength="300">
+          <div class="invalid-feedback" *ngIf="formLandmark.get('twitter').touched && formLandmark.get('twitter').invalid">
+            <div *ngIf="formLandmark.get('twitter').errors.pattern">Debe ser una URL</div>
+            <div *ngIf="formLandmark.get('twitter').errors.maxlength">No puede introducirse más de 300 caracteres</div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-form-label" for="landmarkImage">Imagen</label>
+          <br>
+          <input type="file" #landmarkImage id="landmarkImage" accept="image/*"  class="file-input"   (change)="addLandmarkImage($event.target.files,landmarkImage)">
+         
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!formLandmark.valid" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Crear</button>
+
+          <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="background: none;" role="document">
+              <div class="modal-content">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+            </form>
+            
+        </div>
+
+      </div>
+    </div>
+  </div>
+

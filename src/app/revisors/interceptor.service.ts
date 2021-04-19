@@ -14,7 +14,6 @@ export class InterceptorService implements HttpInterceptor {
   
     const token = this.tokenService.getToken();
 
-    // console.log("User token: " + token);
 
 
     if( token != null){

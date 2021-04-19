@@ -18,3 +18,9 @@
 
   
   
+  @media (max-width: 800px){
+      .navbar-brand{
+        width: 8%!important;
+      }
+}
+

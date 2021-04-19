@@ -11,9 +11,11 @@ html, body{
    
     margin: 0;
     height: auto;
-    min-height: 950px;
+    min-height: 1200px;
     background-size: cover;
-    background-repeat: initial;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: auto!important;
    
 
 }
@@ -39,4 +41,20 @@ h1, h2, h3, h4{
     border-radius: .25rem;
     background: #FB7F64!important;
     border-color: #FB7F64;
+}
+
+
+@media (max-width: 800px){
+    html, body{ 
+        /* height: 100%; */
+        /* background:linear-gradient(0deg, rgba(119, 45, 45, 0.878), rgba(204, 98, 98, 0.844)); */
+       width: auto;
+        margin: 0;
+        height: auto;
+        min-height: 1233px;
+        background-size: cover;
+        background-repeat: initial;
+       
+    
+    }
 }

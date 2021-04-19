@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,14 @@ import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate
 import { ProfileComponent } from './components/profile/profile.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CommentformComponent } from './components/comment/commentform/commentform.component';
+import { NgxSliderModule } from "@angular-slider/ngx-slider";
+import { BuscadorLandmarkComponent } from './components/buscador-landmark/buscador-landmark.component';
+import { LandmarkShowComponent } from './components/landmark/landmark-show/landmark-show.component';
+import { HereMapComponent } from './components/here-map/here-map.component';
+import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,15 @@ import { FooterComponent } from './components/footer/footer.component';
     ItineraryupdateComponent,
     ProfileComponent,
     BuscadorComponent,
-    FooterComponent
+    FooterComponent,
+    CommentformComponent,
+    BuscadorLandmarkComponent,
+    LandmarkShowComponent,
+    HereMapComponent,
+    LandmarkCreateComponent,
+    
+
+    
   ],
   imports: [
     BrowserModule,
@@ -44,7 +60,10 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    NgxSliderModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    })
   ],
   providers: [
     interceptor

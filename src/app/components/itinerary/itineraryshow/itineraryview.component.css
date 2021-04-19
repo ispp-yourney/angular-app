@@ -2,10 +2,6 @@
     box-sizing: border-box;
   }
 
-  card-space {
-      height: 300000px;
-  }
-
 .card-title {
   text-align: center;
 }
@@ -65,7 +61,6 @@ img {
 }
 
 .btn.btn-primary{
-    width: 40%;
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 1.25rem;
@@ -121,6 +116,44 @@ img {
   content: "";
 }
 
+
 .titulo{
   color: black;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+.barra{
+ 
+  overflow: auto;
+  height: 660px;
+  margin-bottom: 60px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 120px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+section{
+  position: relative;
+  top: 70px;
 }

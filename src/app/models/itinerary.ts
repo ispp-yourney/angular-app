@@ -1,3 +1,5 @@
+import { Comment } from "./comment";
+
 export interface Itinerary {
     id: number
     name: string
@@ -6,7 +8,7 @@ export interface Itinerary {
     budget: number
     estimatedDays: number
     createDate: Date
-    views: 5
+    views: number
     image: Image
     recommendedSeason: string
     activities: Array<Activity>
@@ -15,6 +17,8 @@ export interface Itinerary {
     calcPromotion: number
     username: string
     imageUrl: string
+    comments: Array<Comment>
+    avgRating:number
 }
 
 export class ItineraryDto {
@@ -23,7 +27,6 @@ export class ItineraryDto {
     description: string;
     estimatedDays: number;
     budget: number;
-    //image: string;
     recommendedSeason: string;
     status: string;
 
@@ -34,7 +37,6 @@ export class ItineraryDto {
             this.description = description;
             this.estimatedDays = estimatedDays;
             this.budget = budget;
-            //this.image = image;
             this.recommendedSeason = recommendedSeason;
             this.status = status;
     }
@@ -71,7 +73,6 @@ export interface Activity {
     description: string
     day: number
     createDate: Date
-    views: number
     landmark: Landmark
 }
 
@@ -84,7 +85,7 @@ export interface Landmark {
     city: string
     latitude: number
     longitude: number
-    promoted: boolean
+    endPromotionDate: Date
     category: string
     email: string
     phone: string
@@ -93,6 +94,7 @@ export interface Landmark {
     twitter: string
     createDate: Date
     views: number
+    image:Image
 }
 
 export class LandmarkDto  {
@@ -111,6 +113,7 @@ export class LandmarkDto  {
     instagram: string
     twitter: string
     activity: number
+    landmarkImage: File
 
     constructor(id: number, name: string, description: string, price: number, country: string, city: string, latitude: number, longitude: number,
         category: string, email: string, phone: string, website: string, instagram: string, twitter: string, activity: number) {
@@ -132,6 +135,15 @@ export class LandmarkDto  {
         }
 }
 
+export class UpgradeLandmarkDto {
+    text: string
+
+    constructor(text: string){
+        this.text = text
+    }
+}
+
+
 export interface Author {
     id: number
     username: string
@@ -141,6 +153,8 @@ export interface Author {
     expirationDate: Date
     plan: number
     roles: Array<Role>
+    image: Image
+    imageUrl: string
 }
 
 export interface Role {

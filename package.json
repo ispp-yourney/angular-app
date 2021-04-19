@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-slider/ngx-slider": "^2.0.3",
     "@angular/animations": "~11.2.4",
     "@angular/cdk": "^11.2.4",
     "@angular/common": "~11.2.4",
@@ -25,6 +26,10 @@
     "bootstrap": "^4.6.0",
     "express": "*",
     "jquery": "^3.6.0",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "ng5-slider": "1.2.6",
+    "ngx-bootstrap": "^6.2.0",
+    "ngx-toastr": "^13.2.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

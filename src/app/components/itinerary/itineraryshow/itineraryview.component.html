@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 <div *ngIf="containError; then hasError else noError"></div>
 
-<ng-template #hasError>
+    <ng-template #hasError>
     <div class="alert alert-dismissible alert-danger">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>{{messageError}}.</p></div>
@@ -11,37 +11,57 @@
 <ng-template #noError>
 <section>
     <nav>
-        <div class="card">
+        <div class="card" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));">
             <div class="card-body">
                 <h4 class="card-title titulo">{{itinerary?.name}}</h4>
                 <h6 class="card-subtitle mb-2 text-muted">@{{itinerary?.username}}</h6>
-                <img class="card-img-top" src={{itinerary?.imageUrl}} alt="Card image cap">
+                <img class="card-img-top" style="border-radius: 10px;" src={{itinerary?.imageUrl}} alt="Card image cap">
                 <hr/>
                 <p class="card-text">{{itinerary?.description}}</p>
                 <p class="card-text"><em class="fa fa-money" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.budget}} €</p>
                 <p class="card-text"><em class="fa fa-calendar" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.estimatedDays}} días</p>
-                <p class="card-text">{{itinerary?.recommendedSeason}}</p>
-                <div style="text-align:center!important" *ngIf="isMyItinerary">
-                    <a class="btn btn-primary" style="margin:5px" href="itinerarios/actualizar/{{itinerary.id}}">Modificar</a>
-                    <button type="button" class="btn btn-primary" style="margin:5px" (click)="deleteItinerary()">Eliminar</button>
+                <p class="card-text"><strong>Estación recomendada: </strong>{{getSeason(itinerary?.recommendedSeason)}}</p>
+
+                <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
+                    <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
+                        <a class="btn btn-primary" style="margin:5px" href="itinerarios/actualizar/{{itinerary.id}}">Modificar</a>
+                        <a type="button"  data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteItinerarie' +itinerary?.id" class="btn btn-primary" style="margin:5px">Eliminar</a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Delete itinerarie Confirmation-->
+    <div class="modal fade" id="DeleteItinerarie{{itinerary?.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+            </div>
+            <div class="modal-body">
+              ¿Quieres borrar el itinerario?
+            </div>
+            <div class="modal-footer">
+              <a type="button" style="background-color: darkgray; color: white;" class="btn"   data-dismiss="modal">Cancelar</a>
+              <a type="button"  style="background-color: #FB7F64; color: white;" class="btn" (click)="deleteItinerary()" data-dismiss="modal">Confirmar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!--End  Delete itinerarie Confirmation-->
     
-    <article>
+    <article class="barra">
         <div href="#" *ngFor="let i of listNumberDays">
             
-
-           
-                <!-- <button class="dropbtn card-header">Día {{days[i][0].day}}:  
-                    <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
-                </button> -->
                 <div style="text-align:center!important;">
                     <button type="button" class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#landmark' + days[i][0].day">
                         Día {{days[i][0].day}}:  
                         <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
                     </button>
+                    
+                  
                 </div>
 
                 <div class="modal fade" id="landmark{{days[i][0].day}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,7 +78,9 @@
                 <div href="#" *ngFor="let day of days[i]">
 
                                 <div class="card-body">
-                                    <h5 class="card-title">{{day.landmark.name}}</h5>
+                                    <img style="border-radius: 5px; width:100%" src={{day?.landmark.image.imageUrl}} alt=" Imagen del punto de interes">
+                                    <hr/>
+                                    <a href="punto_interes/{{day.landmark.id}}"><h5 class="card-title">{{day.landmark.name}}&nbsp;<em class="fa fa-expand" aria-hidden="true"></em></h5></a>
                                     <h6 class="card-subtitle text-muted">{{day.landmark.description}}</h6>
                                 </div>
                                 <div class="card-body">
@@ -107,4 +129,10 @@
 
     </article>
 </section>
+
+<app-commentform *ngIf="loadedItineraries" [itinerary]="itinerary"></app-commentform>
+
 </ng-template>
+
+
+

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary';
 import { ItineraryService } from 'src/app/services/itinerary.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -15,53 +15,76 @@ export class ItinerarylistComponent implements OnInit {
 
   itineraries: Itinerary[] = [];
   numberOfElements: number;
-  totalPages: Array<Number> = [];
-  pageId: number;
   currentUrl: string;
   username:string;
   loggedUsername:string
 
-
-  /*@Input()
-  username_input: String;*/
-
- /* @Input()
-  base_url: String;*/
+  totalPages:number;
+  currentPage: number = 0;
+  initialPages: Array<number> = [];
+  prueba: number  = 0;
 
 
   ngOnInit(): void {
-    this.pageId = Number(this.activatedRoute.snapshot.paramMap.get('id')) - 1;
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
-    //var currentUrl=this.router.url.replace(/\d+/g, '');
-    /*if (this.base_url) {
-      this.currentUrl = this.base_url;
-    } else {
-      this.currentUrl = "/itinerarios"
-    }*/
+
     this.loggedUsername=this.tokenService.getUsername()
-    this.loadUserItineraries(this.pageId, this.username);
+    this.loadUserItineraries(this.username,0);
   }
-  loadUserItineraries(pageId: Number, username: String): void {
-    if (pageId < 0) {
-      this.router.navigateByUrl("/error")
-    }
-    this.itineraryService.userItineraries(pageId, username).subscribe(
+  loadUserItineraries(username: String,page:number): void {
+    this.itineraryService.userItineraries(username,page).subscribe(
       data => {
         this.itineraries = data.content;
-        var pageArray: Array<Number> = [];
-        for (var i = 0; i < data.totalPages; i++)
-          pageArray.push(i)
-        
-        this.totalPages = pageArray
+        this.totalPages= data.totalPages;
 
-        if (this.totalPages.includes(pageId) == false && pageId!=0)
-          this.router.navigateByUrl("/error")
-        
+        if(this.totalPages>=3 && this.prueba == 0){
+          for (let index = 0; index <3; index++) {
+            this.initialPages.push(index)
+            this.prueba++;
+          }
+        }else{
+         if(this.totalPages>0 && this.totalPages <=2 && this.prueba==0){
+          this.initialPages[0] = 0
+          this.prueba++;
+        }else{
+        if(this.totalPages>0 && this.totalPages <=2 && this.currentPage != this.initialPages[0]){
+          if( this.initialPages[0] + 1 < this.totalPages){
+            this.initialPages[0] = this.initialPages[0] + 1
+          }else if((this.initialPages[0] + 1) -1 > 0){
+            this.initialPages[0] = this.initialPages[0] -1
+          }
+        }
+      }
+        if(this.totalPages>=3 && this.prueba>0 ){
+          if((this.currentPage) == this.initialPages[0]){
+            if(this.initialPages[this.initialPages.length -1]+1 - 3 > 0){
+              for (let index = 0; index < 3; index++) {      
+                this.initialPages[index] = this.initialPages[index] -1
+            }
+            }
+          }
+          if((this.currentPage) == this.initialPages[this.initialPages.length - 1] ) {
+            if(this.initialPages[this.initialPages.length -1] +1 < this.totalPages){
+                  for (let index = 0; index < 3; index++) {        
+                      this.initialPages[index] = this.initialPages[index] + 1
+                  }
+          }
+  }  
+  }
+  }
       },
       err => {
-     //console.log(err);
+        
       }
     );
   }
 
+  count(totalPages:number): Array<number>{
+    return Array(totalPages);
+  }
+
+  switchPage(page:number){
+    this.currentPage=page;
+    this.loadUserItineraries(this.username,this.currentPage);
+}
 }

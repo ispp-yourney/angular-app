@@ -59,11 +59,54 @@ nav {
   }
 
   /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-  @media (max-width: 600px) {
-    nav, article {
-      width: 100%;
-      height: auto;
-    }
+ 
+
+  .activities{
+    margin-bottom: none!important;
+    height: 30px; 
   }
 
+@media (max-width: 1000px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
 
+  .activities{
+    margin-bottom: 4vh!important;
+  
+  }
+
+ 
+}
+
+ /* width */
+ ::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 120px;
+ 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+  height: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.landmarks{
+ overflow: auto;
+  height: 100vh;
+  
+}

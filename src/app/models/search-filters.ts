@@ -1,4 +1,4 @@
-export class searchFilter {
+export class SearchFilter {
 
     country: string;
     city: string;
@@ -10,6 +10,21 @@ export class searchFilter {
         this.city = city;
         this.maxBudget = maxBudget;
         this.maxDays = maxDays;
+    }
+
+}
+
+
+export class SearchFilterLandmark {
+
+    country: string;
+    city: string;
+   
+
+    constructor(country: string, city: string) {
+        this.country = country;
+        this.city = city;
+      
     }
 
 }

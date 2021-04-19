@@ -1,16 +1,10 @@
 
-body{
-    background-size:cover;
-    background:linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)), url(hiker-1149898_1920.png);
-}
-
 .bg-dark {
     background-color: none!important;
 }
 
 .outer-welcome {
     background-size:cover;
-    background:linear-gradient(0deg, rgba(228, 228, 228, 0.3), rgba(204, 98, 98, 0.844)), url(hiker-1149898_1920.png);
     display: table;
     position: absolute;
     top: auto;
@@ -32,6 +26,8 @@ body{
     /* background: rgba(255, 255, 255, 0.6); */
     border-radius: 20px;
     width:50%;
+    position: relative;
+    top: 50px;
 }
 
 h1 { 
@@ -65,4 +61,32 @@ h4 {
     padding: 15px;
     font-weight: 700;
     color:white;
+}
+
+.title{
+    position: relative;
+    top: 30vh;
+    
+}
+
+.name{
+    position: relative;
+    top: 35vh;
+}
+
+@media (max-width: 800px){
+    h1{
+        font-size: 50px;
+        position: relative;
+        right: 25px;
+        text-align: center;
+        left: -11vw!important;
+    }
+    .name{
+        position: relative;
+        top: 35vh;
+        font-size: 30px;
+        left: -11vw!important;
+    }
+   
 }

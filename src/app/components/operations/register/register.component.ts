@@ -1,4 +1,3 @@
-import { tokenReference } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -30,85 +29,86 @@ export class RegisterComponent implements OnInit {
               private formBuilder: FormBuilder) {
 
                 this.formRegister = formBuilder.group({
-                  username: ['', Validators.required],
-                  password: ['', Validators.required],
-                  firstName: ['', Validators.required],
-                  lastName: ['', Validators.required],
-                  email: ['', Validators.required]
+                  username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3), Validators.pattern("^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")]],
+                  password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
+                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
                 })
                }
 
   ngOnInit(): void {
-      if(this.tokenService.getToken()){
-        this.isLogged= true;
-      }
+    if (this.tokenService.getToken()) {
+      this.isLogged = true;
+    }
   }
 
-  onRegister(): void{
+  onRegister(): void {
+    this.newUser = new NewUser(this.formRegister.value.username,
+      this.formRegister.value.password,
+      this.formRegister.value.firstName,
+      this.formRegister.value.lastName,
+      this.formRegister.value.email);
 
-    this.newUser = new NewUser(this.formRegister.value.username, 
-                              this.formRegister.value.password,
-                              this.formRegister.value.firstName,
-                              this.formRegister.value.lastName, 
-                              this.formRegister.value.email);
-
- //console.log(this.newUser)
-     this.authService.new(this.newUser).subscribe(
+    this.authService.new(this.newUser).subscribe(
       response => {
         var res = response
 
-     //console.log("User " + res.username + "  sucessfully created.")
+        this.authService.login(new LoginUser(this.formRegister.value.username,
+          this.formRegister.value.password)).subscribe(
+            response => {
+              var res = response
 
-        this.authService.login(new LoginUser(this.formRegister.value.username, 
-                                            this.formRegister.value.password)).subscribe(
-          response => {
-            //var res = response
-            var res = response
-    
-            this.isLogged = true;
-            this.isLoginFail = false;
-    
-         //console.log("User token: " + res.token);
-         //console.log("Username: " + res.username);
-         //console.log("User roles: " + res.authorities);
-    
-            this.tokenService.setToken(res.token);
-            this.tokenService.setUsername(res.username);
-            this.tokenService.setAuthorities(res.authorities);
-    
-            // console.log("User " + res.username + "  logged sucessfully.")
+              this.isLogged = true;
+              this.isLoginFail = false;
 
-            this.router.navigate(['/']);
-            
+              this.tokenService.setToken(res.token);
+              this.tokenService.setUsername(res.username);
+              this.tokenService.setAuthorities(res.authorities);
 
-          }, err =>{
-            this.isLogged = false;
-            this.isLoginFail = true;
+              this.router.navigate(['/']);
 
-            var returned_error = err.error.text
-            if(returned_error == undefined){
-              returned_error = 'Ha ocurrido un error'
+            }, err => {
+              this.isLogged = false;
+              this.isLoginFail = true;
+
+              var returned_error = err.error.text
+              if (returned_error == undefined) {
+                returned_error = 'Ha ocurrido un error'
+              }
+              this.messageError = returned_error;
+
             }
-            this.messageError = returned_error;
-         //console.log(this.messageError)
-            
-          }
-        )
+          )
 
-      }, err =>{
+      }, err => {
         this.isLogged = false;
         this.isLoginFail = true;
 
         var returned_error = err.error.text
-        if(returned_error == undefined){
+        if (returned_error == undefined) {
           returned_error = 'Ha ocurrido un error'
         }
         this.messageError = returned_error;
-        // console.log(this.messageError)
+      }
+    );
 
-    
-  }
-  );
+    };
   
-}
+
+
+inputClass(form:FormGroup,property: string){
+  let inputClass: string;
+
+  if(!form.get(property).touched){
+    inputClass = "form-control"
+  }else if(form?.get(property).touched && form?.get(property).valid){
+    inputClass = "form-control is-valid"
+  }else if(form?.get(property).touched && form?.get(property).invalid){
+    inputClass = "form-control is-invalid"
+  }
+
+  return inputClass
+  }
+ 
 }
