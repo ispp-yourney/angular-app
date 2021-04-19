@@ -28,6 +28,9 @@
                 </div>
               </div>
              
+
+             
+             
  
 
               <div class="form-group">
@@ -52,7 +55,20 @@
 
               
           <div style="text-align:center!important">
-            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!formItiner.valid">Crear Itinerario</button>
+            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!formItiner.valid" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Crear Itinerario</button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" style="background: none;" role="document">
+                <div class="modal-content">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <button type="button" class="btn btn-primary" style="margin:5px" (click)="addDay()">Añadir nuevo día</button>
           </div>
         </div>
@@ -72,9 +88,26 @@
               <button type="button" class="btn ml-auto p-2" (click)="addActivity(day.get('activities'))">
                 <em class="fa fa-plus-circle fa-3x" aria-hidden="true" style="color:white;"></em>
               </button>
-              <button type="button" class="btn ml p-2" (click)="removeDay(i)">
+              <button type="button" class="btn ml p-2"  data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteDay'+(i+1)">
                 <em class="fa fa-minus-circle fa-3x" aria-hidden="true" style="color:white"></em>
               </button>
+            </div>
+
+            <div class="modal fade" id="DeleteDay{{(i+1)}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmación</h5>
+                  </div>
+                  <div class="modal-body">
+                    ¿Quieres borrar el día?
+                  </div>
+                  <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                    <a type="button" class="btn btn-primary" (click)="removeDay(i)" data-dismiss="modal">Confirmar</a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Delete Day confirmation -->
@@ -347,7 +380,6 @@
                                   ¿Quieres conservar los datos de la actividad introducidos?
                                 </div>
                                 <div class="modal-footer">
-                                  <!-- <a type="button" class="btn btn-secondary" (click)="continue(i,j)" >Seguir editando</a> -->
                                   <a type="button" class="btn btn-secondary" (click)="resetForm(activity)" data-dismiss="modal">Cancelar</a>
                                   <a type="button" class="btn btn-primary" (click)="checkActivity(activity)" data-dismiss="modal">Confirmar</a>
                                 </div>

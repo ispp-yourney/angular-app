@@ -45,7 +45,7 @@ export class LandmarkCreateComponent implements OnInit {
             description2: ['', [Validators.required, Validators.maxLength(1000)]],
             price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
             country: ['', Validators.required],
-            city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
+            city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
             latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
             longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
             category: [''],
@@ -83,8 +83,7 @@ export class LandmarkCreateComponent implements OnInit {
                 }, 2000)
               })
             }
-        console.log(this.formLandmark.controls['landmarkImage'].value )
-        console.log(data.id)
+      
         if(this.formLandmark.controls['landmarkImage'].value.name != undefined && data){
                       
           this.uploadLandmarkImage(this.formLandmark.controls['landmarkImage'].value, data.id)
@@ -94,7 +93,6 @@ export class LandmarkCreateComponent implements OnInit {
         this.toastr.success("Punto de interés creado correctamente.")
         wait()
           }, err => {
-        //console.log(err)
         this.toastr.error("Se ha producido un error en la creación del punto de interés.")
           })
       }
@@ -115,11 +113,28 @@ export class LandmarkCreateComponent implements OnInit {
         return inputClass
         }
 
-        addLandmarkImage(files: FileList) {
+        addLandmarkImage(files: FileList, value) {
           const file = files.item(0)
    
+          if( file?.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+      
+            this.formLandmark.controls['landmarkImage'].setValue(file)
+      
+          }else{
             
-          this.formLandmark.controls['landmarkImage'].setValue(file)
+            value.value = ""
+            
+            if(!(file?.type == 'image/jpeg' || file?.type == 'image/png')){
+      
+              this.toastr.error("Las imágenes deben ser de tipo jpg o png.")
+      
+            }else if(!(file?.size <= 4000000)){
+              this.toastr.error("Las imágenes no pueden ser superiores a 4mb.")
+      
+            }
+          }
+            
+         
       
          
         }
@@ -127,10 +142,8 @@ export class LandmarkCreateComponent implements OnInit {
         uploadLandmarkImage(file: File, landmarkId: number) {
           this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
             data => {
-              // console.log(data)
             },
             err => {
-              // console.log(err)
             }
           )
         }

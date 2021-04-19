@@ -12,13 +12,13 @@
                     <div>
                       <img *ngIf="!expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" class="img rounded-circle" alt="Foto de perfil" width="150">
                       <img *ngIf="expectedUser" id="userPhoto" src="{{userDetails?.imageUrl}}" onclick="$('#userPhotoInput').trigger('click');" alt="Mi foto de perfil" type="button" class="img rounded-circle my-img" width="150">
-                      <input hidden type="file" accept="image/*" id="userPhotoInput" (change)="addUserImage($event.target.files)">
+                      <input hidden type="file" #userImage accept="image/*" id="userPhotoInput" (change)="addUserImage($event.target.files, userImage)">
                       <div *ngIf="userDetails?.imageUrl!=undefined && userDetails?.imageUrl!='https://www.sinrumbofijo.com/wp-content/uploads/2016/05/default-placeholder.png' && expectedUser">
                         <button type="button" class="btn btn-primary mt-3" (click)="removeUserImage()">Eliminar foto <em class="fa fa-trash" aria-hidden="true"></em></button>
                       </div>
                     </div>
                     <div class="mt-3">
-                      <h4>{{userDetails?.username}}</h4>
+                      <h3 style="font-size:150%;color:#333333">@{{userDetails?.username}}</h3>
                       <div class="plan">
                         <span class="badge badge-pill" [ngClass]="plan=='Gratis' ? 'badge-info': 'badge-warning'"><span *ngIf="plan!='Gratis'" class="fa fa-star" style="color:orange">&nbsp;&nbsp;</span>{{plan}}</span><br>
                       </div>
@@ -82,8 +82,7 @@
                             <div class="col-sm-9">
                               <input type="text" name="email" id="email" class="{{inputClass(editForm, 'email')}}" formControlName="email"
                                   required email minlength="5" maxlength="50" value="{{userDetails?.email}}">
-                              <div class="invalid-feedback"
-                                  *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
+                              <div class="invalid-feedback" *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
                                   <div *ngIf="editForm.get('email').errors.required">No puede quedar vacío</div>
                                   <div *ngIf="editForm.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>
                                   <div *ngIf="editForm.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
@@ -93,7 +92,20 @@
                           </div>
 
                           <div style="text-align:center!important">
-                            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
+                            <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Actualizar</button>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" style="background: none;" role="document">
+                                <div class="modal-content">
+                                  <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                                      <span class="sr-only">Loading...</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
                             <button *ngIf="plan=='Gratis' && expectedUser && (userDetails?.roles[0].roleType != 'ROLE_ADMIN')" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
                           </div>
                         </form>  
@@ -123,7 +135,7 @@
                   </div>
 
                   <div *ngIf="!showProfile">
-                    <app-itinerarylist [username]="username"></app-itinerarylist>
+                    <app-itinerarylist></app-itinerarylist>
                   </div>
               </div>
             </div>

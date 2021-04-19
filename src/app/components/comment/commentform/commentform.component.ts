@@ -85,7 +85,7 @@ onCreate(){
   this.comment = new Comment(this.itinerary.id, this.formComment.value.content, this.formComment.value.rating);
   this.commentService.nuevo(this.comment).subscribe(
     data => {
-      //console.log(data)
+      
       this.toastr.success("Comentario realizado correctamente.")
 
       this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {window.location.reload()} )
@@ -101,11 +101,11 @@ onCreate(){
 
 removeComment(commentId:number){
   this.commentService.borrar(commentId).subscribe(data => {
-    // console.log(data)
+  
     this.route.navigate(['/itinerarios/' + this.itinerary.id]).then( () => {window.location.reload()} )
     this.toastr.success("Comentario eliminado correctamente.")
   }, err => {
-    // console.log(err)
+
     this.toastr.error("Se ha producido un error en la eliminación del comentario.")
 
   })

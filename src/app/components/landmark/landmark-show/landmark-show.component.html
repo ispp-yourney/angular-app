@@ -71,7 +71,7 @@
                                                 <form #f="ngForm" *ngIf="isAdmin" [formGroup]="editForm" (ngSubmit)="onUpdate()">
 
                                                 <label for="name">Nombre del la ubicación <span style="color:#ff0000">*</span></label>
-                                                <input type="text" id="name" formControlName="name" class="form-control" max-length="50" required name="name">
+                                                <input type="text" id="name" formControlName="name" class="{{inputClass(editForm, 'name')}}" max-length="50" required name="name">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('name').touched && editForm.get('name').invalid">
                                                     <div *ngIf="editForm.get('name').errors.required">No puede quedar vacío</div>
                                                     <div *ngIf="editForm.get('name').errors.maxlength">La longitud máxima son 50 caracteres.</div>
@@ -79,7 +79,7 @@
                                                 <br>
 
                                                 <label for="description">Descripción de la ubicación <span style="color:#ff0000">*</span></label>
-                                                <textarea name="description" id="description" formControlName="description" maxlength="1000" class="form-control" cols="30" rows="10"></textarea>
+                                                <textarea name="description" id="description" formControlName="description" maxlength="1000" class="{{inputClass(editForm, 'description')}}" cols="30" rows="10"></textarea>
                                                 <p>Caracteres disponibles: {{1000-editForm.get('description').value.length}}</p>
                                                 <div class="invalid-feedback" *ngIf="editForm.get('description').touched && editForm.get('description').invalid">
                                                     <div *ngIf="editForm.get('description').errors.required">No puede quedar vacío</div>
@@ -89,7 +89,7 @@
                                             
                                                 <label for="price">Precio <span style="color:#ff0000">*</span></label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" id="price" formControlName="price" class="form-control" value="0" required min="0" placeholder="0"  maxlength="20">
+                                                    <input type="text" id="price" formControlName="price" class="{{inputClass(editForm, 'price')}}" value="0" required min="0" placeholder="0"  maxlength="20">
                                                     <div class="input-group-prepend" >
                                                         <span class="input-group-text">€</span>
                                                     </div>
@@ -102,13 +102,17 @@
                                                 </div>
                                                 <br>
         
-                                                <label for="country">País</label>
-                                                <input name="country" id="country" class="form-control" formControlName="country"
-                                                    required minlength="3" maxlength="25" readonly>
+                                                <label for="country">País <span style="color:#ff0000">*</span></label>
+                                                <select formControlName="country" id="country" class="{{inputClass(editForm, 'country')}}" required>
+                                                    <option [value]="item" *ngFor="let item of countries">{{item}}</option>
+                                                </select>
+                                                <div class="invalid-feedback" *ngIf="editForm.get('country').touched && editForm.get('country').invalid">
+                                                    <div *ngIf="editForm.get('country').errors.required">No puede estar vacío</div>
+                                                </div>
                                                 <br>
 
                                                 <label for="city">Ciudad <span style="color:#ff0000">*</span></label>
-                                                <input type="text" id="city" formControlName="city" class="form-control" placeholder="Seoul" maxlength="100">
+                                                <input type="text" id="city" formControlName="city" class="{{inputClass(editForm, 'city')}}" placeholder="Seoul" required maxlength="100">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('city').touched && editForm.get('city').invalid">
                                                     <div *ngIf="editForm.get('city').errors.required">No puede quedar vacío.</div>
                                                     <div *ngIf="editForm.get('city').errors.maxlength">No puede introducirse más de 100 caracteres</div>
@@ -116,7 +120,7 @@
                                                 </div> 
                                             
                                                 <label for="latitude">Latitud <span style="color:#ff0000">*</span></label>
-                                                <input type="number" id="latitude" formControlName="latitude" class="form-control" required placeholder="12">
+                                                <input type="number" id="latitude" formControlName="latitude" class="{{inputClass(editForm, 'latitude')}}" required placeholder="12">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('latitude').touched && editForm.get('latitude').invalid">
                                                     <div *ngIf="editForm.get('latitude').errors.required">No puede quedar vacío.</div>
                                                     <div *ngIf="editForm.get('latitude').errors.pattern">Deben ser dígitos y con un máximo de 10 decimales.</div>
@@ -127,26 +131,35 @@
 
                                                 <br>
                                                 <label for="longitude">Longitud <span style="color:#ff0000">*</span></label>
-                                                <input type="number" id="longitude" formControlName="longitude" class="form-control" required placeholder="24">
+                                                <input type="number" id="longitude" formControlName="longitude" class="{{inputClass(editForm, 'longitude')}}" required placeholder="24">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('longitude').touched && editForm.get('longitude').invalid">
                                                     <div *ngIf="editForm.get('longitude').errors.required">No puede quedar vacío.</div>
                                                     <div *ngIf="editForm.get('longitude').errors.pattern">Deben ser dígitos y con un máximo de 10 decimales.</div>
                                                     <div *ngIf="editForm.get('longitude').errors.range">El valor introducido debe de estar entre -90 y 90</div>
                                                 </div>
 
-                                                    <!--<div class="form-group">
-                                                    <label class="col-form-label" for="landmarkImage">Imagen</label>
-                                                    <br>
-                                                    <input type="file" id="landmarkImage" class="file-input"  (change)="addLandmarkImage($event.target.files,activity)">
-                                                    </div> -->
-
                                                 <br>
-                                                <label for="category">Categoría</label>
-                                                <input type="text" id="category" formControlName="category" class="form-control" readonly>
+                                                <label for="category">Categoría <span style="color:#ff0000">*</span></label>
+                                                <select class="form-control" formControlName="category" id="category" class="{{inputClass(editForm, 'category')}}">
+                                                    <option label="BAR">BAR</option>
+                                                    <option label="HOTEL">HOTEL</option>
+                                                    <option label="TIENDA">TIENDA</option>
+                                                    <option label="CENTRO CULTURAL">CENTRO CULTURAL</option>
+                                                    <option label="AYUNTAMIENTO">AYUNTAMIENTO</option>
+                                                    <option label="MONUMENTO">MONUMENTO</option>
+                                                    <option label="RESTAURANTE">RESTAURANTE</option>
+                                                    <option label="LOCAL DE COMIDA RÁPIDA">LOCAL DE COMIDA RÁPIDA</option>
+                                                    <option label="SUPERMERCADO">SUPERMERCADvvvvvvvO</option>
+                                                    <option label="PUNTO DE INTERÉS">PUNTO DE INTERÉS</option>
+                                                    <option label="LIBRERÍA">LIBRERÍA</option>
+                                                    <option label="PARQUE NATURAL">PARQUE NATURAL</option>
+                                                    <option label="CHIRINGUITO">CHIRINGUITO</option>
+                                                    <option label="OTROS">OTROS</option>
+                                                </select>
                                                 <br>
                                             
                                                 <label for="email">Email</label>
-                                                <input type="text" id="email" formControlName="email" email class="form-control" placeholder="example@gmail.com" max-length="100">
+                                                <input type="text" id="email" formControlName="email" email class="{{inputClass(editForm, 'email')}}" placeholder="example@gmail.com" max-length="100">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
                                                     <div *ngIf="editForm.get('email').errors.email || editForm.get('email').errors.pattern">Formato no válido</div>
                                                     <div *ngIf="editForm.get('email').errors.maxlength">No puede introducirse más de 100 caracteres</div>
@@ -154,14 +167,14 @@
                                                 <br>
 
                                                 <label for="phone">Teléfono</label>
-                                                <input type="text" id="phone" formControlName="phone" class="form-control" placeholder="+(82) 847192673">
+                                                <input type="text" id="phone" formControlName="phone" class="{{inputClass(editForm, 'phone')}}" placeholder="+(82) 847192673">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('phone').touched && editForm.get('phone').invalid">
                                                     <div *ngIf="editForm.get('phone').errors.pattern">El formato introducido es no es válido, debe contener un formato: +(321) 987654321 o 987654321</div>
                                                 </div>
 
                                                 <br>
                                                 <label for="website">Sitio web</label>
-                                                <input type="url" id="website" formControlName="website" class="form-control" placeholder="https://www.website.com" max-length="100">
+                                                <input type="url" id="website" formControlName="website" class="{{inputClass(editForm, 'website')}}" placeholder="https://www.website.com" max-length="100">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('website').touched && editForm.get('website').invalid">
                                                     <div *ngIf="editForm.get('website').errors.pattern">Debe ser una URL</div>
                                                     <div *ngIf="editForm.get('website').errors.maxlength">No puede introducirse más de 300 caracteres</div>
@@ -169,7 +182,7 @@
 
                                                 <br>
                                                 <label for="instagram">Instagram</label>
-                                                <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="https://www.instagram.com" max-length="300">
+                                                <input type="text" id="instagram" formControlName="instagram" class="{{inputClass(editForm, 'instagram')}}" placeholder="https://www.instagram.com" max-length="300">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('instagram').touched && editForm.get('instagram').invalid">
                                                     <div *ngIf="editForm.get('instagram').errors.pattern">Debe ser una URL</div>
                                                     <div *ngIf="editForm.get('instagram').errors.maxlength">No puede introducirse más de 300 caracteres</div>
@@ -177,32 +190,52 @@
 
                                                 <br>
                                                 <label for="twitter">Twitter</label>
-                                                <input type="url" id="twitter" formControlName="twitter" class="form-control" placeholder="https://www.twitter.com" max-length="300">
+                                                <input type="url" id="twitter" formControlName="twitter" class="{{inputClass(editForm, 'twitter')}}" placeholder="https://www.twitter.com" max-length="300">
                                                 <div class="invalid-feedback" *ngIf="editForm.get('twitter').touched && editForm.get('twitter').invalid">
                                                     <div *ngIf="editForm.get('twitter').errors.pattern">Debe ser una URL</div>
                                                     <div *ngIf="editForm.get('twitter').errors.maxlength">No puede introducirse más de 300 caracteres</div>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="landmarkImage">Imagen</label>
+                                                    <br>
+                                                    <input type="file" #landmarkImage id="landmarkImage" accept="image/*"  class="file-input"   (change)="addLandmarkImage($event.target.files,landmarkImage)">
+                                                   
+                                          
+                                                  </div>
                                                     
                                                 <div style="text-align:center!important">
-                                                    <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid">Actualizar</button>
+                                                    <button type="submit" class="btn btn-primary" style="margin:5px" [disabled]="!editForm.valid" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Actualizar</button>
+
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" style="background: none;" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                     
                                                 </form>  
-                                            </div><!--modalBody-->
+                                            </div>
                                         
-                                        </div><!--modalContent-->
-                                    </div><!--modalDialog-->
-                                </div> <!--Modal-->
-                            </div><!--isAdmin-->
-                            <!--</div> creo que es este, pero sigue fallando -->
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
 
-                        </div><!--textAlign-->
+                        </div>
                         <div class="card-footer text-right pr-3 pb-3"><em class="fa fa-eye" aria-hidden="true" >
                             &nbsp;&nbsp;</em>{{landmark?.views}}
                         </div>
-                    </div><!--cardBody-->
-                </div><!--card-->
-            </div><!--colmd4-->
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-8">
                 <div class="card mb-3">
@@ -211,9 +244,9 @@
                     </div>
                 </div>
             </div>
-        </div><!--rowGutters-->
-    </div><!--mainBody-->
-</div><!--container-->
+        </div>
+    </div>
+</div>
 
 </ng-template>
 

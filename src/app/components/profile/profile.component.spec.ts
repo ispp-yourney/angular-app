@@ -21,36 +21,6 @@ let h4: HTMLElement;
 //Stubs
 let activatedRoute: ActivatedRoute
 
-// beforeEach(() => {
-  
-  
-
-//   TestBed.configureTestingModule({
-//     declarations: [ProfileComponent],
-//     providers: [
-//       {
-//         provide: ActivatedRoute,
-//         useValue: {
-//           //paramMap: of({ get: (username:string) => { return { username: 'alejandro1corted' }; } })
-//           paramMap: of({ get: (username:string) => { return  'alejandro1corted' ; } })
-//         } 
-//       },
-//     ],
-//   });
-//   activatedRoute.paramMap.get;
-
-
-
-  
-//   fixture = TestBed.createComponent(ProfileComponent);
-//   component = fixture.componentInstance; // ProfileComponent test instance
-//   h4 = fixture.nativeElement.querySelector('h4');
-// });
-
-// it('should create', () => {
-
-//   expect(component).toBeTruthy();
-// });
 
 describe('Profile', ()=> {
   beforeEach(async() =>{

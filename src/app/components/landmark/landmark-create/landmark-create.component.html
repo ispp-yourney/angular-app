@@ -157,13 +157,26 @@
         <div class="form-group">
           <label class="col-form-label" for="landmarkImage">Imagen</label>
           <br>
-          <input type="file" #landmarkImage id="landmarkImage" accept="image/*"  class="file-input"   (change)="addLandmarkImage($event.target.files)">
+          <input type="file" #landmarkImage id="landmarkImage" accept="image/*"  class="file-input"   (change)="addLandmarkImage($event.target.files,landmarkImage)">
          
 
         </div>
         
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" [disabled]="!formLandmark.valid">Crear</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!formLandmark.valid" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">Crear</button>
+
+          <div class="modal fade" id="exampleModal" tabindex="-1"  style="background: none;" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="background: none;" role="document">
+              <div class="modal-content">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" style="width:5rem;height:5rem" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
             </form>

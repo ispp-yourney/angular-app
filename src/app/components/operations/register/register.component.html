@@ -15,6 +15,7 @@
                                 required minlength="3" maxlength="50">
                             <div class="invalid-feedback"
                                 *ngIf="formRegister.get('username').touched && formRegister.get('username').invalid">
+                                <div *ngIf="formRegister.get('username').errors.pattern ">No se permiten puntos al principio o final ni doble puntuación intermedia</div>
                                 <div *ngIf="formRegister.get('username').errors.required">No puede quedar vacío</div>
                                 <div *ngIf="formRegister.get('username').errors.minlength">Debe de tener al menos 3 caracteres</div>
                                 <div *ngIf="formRegister.get('username').errors.maxlength">Debe de tener como máximo 50 caracteres</div>

@@ -50,9 +50,14 @@ export class ItineraryupdateComponent implements OnInit {
   editLandmark: string = "none"
   shareLandmark: string = "none"
 
+  isAdmin: boolean = false;
+
   countries: Array<string>
 
   ngOnInit(): void {
+    if(this.tokenService.getAuthorities().length > 0){
+      this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+    }
     this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
 
     this.countries = this.countryService.getAllCountries()
@@ -66,12 +71,12 @@ export class ItineraryupdateComponent implements OnInit {
       budget: new FormControl('0',[Validators.required, Validators.min(0)]),
       recommendedSeason: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required),
-      days: this.formBuilder.array([])
+      days: this.formBuilder.array([],  Validators.required)
     })
 
     this.itineraryService.vista(Number(this.route.snapshot.paramMap.get('id'))).toPromise().then(
       data => {
-     console.log(data)
+     
         this.itinerary = data;
         this.isMyItinerary = (this.tokenService.getUsername() != null) && (this.tokenService.getUsername().length>0) && (this.tokenService.getUsername() == this.itinerary.username)
         if(this.tokenService.getAuthorities().length > 0){
@@ -192,7 +197,7 @@ export class ItineraryupdateComponent implements OnInit {
       description2: ['', Validators.required],
       price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
-      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ])*$"),Validators.maxLength(100)]],
+      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
       latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
       longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
       category: [''],
@@ -332,7 +337,7 @@ export class ItineraryupdateComponent implements OnInit {
     // Actualizamos itinerario
     var totalDays = this.editForm.controls.days as FormArray;
     var numb = totalDays.length;
-    console.log(this.getItineraryPrice(this.editForm))
+    
     var newItinerary = new ItineraryDto(this.editForm.value.id,
                                           this.editForm.value.name,
                                           this.editForm.value.description,
@@ -342,7 +347,6 @@ export class ItineraryupdateComponent implements OnInit {
                                           this.editForm.value.status);
     this.itineraryService.editar(newItinerary).subscribe(
       data => {
-        // console.log(data)
         if(this.itineraryImage != undefined){
           this.uploadItineraryImage(this.itineraryImage, data.id)
         }
@@ -361,13 +365,13 @@ export class ItineraryupdateComponent implements OnInit {
                   // console.log(data);
                  
                 }, err => {
-                  // console.log(err);
+                 
                 }
               )
             } else {
               this.activityService.nuevo(newAct).subscribe(
                 data => {
-               //console.log(data);
+               
                 if(landmark == ''){
                var newLand = new LandmarkDto(landmark == '' ? 0 : activity.value.landmarkId.id, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
                 activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category,activity.value.landmark[0].email == '' ? null : activity.value.landmark[0].email,
@@ -375,20 +379,20 @@ export class ItineraryupdateComponent implements OnInit {
                 console.log(newLand)
                   this.landmarkService.nuevo(newLand).subscribe(
                     data => {
-                      // console.log(data);
+                      
                       if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data){
                         console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
                         this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
                         }
                     }, err => {
-                      // console.log(err)
+                      
                       this.toastr.error("Se ha producido un error")
 
                     }
                   )
                 }
                 }, err => {
-                  // console.log(err)
+                  
                   this.toastr.error("Se ha producido un error")
 
                 }
@@ -405,7 +409,7 @@ export class ItineraryupdateComponent implements OnInit {
         this.toastr.success("Itinerario editado correctamente")
 
       }, err => {
-        // console.log(err);
+       
         this.toastr.error("Se ha producido un error")
 
       }
@@ -442,14 +446,24 @@ export class ItineraryupdateComponent implements OnInit {
   addItineraryImage(files: FileList, value) {
     const file = files.item(0)
     let fileNames: Array<any> = this.addedImages(this.editForm)
-    if(fileNames.indexOf(file?.name) == -1){
+    if(fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
       this.itineraryImage = files.item(0)
 
     }else{
       value.value = ""
       
-      
-      this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+      if(!(file?.type == 'image/jpeg' || file?.type == 'image/png')){
+
+        this.toastr.error("Las imágenes deben ser de tipo jpg o png.")
+
+      }else if(!(fileNames.indexOf(file?.name) == -1) ){
+
+        this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+
+      }else if(!(file?.size <= 4000000)){
+        this.toastr.error("Las imágenes no pueden ser superiores a 4mb.")
+
+      }
     }
   }
 
@@ -461,17 +475,26 @@ export class ItineraryupdateComponent implements OnInit {
     const file = files.item(0)
   
     let fileNames: Array<any> = this.addedImages(this.editForm)
-    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1){
+    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file?.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
       
       activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
 
     }else{
       
-        console.log(value)
-        value.value = ""
+      value.value = ""
       
-      
-      this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+      if(!(file?.type == 'image/jpeg' || file?.type == 'image/png')){
+
+        this.toastr.error("Las imágenes deben ser de tipo jpg o png.")
+
+      }else if(!(fileNames.indexOf(file?.name) == -1) ){
+
+        this.toastr.error("No puede subir dos fotos iguales. La imagen no se enviará.")
+
+      }else if(!(file?.size <= 4000000)){
+        this.toastr.error("Las imágenes no pueden ser superiores a 4mb.")
+
+      }
     }
    
   }
@@ -483,10 +506,10 @@ export class ItineraryupdateComponent implements OnInit {
   uploadItineraryImage(file: File, itineraryId: number) {
     this.imageService.addItineraryPhoto(itineraryId, file).subscribe(
       data => {
-        // console.log(data)
+      
       },
       err => {
-        // console.log(err)
+        
       }
     )
   }
@@ -494,10 +517,10 @@ export class ItineraryupdateComponent implements OnInit {
   uploadLandmarkImage(file: File, landmarkId: number) {
     this.imageService.addLandmarkPhoto(landmarkId, file).subscribe(
       data => {
-        // console.log(data)
+        
       },
       err => {
-        // console.log(err)
+       
       }
     )
   }
@@ -521,10 +544,12 @@ export class ItineraryupdateComponent implements OnInit {
 
     resetNewForm(activity: FormGroup){
       
-      activity.reset()
+      
   
-  
+      activity.controls['description'].reset()
       activity.controls['description'].setValue("")
+
+      activity.controls['title'].reset()
       activity.controls['title'].setValue("")
       
   
@@ -582,7 +607,7 @@ export class ItineraryupdateComponent implements OnInit {
         if(activity.get('newActivity').value == 'false'){
           this.toastr.success("Actividad editada correctamente")
         }else{
-          this.toastr.success("Actividad creada correctamente")
+          this.toastr.success("Actividad añadida correctamente")
           wait()
         }
         
