@@ -33,7 +33,7 @@ export class BuscadorComponent implements OnInit {
                 this.formFilter = formBuilder.group({
                   country: [''],
                   city: [''],
-                  maxBudget: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$"), Validators.maxLength(8)] ],
+                  maxBudget: ['', [Validators.pattern("^[+]?\\d*\\.?\\d{0,6}$"), Validators.maxLength(8)] ],
                   maxDays: ['', Validators.pattern("^\\d{1,3}$") ],
                 });
               }
