@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { SearchFilter } from 'src/app/models/search-filters';
 import { BuscadorService } from '../../services/buscador.service';
 import { Itinerary } from 'src/app/models/itinerary';
+import { TokenService } from 'src/app/services/token.service';
 
 /**
  * @title Filter autocomplete
@@ -27,9 +28,11 @@ export class BuscadorComponent implements OnInit {
   initialPages: Array<number> = [];
   prueba: number  = 0;
 
+  isLogged: boolean = false;
+
   constructor(private buscadorService:BuscadorService, 
               private formBuilder:FormBuilder,
-              private router: Router,private activatedRoute: ActivatedRoute){
+              private router: Router,private activatedRoute: ActivatedRoute, private tokenService: TokenService){
                 this.formFilter = formBuilder.group({
                   country: [''],
                   city: [''],
@@ -40,6 +43,10 @@ export class BuscadorComponent implements OnInit {
 
   ngOnInit() {
     this.buscadorService.getAllCountry().subscribe(c => {this.country = c; } )
+
+    if(this.tokenService.getToken()){
+      this.isLogged = true;
+    }
   }
 
 loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:number){
