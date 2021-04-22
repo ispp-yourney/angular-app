@@ -287,6 +287,17 @@ describe('Commentform', () => {
     itineraryService=null;
   });
 
+  it('should use loadLandmark without any authorities', fakeAsync(() => {
+    component.itinerary = itineraryInput
+    spyTokenService.getAuthorities.and.returnValue([
+      
+    ]);
+    expect(component.ngOnInit).toBeTruthy()
+
+    component.ngOnInit()
+    fixture.detectChanges();
+  }));
+
   it('should loadComments from ngOnInit', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
     component.itinerary = itineraryInput

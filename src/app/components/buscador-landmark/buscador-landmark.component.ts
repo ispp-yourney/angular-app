@@ -74,10 +74,7 @@ export class BuscadorLandmarkComponent implements OnInit {
     response => {
       var res = response;
       this.landmarks= res.content;
-      this.totalPages= res.totalPages;
-
-      console.log(res.totalPages < page);
-      
+      this.totalPages= res.totalPages;      
      
       if (res.totalPages - 1 < page) {
         this.initialPages = [];
@@ -107,10 +104,11 @@ export class BuscadorLandmarkComponent implements OnInit {
       }else{
 
       if(this.totalPages>0 && this.totalPages <=2 && this.currentPage != this.initialPages[0]){
-        
         if( this.initialPages[0] + 1 < this.totalPages){
+
           this.initialPages[0] = this.initialPages[0] + 1
         }else if((this.initialPages[0] + 1) -1 > 0){
+
           this.initialPages[0] = this.initialPages[0] -1
         }
        

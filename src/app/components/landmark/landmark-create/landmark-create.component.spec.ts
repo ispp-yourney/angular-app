@@ -289,4 +289,214 @@ describe('LandmarkCreate', () => {
     component.ngOnInit()
     component.uploadLandmarkImage(imageMock, 1)
   }));
+
+  it('should use addLandmarkImage function image/png', fakeAsync(() => {
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+    tick();
+
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename";
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        1: file,
+        length: 2,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+   
+    component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+    flush();
+  }));
+
+  it('should fail to use addLandmarkImage function image/png', fakeAsync(() => {
+   let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+   spyOn(imageService, 'addUserPhoto').and.returnValue(throwError({
+     status: 404,
+     error: {
+       text: 'true'
+     }
+   }))
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const blob = new Blob([""], { type: "image/png" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     const file = <File>blob;
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file
+     };
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+  it('should use addLandmarkImage function image/png with unknown error', fakeAsync(() => {
+   let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+   spyOn(imageService, 'addUserPhoto').and.returnValue(throwError({
+     status: 404,
+     error: {
+       text: false
+     }
+   }))
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const blob = new Blob([""], { type: "image/png" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     const file = <File>blob;
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file
+     };
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+ it('should use addLandmarkImage function image/random', fakeAsync(() => {
+   let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+   spyOn(imageService, 'addUserPhoto').and.returnValue(of(imageAddResponseMock))
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const imageSize="x".repeat(4000000+1)
+     const blob = new Blob([imageSize], { type: "image/random" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     
+     const file = <File>blob;
+
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file,
+     };
+
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+ it('should use addLandmarkImage function image/png big size', fakeAsync(() => {
+   let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+   spyOn(imageService, 'addUserPhoto').and.returnValue(of(imageAddResponseMock))
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const imageSize="x".repeat(4000000+1)
+     const blob = new Blob([imageSize], { type: "image/jpeg" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     
+     const file = <File>blob;
+
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file,
+     };
+
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+ it('should use inputClass() function not touched property', fakeAsync(() => {
+  // formMock.get('text').markAsTouched()
+  // formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function touched property', fakeAsync(() => {
+  formMock.get('text').markAsTouched()
+  // formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function touched property and valid', fakeAsync(() => {
+  formMock.get('text').markAsTouched()
+  formMock.get('text').clearValidators()
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function touched property and invalid', fakeAsync(() => {
+  formMock.get('text').markAsTouched()
+  formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function not touched property and invalid', fakeAsync(() => {
+  //formMock.get('text').markAsTouched()
+  formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
 })

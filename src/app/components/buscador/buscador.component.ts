@@ -127,7 +127,6 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
       
   switchPage(page:number){
       this.currentPage=page;
-      console.log(this.currentPage)
       this.loadItineraries(this.formFilter.controls.country.value,this.formFilter.controls.city.value, this.formFilter.controls.maxBudget.value, this.formFilter.controls.maxDays.value,this.currentPage);
   }
 
