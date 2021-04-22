@@ -322,7 +322,7 @@ let formMock = formBuilder.group({
 let spyTokenService;
 let spyBuscadorLandmarkService;
 
-describe('LandmarkCreate', () => {
+describe('BuscadorLandmark', () => {
 
   beforeEach(async () => {
     let activatedRouteMock: any = {
@@ -380,17 +380,17 @@ describe('LandmarkCreate', () => {
     component = null;
     authService = null;
     tokenService = null;
-
+    router=null;
   });
 
-  it('should use ngOnInit function', fakeAsync(() => { 
+  it('should use ngOnInit function', () => { 
     spyOn(buscadorLandmarkService,'getAllCountry').and.returnValue(of(countries))
     spyOn(buscadorLandmarkService,'getCityByCountry').and.returnValue(of(['Sevilla']))
     spyTokenService.getToken.and.returnValue("tokenTest");
     component.ngOnInit()
     fixture.detectChanges();
     expect(component.ngOnInit).toBeTruthy()
-  }));
+  });
 
   it('should use ngOnInit function without token', fakeAsync(() => {
     spyOn(buscadorLandmarkService,'getAllCountry').and.returnValue(of(countries))

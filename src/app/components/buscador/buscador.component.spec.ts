@@ -374,7 +374,7 @@ let formMock = formBuilder.group({
 let spyTokenService;
 let spybuscadorService;
 
-describe('LandmarkCreate', () => {
+describe('Buscador', () => {
 
   beforeEach(async () => {
     let activatedRouteMock: any = {
@@ -432,6 +432,7 @@ describe('LandmarkCreate', () => {
     component = null;
     authService = null;
     tokenService = null;
+    buscadorService = null;
 
   });
 
