@@ -34,7 +34,7 @@
 
 <div *ngIf="barChartData.length > 0">
   <div>
-    <div style="display: block; margin: 20px">
+    <div style="display: block; margin: 20px; min-height:400px">
       <canvas baseChart
         [datasets]="barChartData"
         [labels]="barChartLabels"
@@ -45,4 +45,8 @@
       </canvas>
     </div>
   </div>
+</div>
+
+<div *ngIf="messageError" class="alert alert-danger">
+  {{messageError}}
 </div>
