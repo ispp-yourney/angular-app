@@ -278,12 +278,18 @@ describe('Profile', () => {
 
     expect(component.expectedUser).toEqual(true)
     tick();
-    component.changeView();
+    component.changeView('itineraries');
     tick();
     expect(component.showProfile).toEqual(false)
-    component.changeView();
+    expect(component.showDashboard).toEqual(false)
+    component.changeView('profile');
     tick();
     expect(component.showProfile).toEqual(true)
+    expect(component.showDashboard).toEqual(false)
+    component.changeView('');
+    tick();
+    expect(component.showProfile).toEqual(false)
+    expect(component.showDashboard).toEqual(true)
   }));
 
 
