@@ -20,7 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 
@@ -38,12 +38,12 @@ let router: Router
 let location: Location;
 let spyTokenService;
 
-let tokenTest="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGVqYW5kcm8xY29ydGVzIiwiaWF0IjoxNjE5MDg1MTM4LCJleHAiOjE2MTkxMjExMzh9.KASgQDxkjbSN3mHAoO4_xmOcE9Ghr2CuqHlHcgw08NeXTj9RFsfjNalrEECL7jMHxVP1GxctfsNV8164oM5MGw"
+let tokenTest="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGVqYW5kcm8xY29ydGVzIiwiaWF0IjoxNjE5MDg1MTM4LCJleHAiOjE5MTkxMjExMzh9.goSn7HlI4Sn9MsNhSbo1fZk1lkDYWkxjewz7KQJgRVhGwoErE9LbH9J7YTAdR3Wln9oB2k8Oc2LSjFGwrW7AYw"
 let tokenTestExpired="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGVqYW5kcm8xY29ydGVzIiwiaWF0IjoxNjE5MDg1MTM4LCJleHAiOjE2MDAwMjExMTB9.XWNS8mn5ZYHzsqAdH8lXeS_N8y7nhTubrHGhwfabkQ_X-4s05rLOlGAVbjbKdyWREMJmcfE-ruyIuthM4Kx28w"
 
 
 
-describe('App', () => {
+describe('AppComponent', () => {
 
   beforeEach(async () => {
     let activatedRouteMock: any = {
@@ -74,7 +74,7 @@ describe('App', () => {
         MenuComponent,
         FooterComponent,
       ],
-      schemas:[NO_ERRORS_SCHEMA],
+      schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
@@ -116,7 +116,7 @@ describe('App', () => {
     component.ngOnInit()
   });
 
-  it('should use ngOnInit with expired token', fakeAsync(() => {
+  it('should use ngOnInit with expired token ', fakeAsync(() => {
     spyTokenService.getToken.and.returnValue(tokenTestExpired);
     spyOn(component, 'reload').and.returnValue();
     spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));

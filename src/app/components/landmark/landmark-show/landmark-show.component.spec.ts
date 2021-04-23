@@ -12,7 +12,7 @@ import {
 
 
 import { routes } from "../../../app-routing.module";
-import { ReactiveFormsModule, FormsModule, AbstractControl } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule, AbstractControl, FormControl } from "@angular/forms";
 import { Location } from '@angular/common';
 import { Observable, of, throwError } from 'rxjs';
 import { ShowUser } from '../../../models/show-user';
@@ -555,4 +555,20 @@ it('should use uploadLandmarkImage function with errors', fakeAsync(() => {
   component.uploadLandmarkImage(imageMock, 1)
   flush()
 }));
+
+it('should use checkPrice function', () => {
+  spyTokenService.getAuthorities.and.returnValue([
+    {
+      "authority": "ROLE_ADMIN"
+    }
+  ]);
+  component.ngOnInit()
+  component.editForm.addControl(
+    'priceNormal', new FormControl('10', component.checkPrice)
+  );
+  component.editForm.addControl(
+    'priceRare', new FormControl('-10', component.checkPrice)
+  );
+  expect(component.checkPrice).toBeTruthy()
+});
 })
