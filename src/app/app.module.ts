@@ -55,6 +55,7 @@ import { TermComponent } from './components/terms/terms.component';
     DashboardComponent,
     TermComponent
 
+
     
   ],
   imports: [

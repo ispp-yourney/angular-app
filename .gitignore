@@ -52,3 +52,4 @@ node_modules/*
 src/db/db.json
 #angular.json
 coverage
+.vscode/extensions.json

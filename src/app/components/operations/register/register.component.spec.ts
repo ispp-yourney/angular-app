@@ -27,7 +27,10 @@ let httpTestingController: HttpTestingController;
 let activatedRoute: ActivatedRoute
 let router: Router
 let location: Location;
-let formBuilder: FormBuilder
+let formBuilder: FormBuilder = new FormBuilder();
+let formMock = formBuilder.group({
+  text: ['']
+});
 
 let spyTokenService;
 
@@ -205,4 +208,61 @@ describe('Register', () => {
     expect(component.isLoginFail).toEqual(true)
     expect(component.messageError).toEqual('Ha ocurrido un error')
   }));
+
+  it('should use inputClass() function not touched property', fakeAsync(() => {
+    // formMock.get('text').markAsTouched()
+    // formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    // formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property and valid', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    formMock.get('text').clearValidators()
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property and invalid', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function not touched property and invalid', fakeAsync(() => {
+    //formMock.get('text').markAsTouched()
+    formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+
 })

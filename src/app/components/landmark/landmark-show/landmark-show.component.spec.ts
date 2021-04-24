@@ -12,7 +12,7 @@ import {
 
 
 import { routes } from "../../../app-routing.module";
-import { ReactiveFormsModule, FormsModule, AbstractControl } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule, AbstractControl, FormControl } from "@angular/forms";
 import { Location } from '@angular/common';
 import { Observable, of, throwError } from 'rxjs';
 import { ShowUser } from '../../../models/show-user';
@@ -22,6 +22,7 @@ import { FormBuilder } from '@angular/forms';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ImageService } from 'src/app/services/image.service';
 
 
 
@@ -31,6 +32,7 @@ let fixture: ComponentFixture<LandmarkShowComponent>;
 let authService: AuthService;
 let tokenService: TokenService;
 let landmarkService: LandmarkService;
+let imageService:ImageService;
 
 
 let httpTestingController: HttpTestingController;
@@ -93,6 +95,8 @@ let landmarkMock2: Landmark = {
 let showUserPlan0: ShowUser = new ShowUser("testUser", "testPassword", "John", "Doe", "user@test.com", null, 0);
 let showUserPlan1: ShowUser = new ShowUser("testUser", "testPassword", "John", "Doe", "user@test.com", null, 1);
 let landmarkMockDto:LandmarkDto = new LandmarkDto(0, "Landmark test", "This is a landmark text", 0, "string", "string", 0, 0, "string", "string", "string", "string", "string", "string", null)
+let imageMock = new File([""], "filename", { type: 'text/html' });
+
 
 let formBuilder:FormBuilder = new FormBuilder();
 let formMock = formBuilder.group({
@@ -141,7 +145,7 @@ describe('LandmarkShow', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
-        AuthService, LandmarkService
+        AuthService, LandmarkService,ImageService
       ]
 
     }).compileComponents().then(() => {
@@ -151,6 +155,7 @@ describe('LandmarkShow', () => {
       authService = TestBed.inject(AuthService);
       tokenService = TestBed.inject(TokenService);
       landmarkService = TestBed.inject(LandmarkService);
+      imageService = TestBed.inject(ImageService);
 
       httpTestingController = TestBed.inject(HttpTestingController);
       activatedRoute = TestBed.inject(ActivatedRoute);
@@ -184,6 +189,17 @@ describe('LandmarkShow', () => {
       {
         "authority": "ROLE_USER"
       }
+    ]);
+    expect(component.ngOnInit).toBeTruthy()
+    const landmarkObservable: Observable<Landmark> = of(landmarkMock1);
+    spyOn(landmarkService,"mostrar").and.returnValue(landmarkObservable)
+    component.ngOnInit()
+    fixture.detectChanges();
+  }));
+
+  it('should use loadLandmark without any authorities', fakeAsync(() => {
+    spyTokenService.getAuthorities.and.returnValue([
+      
     ]);
     expect(component.ngOnInit).toBeTruthy()
     const landmarkObservable: Observable<Landmark> = of(landmarkMock1);
@@ -319,4 +335,240 @@ describe('LandmarkShow', () => {
     tick()
     fixture.detectChanges();
   }));
+
+  it('should use addLandmarkImage function image/png', fakeAsync(() => {
+    let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+    tick();
+
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename";
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        1: file,
+        length: 2,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+   
+    component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+    flush();
+  }));
+
+  it('should fail to use addLandmarkImage function image/png', fakeAsync(() => {
+   
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const blob = new Blob([""], { type: "image/png" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     const file = <File>blob;
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file
+     };
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+  it('should use addLandmarkImage function image/png with unknown error', fakeAsync(() => {
+   
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const blob = new Blob([""], { type: "image/png" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     const file = <File>blob;
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file
+     };
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+ it('should use addLandmarkImage function image/random', fakeAsync(() => {
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const imageSize="x".repeat(4000000+1)
+     const blob = new Blob([imageSize], { type: "image/random" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     
+     const file = <File>blob;
+
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file,
+     };
+
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+ it('should use addLandmarkImage function image/png big size', fakeAsync(() => {
+
+   fixture.detectChanges();
+   component.ngOnInit()
+
+    expect(component.ngOnInit).toBeTruthy()
+   tick();
+
+   const getFileList = () => {
+     const imageSize="x".repeat(4000000+1)
+     const blob = new Blob([imageSize], { type: "image/jpeg" });
+     blob["lastModifiedDate"] = "";
+     blob["name"] = "filename";
+     
+     const file = <File>blob;
+
+     const fileList: FileList = {
+       0: file,
+       1: file,
+       length: 2,
+       item: (index: number) => file,
+     };
+
+     return fileList;
+   };
+  
+   component.addLandmarkImage(getFileList(), {value:{value:"test"}});
+   flush();
+ }));
+
+ it('should use inputClass() function not touched property', fakeAsync(() => {
+  // formMock.get('text').markAsTouched()
+  // formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function touched property', fakeAsync(() => {
+  formMock.get('text').markAsTouched()
+  // formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function touched property and valid', fakeAsync(() => {
+  formMock.get('text').markAsTouched()
+  formMock.get('text').clearValidators()
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function touched property and invalid', fakeAsync(() => {
+  formMock.get('text').markAsTouched()
+  formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use inputClass() function not touched property and invalid', fakeAsync(() => {
+  //formMock.get('text').markAsTouched()
+  formMock.get('text').setErrors({ required: true })
+  fixture.detectChanges();
+
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.inputClass(formMock, 'text')).toBeTruthy()
+  component.inputClass(formMock, 'text')
+}));
+
+it('should use uploadLandmarkImage function', fakeAsync(() => {
+  fixture.detectChanges();
+  //spyImageService.addLandmarkPhoto.and.returnValue('test')
+  spyOn(imageService, "addLandmarkPhoto").and.returnValue(of('test'))
+  expect(component.ngOnInit).toBeTruthy()
+  component.ngOnInit()
+  component.uploadLandmarkImage(imageMock, 1)
+}));
+
+it('should use uploadLandmarkImage function with errors', fakeAsync(() => {
+  fixture.detectChanges();
+  //spyImageService.addLandmarkPhoto.and.returnValue('test')
+  spyOn(imageService, "addLandmarkPhoto").and.returnValue(throwError({
+    status: 404,
+    error: {
+      text: 'Error'
+    }
+  }))
+  expect(component.ngOnInit).toBeTruthy()
+  component.ngOnInit()
+  component.uploadLandmarkImage(imageMock, 1)
+  flush()
+}));
+
+it('should use checkPrice function', () => {
+  spyTokenService.getAuthorities.and.returnValue([
+    {
+      "authority": "ROLE_ADMIN"
+    }
+  ]);
+  component.ngOnInit()
+  component.editForm.addControl(
+    'priceNormal', new FormControl('10', component.checkPrice)
+  );
+  component.editForm.addControl(
+    'priceRare', new FormControl('-10', component.checkPrice)
+  );
+  expect(component.checkPrice).toBeTruthy()
+});
 })

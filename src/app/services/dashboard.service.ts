@@ -58,24 +58,4 @@ export class DashboardService {
     return this.httpClient.get<string[]>(environment.backendEndpoint + "/landmark/country/" + pais + "/city/list");
   }
 
-  // public vista(id:number): Observable<Itinerary> {
-  //   var url=this.hostURL + '/itinerary/show/' + id
-  //   return this.httpClient.get<Itinerary>(url)
-  // }
-
-  // public nuevo(itinerary: ItineraryDto): Observable<any> {
-  //   var url=this.hostURL + '/itinerary/create';
-  //   return this.httpClient.post<ItineraryDto>(url, itinerary);
-  // }
-
-  // public editar(itinerary: ItineraryDto): Observable<any> {
-  //   var url=this.hostURL + '/itinerary/update';
-  //   return this.httpClient.put<ItineraryDto>(url, itinerary);
-  // }
-  
-  // public delete(idDelete: number): Observable<any> {
-  //   var url=this.hostURL + '/itinerary/delete/' + idDelete;
-  //   return this.httpClient.delete(url);
-  // }
-
 }
