@@ -13,6 +13,7 @@ import {PermissionsService as guard } from './revisors/permissions.service';
 import { ItineraryupdateComponent } from './components/itinerary/itineraryupdate/itineraryupdate.component';
 import { BuscadorLandmarkComponent } from './components/buscador-landmark/buscador-landmark.component';
 import { LandmarkShowComponent } from './components/landmark/landmark-show/landmark-show.component';
+import { TermComponent } from './components/terms/terms.component';
 
 export const routes: Routes = [
   {path: '' , component: IndexComponent},
@@ -27,6 +28,7 @@ export const routes: Routes = [
   {path: 'error', component: NotFoundComponent},
   {path:'perfil/:username', component: ProfileComponent, pathMatch: 'full'},
   {path:'perfil/:username/itinerarios/:id', component: ItinerarylistComponent,pathMatch: 'full'},
+  {path: 'terminos', component: TermComponent, pathMatch: 'full'},
   {path: '**', component: NotFoundComponent}
 ];
 
