@@ -118,6 +118,7 @@ position: absolute;
   float: left;
   top: 300px;
   margin-bottom: 30px;
+  
 
 }
 .front-face, .back-face{
@@ -217,10 +218,12 @@ transform: rotateY(-180deg);
 
 
 .div_pagination{
-  display: flex;
   width:40%;
   margin-left:auto;
   margin-right: auto;
+  display: flex;
+  position: absolute;
+  left: 45vw;
 
 }
 
@@ -274,9 +277,12 @@ transform: rotateY(-180deg);
 
   .div_pagination{
     display: flex;
-    width:40%;
+    width:60%;
     margin-left:auto;
     margin-right: auto;
+    position: absolute;
+    left: 20vw;
+   
   }
 
  

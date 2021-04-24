@@ -4,6 +4,8 @@ import { LoginComponent } from './login.component';
 import { MenuComponent } from '../../menu/menu.component';
 import { TokenService } from 'src/app/services/token.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmailConfirmationService } from 'src/app/services/email-confirmation.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   HttpClientTestingModule,
@@ -65,7 +67,7 @@ describe('Login', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
-        AuthService
+        AuthService,EmailConfirmationService
       ]
 
     }).compileComponents().then(() => {

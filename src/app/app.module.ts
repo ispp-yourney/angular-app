@@ -28,7 +28,7 @@ import { HereMapComponent } from './components/here-map/here-map.component';
 import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ConfirmationUserComponent } from './components/confirmation-user/confirmation-user.component';
-
+import {NgxPaginationModule} from 'ngx-pagination'
 
 @NgModule({
   declarations: [
@@ -65,7 +65,8 @@ import { ConfirmationUserComponent } from './components/confirmation-user/confir
     NgxSliderModule,
     ToastrModule.forRoot({
       preventDuplicates: true
-    })
+    }),
+    NgxPaginationModule
   ],
   providers: [
     interceptor
