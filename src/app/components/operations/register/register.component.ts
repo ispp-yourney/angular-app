@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { LoginUser } from 'src/app/models/login-user';
 import { NewUser } from 'src/app/models/new-user';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmailConfirmationService } from 'src/app/services/email-confirmation.service';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -26,7 +28,9 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService,
               private tokenService: TokenService,
               private router: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private emailConfirmation: EmailConfirmationService,
+              private toastr: ToastrService) {
 
                 this.formRegister = formBuilder.group({
                   username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3), Validators.pattern("^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")]],
@@ -54,32 +58,6 @@ export class RegisterComponent implements OnInit {
       response => {
         var res = response
 
-        this.authService.login(new LoginUser(this.formRegister.value.username,
-          this.formRegister.value.password)).subscribe(
-            response => {
-              var res = response
-
-              this.isLogged = true;
-              this.isLoginFail = false;
-
-              this.tokenService.setToken(res.token);
-              this.tokenService.setUsername(res.username);
-              this.tokenService.setAuthorities(res.authorities);
-
-              this.router.navigate(['/']);
-
-            }, err => {
-              this.isLogged = false;
-              this.isLoginFail = true;
-
-              var returned_error = err.error.text
-              if (returned_error == undefined) {
-                returned_error = 'Ha ocurrido un error'
-              }
-              this.messageError = returned_error;
-
-            }
-          )
 
       }, err => {
         this.isLogged = false;
@@ -110,5 +88,28 @@ inputClass(form:FormGroup,property: string){
 
   return inputClass
   }
+
+  reloadPage(){window.location.reload()}
+
+  redirect(){
+    this.router.navigate(['/login/']).then(() => { this.reloadPage() })
+  }
+
+  sendCode(email: string){
+    this.emailConfirmation.sendConfirmationCode(email).subscribe( response =>{
+        this.toastr.success("Código reenviado correctamente.")
+    }, error =>{
+     
+        if(error.error.text){
+          this.toastr.error(error.error.text)
+        }else{
+          this.toastr.error("Ha ocurrido un error al reenviar el código.")
+
+        }
+
+    })
+  }
  
 }
+
+ 

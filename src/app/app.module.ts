@@ -27,6 +27,7 @@ import { LandmarkShowComponent } from './components/landmark/landmark-show/landm
 import { HereMapComponent } from './components/here-map/here-map.component';
 import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ConfirmationUserComponent } from './components/confirmation-user/confirmation-user.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ToastrModule } from 'ngx-toastr';
     LandmarkShowComponent,
     HereMapComponent,
     LandmarkCreateComponent,
+    ConfirmationUserComponent,
     
 
     

@@ -73,10 +73,41 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-primary" [disabled]="!formRegister.valid">
+                        <button class="btn btn-primary" [disabled]="!formRegister.valid" data-target="#register" data-toggle="modal" data-backdrop="static" data-keyboard="false" >
                              Confirmar</button>
                     </div>
                 </form>
+
+                    <!-- Confirmation Email -->
+                    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Confirmación correo electrónico enviada</h5>
+                           
+                            </div>
+                            <div class="modal-body">
+                            Revise su correo para confirmar su cuenta
+                            <br>
+                            <br>
+                            
+                            <div>
+
+                                ¿No le ha llegado el código?
+                                <a type="button" class="btn btn-primary" (click)="sendCode(formRegister.get('email').value)" >Reenviar código</a>
+
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                            <a type="button" class="btn btn-secondary" (click)="redirect()" data-dismiss="modal">Iniciar sesión</a>
+                        
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+
             </div>
             
 </div>
