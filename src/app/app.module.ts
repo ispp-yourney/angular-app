@@ -27,6 +27,8 @@ import { LandmarkShowComponent } from './components/landmark/landmark-show/landm
 import { HereMapComponent } from './components/here-map/here-map.component';
 import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
 import { ToastrModule } from 'ngx-toastr';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -49,7 +51,7 @@ import { ToastrModule } from 'ngx-toastr';
     LandmarkShowComponent,
     HereMapComponent,
     LandmarkCreateComponent,
-    
+    DashboardComponent
 
     
   ],
@@ -61,6 +63,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxSliderModule,
+    ChartsModule,
     ToastrModule.forRoot({
       preventDuplicates: true
     })

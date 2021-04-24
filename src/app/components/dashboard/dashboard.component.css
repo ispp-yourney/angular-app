@@ -1,0 +1,18 @@
+.form-itineraries {
+    padding: 20px;
+}
+
+.form-group{
+    display:inline-block;
+    margin-right: 10px;
+}
+
+.form-group .form-control {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+input, textarea, select {
+    box-shadow: 0 0 5px rgba(0,0,0,0.18);
+    border-radius: .25rem;
+}

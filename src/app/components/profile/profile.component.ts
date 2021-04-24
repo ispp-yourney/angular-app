@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   urlPattern = "((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\+~%\\/.\\w-_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)"
 
   showProfile: boolean = true;
+  showDashboard: boolean = false;
 
   editForm: FormGroup;
 
@@ -210,8 +211,17 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  changeView() {
-    this.showProfile = !this.showProfile;
+  changeView(view: string) {
+    if (view == "itineraries"){
+      this.showProfile = false;
+      this.showDashboard = false;
+    } else if (view == "profile") {
+      this.showProfile = true;
+      this.showDashboard = false;
+    } else {
+      this.showProfile = false;
+      this.showDashboard = true;
+    }
   }
 
   inputClass(form:FormGroup,property: string){
