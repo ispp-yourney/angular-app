@@ -486,7 +486,7 @@ describe('Buscador', () => {
     spyOn(buscadorService,'getAllCountry').and.returnValue(of(countries))
     spyOn(buscadorService,'getCityByCountry').and.returnValue(of(['Sevilla']))
     spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPage))
-    component.ngOnInit()
+    //component.ngOnInit()
     fixture.detectChanges();
     expect(component.ngOnInit).toBeTruthy()
     component.loadItineraries('España','Sevilla',0,0,0)
@@ -584,7 +584,7 @@ describe('Buscador', () => {
     component.loadItineraries('España','Sevilla',0,0,0)
   });
 
-  it('should use loadItineraries function with 2 pages results and currentPage != initialPages[0] and not matching any of 2 if', () => { 
+  it('should use loadItineraries function with 2 pages results and currentPage != initialPages[0] and not matching any of 2 if', fakeAsync(() => { 
     spyOn(buscadorService,'getAllCountry').and.returnValue(of(countries))
     spyOn(buscadorService,'getCityByCountry').and.returnValue(of(['Sevilla']))
     spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPage2))
@@ -594,21 +594,21 @@ describe('Buscador', () => {
     component.initialPages=[0,1,2,3,4]
 
     fixture.detectChanges();
-
-    
+    tick(2000)
     expect(component.ngOnInit).toBeTruthy()
     component.loadItineraries('España','Sevilla',0,0,0)
-  });
+    tick(2000)
+  }));
 
-  it('should use loadItineraries function with empty result ', () => { 
+  it('should use loadItineraries function with empty result', () => { 
     spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPageEmpty))
-
+    spyOn(component,'loadItineraries').and.callThrough();
     fixture.detectChanges();
     component.loadItineraries('España','Sevilla',0,0,0)
     expect(component.ngOnInit).toBeTruthy()
   });
 
-  it('should use loadItineraries function with empty landmarks', () => { 
+  it('should use loadItineraries function with empty landmarks ', () => { 
     spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPageEmptyLandmarks))
 
     fixture.detectChanges();

@@ -1381,10 +1381,10 @@ describe('ItineraryUpdate', () => {
     fixture.detectChanges()
     component.getItineraryPrice(itinerary)
   });
-  
-  
-    it('should use onUpdate() function ', fakeAsync(() => {
-      spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
+
+
+  it('should use onUpdate() function ', fakeAsync(() => {
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     spyOn(component, 'reloadPage').and.returnValue();
     spyTokenService.getAuthorities.and.returnValue([
       {
@@ -1417,21 +1417,22 @@ describe('ItineraryUpdate', () => {
       recommendedSeason: [''],
       days: formArrayDay
     })
+
     component.activityTrash.push(1)
-    component.itineraryImage=imageMock
+    component.itineraryImage = imageMock
     component.editForm = itinerary;
     fixture.detectChanges()
     expect(component.ngOnInit).toBeTruthy()
-    component.ngOnInit()
+    //component.ngOnInit()
 
     fixture.detectChanges();
-      expect(component.onUpdate).toBeTruthy()
-      component.onUpdate()
-      flush()
-    }));
+    expect(component.onUpdate).toBeTruthy()
+    component.onUpdate()
+    flush()
+  }));
 
-    it('should use onUpdate() function but fail to use editar itinerary', fakeAsync(() => {
-      spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
+  it('should use onUpdate() function but fail to use editar itinerary', fakeAsync(() => {
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     spyOn(component, 'reloadPage').and.returnValue();
     spyTokenService.getAuthorities.and.returnValue([
       {
@@ -1470,20 +1471,20 @@ describe('ItineraryUpdate', () => {
       days: formArrayDay
     })
     component.activityTrash.push(1)
-    component.itineraryImage=imageMock
+    component.itineraryImage = imageMock
     component.editForm = itinerary;
     fixture.detectChanges()
     expect(component.ngOnInit).toBeTruthy()
     component.ngOnInit()
-  
-      fixture.detectChanges();
-      expect(component.onUpdate).toBeTruthy()
-      component.onUpdate()
-      flush()
-    }));
 
-    it('should use onUpdate() function but fail to use borrar activity', fakeAsync(() => {
-      spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
+    fixture.detectChanges();
+    expect(component.onUpdate).toBeTruthy()
+    component.onUpdate()
+    flush()
+  }));
+
+  it('should use onUpdate() function but fail to use borrar activity', fakeAsync(() => {
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     spyOn(component, 'reloadPage').and.returnValue();
     spyTokenService.getAuthorities.and.returnValue([
       {
@@ -1524,48 +1525,13 @@ describe('ItineraryUpdate', () => {
     fixture.detectChanges()
     expect(component.ngOnInit).toBeTruthy()
     component.ngOnInit()
-  
-      fixture.detectChanges();
-      expect(component.onUpdate).toBeTruthy()
-      component.onUpdate()
-      flush()
-    }));
-  /*
-    it('should use onCreate() function with itineraryImage ', fakeAsync(() => {
-      spyOn(itineraryService, 'nuevo').and.returnValue(of(itineraryMockDto))
-      spyOn(component, 'reloadPage').and.returnValue();
-      spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
-  
-      const imageSize = "x".repeat(4000000 - 1)
-      const blob = new Blob([imageSize], { type: "image/jpeg" });
-      blob["lastModifiedDate"] = " ";
-      blob["name"] = [];
-  
-      const file = <File>blob;
-  
-      component.itineraryImage = file
-      fixture.detectChanges();
-      expect(component.onCreate).toBeTruthy()
-      component.onCreate()
-      flush()
-    }));
-  
-    it('should fail to use onCreate() function ', fakeAsync(() => {
-      spyOn(itineraryService, 'nuevo').and.returnValue(throwError({
-        status: 404,
-        error: {
-          text: undefined
-        }
-      }))
-      spyOn(component, 'reloadPage').and.returnValue();
-      spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
-  
-      fixture.detectChanges();
-      expect(component.onCreate).toBeTruthy()
-      component.onCreate()
-      flush()
-    }));
-  */
+
+    fixture.detectChanges();
+    expect(component.onUpdate).toBeTruthy()
+    component.onUpdate()
+    flush()
+  }));
+
   it('should use inputClass() function not touched property', () => {
     spyOn(router, 'navigate').and.returnValue(Promise.resolve(false));
     spyOn(component, 'reloadPage').and.returnValue();
@@ -1863,8 +1829,8 @@ describe('ItineraryUpdate', () => {
       landmarkLoadImage: [''],
       landmarkLoadName: [''],
       landmark: formBuilder.array([]),
-      newActivity:[''],
-      createActivity:['']
+      newActivity: [''],
+      createActivity: ['']
     })
     component.resetNewForm(formTestValid)
 
@@ -1879,9 +1845,9 @@ describe('ItineraryUpdate', () => {
       landmarkLoadImage: [''],
       landmarkLoadName: [''],
       landmark: formBuilder.array([]),
-      newActivity:[''],
-      createActivity:[''],
-      test:['a',Validators.minLength(8)]
+      newActivity: [''],
+      createActivity: [''],
+      test: ['a', Validators.minLength(8)]
     })
 
     component.resetNewForm(formTestInvalid)

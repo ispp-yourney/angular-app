@@ -235,14 +235,11 @@ export class ItineraryupdateComponent implements OnInit {
 
   removeDay(i: number){
     let aux = this.editForm.get('days') as FormArray;
-    console.log(aux.controls)
+
     let activities = aux.controls[i].value['activities']
 
-
     if(i == 0){
-
       this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
-
     }
 
     this.toastr.success("Día eliminado correctamente")
@@ -251,10 +248,7 @@ export class ItineraryupdateComponent implements OnInit {
       if (activities[index].id2 != undefined && activities[index].id2 > 0) {
         this.activityTrash.push(activities[index].id2);
       }
-
     }
-
-
     (this.editForm.get('days') as FormArray).removeAt(i);
   }
 
@@ -340,6 +334,7 @@ export class ItineraryupdateComponent implements OnInit {
         }
 
         var dia = 1
+
         for (let day of this.editForm.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
             let actId = activity.value.id2
