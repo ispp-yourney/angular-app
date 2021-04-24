@@ -29,6 +29,7 @@ import { LandmarkCreateComponent } from './components/landmark/landmark-create/l
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
+import { TermComponent } from './components/terms/terms.component';
 
 
 @NgModule({
@@ -51,7 +52,9 @@ import { ChartsModule } from 'ng2-charts';
     LandmarkShowComponent,
     HereMapComponent,
     LandmarkCreateComponent,
-    DashboardComponent
+    DashboardComponent,
+    TermComponent
+
 
     
   ],

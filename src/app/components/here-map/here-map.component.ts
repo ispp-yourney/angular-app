@@ -43,9 +43,6 @@ export class HereMapComponent implements OnInit {
         // Create a marker using the previously instantiated icon:
         var marker = new H.map.Marker(LocationOfMarker, { icon: icon });
 
-        // Add the marker to the map:
-       
-
         let platform = new H.service.Platform({
             "apikey": this._apikey
         });
@@ -59,6 +56,13 @@ export class HereMapComponent implements OnInit {
                 marker: marker
             }
         );
+
+        // Add the marker to the map:
+        var markerSite = new H.map.Marker({lat: this.lat, lng: this.lng})
+        map.addObject(markerSite)
+
+        // Add UI interface: ZOOM +/-
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
     }
 
 }
