@@ -434,6 +434,7 @@ describe('BuscadorLandmark', () => {
     fixture.detectChanges();
     expect(component.ngOnInit).toBeTruthy()
     component.passData(landmarkMock)
+    tick(1000)
   }));
 
   it('should use loadLandmarks function', fakeAsync(() => { 
