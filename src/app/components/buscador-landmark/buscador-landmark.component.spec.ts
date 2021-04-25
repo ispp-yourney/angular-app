@@ -400,14 +400,14 @@ describe('BuscadorLandmark', () => {
     expect(component.ngOnInit).toBeTruthy()
   }));
 
-  it('should use switchPage function', fakeAsync(() => { 
+  /*it('should use switchPage function', fakeAsync(() => { 
     spyOn(buscadorLandmarkService,'getAllCountry').and.returnValue(of(countries))
     spyOn(buscadorLandmarkService,'getCityByCountry').and.returnValue(of(['Sevilla']))
     component.ngOnInit()
     fixture.detectChanges();
     expect(component.ngOnInit).toBeTruthy()
     component.switchPage(1)
-  }));
+  }));*/
 
   it('should use onRegister function', fakeAsync(() => { 
     spyOn(buscadorLandmarkService,'getAllCountry').and.returnValue(of(countries))
@@ -564,6 +564,38 @@ describe('BuscadorLandmark', () => {
     component.loadLandmarks('España','Sevilla',0)
     expect(component.ngOnInit).toBeTruthy()
   });*/
+
+  it('should use getPage function ', fakeAsync(() => {
+    spyOn(buscadorLandmarkService,'landmarkPage').and.returnValue(of(landmarkPage2))
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.getPage).toBeTruthy()
+    component.getPage(0)
+  }));
+  
+  it('should use getPage function without content', fakeAsync(() => {
+    let landmarkPageTemp=landmarkPage
+    landmarkPageTemp.content=[]
+    spyOn(buscadorLandmarkService,'landmarkPage').and.returnValue(of(landmarkPageTemp))
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.getPage).toBeTruthy()
+    component.getPage(0)
+  }));
+  
+  it('should fail use getPage function ', fakeAsync(() => {
+    spyOn(buscadorLandmarkService,'landmarkPage').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: 'Error'
+      }
+    }))
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.getPage).toBeTruthy()
+    component.getPage(0)
+  }));
 
   it('should use loadLandmarks function with empty landmarks ', () => { 
     spyOn(buscadorLandmarkService,'landmarkPage').and.returnValue(of(landmarkPageEmptyLandmarks))

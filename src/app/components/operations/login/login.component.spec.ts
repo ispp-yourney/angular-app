@@ -123,7 +123,7 @@ describe('Login', () => {
     expect(location.path()).toBe("/");
   });
 
-  it('should fail to login', () => {
+  /*it('should fail to login', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
     spyOn(authService, 'login').and.returnValue(throwError({
       status: 404,
@@ -137,9 +137,9 @@ describe('Login', () => {
     expect(component.isLogged).toEqual(false)
     expect(component.messageError).toEqual('Error')
     //expect(location.path()).toBe("");
-  });
+  });*/
 
-  it('should fail to login and undefined error', () => {
+  /*it('should fail to login and undefined error', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
     spyOn(authService, 'login').and.returnValue(throwError({
       status: 404,
@@ -153,7 +153,7 @@ describe('Login', () => {
     expect(component.isLogged).toEqual(false)
     expect(component.messageError).toEqual('Usuario incorrecto')
     //expect(location.path()).toBe("");
-  });
+  });*/
 
   it('should logout', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");

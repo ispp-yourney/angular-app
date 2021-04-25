@@ -33,7 +33,7 @@ export class ItinerarylistComponent implements OnInit {
   loadUserItineraries(username: String,page:number): void {
     this.itineraryService.userItineraries(username,page-1).subscribe(
       data => {
-        console.log(data)
+
         this.itineraries = data.content;
         this.totalPages= data.totalPages;
         this.totalElements = data.totalElements;

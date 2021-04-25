@@ -453,14 +453,14 @@ describe('Buscador', () => {
     expect(component.ngOnInit).toBeTruthy()
   }));
 
-  it('should use switchPage function', fakeAsync(() => { 
+  /*it('should use switchPage function', fakeAsync(() => { 
     spyOn(buscadorService,'getAllCountry').and.returnValue(of(countries))
     spyOn(buscadorService,'getCityByCountry').and.returnValue(of(['Sevilla']))
     component.ngOnInit()
     fixture.detectChanges();
     expect(component.ngOnInit).toBeTruthy()
     component.switchPage(1)
-  }));
+  }));*/
 
   it('should use onRegister function', fakeAsync(() => { 
     spyOn(buscadorService,'getAllCountry').and.returnValue(of(countries))
@@ -517,7 +517,7 @@ describe('Buscador', () => {
 
   });
 
-  it('should use loadItineraries function with 3 pages results and prueba=1', () => { 
+  /*it('should use loadItineraries function with 3 pages results and prueba=1', () => { 
     spyOn(buscadorService,'getAllCountry').and.returnValue(of(countries))
     spyOn(buscadorService,'getCityByCountry').and.returnValue(of(['Sevilla']))
     spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPage3))
@@ -598,7 +598,7 @@ describe('Buscador', () => {
     expect(component.ngOnInit).toBeTruthy()
     component.loadItineraries('España','Sevilla',0,0,0)
     tick(2000)
-  }));
+  }));*/
 
   it('should use loadItineraries function with empty result', () => { 
     spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPageEmpty))
@@ -630,11 +630,35 @@ describe('Buscador', () => {
   });
 
 
-it('should use count function ', fakeAsync(() => {
+it('should use getPage function ', fakeAsync(() => {
+  spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPage))
   component.ngOnInit()
   fixture.detectChanges();
-  expect(component.ngOnInit).toBeTruthy()
-  component.count(0)
+  expect(component.getPage).toBeTruthy()
+  component.getPage(0)
+}));
+
+it('should use getPage function without content', fakeAsync(() => {
+  let landmarkPageTemp=landmarkPage
+  landmarkPageTemp.content=[]
+  spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPageTemp))
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.getPage).toBeTruthy()
+  component.getPage(0)
+}));
+
+it('should fail use getPage function ', fakeAsync(() => {
+  spyOn(buscadorService,'postFilter').and.returnValue(throwError({
+    status: 404,
+    error: {
+      text: 'Error'
+    }
+  }))
+  component.ngOnInit()
+  fixture.detectChanges();
+  expect(component.getPage).toBeTruthy()
+  component.getPage(0)
 }));
 
 it('should use countStars and countNoStars functions ', fakeAsync(() => {
