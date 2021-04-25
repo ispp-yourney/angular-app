@@ -527,14 +527,14 @@ describe('ItineraryList', () => {
   }));
 
 
-  it('should use loadUserItineraries function', fakeAsync(() => {
+  /*it('should use loadUserItineraries function', fakeAsync(() => {
     spyOn(itineraryService, 'userItineraries').and.returnValue(of(landmarkPage))
 
     component.ngOnInit()
     fixture.detectChanges();
     expect(component.ngOnInit).toBeTruthy()
     component.loadUserItineraries('alejandro1cortes', 0)
-  }));
+  }));*/
   
     it('should use loadLandmarks function with 2 pages results', fakeAsync(() => { 
       
@@ -549,7 +549,7 @@ describe('ItineraryList', () => {
       flush()
     }));
   
-    it('should use loadLandmarks function with 3 pages results', () => { 
+    /*it('should use loadLandmarks function with 3 pages results', () => { 
       
       
       spyOn(itineraryService, 'userItineraries').and.returnValue(of(landmarkPage3))
@@ -559,9 +559,9 @@ describe('ItineraryList', () => {
       expect(component.ngOnInit).toBeTruthy()
       component.loadUserItineraries('alejandro1cortes', 0)
   
-    });
+    });*/
   
-    it('should use loadLandmarks function with 3 pages results and prueba=1', () => { 
+    /*it('should use loadLandmarks function with 3 pages results and prueba=1', () => { 
       
       
       spyOn(itineraryService, 'userItineraries').and.returnValue(of(landmarkPage3))
@@ -642,15 +642,15 @@ describe('ItineraryList', () => {
       
       expect(component.ngOnInit).toBeTruthy()
       component.loadUserItineraries('alejandro1cortes', 0)
-    });
+    });*/
   
-    it('should use loadLandmarks function with empty result ', () => { 
+    /*it('should use loadLandmarks function with empty result ', () => { 
       spyOn(itineraryService, 'userItineraries').and.returnValue(of(landmarkPageEmpty))
   
       fixture.detectChanges();
       component.loadUserItineraries('alejandro1cortes', 0)
       expect(component.ngOnInit).toBeTruthy()
-    });
+    });*/
   
     it('should use loadLandmarks function with empty landmarks', () => { 
       spyOn(itineraryService, 'userItineraries').and.returnValue(of(landmarkPageEmptyLandmarks))

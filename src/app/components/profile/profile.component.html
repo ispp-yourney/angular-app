@@ -84,7 +84,7 @@
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
                               <input type="text" name="email" id="email" class="{{inputClass(editForm, 'email')}}" formControlName="email"
-                                  required email minlength="5" maxlength="50" value="{{userDetails?.email}}">
+                                  required email minlength="5" maxlength="50" value="{{userDetails?.email}}" readonly>
                               <div class="invalid-feedback" *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
                                   <div *ngIf="editForm.get('email').errors.required">No puede quedar vacío</div>
                                   <div *ngIf="editForm.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>

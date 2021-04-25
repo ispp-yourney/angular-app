@@ -4,6 +4,8 @@ import { LoginComponent } from './login.component';
 import { MenuComponent } from '../../menu/menu.component';
 import { TokenService } from 'src/app/services/token.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmailConfirmationService } from 'src/app/services/email-confirmation.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   HttpClientTestingModule,
@@ -24,6 +26,7 @@ let fixture: ComponentFixture<LoginComponent>;
 
 let authService: AuthService;
 let tokenService: TokenService;
+let emailService:EmailConfirmationService
 let httpTestingController: HttpTestingController;
 //Stubs
 let activatedRoute: ActivatedRoute
@@ -68,7 +71,7 @@ describe('Login', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
-        AuthService
+        AuthService,EmailConfirmationService
       ]
 
     }).compileComponents().then(() => {
@@ -79,6 +82,7 @@ describe('Login', () => {
       authService = TestBed.inject(AuthService);
       //spyAuthService.showUser.and.returnValue(showUser);
       tokenService = TestBed.inject(TokenService);
+      emailService =TestBed.inject(EmailConfirmationService);
       // Inject the http service and test controller for each test
       httpTestingController = TestBed.inject(HttpTestingController);
       activatedRoute = TestBed.inject(ActivatedRoute);
@@ -118,7 +122,6 @@ describe('Login', () => {
     component.ngOnInit()
     component.onLogin();
     expect(component.isLogged).toEqual(true)
-    expect(location.path()).toBe("/");
   });
 
   it('should fail to login', () => {
@@ -134,7 +137,6 @@ describe('Login', () => {
     component.onLogin();
     expect(component.isLogged).toEqual(false)
     expect(component.messageError).toEqual('Error')
-    //expect(location.path()).toBe("");
   });
 
   it('should fail to login and undefined error', () => {
@@ -150,7 +152,6 @@ describe('Login', () => {
     component.onLogin();
     expect(component.isLogged).toEqual(false)
     expect(component.messageError).toEqual('Usuario incorrecto')
-    //expect(location.path()).toBe("");
   });
 
   it('should logout', () => {
@@ -219,4 +220,47 @@ describe('Login', () => {
     expect(component.inputClass(formMock, 'text')).toBeTruthy()
     component.inputClass(formMock, 'text')
   }));
+
+  it('should use sendCode function', () => {
+    spyTokenService.getToken.and.returnValue("tokenTest");
+    spyOn(emailService, 'sendConfirmationCode').and.returnValue(of('Código reenviado correctamente'))
+    fixture.detectChanges();
+
+    component.sendCode();
+    expect(component.sendCode).toBeTruthy()
+  });
+
+  it('should fail to use sendCode function', () => {
+    spyTokenService.getToken.and.returnValue("tokenTest");
+    spyOn(emailService, 'sendConfirmationCode').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: 'Error'
+      }
+    }))
+    fixture.detectChanges();
+
+    component.sendCode();
+    expect(component.sendCode).toBeTruthy()
+  });
+
+  it('should fail to use sendCode function with undefined error', () => {
+    spyTokenService.getToken.and.returnValue("tokenTest");
+    spyOn(emailService, 'sendConfirmationCode').and.returnValue(throwError({
+      status: 404,
+      error: {
+        textError: 'Error'
+      }
+    }))
+    fixture.detectChanges();
+
+    component.sendCode();
+    expect(component.sendCode).toBeTruthy()
+  });
+
+  it('should use refresh function', () => {
+    fixture.detectChanges();
+    component.refresh();
+    expect(component.refresh).toBeTruthy()
+  });
 })
