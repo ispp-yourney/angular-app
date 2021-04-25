@@ -1,5 +1,4 @@
-import { ViewChild } from '@angular/core';
-import { ElementRef } from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,41 +12,41 @@ import { EmailConfirmationService } from 'src/app/services/email-confirmation.se
 export class ConfirmationUserComponent implements OnInit {
 
   constructor(private emailConfirmation: EmailConfirmationService,
-              private activatedRoute: ActivatedRoute,
-              private route: Router,
-              private toastr: ToastrService
-              ) { }
+    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    private toastr: ToastrService
+  ) { }
 
-  reloadPage(){window.location.reload()}
-  
+  reloadPage() { window.location.reload() }
 
-@ViewChild('load')
-element:ElementRef;
+
+  @ViewChild('load')
+  element: ElementRef;
   ngOnInit(): void {
 
     setTimeout(() => {
       this.element.nativeElement.click()
     }, 500);
-    
 
-    this.activatedRoute.queryParams.subscribe(param =>{
-      
+
+    this.activatedRoute.queryParams.subscribe(param => {
+
       this.emailConfirmation.nuevo(param.token).subscribe(response => {
 
         this.route.navigate(["/login/"]).then(() => this.reloadPage());
         this.toastr.success("Cuenta confirmada correctamente.")
-      }, err =>{
+      }, err => {
         this.route.navigate(["/login/"]).then(() => this.reloadPage());
         this.toastr.error("Se ha producido un error al confirmar la cuenta.")
 
       })
-  
+
     })
 
-  
 
-  
 
-}
+
+
+  }
 
 }
