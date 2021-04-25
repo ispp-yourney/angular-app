@@ -217,7 +217,7 @@ export class ItineraryupdateComponent implements OnInit {
   existLandmark(activity: FormGroup, data){
     
     activity.controls['landmarkId'].setValue(data)
-    console.log(data.image.imageUrl)
+
     activity.controls['landmarkLoadImage'].setValue(data.image.imageUrl)
     activity.controls['landmarkLoadName'].setValue(data.name)
     activity.get('landmark').disable()
@@ -235,13 +235,11 @@ export class ItineraryupdateComponent implements OnInit {
 
   removeDay(i: number){
     let aux = this.editForm.get('days') as FormArray;
+
     let activities = aux.controls[i].value['activities']
 
-
     if(i == 0){
-
       this.toastr.info("Los itinerarios deben contener al menos un día y una actividad en el mismo.")
-
     }
 
     this.toastr.success("Día eliminado correctamente")
@@ -250,10 +248,7 @@ export class ItineraryupdateComponent implements OnInit {
       if (activities[index].id2 != undefined && activities[index].id2 > 0) {
         this.activityTrash.push(activities[index].id2);
       }
-
     }
-
-
     (this.editForm.get('days') as FormArray).removeAt(i);
   }
 
@@ -316,9 +311,7 @@ export class ItineraryupdateComponent implements OnInit {
     for (let iId of this.activityTrash) {
       this.activityService.borrar(iId).subscribe(
         data => {
-
         }, err => {
-
         }
       )
     }
@@ -326,62 +319,61 @@ export class ItineraryupdateComponent implements OnInit {
     // Actualizamos itinerario
     var totalDays = this.editForm.controls.days as FormArray;
     var numb = totalDays.length;
-    
+
     var newItinerary = new ItineraryDto(this.editForm.value.id,
-                                          this.editForm.value.name,
-                                          this.editForm.value.description,
-                                          numb,
-                                          this.getItineraryPrice(this.editForm),
-                                          this.editForm.value.recommendedSeason,
-                                          this.editForm.value.status);
+      this.editForm.value.name,
+      this.editForm.value.description,
+      numb,
+      this.getItineraryPrice(this.editForm),
+      this.editForm.value.recommendedSeason,
+      this.editForm.value.status);
     this.itineraryService.editar(newItinerary).subscribe(
       data => {
-        if(this.itineraryImage != undefined){
+        if (this.itineraryImage != undefined) {
           this.uploadItineraryImage(this.itineraryImage, data.id)
         }
 
         var dia = 1
+
         for (let day of this.editForm.get('days')['controls']) {
           for (let activity of day.get('activities')['controls']) {
             let actId = activity.value.id2
             let landmark = activity.value.landmarkId
 
-          
             var newAct = new ActivityDto(actId, activity.value.title, activity.value.description, dia, data.id, landmark == '' ? 0 : activity.value.landmarkId.id)
-            if(actId >= 0) {
+            if (actId >= 0) {
               this.activityService.editar(newAct).subscribe(
                 data => {
-                  // console.log(data);
-                 
+
                 }, err => {
-                 
+
                 }
               )
             } else {
               this.activityService.nuevo(newAct).subscribe(
                 data => {
-               
-                if(landmark == ''){
-               var newLand = new LandmarkDto(landmark == '' ? 0 : activity.value.landmarkId.id, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
-                activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category,activity.value.landmark[0].email == '' ? null : activity.value.landmark[0].email,
-                activity.value.landmark[0].phone == '' ? null : activity.value.landmark[0].phone , activity.value.landmark[0].website,activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
-                console.log(newLand)
-                  this.landmarkService.nuevo(newLand).subscribe(
-                    data => {
-                      
-                      if(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data){
-                        console.log(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
-                        this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
-                        }
-                    }, err => {
-                      
-                      this.toastr.error("Se ha producido un error")
 
-                    }
-                  )
-                }
+                  if (landmark == '') {
+                    var newLand = new LandmarkDto(landmark == '' ? 0 : activity.value.landmarkId.id, activity.value.landmark[0].name, activity.value.landmark[0].description2, activity.value.landmark[0].price, activity.value.landmark[0].country,
+                      activity.value.landmark[0].city, activity.value.landmark[0].latitude, activity.value.landmark[0].longitude, activity.value.landmark[0].category, activity.value.landmark[0].email == '' ? null : activity.value.landmark[0].email,
+                      activity.value.landmark[0].phone == '' ? null : activity.value.landmark[0].phone, activity.value.landmark[0].website, activity.value.landmark[0].instagram, activity.value.landmark[0].twitter, data.id)
+
+                    this.landmarkService.nuevo(newLand).subscribe(
+                      data => {
+
+                        if (activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined && data) {
+
+                          this.uploadLandmarkImage(activity.value.landmark[0].landmarkImage, data.id)
+                        }
+                      }, err => {
+
+                        this.toastr.error("Se ha producido un error")
+
+                      }
+                    )
+                  }
                 }, err => {
-                  
+
                   this.toastr.error("Se ha producido un error")
 
                 }
@@ -398,7 +390,7 @@ export class ItineraryupdateComponent implements OnInit {
           }, 2000)
         })
       }, err => {
-       
+
         this.toastr.error("Se ha producido un error")
       }
     )
@@ -416,8 +408,8 @@ export class ItineraryupdateComponent implements OnInit {
             for (let activity of day.get('activities')['controls']) {
              if(activity.get('landmark')['controls'].length > 0){
                 if(activity.value.landmarkId == '' && activity.get('createActivity').value == 'true' && activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name != undefined  ){
-                    console.log("fefefw "+activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name )
-                    console.log(fileNames)
+                    
+                  
                   fileNames.push(activity.get('landmark')['controls'][0]['controls'].landmarkImage.value.name)
                   
                 }
@@ -531,103 +523,73 @@ export class ItineraryupdateComponent implements OnInit {
     }
    
 
-    resetNewForm(activity: FormGroup){
-      
-      
-  
-      activity.controls['description'].reset()
-      activity.controls['description'].setValue("")
+  resetNewForm(activity: FormGroup) {
+    activity.controls['description'].reset()
+    activity.controls['description'].setValue("")
+    activity.controls['title'].reset()
+    activity.controls['title'].setValue("")
 
-      activity.controls['title'].reset()
-      activity.controls['title'].setValue("")
-      
-  
-      activity.get('landmark')['controls'].pop()
-     
-  
-  
-      activity.controls['action'].setValue("true")
-      activity.controls['searchLandmark'].setValue("none")
-      activity.controls['landmarkId'].setValue("")
-      activity.controls['landmarkLoadImage'].setValue("")
-      activity.controls['landmarkLoadName'].setValue("")
-      activity.controls['newActivity'].setValue("true")
-      activity.controls['createActivity'].setValue("true")
-      
-      if(!activity.valid){
-        this.toastr.error("La actividad no se ha completado.")
-        
-      }
-  
-      }
+    activity.get('landmark')['controls'].pop()
 
+    activity.controls['action'].setValue("true")
+    activity.controls['searchLandmark'].setValue("none")
+    activity.controls['landmarkId'].setValue("")
+    activity.controls['landmarkLoadImage'].setValue("")
+    activity.controls['landmarkLoadName'].setValue("")
+    activity.controls['newActivity'].setValue("true")
+    activity.controls['createActivity'].setValue("true")
 
-      resetForm(activity: FormGroup){
-          console.log('activity id '+ activity)
-          this.activityService.show(activity.get('id2').value).subscribe(data =>{
-            console.log("activity" + data)
-            let activityInfo = data
-            activity.controls['title'].reset()
-            activity.controls['title'].setValue(activityInfo.title)
-            activity.controls['description'].reset()
-            activity.controls['description'].setValue(activityInfo.description)
-            
-        
-       
-          })
-
-        
-    
-        }
-    
-      
-  
-  
-      notificationActivity(activity: FormGroup){
-
-        const wait = () => {
-          return new Promise((resolve, reject) => {
-            setTimeout( () => {
-              activity.controls['newActivity'].setValue('false')
-            }, 1000)
-          })
-        }
-    
-        if(activity.get('newActivity').value == 'false'){
-          this.toastr.success("Actividad editada correctamente")
-        }else{
-          this.toastr.success("Actividad añadida correctamente")
-          wait()
-        }
-        
-      }
-  
-
-      
-      checkActivity(activity: FormGroup){
-  
-        if(!activity.valid){
-            this.toastr.error("Actividad no completada")
-        }
-  
-      }
-
-    
-   
-      
-}
-
-export function checkRange( min: number, max: number): ValidatorFn  {
-
-  return (control: AbstractControl): ValidationErrors | null => {
-    
-    const value =  parseFloat(control.value)
-    if(value<min|| value >max ){
-        return {'range': true}
-    }else{
-      return null
+    if (!activity.valid) {
+      this.toastr.error("La actividad no se ha completado.")
     }
-
   }
 
+
+  resetForm(activity: FormGroup) {
+    this.activityService.show(activity.get('id2').value).subscribe(data => {
+      let activityInfo = data
+      activity.controls['title'].reset()
+      activity.controls['title'].setValue(activityInfo.title)
+      activity.controls['description'].reset()
+      activity.controls['description'].setValue(activityInfo.description)
+    })
+  }
+    
+      
+  
+  
+  notificationActivity(activity: FormGroup) {
+    if (activity.get('newActivity').value == 'false') {
+      this.toastr.success("Actividad editada correctamente")
+    } else {
+      this.toastr.success("Actividad añadida correctamente")
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          activity.controls['newActivity'].setValue('false')
+        }, 1000)
+      })
+    }
+  }
+  
+
+      
+  checkActivity(activity: FormGroup) {
+
+    if (!activity.valid) {
+      this.toastr.error("Actividad no completada")
+    }
+  }
+}
+
+export function checkRange(min: number, max: number): ValidatorFn {
+
+  return (control: AbstractControl): ValidationErrors | null => {
+
+    const value = parseFloat(control.value)
+    if (value < min || value > max) {
+      return { 'range': true }
+    } else {
+      return null
+    }
+  }
 }

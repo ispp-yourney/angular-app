@@ -1,0 +1,52 @@
+<div class="container center-block">
+  <form class="form-itineraries text-center" #f="ngForm" [formGroup]="formFilter">
+    <div class="form-group">
+      <label for="country">Pais</label>
+      <select formControlName="country" value="España" class="form-control" id="country"
+        (change)="OnChange($event.target.value)">
+        <option label="Todos"></option>
+        <option *ngFor="let pais of country" [value]="pais"> {{pais}} </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="city">Ciudad</label>
+      <select formControlName="city" class="form-control" id="city">
+        <option label="Todas"></option>
+        <option *ngFor="let ciudad of city" [value]="ciudad"> {{ciudad}} </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="city">Estadísticas</label>
+      <select formControlName="function" class="form-control" id="function">
+        <option disabled selected value> -- Secciona un gráfico -- </option>
+        <option label="Itinerarios más visitados">ItinerariosMasVisitas</option>
+        <option label="Puntos de interés más visitados">LandmarksMasVisitas</option>
+        <option label="Itinerarios más comentados">ItinerariosMasComentarios</option>
+        <option label="Itinerarios mejor valorados">ItinerariosMejorValoracion</option>
+        <option label="Últimos itinerarios mejor valorados">UltimosItinerariosMejorValoracion</option>
+        <option label="Últimos itinerarios más comentados">UltimosItinerariosMasComentarios</option>
+      </select>
+    </div>
+
+    <button type="submit" (click)="onRegister()" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
+  </form>
+</div>
+
+<div *ngIf="barChartData.length > 0">
+  <div>
+    <div style="display: block; margin: 20px; min-height:400px">
+      <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="messageError" class="alert alert-danger">
+  {{messageError}}
+</div>

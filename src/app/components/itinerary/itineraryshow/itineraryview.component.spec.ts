@@ -1,7 +1,5 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CommentformComponent } from './commentform.component';
-import { MenuComponent } from '../../menu/menu.component';
+import { ComponentFixture,  fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing'
 import { TokenService } from 'src/app/services/token.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,42 +7,24 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
+
 import { Comment } from '../../../models/comment';
-import { NgxSliderModule, Options } from "@angular-slider/ngx-slider";
-
-
 import { routes } from "../../../app-routing.module";
 import { ReactiveFormsModule, FormsModule, FormBuilder } from "@angular/forms";
 import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
 import { ShowUser } from 'src/app/models/show-user';
-import { ItineraryService } from 'src/app/services/itinerary.service';
-import { Activity, Author, Landmark } from 'src/app/models/itinerary';
-import { CommentService } from 'src/app/services/comment.service';
+import { ImageService } from 'src/app/services/image.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { ItineraryViewComponent } from '../../itinerary/itineraryshow/itineraryview.component';
+import { ItineraryViewComponent } from './itineraryview.component';
+import { MenuComponent } from '../../menu/menu.component';
+import { ItineraryService } from 'src/app/services/itinerary.service';
+import { FooterComponent } from '../../footer/footer.component';
+import { Activity, Author, Landmark } from 'src/app/models/itinerary';
+import { CommentformComponent } from '../../comment/commentform/commentform.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-
-
-let component: CommentformComponent;
-let fixture: ComponentFixture<CommentformComponent>;
-
-let authService: AuthService;
-let tokenService: TokenService;
-let itineraryService: ItineraryService;
-let httpTestingController: HttpTestingController;
-//Stubs
-let activatedRoute: ActivatedRoute
-let router: Router
-let location: Location;
-let showUserPlan0: ShowUser = new ShowUser("testUser", "testPassword", "John", "Doe", "user@test.com", null, 0);
-let showUserPlan1: ShowUser = new ShowUser("testUser", "testPassword", "John", "Doe", "user@test.com", null, 1);
-let spyTokenService;
-let spyCommentService;
-
-let routerSpy;
-let formBuilder: FormBuilder;
 
 const createDate: Date = new Date("2021-01-01T00:00:01");
 const image = {
@@ -215,53 +195,57 @@ let itineraryInput = {
   "activities": activities, "author": author, "comments": comments
 }
 
+let component: ItineraryViewComponent;
+let fixture: ComponentFixture<ItineraryViewComponent>;
 
-describe('Commentform', () => {
+let authService: AuthService;
+let tokenService: TokenService;
+let itineraryService:ItineraryService
+
+let httpTestingController: HttpTestingController;
+//Stubs
+let activatedRoute: ActivatedRoute
+let router: Router
+let location: Location;
+let spyTokenService;
+
+describe('ItineraryView', () => {
 
   beforeEach(async () => {
     let activatedRouteMock: any = {
       snapshot: {
-        paramMap: { get: username => { return 'alejandro1cortes' } }
+        paramMap: { get: id => { return '1' } }
       }
     }
 
-    spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername","getAuthorities"]);
+    spyTokenService = jasmine.createSpyObj(TokenService, ["getToken", "getUsername","getAuthorities","logOut"]);
     spyTokenService.getUsername.and.returnValue("alejandro1cortes");
-    spyTokenService.getAuthorities.and.returnValue([
-      {
-        "authority": "ROLE_ADMIN"
-      }
-    ]);
-
-    spyCommentService = jasmine.createSpyObj(CommentService, ["nuevo", "borrar"]);
-    routerSpy = jasmine.createSpyObj(Router, ["navigate"]);
+    
+    spyTokenService.logOut.and.returnValue();
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule, 
-        NgxSliderModule,
+        ReactiveFormsModule, FormsModule,
         NoopAnimationsModule,
         ToastrModule.forRoot()
-
       ],
       declarations: [
-        CommentformComponent,
+        ItineraryViewComponent,
         MenuComponent,
-        ItineraryViewComponent
+        FooterComponent,
+        CommentformComponent
       ],
+      schemas:[NO_ERRORS_SCHEMA],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
-        { provide: CommentService, useValue: spyCommentService },
-        { provide: Router, useValue: routerSpy },
         AuthService, ItineraryService
-        //Options
       ]
 
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(CommentformComponent);
+      fixture = TestBed.createComponent(ItineraryViewComponent);
       component = fixture.componentInstance;
 
       // Returns a service with the MockBackend so we can test with dummy responses
@@ -269,12 +253,14 @@ describe('Commentform', () => {
       //spyAuthService.showUser.and.returnValue(showUser);
       tokenService = TestBed.inject(TokenService);
       itineraryService = TestBed.inject(ItineraryService);
+
       // Inject the http service and test controller for each test
       httpTestingController = TestBed.inject(HttpTestingController);
       activatedRoute = TestBed.inject(ActivatedRoute);
       router = TestBed.inject(Router);
       location = TestBed.inject(Location);
-      formBuilder = TestBed.inject(FormBuilder);
+      router.initialNavigation();
+
 
     });
   });
@@ -284,112 +270,103 @@ describe('Commentform', () => {
     component = null;
     authService = null;
     tokenService = null;
-    itineraryService=null;
+    itineraryService = null;
+    router=null;
   });
 
-  it('should use loadLandmark without any authorities', fakeAsync(() => {
-    component.itinerary = itineraryInput
+  it('should use loadItinerary with authorities', () => {
     spyTokenService.getAuthorities.and.returnValue([
-      
+      {
+        "authority": "ROLE_ADMIN"
+      }
     ]);
-    expect(component.ngOnInit).toBeTruthy()
-
-    component.ngOnInit()
-    fixture.detectChanges();
-  }));
-
-  it('should loadComments from ngOnInit', () => {
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    component.itinerary = itineraryInput
+    spyOn(itineraryService,'vista').and.returnValue(of(itineraryInput))
     fixture.detectChanges();
     component.ngOnInit()
-    expect(component.isLogged).toEqual(true)
+    expect(component.isAdmin).toEqual(true)
   });
 
-  it('should loadComments from ngOnInit but not logged', () => {
-    component.itinerary = itineraryInput
+  it('should use loadItinerary without authorities ', () => {
+    spyTokenService.getAuthorities.and.returnValue([]);
+    spyOn(itineraryService,'vista').and.returnValue(of(itineraryInput))
     fixture.detectChanges();
     component.ngOnInit()
-    expect(component.isLogged).toEqual(false)
+    expect(component.isAdmin).toEqual(false)
   });
 
-  it('should use showComments', () => {
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    component.itinerary = itineraryInput
-    fixture.detectChanges();
-    component.ngOnInit()
-    component.showComments()
-    expect(component.clickComments).toEqual(true)
-    expect(component.display).toEqual('block')
-  });
-
-  it('should use onCreate', fakeAsync(() => {
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(component, 'reloadCommentsPage').and.returnValue();
-    spyCommentService.nuevo.and.returnValue(of('Comentario creado'));
-    routerSpy.navigate.and.returnValue(Promise.resolve(''));
-    component.itinerary = itineraryInput
-    fixture.detectChanges();
-    component.ngOnInit()
-    component.onCreate()
-    tick()
-    fixture.detectChanges();
-    expect(component.comment.content).toEqual('')
-    flush()
-  }));
-
-  it('should fail to use onCreate', fakeAsync(() => {
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(component, 'reloadCommentsPage').and.returnValue();
-    spyCommentService.nuevo.and.returnValue(throwError({
+  it('should fail to use loadItinerary ', () => {
+    spyTokenService.getAuthorities.and.returnValue([]);
+    spyOn(itineraryService,'vista').and.returnValue(throwError({
       status: 404,
       error: {
-        textError: 'Error'
+        text: 'Error'
       }
-    }));
-    routerSpy.navigate.and.returnValue(Promise.resolve(''));
-    component.itinerary = itineraryInput
+    }))
     fixture.detectChanges();
     component.ngOnInit()
-    component.onCreate()
-    tick()
-    fixture.detectChanges();
-    expect(component.comment.content).toEqual('')
-    flush()
-  }));
+    expect(component.isAdmin).toEqual(false)
+  });
 
-
-  it('should use removeComment', fakeAsync(() => {
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(component, 'reloadCommentsPage').and.returnValue();
-    spyCommentService.borrar.and.returnValue(of('Comentario borrado'));
-    routerSpy.navigate.and.returnValue(Promise.resolve(''));
-    component.itinerary = itineraryInput
-    fixture.detectChanges();
-    component.ngOnInit()
-    expect(component.removeComment).toBeTruthy();
-    component.removeComment(1)
-    tick()
-    fixture.detectChanges();
-    flush()
-  }));
-
-  it('should fail to use onCreate', fakeAsync(() => {
-    spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(component, 'reloadCommentsPage').and.returnValue();
-    spyCommentService.borrar.and.returnValue(throwError({
+  it('should fail to use loadItinerary with undefined error', () => {
+    spyTokenService.getAuthorities.and.returnValue([]);
+    spyOn(itineraryService,'vista').and.returnValue(throwError({
       status: 404,
       error: {
-        textError: 'Error'
+        text: undefined
       }
-    }));
-    component.itinerary = itineraryInput
+    }))
     fixture.detectChanges();
     component.ngOnInit()
-    expect(component.removeComment).toBeTruthy();
-    component.removeComment(1)
-    tick()
+    expect(component.isAdmin).toEqual(false)
+  });
+
+  it('should use getSeason function', () => {
+    let seasons=['WINTER','SUMMER','FALL','SPRING','ANYTIME']
+    expect(component.getSeason).toBeTruthy()
+    for (let index = 0; index<seasons.length; index++) {
+      component.getSeason(seasons[index])
+    }
+  });
+
+  it('should use deleteItinerary ', () => {
+    spyTokenService.getAuthorities.and.returnValue([]);
+    spyOn(itineraryService,'vista').and.returnValue(of(itineraryInput))
+    spyOn(itineraryService,'delete').and.returnValue(of('Itinerario eliminado correctamente'))
     fixture.detectChanges();
-    flush()
-  }));
+    component.loadItinerary()
+    component.deleteItinerary()
+    expect(component.isAdmin).toEqual(false)
+  });
+
+  it('should fail to use deleteItinerary ', () => {
+    spyTokenService.getAuthorities.and.returnValue([]);
+    spyOn(itineraryService,'vista').and.returnValue(of(itineraryInput))
+    spyOn(itineraryService,'delete').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: 'Error'
+      }
+    }))
+    fixture.detectChanges();
+    component.loadItinerary()
+    component.deleteItinerary()
+    expect(component.isAdmin).toEqual(false)
+  });
+
+  it('should fail to use deleteItinerary with undefined error', () => {
+    spyTokenService.getAuthorities.and.returnValue([]);
+    spyOn(itineraryService,'vista').and.returnValue(of(itineraryInput))
+    spyOn(itineraryService,'delete').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: undefined
+      }
+    }))
+    fixture.detectChanges();
+    component.loadItinerary()
+    component.deleteItinerary()
+    expect(component.isAdmin).toEqual(false)
+  });
+
 })
+

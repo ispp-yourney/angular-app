@@ -82,8 +82,7 @@ export class BuscadorLandmarkComponent implements OnInit {
       this.landmarks= res.content;
       this.totalPages= res.totalPages;
       this.totalElements = res.totalElements
-      console.log(res);
-      console.log(this.totalPages)
+
       this.tmpCity = city
       this.tmpCountry = country
      
@@ -115,8 +114,7 @@ export class BuscadorLandmarkComponent implements OnInit {
         this.landmarks= res.content;
         this.totalPages= res.totalPages;
         this.totalElements = res.totalElements
-        console.log(res);
-        console.log(this.totalPages)
+
        
        
   

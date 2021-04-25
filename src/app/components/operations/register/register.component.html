@@ -73,10 +73,15 @@
                             <div *ngIf="formRegister.get('email').errors.email || formRegister.get('email').errors.pattern ">Formato no válido</div>
                         </div>
                     </div>
-                    <div>
+                    <br>
+                    <div class="mt-6">
+                        Si continúa, se entenderá que habrá aceptado los <a href="/terminos">términos y condiciones</a>.
+                    </div>
+                    <div class="mt-3">
                         <button class="btn btn-primary" [disabled]="!formRegister.valid" data-target="#register" data-toggle="modal" data-backdrop="static" data-keyboard="false" >
                              Confirmar</button>
                     </div>
+                    
                 </form>
 
                     <!-- Confirmation Email -->

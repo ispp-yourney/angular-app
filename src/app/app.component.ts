@@ -21,15 +21,20 @@ export class AppComponent {
     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
   }
 
+
+
   ngOnInit() {
     if ( this.tokenService.getToken() && this.isExpiredToken(this.tokenService.getToken())) {
       this.tokenService.logOut();
       this.toastr.error("Su sesión ha expirado.")
-      this.router.navigate(["/"]).then( () => {window.location.reload()} )
+      this.router.navigate(["/"]).then( () => {this.reload()} )
     }
   }
 
 
  
-
+  reload() {
+    window.location.reload()}
 }
+
+
