@@ -2,6 +2,7 @@
 
 <app-menu></app-menu>
 
+<h1 *ngIf="isLogged">Ya se ha registrado</h1>
 <div *ngIf="!isLogged">
     <div *ngIf="isLoginFail" class="alert alert-danger"> {{messageError}}</div>
     <div class="outer">
@@ -83,24 +84,35 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Confirmación correo electrónico enviada</h5>
-                           
+                            <h5 *ngIf="!reload" class="modal-title" id="exampleModalLongTitle">Confirmación correo electrónico enviada</h5>
+                            <h5 *ngIf="reload" class="modal-title" id="exampleModalLongTitle">Error al realizar el registro</h5>
                             </div>
-                            <div class="modal-body">
+                            <div *ngIf="!reload" class="modal-body">
                             Revise su correo para confirmar su cuenta
                             <br>
                             <br>
                             
-                            <div>
+                            <div >
 
                                 ¿No le ha llegado el código?
                                 <a type="button" class="btn btn-primary" (click)="sendCode(formRegister.get('email').value)" >Reenviar código</a>
 
                             </div>
                             </div>
+
+                            <div *ngIf="reload" class="modal-body">
+                                
+                                <div >
+    
+                                   <p>{{messageError}}</p>
+    
+                                </div>
+                                </div>
+
+
                             <div class="modal-footer">
-                            <a type="button" class="btn btn-secondary" (click)="redirect()" data-dismiss="modal">Iniciar sesión</a>
-                        
+                            <a type="button" class="btn btn-secondary" *ngIf="!reload" (click)="redirect()" data-dismiss="modal">Iniciar sesión</a>
+                            <a type="button" class="btn btn-secondary" *ngIf="reload" data-dismiss="modal">Cerrar</a>
                             </div>
                         </div>
                         </div>

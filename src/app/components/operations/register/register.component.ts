@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   messageError: string;
   isLoginFail = false;
   formRegister: FormGroup;
+  reload:boolean = false;
 
   constructor(private authService: AuthService,
               private tokenService: TokenService,
@@ -53,14 +54,16 @@ export class RegisterComponent implements OnInit {
       this.formRegister.value.firstName,
       this.formRegister.value.lastName,
       this.formRegister.value.email);
-
+      
+      this.reload = false;
+      this.isLoginFail = false;
+      
     this.authService.new(this.newUser).subscribe(
       response => {
         var res = response
-
-
+       
+       
       }, err => {
-        this.isLogged = false;
         this.isLoginFail = true;
 
         var returned_error = err.error.text
@@ -68,6 +71,8 @@ export class RegisterComponent implements OnInit {
           returned_error = 'Ha ocurrido un error'
         }
         this.messageError = returned_error;
+        this.reload = true
+
       }
     );
 

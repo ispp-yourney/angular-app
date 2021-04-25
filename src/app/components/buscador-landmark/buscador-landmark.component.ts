@@ -42,6 +42,10 @@ export class BuscadorLandmarkComponent implements OnInit {
   filterClick: boolean = false;
   totalElements:number;
 
+  tmpCountry:string = "";
+  tmpCity:string = "";
+
+
   @Input()
   create:boolean;
 
@@ -80,7 +84,8 @@ export class BuscadorLandmarkComponent implements OnInit {
       this.totalElements = res.totalElements
       console.log(res);
       console.log(this.totalPages)
-     
+      this.tmpCity = city
+      this.tmpCountry = country
      
 
       this.search = true
@@ -99,7 +104,12 @@ export class BuscadorLandmarkComponent implements OnInit {
 
 
     getPage(page:number){
-      this.buscadorLandmarkService.landmarkPage("","",page-1).subscribe(
+
+      
+
+
+
+      this.buscadorLandmarkService.landmarkPage(this.tmpCountry,this.tmpCity,page-1).subscribe(
       response => {
         var res = response;
         this.landmarks= res.content;

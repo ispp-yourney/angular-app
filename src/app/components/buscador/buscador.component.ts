@@ -27,7 +27,11 @@ export class BuscadorComponent implements OnInit {
   totalPages:number;
   currentPage: number = 0;
   initialPages: Array<number> = [];
-  prueba: number  = 0;
+  
+  tmpCountry:string = "";
+  tmpCity:string = "";
+  tmpMaxBudget:number = 4000000;
+  tmpMaxDays:number = 365;
 
   isLogged: boolean = false;
 
@@ -59,6 +63,15 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
       this.itineraries=res.content;
       this.totalPages= res.totalPages;
       this.totalElements = res.totalElements
+
+      this.tmpCity = city
+      this.tmpCountry = country
+      this.tmpMaxBudget = maxBudget
+      this.tmpMaxDays = maxDays
+
+
+
+
       this.search = true
       if(!(this.itineraries.length>0)){
         this.noItinerariesFound="No hay itinerarios según el criterio de busqueda introducido."
@@ -74,7 +87,7 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
 
   getPage(page:number){
       
-    this.buscadorService.postFilter("","",4000000,365,page-1).subscribe(
+    this.buscadorService.postFilter(this.tmpCountry,this.tmpCity,this.tmpMaxBudget,this.tmpMaxDays,page-1).subscribe(
      response => {
       var res = response;
       
@@ -98,7 +111,7 @@ loadItineraries(country:string,city:string,maxBudget:number,maxDays:number,page:
 
   
   onRegister(){
-    this.prueba = 0
+  
     this.loadItineraries(this.formFilter.controls.country.value,this.formFilter.controls.city.value, this.formFilter.controls.maxBudget.value, this.formFilter.controls.maxDays.value,1);
   }
 

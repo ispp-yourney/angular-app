@@ -42,7 +42,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
-    this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+    if(this.tokenService.getToken()){
+      
+      this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+
+    }
     if (String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()) {
       this.expectedUser = true;
     }
@@ -71,6 +75,7 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
+        
         this.incorrectUsername = true;
         this.messageError = err.error.text;
 
