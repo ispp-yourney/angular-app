@@ -14,8 +14,8 @@
         <div class="card" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));">
             <div class="card-body">
                 <h4 class="card-title titulo">{{itinerary?.name}}</h4>
-                <a href = "perfil/{{itinerary?.username}}">
-                <h6 class="card-subtitle mb-2 text-muted">@{{itinerary?.username}}</h6>
+                <a style="display:inline-block" href="perfil/{{itinerary?.username}}">
+                    <h6 class="card-subtitle mb-2">@{{itinerary?.username}}</h6>
                 </a>
                 <img class="card-img-top" style="border-radius: 10px;" src={{itinerary?.imageUrl}} alt="Card image cap">
                 <hr/>
