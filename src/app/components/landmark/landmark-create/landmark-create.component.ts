@@ -22,7 +22,7 @@ export class LandmarkCreateComponent implements OnInit {
   
   checkPrice(control: AbstractControl): {[key: string]: any} | null {
     const price =  parseFloat(control.value)
-    if(price<0 || price >10000 ){
+    if(price<0 || price >=10000 ){
         return {'maxPrice': true}
     }else{
       return null
@@ -43,11 +43,11 @@ export class LandmarkCreateComponent implements OnInit {
     this.formLandmark = this.formBuilder.group({
             name: ['', [Validators.required,Validators.maxLength(50)]],
             description2: ['', [Validators.required, Validators.maxLength(1000)]],
-            price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
+            price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(8), Validators.pattern("^[+]?[0-9]{1,4}(?:\\.[0-9]{1,2})?$")]],
             country: ['', Validators.required],
             city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
-            latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
-            longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
+            latitude: ['', [Validators.pattern("^[+-]?[0-9]{1,3}(?:\\.[0-9]{1,10})?$"), checkRange(-90,90), Validators.required]],
+            longitude: ['', [Validators.pattern("^[+-]?[0-9]{1,3}(?:\\.[0-9]{1,10})?$"), checkRange(-180,180), Validators.required]],
             category: [''],
             email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
             phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
