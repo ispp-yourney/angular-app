@@ -39,7 +39,7 @@ export class LandmarkShowComponent implements OnInit {
 
   checkPrice(control: AbstractControl): {[key: string]: any} | null {
     const price =  parseFloat(control.value)
-    if(price<0 || price >10000 ){
+    if(price<0 || price >=10000 ){
         return {'maxPrice': true}
     }else{
       return null
@@ -57,7 +57,7 @@ export class LandmarkShowComponent implements OnInit {
       this.editForm = this.formBuilder.group({
         name: ['', [Validators.required,Validators.maxLength(50)]],
         description:['', [Validators.required,Validators.maxLength(1000)]],
-        price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
+        price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(8), Validators.pattern("^[+]?[0-9]{1,4}(?:\\.[0-9]{1,2})?$")]],
         country: ['', Validators.required],
         category: [''],
         city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],

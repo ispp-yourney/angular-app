@@ -32,7 +32,7 @@
           <br>
           <label for="price">Precio <span style="color:#ff0000">*</span></label>
           <div class="input-group mb-3">
-            <input type="text" id="price" formControlName="price" class="{{inputClass(formLandmark, 'price')}}" value="0" required min="0" placeholder="0"  maxlength="20">
+            <input type="text" id="price" formControlName="price" class="{{inputClass(formLandmark, 'price')}}" value="0" required min="0" placeholder="0"  maxlength="8">
            
             <div class="input-group-prepend" >
               <span class="input-group-text">€</span>
@@ -42,8 +42,8 @@
             
             <div *ngIf="formLandmark.get('price').errors.required">No puede estar vacío o el formato no es válido.</div>
             <div *ngIf="formLandmark.get('price').errors.maxPrice ">El precio debe estar entre 0-10000.</div>
-            <div *ngIf="formLandmark.get('price').errors.maxlength">El número máximo de dígitos es 20.</div>
-            <div *ngIf="formLandmark.get('price').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
+            <div *ngIf="formLandmark.get('price').errors.maxlength">El número máximo de caracteres es 8.</div>
+            <div *ngIf="formLandmark.get('price').errors.pattern">Deben ser dígitos y con un máximo de 2 decimales.</div>
           </div> 
          
         </div>
