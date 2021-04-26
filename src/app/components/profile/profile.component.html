@@ -28,7 +28,7 @@
                       <br><button style="font-size:15px" class="btn mt-2" (click)="changeView('itineraries')" [disabled]="!(showProfile || showDashboard)">
                         Itinerarios <i class="fa fa-suitcase" aria-hidden="true"></i>
                       </button>
-                      <br><button style="font-size:15px" *ngIf="isAdmin" class="btn mt-2" (click)="changeView('dashboard')" [disabled]="showDashboard">
+                      <br><button style="font-size:15px" *ngIf="isAdmin && expectedUser" class="btn mt-2" (click)="changeView('dashboard')" [disabled]="showDashboard">
                         Dashboard <i class="fa fa-bar-chart" aria-hidden="true"></i>
                       </button>
                     </div>
@@ -121,15 +121,6 @@
                           </div>
                           <div class="col-sm-9 text-secondary">
                             {{userDetails?.firstName}} {{userDetails?.lastName}}
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                          <div class="col-sm-3">
-                            <h6 class="mb-0">Email</h6>
-                          </div>
-                          <div class="col-sm-9 text-secondary">
-                            {{userDetails?.email}}
                           </div>
                         </div>
                       </ng-template>

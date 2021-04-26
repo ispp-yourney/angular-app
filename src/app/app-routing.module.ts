@@ -29,7 +29,6 @@ export const routes: Routes = [
   {path: 'confirmNewUser', component: ConfirmationUserComponent,pathMatch: 'full'},
   {path: 'error', component: NotFoundComponent},
   {path:'perfil/:username', component: ProfileComponent, pathMatch: 'full'},
-  {path:'perfil/:username/itinerarios/:id', component: ItinerarylistComponent,pathMatch: 'full'},
   {path: 'terminos', component: TermComponent, pathMatch: 'full'},
   {path: '**', component: NotFoundComponent}
 ];
