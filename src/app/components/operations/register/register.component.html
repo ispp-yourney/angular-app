@@ -75,7 +75,10 @@
                     </div>
                     <br>
                     <div class="mt-6">
-                        Si continúa, se entenderá que habrá aceptado los <a href="/terminos">términos y condiciones</a>.
+                        <input class="form-check-input" formControlName="acceptedTerms" type="checkbox" id="acceptedTerms">
+                        <label class="form-check-label" for="acceptedTerms">
+                            Aceptar los <a href="/terminos">términos y condiciones</a>.
+                        </label>
                     </div>
                     <div class="mt-3">
                         <button class="btn btn-primary" [disabled]="!formRegister.valid" data-target="#register" data-toggle="modal" data-backdrop="static" data-keyboard="false" >
