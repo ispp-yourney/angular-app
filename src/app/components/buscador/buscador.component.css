@@ -260,6 +260,14 @@ transform: rotateY(-180deg);
   left: 5vw;
 }
 
+.sponsoredItinerary {
+  height: 15%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  object-fit: cover;
+}
+
 @media (max-width: 800px){
   .itinerary {
     position: relative;

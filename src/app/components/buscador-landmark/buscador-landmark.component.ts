@@ -77,6 +77,7 @@ export class BuscadorLandmarkComponent implements OnInit {
   loadLandmarks(country:string,city:string,page:number){
     this.buscadorLandmarkService.landmarkPage(country,city,page-1).subscribe(
     response => {
+      console.log(response)
       var res = response;
       this.currentPage = 0
       this.landmarks= res.content;
@@ -147,11 +148,10 @@ export class BuscadorLandmarkComponent implements OnInit {
       
        }
 
+      estaPromocionado(fecha:Date){
+        let fechaActual = new Date();
+        let fechaLandmark = new Date(fecha);
+        return fechaActual<fechaLandmark;
+      }
+
      }
-
-    
-
-
-
-
-

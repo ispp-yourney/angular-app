@@ -64,7 +64,9 @@
     <div class="center">
       <div class="front-face"
         [ngStyle]="{'background': 'linear-gradient(rgba(255, 60, 60, 0.2),rgba(0,0,0,.2)),url(' + item.image.imageUrl + ')', 'background-size': 'cover'}">
-
+        
+        <img *ngIf="estaPromocionado(item.endPromotionDate)" class="sponsoredItinerary" src="assets/img/itineraryFeaturedLandmark.png" alt="Landmark patrocinado">
+        
         <div class="contents front">
           <p>{{item.name}}</p>
           <span>{{item.city}}</span>
@@ -105,3 +107,11 @@
 </ng-template>
 
 </div>
+
+<script>  
+function isPromoted(date){
+  lDate = new Date(date)
+  hoy = new Date()
+  return lDate<hoy
+}
+</script>  
