@@ -120,17 +120,16 @@ describe('Profile', () => {
   });
 
   it('should not be expectedUser from ngOnInit', fakeAsync(() => {
-
+    spyTokenService.getToken.and.returnValue();
     spyTokenService.getUsername.and.returnValue("eduardo");
 
     fixture.detectChanges();
     component.ngOnInit()
 
     expect(activatedRoute.snapshot.paramMap.get('username')).toEqual('alejandro1cortes')
-    expect(tokenService.getToken()).toBeTruthy();
 
 
-    expect(tokenService.getToken()).toEqual('tokenTest')
+    expect(tokenService.getToken()).toEqual(undefined)
     expect(tokenService.getUsername()).toEqual('eduardo')
 
     var if_block = (String(tokenService.getUsername()) == component.username && tokenService.getToken())
@@ -208,6 +207,28 @@ describe('Profile', () => {
     expect(component.messageError).toEqual('Error')
   }));
 
+  it('should fail updateUser function with undefined error', fakeAsync(() => {
+    spyOn(component, 'reloadWindowLocation').and.returnValue();
+    spyOn(authService, 'showUser').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: undefined
+      }
+    }));
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(activatedRoute.snapshot.paramMap.get('username')).toEqual('alejandro1cortes')
+    expect(tokenService.getToken()).toEqual('tokenTest')
+    expect(tokenService.getUsername()).toEqual('alejandro1cortes')
+    var if_block = (String(tokenService.getUsername()) == component.username && tokenService.getToken())
+    expect(if_block).toBeTruthy()
+
+    expect(component.expectedUser).toEqual(true)
+    tick();
+    expect(component.messageError).toEqual(undefined)
+  }));
 
   it('should use showUser function with plan 0', fakeAsync(() => {
     spyOn(authService, 'showUser').and.returnValue(of(showUserPlan0))

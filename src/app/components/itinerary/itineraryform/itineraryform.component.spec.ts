@@ -151,7 +151,7 @@ describe('ItineraryForm', () => {
     component.ngOnInit()
     expect(component.addDay).toBeTruthy()
     component.addDay()
-    component.showActivityCreated()
+    //component.showActivityCreated()
   });
 
   it('should use addActivity function ', () => {
@@ -489,6 +489,7 @@ describe('ItineraryForm', () => {
       landmarkId: ['0'],
       landmarkImage: [''],
       landmarkName: [''],
+      newActivity: [''],
       //landmark: ['', Validators.required],
     })
     form.addControl('landmark', formBuilder.array([]))
@@ -506,6 +507,7 @@ describe('ItineraryForm', () => {
       landmarkId: ['0', [Validators.required, Validators.min(0)]],
       landmarkImage: ['', Validators.required],
       landmarkName: ['', Validators.required],
+      newActivity: ['', Validators.required],
       //landmark: ['', Validators.required],
     })
     form.addControl('landmark', formBuilder.array([], Validators.required))
@@ -820,6 +822,24 @@ describe('ItineraryForm', () => {
     fixture.detectChanges();
     expect(component.inputClass(formMock, 'text')).toBeTruthy()
     component.inputClass(formMock, 'text')
+  });
+
+  it('should use notificationActivity function', () => {
+    let form = new FormGroup({
+      newActivity: new FormControl('false')
+    });
+    expect(component.notificationActivity).toBeTruthy()
+    fixture.detectChanges()
+    component.notificationActivity(form)
+  });
+
+  it('should use notificationActivity function not new activity', () => {
+    let form = new FormGroup({
+      newActivity: new FormControl('true')
+    });
+    expect(component.notificationActivity).toBeTruthy()
+    fixture.detectChanges()
+    component.notificationActivity(form)
   });
 })
 
