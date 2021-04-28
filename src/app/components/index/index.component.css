@@ -27,7 +27,7 @@
     border-radius: 20px;
     width:50%;
     position: relative;
-    top: 50px;
+   bottom: 60px;
 }
 
 h1 { 
@@ -80,13 +80,18 @@ h4 {
         position: relative;
         right: 25px;
         text-align: center;
-        left: -11vw!important;
+        left: -17vw!important;
     }
     .name{
         position: relative;
         top: 35vh;
         font-size: 30px;
-        left: -11vw!important;
+        
+    }
+    .title{
+        position: relative;
+        top: 30vh;
+        
     }
    
 }

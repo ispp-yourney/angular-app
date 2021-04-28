@@ -190,6 +190,19 @@ export class ItineraryupdateComponent implements OnInit {
   
 
   addLandmark(activity: FormArray){
+
+    activity.controls['action'].setValue("false")
+    activity.controls['searchLandmark'].reset()
+    activity.controls['searchLandmark'].setValue("none")
+    activity.controls['landmarkId'].reset()
+    activity.controls['landmarkId'].setValue("")
+    activity.controls['landmarkLoadImage'].reset()
+    activity.controls['landmarkLoadImage'].setValue("")
+    activity.controls['landmarkLoadName'].reset()
+    activity.controls['landmarkLoadName'].setValue("")
+
+
+
     const landmark = this.formBuilder.group({
       id3: [-1],
       name: ['', Validators.required],
@@ -226,9 +239,11 @@ export class ItineraryupdateComponent implements OnInit {
 
 
   clickLandmarkShare(activity: FormGroup, data){
-    activity.controls['action'].setValue("false")
+    activity.controls['action'].setValue("true")
     activity.controls['searchLandmark'].setValue("block")
    
+    activity.get('landmark')['controls'].pop()
+    activity.controls['landmark'].reset()
   }
 
 
@@ -387,7 +402,7 @@ export class ItineraryupdateComponent implements OnInit {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(this.router.navigate(['/itinerarios/' + this.editForm.value.id]).then(() => { this.reloadPage() }))
-          }, 2000)
+          }, 3500)
         })
       }, err => {
 

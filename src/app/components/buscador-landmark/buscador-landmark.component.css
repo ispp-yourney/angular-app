@@ -158,6 +158,13 @@
   margin: 0 auto;
   margin-top: 10px;
 }
+.sponsoredItinerary {
+  height: 15%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  object-fit: cover;
+}
 .back-face{
   transform: rotateY(180deg);
   background: linear-gradient(rgba(255, 60, 60, 0.666),
@@ -234,8 +241,8 @@ i.fab{
     margin-left:auto;
     margin-right: auto;
     display: flex;
-    position: absolute;
-    left: 43vw;
+    position: relative;
+    left: 12vw;
     
   }
   
@@ -276,7 +283,7 @@ i.fab{
     margin-left: auto;
     margin-right: auto;
     width: 40%;
-    position: absolute;
+    position: relative;
     left: 7vw;
   }
 

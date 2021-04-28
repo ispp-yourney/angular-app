@@ -20,7 +20,7 @@ export const routes: Routes = [
   {path: '' , component: IndexComponent},
   {path: 'login', component: LoginComponent, pathMatch: 'full'},
   {path: 'buscador', component: BuscadorComponent, pathMatch: 'full'},
-  {path: 'buscadorLandmark', component: BuscadorLandmarkComponent, pathMatch: 'full'},
+  {path: 'buscador_punto_interes', component: BuscadorLandmarkComponent, pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
   {path: 'itinerarios/crear', component: ItineraryformComponent, canActivate: [guard], data: { expectedRol:['user', 'admin'] }},
   {path: 'itinerarios/actualizar/:id', component: ItineraryupdateComponent, canActivate: [guard], data: { expectedRol:['user', 'admin'] }},

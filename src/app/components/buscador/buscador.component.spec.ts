@@ -642,6 +642,7 @@ it('should use getPage function without content', fakeAsync(() => {
   let landmarkPageTemp=landmarkPage
   landmarkPageTemp.content=[]
   spyOn(buscadorService,'postFilter').and.returnValue(of(landmarkPageTemp))
+  expect(component.itineraries.length).toEqual(0)
   component.ngOnInit()
   fixture.detectChanges();
   expect(component.getPage).toBeTruthy()

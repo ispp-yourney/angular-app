@@ -177,7 +177,7 @@ export class LandmarkShowComponent implements OnInit {
 
   onDelete(){
     this.landmarkService.deleteLandmark(this.landmark.id).subscribe(data => {
-      this.router.navigateByUrl('/buscadorLandmark')
+      this.router.navigateByUrl('/buscador_punto_interes')
     }, err => {
     })
   

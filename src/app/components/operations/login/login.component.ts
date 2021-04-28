@@ -79,7 +79,6 @@ export class LoginComponent implements OnInit {
           returned_error = 'Usuario incorrecto'
         }
         this.messageError = returned_error;
-        this.toastr.error("Se ha producido un error al iniciar sesión.")
 
         
       }
