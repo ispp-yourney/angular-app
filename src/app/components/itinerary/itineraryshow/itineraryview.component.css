@@ -118,7 +118,6 @@ img {
 
 
 .titulo{
-  color: black;
   font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -128,8 +127,8 @@ img {
 .barra{
  
   overflow: auto;
-  height: 660px;
-  margin-bottom: 60px;
+  max-height: 660px;
+  margin-bottom: 20px;
 }
 
 /* width */
@@ -151,9 +150,4 @@ img {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
-}
-
-section{
-  position: relative;
-  top: 70px;
 }
