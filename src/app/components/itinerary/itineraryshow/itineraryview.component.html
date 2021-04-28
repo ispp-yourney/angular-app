@@ -23,6 +23,14 @@
                 <p class="card-text"><em class="fa fa-money" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.budget}} €</p>
                 <p class="card-text"><em class="fa fa-calendar" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.estimatedDays}} días</p>
                 <p class="card-text"><strong>Estación recomendada: </strong>{{getSeason(itinerary?.recommendedSeason)}}</p>
+                <span class="card-text"><strong style="float: left;">Puntuación media:&nbsp;&nbsp;</strong>
+                <div *ngFor="let star of countStars(itinerary?.avgRating)" style="float: left;">
+                    <span class="fa fa-star checked" style="color: rgb(237, 83, 49);"></span>
+                </div>
+                <div *ngFor="let noStar of countNoStars(itinerary?.avgRating)" style="float: left;">
+                    <span class="fa fa-star"></span>
+                </div>
+                </span>
 
                 <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
                     <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
