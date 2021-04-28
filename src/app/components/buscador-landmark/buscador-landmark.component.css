@@ -234,8 +234,8 @@ i.fab{
     margin-left:auto;
     margin-right: auto;
     display: flex;
-    position: absolute;
-    left: 43vw;
+    position: relative;
+    left: 12vw;
     
   }
   
@@ -276,7 +276,7 @@ i.fab{
     margin-left: auto;
     margin-right: auto;
     width: 40%;
-    position: absolute;
+    position: relative;
     left: 7vw;
   }
 

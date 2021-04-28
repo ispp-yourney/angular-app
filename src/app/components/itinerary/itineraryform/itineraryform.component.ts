@@ -80,7 +80,8 @@ export class ItineraryformComponent implements OnInit {
       searchLandmark: ['none'],
       action:['true'],
       landmarkImage:[''],
-      landmarkName:['']
+      landmarkName:[''],
+      newActivity:['true']
       
       
     });
@@ -105,6 +106,16 @@ export class ItineraryformComponent implements OnInit {
 
 
   addLandmark(activity: FormArray){
+    activity.controls['action'].setValue("false")
+    activity.controls['searchLandmark'].reset()
+    activity.controls['searchLandmark'].setValue("none")
+    activity.controls['landmarkId'].reset()
+    activity.controls['landmarkId'].setValue("")
+    activity.controls['landmarkImage'].reset()
+    activity.controls['landmarkImage'].setValue("")
+    activity.controls['landmarkName'].reset()
+    activity.controls['landmarkName'].setValue("")
+
     const landmark = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description2: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -123,7 +134,6 @@ export class ItineraryformComponent implements OnInit {
     });
 
     activity.controls['landmark'].push(landmark);
-    activity.controls['action'].setValue("false")
 
   }
 
@@ -139,9 +149,17 @@ export class ItineraryformComponent implements OnInit {
 
 
   clickLandmarkShare(activity: FormGroup, data) {
-    activity.controls['action'].setValue("false")
-    activity.controls['searchLandmark'].setValue("block")
+    activity.controls['action'].setValue("true")
 
+    activity.controls['searchLandmark'].setValue("block")
+    
+
+    activity.get('landmark')['controls'].pop()
+    activity.controls['landmark'].reset()
+    
+   
+   
+    
   }
 
 
@@ -257,7 +275,7 @@ export class ItineraryformComponent implements OnInit {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(this.router.navigate(['/itinerarios/' + data.id]).then(() => { this.reloadPage() }))
-          }, 2000)
+          }, 3500)
         })
         
       },
@@ -403,6 +421,7 @@ export class ItineraryformComponent implements OnInit {
     activity.controls['landmarkId'].setValue("")
     activity.controls['landmarkImage'].setValue("")
     activity.controls['landmarkName'].setValue("")
+    activity.controls['newActivity'].setValue("true")
 
     if(!activity.valid){
       this.toastr.error("La actividad no se ha completado.")
@@ -413,8 +432,17 @@ export class ItineraryformComponent implements OnInit {
     
 
 
-    showActivityCreated(){
-      this.toastr.success("Actividad añadida correctamente")
+    notificationActivity(activity: FormGroup) {
+      if (activity.get('newActivity').value == 'false') {
+        this.toastr.success("Actividad editada correctamente")
+      } else {
+        this.toastr.success("Actividad añadida correctamente")
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            activity.controls['newActivity'].setValue('false')
+          }, 1000)
+        })
+      }
     }
 
     checkActivity(activity: FormGroup){

@@ -8,14 +8,14 @@
             
             <div class="inner-welcome" *ngIf="isLogged; else loggedOut">
                 <h1 class="title">Bienvenido/a</h1> 
-                <h2 class="name">{{username}}</h2>
+                <h2 class="d-flex justify-content-center name">{{username}}</h2>
                 
             </div>
             <ng-template #loggedOut>
                 <div class="inner-welcome">
-                    <h1 class="title">Bienvenido/a</h1>
-                    <h1 class="title" style="position: relative; left: 10px;">a</h1>
-                    <h1 class="title" style="position: relative; left: 10px;" >Yourney</h1>
+                    <h1 class="title" >Bienvenido/a</h1>
+                    <h1 class="title" style="position: relative; left: 12px!important;">a</h1>
+                    <h1 class="title" style="position: relative; left: -2px!important;" >Yourney</h1>
                 </div>
             </ng-template>
             <app-footer></app-footer>

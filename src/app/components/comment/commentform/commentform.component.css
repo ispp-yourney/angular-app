@@ -163,4 +163,8 @@
         top:90px;
         left: 20px;
     }
+    .eliminar{
+        position: relative;
+        left: 2vw;
+    }
 }
