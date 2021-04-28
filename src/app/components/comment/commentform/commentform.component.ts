@@ -27,6 +27,8 @@ export class CommentformComponent implements OnInit {
   isLogged: boolean = false;
   loggedUsername:string;
   isAdmin: boolean = false;
+  alreadyCommented:boolean=false;
+  isMyItinerary: boolean;
 
   options: Options = {
     floor: 1,
@@ -53,6 +55,7 @@ export class CommentformComponent implements OnInit {
 }
   ngOnInit(): void {
     this.loggedUsername=this.tokenService.getUsername()
+    this.isMyItinerary= this.loggedUsername == this.itinerary.author.username
     if(this.tokenService.getAuthorities().length > 0){
       this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
     }
@@ -63,7 +66,11 @@ export class CommentformComponent implements OnInit {
   }
 
   loadComments() {
-      this.comments = this.itinerary.comments;
+    this.comments = this.itinerary.comments;
+    var usersComment = this.comments.map(function (comment) {
+      return comment.author.username;
+    });
+    this.alreadyCommented=usersComment.indexOf(this.loggedUsername) >= 0
   }
 
  showComments(){

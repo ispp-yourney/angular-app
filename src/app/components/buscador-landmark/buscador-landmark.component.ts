@@ -77,7 +77,7 @@ export class BuscadorLandmarkComponent implements OnInit {
   loadLandmarks(country:string,city:string,page:number){
     this.buscadorLandmarkService.landmarkPage(country,city,page-1).subscribe(
     response => {
-      console.log(response)
+
       var res = response;
       this.currentPage = 0
       this.landmarks= res.content;

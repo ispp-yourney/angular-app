@@ -1,5 +1,5 @@
 <div style="text-align:center!important; position: relative; top:80px; right:10px;">
-  <button class="btn btn-primary btn-header-card btn-comment" data-toggle="modal" data-target="#comment">Deja aquí tu
+  <button *ngIf="!alreadyCommented && !isMyItinerary" class="btn btn-primary btn-header-card btn-comment" data-toggle="modal" data-target="#comment">Deja aquí tu
     comentario</button>
   <div class="modal" id="comment" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
