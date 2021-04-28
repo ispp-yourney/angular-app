@@ -84,6 +84,9 @@
       <div class="front-face"
         [ngStyle]="{'background': 'linear-gradient(rgba(255, 60, 60, 0.2),rgba(0,0,0,.2)),url(' + item.imageUrl + ')', 'background-size': 'cover'}">
 
+        <div *ngIf="item.calcPlan != 0 || item.calcPromotion != 0">
+          <img class="sponsoredItinerary" [src]="item.calcPromotion != 0 ? 'assets/img/itineraryFeaturedLandmark.png' : 'assets/img/itineraryFeaturedUser.png'" alt="Itinerario patrocinado">
+        </div>
         <div class="contents front">
           <p>{{item.name}}</p>
 
