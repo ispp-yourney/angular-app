@@ -202,7 +202,7 @@
 
                             <h2 style="color:grey"> {{activity?.get('landmarkName').value}}  </h2>
                             <div style="text-align:center!important" *ngIf="activity.get('landmarkImage').value != ''">
-                              <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkImage').value}}" alt="landmark">
+                              <img style="border-radius: 5px;max-height:400px;object-fit:cover;width:auto;max-width:100%" src="{{activity.get('landmarkImage').value}}" alt="Punto de interes">
                             </div>
 
                              <div *ngIf="activity.get('landmark')['controls'].length > 0" formArrayName="landmark">

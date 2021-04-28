@@ -29,7 +29,7 @@
 
     <button type="submit" (click)="onRegister()" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
-    <a href="/buscadorLandmark" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
+    <a href="/buscador_punto_interes" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
     <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
 
@@ -65,7 +65,7 @@
       <div class="front-face"
         [ngStyle]="{'background': 'linear-gradient(rgba(255, 60, 60, 0.2),rgba(0,0,0,.2)),url(' + item.image.imageUrl + ')', 'background-size': 'cover'}">
         
-        <img *ngIf="estaPromocionado(item.endPromotionDate)" class="sponsoredItinerary" src="assets/img/itineraryFeaturedLandmark.png" alt="Landmark patrocinado">
+        <img *ngIf="estaPromocionado(item.endPromotionDate)" class="sponsoredItinerary" src="assets/img/itineraryFeaturedLandmark.png" alt="Punto de interes patrocinado">
         
         <div class="contents front">
           <p>{{item.name}}</p>
