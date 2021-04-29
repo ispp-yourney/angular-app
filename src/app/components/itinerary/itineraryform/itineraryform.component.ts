@@ -103,7 +103,7 @@ export class ItineraryformComponent implements OnInit {
 
   checkSpaces(control: AbstractControl): {[key: string]: any} | null {
     const input = control.value
-    if(input.trim().length == 0 ){
+    if( input != null && input.trim().length == 0 ){
         return {'required': true}
     }
   }
@@ -412,14 +412,15 @@ export class ItineraryformComponent implements OnInit {
 
   resetForm(activity: FormGroup){
     activity.reset()
-
-
+    
+    activity.controls['description'].reset()
     activity.controls['description'].setValue("")
+    activity.controls['title'].reset()
     activity.controls['title'].setValue("")
 
     activity.get('landmark')['controls'].pop()
-   
 
+   
 
     activity.controls['action'].setValue("true")
     activity.controls['searchLandmark'].setValue("none")
@@ -427,9 +428,11 @@ export class ItineraryformComponent implements OnInit {
     activity.controls['landmarkImage'].setValue("")
     activity.controls['landmarkName'].setValue("")
     activity.controls['newActivity'].setValue("true")
+    
 
-    if(!activity.valid){
-      this.toastr.error("La actividad no se ha completado.")
+    if (!activity.valid) {
+        this.toastr.error("La actividad no se ha completado.")
+        console.log(activity)
     }
 
     }
