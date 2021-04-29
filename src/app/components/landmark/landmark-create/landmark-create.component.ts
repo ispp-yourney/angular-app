@@ -41,11 +41,11 @@ export class LandmarkCreateComponent implements OnInit {
 
 
     this.formLandmark = this.formBuilder.group({
-            name: ['', [Validators.required,Validators.maxLength(50)]],
-            description2: ['', [Validators.required, Validators.maxLength(1000)]],
+            name: ['', [Validators.required, this.checkSpaces, Validators.maxLength(50)]],
+            description2: ['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
             price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(8), Validators.pattern("^[+]?[0-9]{1,4}(?:\\.[0-9]{1,2})?$")]],
             country: ['', Validators.required],
-            city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
+            city: ['', [Validators.required, this.checkSpaces, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
             latitude: ['', [Validators.pattern("^[+-]?[0-9]{1,3}(?:\\.[0-9]{1,10})?$"), checkRange(-90,90), Validators.required]],
             longitude: ['', [Validators.pattern("^[+-]?[0-9]{1,3}(?:\\.[0-9]{1,10})?$"), checkRange(-180,180), Validators.required]],
             category: [''],
@@ -89,8 +89,12 @@ export class LandmarkCreateComponent implements OnInit {
       })
   }
 
-
-
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if(input.trim().length == 0 ){
+        return {'required': true}
+    }
+  }
 
  inputClass(form:FormGroup,property: string){
         let inputClass: string;

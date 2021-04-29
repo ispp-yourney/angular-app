@@ -64,8 +64,8 @@ export class ItineraryupdateComponent implements OnInit {
 
     this.editForm = this.formBuilder.group({
       id: new FormControl(''),
-      name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-      description: new FormControl('data.description', [Validators.required, Validators.maxLength(1000)]),
+      name: new FormControl('', [Validators.required, this.checkSpaces, Validators.minLength(5), Validators.maxLength(50)]),
+      description: new FormControl('data.description', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]),
       budget: new FormControl('0',[Validators.required, Validators.min(0)]),
       recommendedSeason: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required),
@@ -108,8 +108,8 @@ export class ItineraryupdateComponent implements OnInit {
 
             const activity = this.formBuilder.group({
               id2: [activityInfo.id],
-              title: [activityInfo.title, Validators.required],
-              description: [activityInfo.description, Validators.required],
+              title: [activityInfo.title, this.checkSpaces, Validators.required],
+              description: [activityInfo.description, this.checkSpaces, Validators.required],
               id3: [activityInfo.landmark.id],
               landmark: this.formBuilder.array([]),
               landmarkLoadImage:  [activityInfo.landmark.image.imageUrl],
@@ -143,6 +143,13 @@ export class ItineraryupdateComponent implements OnInit {
   }
   reloadPage(){window.location.reload()}
 
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if(input.trim().length == 0 ){
+        return {'required': true}
+    }
+  }
+
   addDay() {
 
     const day = this.formBuilder.group({
@@ -156,8 +163,8 @@ export class ItineraryupdateComponent implements OnInit {
   addActivity(pepe: FormArray) {
     const activity = this.formBuilder.group({
       id2: [-1],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      title: ['', this.checkSpaces, Validators.required],
+      description: ['', this.checkSpaces, Validators.required],
       landmark: this.formBuilder.array([],Validators.required ),
       landmarkId: [''],
       landmarkLoadImage:  [''],
@@ -205,11 +212,11 @@ export class ItineraryupdateComponent implements OnInit {
 
     const landmark = this.formBuilder.group({
       id3: [-1],
-      name: ['', Validators.required],
-      description2: ['', Validators.required],
+      name: ['', this.checkSpaces, Validators.required],
+      description2: ['', this.checkSpaces, Validators.required],
       price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
-      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
+      city: ['', [Validators.required, this.checkSpaces, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
       latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
       longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
       category: [''],

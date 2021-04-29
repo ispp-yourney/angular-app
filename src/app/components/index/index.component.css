@@ -23,11 +23,8 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    /* background: rgba(255, 255, 255, 0.6); */
     border-radius: 20px;
     width:50%;
-    position: relative;
-   bottom: 60px;
 }
 
 h1 { 
@@ -55,25 +52,6 @@ h4 {
     padding:20px;
 }
 
-.elevator-pitch {
-    font-family: "Muli", sans-serif;
-    padding: 0 0 20px;
-    padding: 15px;
-    font-weight: 700;
-    color:white;
-}
-
-.title{
-    position: relative;
-    top: 30vh;
-    
-}
-
-.name{
-    position: relative;
-    top: 35vh;
-}
-
 @media (max-width: 800px){
     h1{
         font-size: 50px;
@@ -83,15 +61,7 @@ h4 {
         left: -17vw!important;
     }
     .name{
-        position: relative;
-        top: 35vh;
         font-size: 30px;
-        
-    }
-    .title{
-        position: relative;
-        top: 30vh;
-        
     }
    
 }

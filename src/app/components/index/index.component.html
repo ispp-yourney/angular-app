@@ -6,7 +6,7 @@
         
         <div class="middle-welcome">
             
-            <div class="inner-welcome" style="position: relative; bottom: 100px;" *ngIf="isLogged; else loggedOut">
+            <div class="inner-welcome" *ngIf="isLogged; else loggedOut">
                 <h1 class="title">Bienvenido/a</h1> 
                 <h2 class="d-flex justify-content-center name">{{username}}</h2>
                 
