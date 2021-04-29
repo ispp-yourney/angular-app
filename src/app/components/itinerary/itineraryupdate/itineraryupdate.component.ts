@@ -108,8 +108,8 @@ export class ItineraryupdateComponent implements OnInit {
 
             const activity = this.formBuilder.group({
               id2: [activityInfo.id],
-              title: [activityInfo.title, this.checkSpaces, Validators.required],
-              description: [activityInfo.description, this.checkSpaces, Validators.required],
+              title: [activityInfo.title, [this.checkSpaces, Validators.required]],
+              description: [activityInfo.description, [this.checkSpaces, Validators.required]],
               id3: [activityInfo.landmark.id],
               landmark: this.formBuilder.array([]),
               landmarkLoadImage:  [activityInfo.landmark.image.imageUrl],
@@ -163,8 +163,8 @@ export class ItineraryupdateComponent implements OnInit {
   addActivity(pepe: FormArray) {
     const activity = this.formBuilder.group({
       id2: [-1],
-      title: ['', this.checkSpaces, Validators.required],
-      description: ['', this.checkSpaces, Validators.required],
+      title: ['', [this.checkSpaces, Validators.required]],
+      description: ['', [this.checkSpaces, Validators.required]],
       landmark: this.formBuilder.array([],Validators.required ),
       landmarkId: [''],
       landmarkLoadImage:  [''],
@@ -212,8 +212,8 @@ export class ItineraryupdateComponent implements OnInit {
 
     const landmark = this.formBuilder.group({
       id3: [-1],
-      name: ['', this.checkSpaces, Validators.required],
-      description2: ['', this.checkSpaces, Validators.required],
+      name: ['', [Validators.required, this.checkSpaces]],
+      description2: ['', [Validators.required, this.checkSpaces]],
       price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
       country: ['', Validators.required],
       city: ['', [Validators.required, this.checkSpaces, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
