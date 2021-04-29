@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comment } from 'src/app/models/comment';
 import { Itinerary } from 'src/app/models/itinerary';
@@ -47,7 +47,7 @@ export class CommentformComponent implements OnInit {
      private toastr: ToastrService) { 
 
           this.formComment = formBuilder.group({
-            content: ['', [Validators.required, Validators.maxLength(1000)]],
+            content: ['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
             rating: [1, [Validators.required,Validators.min(1),Validators.max(5)]],
         });
 
@@ -62,6 +62,13 @@ export class CommentformComponent implements OnInit {
     this.loadComments()
     if (this.tokenService.getToken()) {
         this.isLogged = true;
+    }
+  }
+
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if(input.trim().length == 0 ){
+        return {'required': true}
     }
   }
 

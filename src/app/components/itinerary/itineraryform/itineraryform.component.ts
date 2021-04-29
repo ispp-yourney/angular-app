@@ -43,8 +43,8 @@ export class ItineraryformComponent implements OnInit {
     private countryService: CountryService) {
 
     this.formItiner = formBuilder.group({
-      name: ['',[Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(1000)]],
+      name: ['',[Validators.required, this.checkSpaces, Validators.maxLength(50)]],
+      description: ['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
       budget: ['0', [Validators.required, Validators.min(0)]],
       recommendedSeason: ['', Validators.required],
       days: this.formBuilder.array([], Validators.required),
@@ -73,8 +73,8 @@ export class ItineraryformComponent implements OnInit {
 
 
     const activity = this.formBuilder.group({
-      title: ['',[Validators.required, Validators.maxLength(50)]],
-      description:  ['', [Validators.required, Validators.maxLength(1000)]],
+      title: ['',[Validators.required, this.checkSpaces, Validators.maxLength(50)]],
+      description:  ['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
       landmark: this.formBuilder.array([],Validators.required ),
       landmarkId: [''],
       searchLandmark: ['none'],
@@ -101,7 +101,12 @@ export class ItineraryformComponent implements OnInit {
 
   }
 
- 
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if(input.trim().length == 0 ){
+        return {'required': true}
+    }
+  }
 
 
 
@@ -117,11 +122,11 @@ export class ItineraryformComponent implements OnInit {
     activity.controls['landmarkName'].setValue("")
 
     const landmark = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      description2: ['', [Validators.required, Validators.maxLength(1000)]],
+      name: ['', [Validators.required, this.checkSpaces, Validators.maxLength(50)]],
+      description2: ['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
       price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(8), Validators.pattern("^[+]?[0-9]{1,4}(?:\\.[0-9]{1,2})?$")]],
       country: ['', Validators.required],
-      city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
+      city: ['', [Validators.required, this.checkSpaces, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
       latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
       longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
       category: [''], 
