@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -35,8 +36,8 @@ export class RegisterComponent implements OnInit {
                 this.formRegister = formBuilder.group({
                   username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3), Validators.pattern("^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")]],
                   password: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(8)]],
-                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3), this.checkSpaces]],
+                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3), this.checkSpaces]],
                   email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
                   acceptedTerms: ['', [Validators.requiredTrue]]
                 })
@@ -45,6 +46,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenService.getToken()) {
       this.isLogged = true;
+    }
+  }
+
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if( input != null && input.trim().length == 0 ){
+        return {'required': true}
     }
   }
 

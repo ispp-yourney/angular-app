@@ -372,7 +372,7 @@
                           </div>
 
                           <div class="modal-footer">
-                            <a  class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#ConfirmationDay' +(i+1)+''+(j+1)" >Cancelar</a>
+                            <a  class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#ConfirmationDay' +(i+1)+''+(j+1)"  data-backdrop="static" data-keyboard="false">Cancelar</a>
                             <button type="button" class="btn btn-primary" [disabled]="!activity.valid" *ngIf="activity.get('newActivity').value == 'true'" data-dismiss="modal" (click)="notificationActivity(activity)">Crear Actividad</button>
                             <button type="button" class="btn btn-primary" [disabled]="!activity.valid"  *ngIf="activity.get('newActivity').value == 'false'" data-dismiss="modal" (click)="notificationActivity(activity)">Editar Actividad</button>
 

@@ -145,7 +145,7 @@ export class ItineraryupdateComponent implements OnInit {
 
   checkSpaces(control: AbstractControl): {[key: string]: any} | null {
     const input = control.value
-    if(input.trim().length == 0 ){
+    if(input != null && input.trim().length == 0 ){
         return {'required': true}
     }
   }

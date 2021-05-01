@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { TokenService } from 'src/app/services/token.service';
 import { NewUser } from 'src/app/models/new-user';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -83,11 +84,19 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+  
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if( input != null && input.trim().length == 0 ){
+        return {'required': true}
+    }
+  }
+
   updateUser() {
     this.editForm = this.formBuilder.group({
                    username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3), this.checkSpaces]],
+                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3),  this.checkSpaces]],
                   email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
 
     })
