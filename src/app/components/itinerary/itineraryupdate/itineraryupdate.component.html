@@ -73,7 +73,7 @@
       </div>
     </nav>
 
-    <article style="overflow: auto; height: 65vh;">
+    <article >
       <div *ngIf="editForm.get('days')['controls'].length > 0" formArrayName="days">
 
         <div *ngFor="let day of editForm.get('days')['controls']; let i=index" [formGroupName]="i">
@@ -191,10 +191,10 @@
                             </div>
                             <p>Caracteres disponibles: {{1000-activity.get('description').value.length}}</p>
 
-                            <div style="text-align:center!important" *ngIf=" activity.controls['action'].value == 'true'">
+                            <div style="text-align:center!important" *ngIf="activity.get('newActivity').value == 'true'">
                               <label for="description">Punto de interés <span style="color:#ff0000">*</span></label>
-                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="clickLandmarkShare(activity)" >Añadir Landmark</a>
-                              <a type="button" class="btn btn-primary" style="margin:5px" (click)="addLandmark(activity)">Crear Landmark</a>
+                              <button type="button" class="btn btn-primary" [disabled]=" activity.get('landmarkId').value != '' " style="margin:5px" (click)="clickLandmarkShare(activity)" >Añadir Punto de interés</button>
+                              <button type="button" class="btn btn-primary"  [disabled]=" activity.get('action').value == 'false' " style="margin:5px" (click)="addLandmark(activity)">Crear Punto de interés</button>
                             </div>
 
 

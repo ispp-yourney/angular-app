@@ -14,18 +14,28 @@
         <div class="card" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));">
             <div class="card-body">
                 <h4 class="card-title titulo">{{itinerary?.name}}</h4>
-                <h6 class="card-subtitle mb-2 text-muted">@{{itinerary?.username}}</h6>
+                <a style="display:inline-block" href="perfil/{{itinerary?.username}}">
+                    <h6 class="card-subtitle mb-2">@{{itinerary?.username}}</h6>
+                </a>
                 <img class="card-img-top" style="border-radius: 10px;" src={{itinerary?.imageUrl}} alt="Card image cap">
                 <hr/>
                 <p class="card-text">{{itinerary?.description}}</p>
                 <p class="card-text"><em class="fa fa-money" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.budget}} €</p>
                 <p class="card-text"><em class="fa fa-calendar" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.estimatedDays}} días</p>
                 <p class="card-text"><strong>Estación recomendada: </strong>{{getSeason(itinerary?.recommendedSeason)}}</p>
-
+                <span class="card-text"><strong style="float: left;">Puntuación media:&nbsp;&nbsp;</strong>
+                <div *ngFor="let star of countStars(itinerary?.avgRating)" style="float: left;">
+                    <span class="fa fa-star checked" style="color: rgb(237, 83, 49);"></span>
+                </div>
+                <div *ngFor="let noStar of countNoStars(itinerary?.avgRating)" style="float: left;">
+                    <span class="fa fa-star-o"></span>
+                </div>
+                </span>
+                <br>
                 <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
                     <div style="text-align:center!important" *ngIf="isMyItinerary || isAdmin">
                         <a class="btn btn-primary" style="margin:5px" href="itinerarios/actualizar/{{itinerary.id}}">Modificar</a>
-                        <a type="button"  data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteItinerarie' +itinerary?.id" class="btn btn-primary" style="margin:5px">Eliminar</a>
+                        <a type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false" [attr.data-target]="'#DeleteItinerarie' +itinerary?.id" class="btn btn-primary " style="margin:5px;">Eliminar</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +68,7 @@
                 <div style="text-align:center!important;">
                     <button type="button" class="btn btn-primary btn-header-card" data-toggle="modal" [attr.data-target]="'#landmark' + days[i][0].day">
                         Día {{days[i][0].day}}:  
-                        <p class="list-names" *ngFor="let day of days[i]">{{day.landmark.name}}</p>
+                        <p class="list-names" *ngFor="let day of days[i]">{{day.title}}</p>
                     </button>
                     
                   

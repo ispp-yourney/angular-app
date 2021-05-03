@@ -16,18 +16,25 @@ import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
 import { LoginUser } from 'src/app/models/login-user';
 import { NewUser } from 'src/app/models/new-user';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { EmailConfirmationService } from 'src/app/services/email-confirmation.service';
 
 let component: RegisterComponent;
 let fixture: ComponentFixture<RegisterComponent>;
 
 let authService: AuthService;
 let tokenService: TokenService;
+let emailConfirmation:EmailConfirmationService
 let httpTestingController: HttpTestingController;
 //Stubs
 let activatedRoute: ActivatedRoute
 let router: Router
 let location: Location;
-let formBuilder: FormBuilder
+let formBuilder: FormBuilder = new FormBuilder();
+let formMock = formBuilder.group({
+  text: ['']
+});
 
 let spyTokenService;
 
@@ -52,7 +59,9 @@ describe('Register', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(routes),
-        ReactiveFormsModule, FormsModule
+        ReactiveFormsModule, FormsModule,
+        NoopAnimationsModule,
+        ToastrModule.forRoot()
       ],
       declarations: [
         RegisterComponent,
@@ -61,7 +70,7 @@ describe('Register', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
-        AuthService
+        AuthService, EmailConfirmationService
       ]
 
     }).compileComponents().then(() => {
@@ -72,6 +81,7 @@ describe('Register', () => {
       authService = TestBed.inject(AuthService);
       //spyAuthService.showUser.and.returnValue(showUser);
       tokenService = TestBed.inject(TokenService);
+      emailConfirmation=TestBed.inject(EmailConfirmationService);
       // Inject the http service and test controller for each test
       httpTestingController = TestBed.inject(HttpTestingController);
       activatedRoute = TestBed.inject(ActivatedRoute);
@@ -104,10 +114,9 @@ describe('Register', () => {
     expect(component.isLogged).toEqual(false)
   });
 
-  it('should create user and login', fakeAsync(() => {
+  it('should use onRegister', fakeAsync(() => {
     spyTokenService.getToken.and.returnValue("tokenTest");
     spyOn(authService, 'new').and.returnValue(of(newUser))
-    spyOn(authService, 'login').and.returnValue(of(loginUser))
 
     fixture.detectChanges();
     component.ngOnInit()
@@ -123,10 +132,10 @@ describe('Register', () => {
     let emailField = form.controls['email']
     expect(component.isLogged).toEqual(true)
     expect(component.isLoginFail).toEqual(false)
-    expect(location.path()).toBe("/");
+
   }));
 
-  it('should fail to create user ', fakeAsync(() => {
+  it('should fail use  onRegister ', fakeAsync(() => {
     spyTokenService.getToken.and.returnValue("tokenTest");
     spyOn(authService, 'new').and.returnValue(throwError({
       status: 404,
@@ -140,7 +149,6 @@ describe('Register', () => {
     tick()
     component.onRegister()
     tick()
-    expect(component.isLogged).toEqual(false)
     expect(component.isLoginFail).toEqual(true)
     expect(component.messageError).toEqual('Error')
   }));
@@ -159,50 +167,107 @@ describe('Register', () => {
     tick()
     component.onRegister()
     tick()
-    expect(component.isLogged).toEqual(false)
     expect(component.isLoginFail).toEqual(true)
     expect(component.messageError).toEqual('Ha ocurrido un error')
-
   }));
 
-  it('should fail to login', fakeAsync(() => {
+  it('should use inputClass() function not touched property', fakeAsync(() => {
+    // formMock.get('text').markAsTouched()
+    // formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    // formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property and valid', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    formMock.get('text').clearValidators()
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property and invalid', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function not touched property and invalid', fakeAsync(() => {
+    //formMock.get('text').markAsTouched()
+    formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use sendCode function', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(authService, 'new').and.returnValue(of(newUser))
-    spyOn(authService, 'login').and.returnValue(throwError({
+    spyOn(emailConfirmation, 'sendConfirmationCode').and.returnValue(of('Código reenviado correctamente'))
+    fixture.detectChanges();
+
+    component.sendCode("email");
+    expect(component.sendCode).toBeTruthy()
+  });
+
+  it('should fail to use sendCode function', () => {
+    spyTokenService.getToken.and.returnValue("tokenTest");
+    spyOn(emailConfirmation, 'sendConfirmationCode').and.returnValue(throwError({
       status: 404,
       error: {
         text: 'Error'
       }
     }))
-    spyOn(router, 'navigate').call
     fixture.detectChanges();
-    component.ngOnInit()
-    tick()
-    component.onRegister()
-    tick()
 
-    expect(component.isLogged).toEqual(false)
-    expect(component.isLoginFail).toEqual(true)
-  }));
+    component.sendCode('email');
+    expect(component.sendCode).toBeTruthy()
+  });
 
-  it('should fail to login and return undefined error', fakeAsync(() => {
+  it('should fail to use sendCode function with undefined error', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(authService, 'new').and.returnValue(of(newUser))
-    spyOn(authService, 'login').and.returnValue(throwError({
+    spyOn(emailConfirmation, 'sendConfirmationCode').and.returnValue(throwError({
       status: 404,
       error: {
         textError: 'Error'
       }
     }))
-    spyOn(router, 'navigate').call
     fixture.detectChanges();
-    component.ngOnInit()
-    tick()
-    component.onRegister()
-    tick()
 
-    expect(component.isLogged).toEqual(false)
-    expect(component.isLoginFail).toEqual(true)
-    expect(component.messageError).toEqual('Ha ocurrido un error')
-  }));
+    component.sendCode('email');
+    expect(component.sendCode).toBeTruthy()
+  });
+
+  /*it('should use refresh function', () => {
+    spyOn(component,'reloadPage').and.returnValue()
+    spyOn(router,'navigate').and.returnValue(Promise.resolve(false))
+    fixture.detectChanges();
+    expect(component.redirect).toBeTruthy()
+    component.redirect();
+  });*/
 })

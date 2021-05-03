@@ -23,16 +23,23 @@
     </div>
 
     <div class="form-group">
+    
       <label class="col-form-label">Presupuesto Máx.</label>
+      <div class="input-group mb-3">
       <input formControlName="maxBudget" type="text" class="{{inputClass(formFilter, 'maxBudget')}}" min="0" id="maxBudget" maxlength="8">
-     
+      
+      
+      <div class="input-group-append" >
+        <span class="input-group-text">€</span>
+      </div>
+
       <div class="invalid-feedback"
         *ngIf="formFilter.get('maxBudget').touched && formFilter.get('maxBudget').invalid">
         
         <div *ngIf="formFilter.get('maxBudget').errors.maxlength">El máximo de digitos es 8.</div>
         <div *ngIf="formFilter.get('maxBudget').errors.pattern">Deben ser dígitos y con un máximo de 6 decimales.</div>
       </div>
-
+    </div>
     </div>
 
     <div class="form-group">
@@ -51,6 +58,8 @@
 
     <a href="/buscador" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
+    <a href="itinerarios/crear"><button class="btn btn-primary" *ngIf="isLogged" type="button">Crear nuevo itinerario</button></a>
+
   </form>
 
 </div>
@@ -59,25 +68,14 @@
   
   <div class="container-itineraries">
 
-  <div class="div_pagination" *ngIf="search">
-    <ul class="pagination pagination-lg">
-      <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
-        <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
-          (click)="switchPage(currentPage-1)">&laquo;</a>
-      </li>
-
-      <div *ngFor="let i of initialPages;">
-        <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
-          <a class="page-link " (click)="switchPage(i)">{{i + 1}}</a>
-
-        </li>
-      </div>
-
-      <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
-        <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
-          (click)="switchPage(currentPage+1)">&raquo;</a>
-      </li>
-    </ul>
+  <div  *ngIf="search">
+   
+    
+      <div *ngFor="let item of itineraries | paginate: { itemsPerPage: 8 , currentPage: currentPage, totalItems: totalElements }"></div>
+    
+               
+    <pagination-controls class="div_pagination text-center" previousLabel="" nextLabel="" maxSize="5" responsive="true"  (pageChange)="getPage(currentPage = $event)"></pagination-controls>
+  
   </div>
 
   <div class="itinerary" *ngFor="let item of itineraries">
@@ -86,6 +84,9 @@
       <div class="front-face"
         [ngStyle]="{'background': 'linear-gradient(rgba(255, 60, 60, 0.2),rgba(0,0,0,.2)),url(' + item.imageUrl + ')', 'background-size': 'cover'}">
 
+        <div *ngIf="item.calcPlan != 0 || item.calcPromotion != 0">
+          <img class="sponsoredItinerary" [src]="item.calcPromotion != 0 ? 'assets/img/itineraryFeaturedLandmark.png' : 'assets/img/itineraryFeaturedUser.png'" alt="Itinerario patrocinado">
+        </div>
         <div class="contents front">
           <p>{{item.name}}</p>
 

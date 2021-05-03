@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { TokenService } from 'src/app/services/token.service';
 import { NewUser } from 'src/app/models/new-user';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
   urlPattern = "((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\+~%\\/.\\w-_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)"
 
   showProfile: boolean = true;
+  showDashboard: boolean = false;
 
   editForm: FormGroup;
 
@@ -42,7 +44,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = String(this.activatedRoute.snapshot.paramMap.get('username'));
-    this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+    if(this.tokenService.getToken()){
+      
+      this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
+
+    }
     if (String(this.tokenService.getUsername()) == this.username && this.tokenService.getToken()) {
       this.expectedUser = true;
     }
@@ -71,17 +77,26 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
+        
         this.incorrectUsername = true;
         this.messageError = err.error.text;
 
       }
     );
   }
+  
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if( input != null && input.trim().length == 0 ){
+        return {'required': true}
+    }
+  }
+
   updateUser() {
     this.editForm = this.formBuilder.group({
                    username: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
-                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
+                  firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3), this.checkSpaces]],
+                  lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3),  this.checkSpaces]],
                   email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
 
     })
@@ -210,8 +225,17 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  changeView() {
-    this.showProfile = !this.showProfile;
+  changeView(view: string) {
+    if (view == "itineraries"){
+      this.showProfile = false;
+      this.showDashboard = false;
+    } else if (view == "profile") {
+      this.showProfile = true;
+      this.showDashboard = false;
+    } else {
+      this.showProfile = false;
+      this.showDashboard = true;
+    }
   }
 
   inputClass(form:FormGroup,property: string){

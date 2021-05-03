@@ -27,7 +27,11 @@ import { LandmarkShowComponent } from './components/landmark/landmark-show/landm
 import { HereMapComponent } from './components/here-map/here-map.component';
 import { LandmarkCreateComponent } from './components/landmark/landmark-create/landmark-create.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { ConfirmationUserComponent } from './components/confirmation-user/confirmation-user.component';
+import {NgxPaginationModule} from 'ngx-pagination'
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { TermComponent } from './components/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,9 @@ import { ToastrModule } from 'ngx-toastr';
     LandmarkShowComponent,
     HereMapComponent,
     LandmarkCreateComponent,
+    ConfirmationUserComponent,
+    DashboardComponent,
+    TermComponent
     
 
     
@@ -61,9 +68,11 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxSliderModule,
+    ChartsModule,
     ToastrModule.forRoot({
       preventDuplicates: true
-    })
+    }),
+    NgxPaginationModule
   ],
   providers: [
     interceptor

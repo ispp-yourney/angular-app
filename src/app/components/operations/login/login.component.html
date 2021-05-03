@@ -35,7 +35,49 @@
                     <button class="btn btn-primary" [disabled]="!formLogin.valid">
                         Iniciar Sesión</button>
                 </div>
+
+
                 </form>
+
+                <a   href="#confirmation" data-toggle="modal" >¿Desea reenviar su código de confirmación?</a>
+        <!-- Confirmation Email -->
+        <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmación correo electrónico</h5>
+            
+                </div>
+                <div class="modal-body">
+                <form (ngSubmit)="sendCode()" [formGroup]="formConfirmation">
+              
+
+                    <div class="form-group">
+                        <label style="color: black;">Email <span style="color:#ff0000">*</span> </label>
+                        <input type="text" name="email" id="email" class="{{inputClass(formConfirmation, 'email')}}" formControlName="email"
+                            required email minlength="5" maxlength="50">
+                        <div class="invalid-feedback"
+                            *ngIf="formConfirmation.get('email').touched && formConfirmation.get('email').invalid">
+                            <div *ngIf="formConfirmation.get('email').errors.required">No puede quedar vacío</div>
+                            <div *ngIf="formConfirmation.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>
+                            <div *ngIf="formConfirmation.get('email').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
+                            <div *ngIf="formConfirmation.get('email').errors.email || formConfirmation.get('email').errors.pattern ">Formato no válido</div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"  [disabled]="!formConfirmation.valid" >Reenviar código</button>
+                        <a type="submit" class="btn btn-secondary" data-dismiss="modal" (click)="refresh()"  >Cerrar</a>
+                    </div>
+                 </form>
+                </div>
+               
+            </div>
+            </div>
+        </div>
+
+
 
 
             </div>

@@ -10,6 +10,7 @@ import {
 import { Location } from '@angular/common';
 import { IndexComponent } from './index.component';
 import { FooterComponent } from '../footer/footer.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 let component: IndexComponent;
@@ -57,7 +58,8 @@ describe('Index', () => {
         { provide: ActivatedRoute, useValue: activatedRouteMock },
         { provide: TokenService, useValue: spyTokenService },
         { provide: Router, useValue: routerSpy }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
 
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(IndexComponent);

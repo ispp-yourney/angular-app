@@ -207,6 +207,7 @@ describe('ItineraryService', () => {
         }
       ],
       "totalPages": 1,
+      "totalElements": 10,
       "numberOfElements": 3,
     }
 

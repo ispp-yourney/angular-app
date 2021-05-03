@@ -17,7 +17,8 @@ export class ItineraryService {
   public userItineraries(username: String, page: number): Observable<ItineraryUserPage> {
     var url = this.hostURL + '/itinerary/user/' + username;
     let params = new HttpParams()
-    .set('page', page.toString());
+    .set('page', page.toString())
+    .set('size', '4');
     return this.httpClient.get<ItineraryUserPage>(url, {params});
   }
 

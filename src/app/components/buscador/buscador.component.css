@@ -79,7 +79,6 @@ h3 {
     margin: 5px;
 }
 
-
 input, textarea, select {
   box-shadow: 0 0 5px rgba(0,0,0,0.18);
   border-radius: .25rem;
@@ -119,6 +118,7 @@ position: absolute;
   float: left;
   top: 300px;
   margin-bottom: 30px;
+  
 
 }
 .front-face, .back-face{
@@ -218,10 +218,12 @@ transform: rotateY(-180deg);
 
 
 .div_pagination{
-  display: flex;
   width:40%;
   margin-left:auto;
   margin-right: auto;
+  display: flex;
+  position: absolute;
+  left: 45vw;
 
 }
 
@@ -258,6 +260,14 @@ transform: rotateY(-180deg);
   left: 5vw;
 }
 
+.sponsoredItinerary {
+  height: 15%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  object-fit: cover;
+}
+
 @media (max-width: 800px){
   .itinerary {
     position: relative;
@@ -275,9 +285,12 @@ transform: rotateY(-180deg);
 
   .div_pagination{
     display: flex;
-    width:40%;
+    width:60%;
     margin-left:auto;
     margin-right: auto;
+    position: absolute;
+    left: 20vw;
+   
   }
 
  

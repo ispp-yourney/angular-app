@@ -107,5 +107,12 @@ export class ItineraryViewComponent implements OnInit  {
       return recommendedSeason;
   }
 
+  countStars(stars: number) {
+    return Array(Math.round(stars))
+  }
+
+  countNoStars(stars: number) {
+    return Array(5 - Math.round(stars))
+  }
 
 }

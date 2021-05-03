@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { JwtDto } from '../models/jwt-dto';
 import {environment} from '../../environments/environment-ci';
 @Injectable({
   providedIn: 'root'

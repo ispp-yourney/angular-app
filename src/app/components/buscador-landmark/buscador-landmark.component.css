@@ -158,6 +158,13 @@
   margin: 0 auto;
   margin-top: 10px;
 }
+.sponsoredItinerary {
+  height: 15%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  object-fit: cover;
+}
 .back-face{
   transform: rotateY(180deg);
   background: linear-gradient(rgba(255, 60, 60, 0.666),
@@ -234,6 +241,8 @@ i.fab{
     margin-left:auto;
     margin-right: auto;
     display: flex;
+    position: relative;
+    left: 12vw;
     
   }
   
@@ -274,6 +283,8 @@ i.fab{
     margin-left: auto;
     margin-right: auto;
     width: 40%;
+    position: relative;
+    left: 7vw;
   }
 
 
@@ -298,10 +309,11 @@ i.fab{
 
     .div_pagination{
       display:flex;
-      width:40%;
+      width:60%;
       margin-left:auto;
       margin-right: auto;
-      
+      position: absolute;
+      left: 25vw;
     }
 
     .addLandmark{
@@ -321,6 +333,15 @@ i.fab{
 .landmarkAdd{
   position: relative;
   left:45vw;
+}
+
+.addLandmark_pagination{
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  position: absolute;
+  left: 10vw;
 }
 
 }

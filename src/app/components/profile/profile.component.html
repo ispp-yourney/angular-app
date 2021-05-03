@@ -22,11 +22,14 @@
                       <div class="plan">
                         <span class="badge badge-pill" [ngClass]="plan=='Gratis' ? 'badge-info': 'badge-warning'"><span *ngIf="plan!='Gratis'" class="fa fa-star" style="color:orange">&nbsp;&nbsp;</span>{{plan}}</span><br>
                       </div>
-                      <br><button style="font-size:15px" class="btn mt-2" (click)="changeView()" [disabled]="showProfile">
+                      <br><button style="font-size:15px" class="btn mt-2" (click)="changeView('profile')" [disabled]="showProfile">
                         Datos <i class="fa fa-address-card-o" aria-hidden="true"></i>
                       </button>
-                      <br><button style="font-size:15px" class="btn mt-2" (click)="changeView()" [disabled]="!showProfile">
+                      <br><button style="font-size:15px" class="btn mt-2" (click)="changeView('itineraries')" [disabled]="!(showProfile || showDashboard)">
                         Itinerarios <i class="fa fa-suitcase" aria-hidden="true"></i>
+                      </button>
+                      <br><button style="font-size:15px" *ngIf="isAdmin && expectedUser" class="btn mt-2" (click)="changeView('dashboard')" [disabled]="showDashboard">
+                        Panel de control <i class="fa fa-bar-chart" aria-hidden="true"></i>
                       </button>
                     </div>
                   </div>
@@ -81,7 +84,7 @@
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
                               <input type="text" name="email" id="email" class="{{inputClass(editForm, 'email')}}" formControlName="email"
-                                  required email minlength="5" maxlength="50" value="{{userDetails?.email}}">
+                                  required email minlength="5" maxlength="50" value="{{userDetails?.email}}" readonly>
                               <div class="invalid-feedback" *ngIf="editForm.get('email').touched && editForm.get('email').invalid">
                                   <div *ngIf="editForm.get('email').errors.required">No puede quedar vacío</div>
                                   <div *ngIf="editForm.get('email').errors.minlength">Debe de tener al menos 5 caracteres</div>
@@ -106,7 +109,7 @@
                               </div>
                             </div>
                             
-                            <button *ngIf="plan=='Gratis' && expectedUser && !isAdmin" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro</button>
+                            <button *ngIf="plan=='Gratis' && expectedUser && !isAdmin" type="button" class="btn btn-primary btn-upgrade" (click)="upgradeUser()">Mejorar a pro (2€/Mes)</button>
                           </div>
                         </form>  
                       </ng-template>
@@ -120,22 +123,17 @@
                             {{userDetails?.firstName}} {{userDetails?.lastName}}
                           </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                          <div class="col-sm-3">
-                            <h6 class="mb-0">Email</h6>
-                          </div>
-                          <div class="col-sm-9 text-secondary">
-                            {{userDetails?.email}}
-                          </div>
-                        </div>
                       </ng-template>
                   
                     </div>
                   </div>
 
-                  <div *ngIf="!showProfile">
+                  <div *ngIf="!showProfile && !showDashboard">
                     <app-itinerarylist></app-itinerarylist>
+                  </div>
+
+                  <div *ngIf="showDashboard">
+                    <app-dashboard></app-dashboard>
                   </div>
               </div>
             </div>

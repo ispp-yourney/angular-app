@@ -12,7 +12,7 @@ import {
 
 
 import { routes } from "../../app-routing.module";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule, FormBuilder } from "@angular/forms";
 import { Location } from '@angular/common';
 import { of, throwError } from 'rxjs';
 import { ShowUser } from 'src/app/models/show-user';
@@ -38,7 +38,10 @@ let showUserPlan0: ShowUser = new ShowUser("testUser", "testPassword", "John", "
 let showUserPlan1: ShowUser = new ShowUser("testUser", "testPassword", "John", "Doe", "user@test.com", null, 1);
 let spyTokenService;
 
-
+let formBuilder: FormBuilder = new FormBuilder();
+let formMock = formBuilder.group({
+  text: ['']
+});
 
 
 describe('Profile', () => {
@@ -117,17 +120,16 @@ describe('Profile', () => {
   });
 
   it('should not be expectedUser from ngOnInit', fakeAsync(() => {
-
+    spyTokenService.getToken.and.returnValue();
     spyTokenService.getUsername.and.returnValue("eduardo");
 
     fixture.detectChanges();
     component.ngOnInit()
 
     expect(activatedRoute.snapshot.paramMap.get('username')).toEqual('alejandro1cortes')
-    expect(tokenService.getToken()).toBeTruthy();
 
 
-    expect(tokenService.getToken()).toEqual('tokenTest')
+    expect(tokenService.getToken()).toEqual(undefined)
     expect(tokenService.getUsername()).toEqual('eduardo')
 
     var if_block = (String(tokenService.getUsername()) == component.username && tokenService.getToken())
@@ -205,6 +207,28 @@ describe('Profile', () => {
     expect(component.messageError).toEqual('Error')
   }));
 
+  it('should fail updateUser function with undefined error', fakeAsync(() => {
+    spyOn(component, 'reloadWindowLocation').and.returnValue();
+    spyOn(authService, 'showUser').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: undefined
+      }
+    }));
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(activatedRoute.snapshot.paramMap.get('username')).toEqual('alejandro1cortes')
+    expect(tokenService.getToken()).toEqual('tokenTest')
+    expect(tokenService.getUsername()).toEqual('alejandro1cortes')
+    var if_block = (String(tokenService.getUsername()) == component.username && tokenService.getToken())
+    expect(if_block).toBeTruthy()
+
+    expect(component.expectedUser).toEqual(true)
+    tick();
+    expect(component.messageError).toEqual(undefined)
+  }));
 
   it('should use showUser function with plan 0', fakeAsync(() => {
     spyOn(authService, 'showUser').and.returnValue(of(showUserPlan0))
@@ -278,12 +302,18 @@ describe('Profile', () => {
 
     expect(component.expectedUser).toEqual(true)
     tick();
-    component.changeView();
+    component.changeView('itineraries');
     tick();
     expect(component.showProfile).toEqual(false)
-    component.changeView();
+    expect(component.showDashboard).toEqual(false)
+    component.changeView('profile');
     tick();
     expect(component.showProfile).toEqual(true)
+    expect(component.showDashboard).toEqual(false)
+    component.changeView('');
+    tick();
+    expect(component.showProfile).toEqual(false)
+    expect(component.showDashboard).toEqual(true)
   }));
 
 
@@ -330,6 +360,26 @@ describe('Profile', () => {
     flush();
   }));
 
+  it('should fail to use updateUser function with unknown error', fakeAsync(() => {
+    spyOn(authService, 'showUser').and.returnValue(of(showUserPlan0))
+    spyOn(authService, 'updateUser').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: false
+      }
+    }));
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(component.expectedUser).toEqual(true)
+    tick(1000);
+    fixture.detectChanges();
+    expect(component.userDetails).toEqual(showUserPlan0);
+    component.onUpdate();
+    flush();
+  }));
+
 
   it('should use removeUserImage function ', fakeAsync(() => {
     let imageDeleteResponseMock = { "text": "Imagen eliminada correctamente" }
@@ -362,66 +412,163 @@ describe('Profile', () => {
   }));
 
 
-  // it('should use addUserImage function ', fakeAsync(() => {
-  //   let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
-  //   spyOn(imageService, 'addUserPhoto').and.returnValue(of(imageAddResponseMock))
+  it('should use addUserImage function image/png', fakeAsync(() => {
+     let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+     spyOn(imageService, 'addUserPhoto').and.returnValue(of(imageAddResponseMock))
 
-  //   fixture.detectChanges();
-  //   component.ngOnInit()
+     fixture.detectChanges();
+     component.ngOnInit()
 
-  //   expect(component.expectedUser).toEqual(true)
-  //   tick();
+     expect(component.expectedUser).toEqual(true)
+     tick();
 
-  //   const getFileList = () => {
-  //     const blob = new Blob([""], { type: "text/html" });
-  //     blob["lastModifiedDate"] = "";
-  //     blob["name"] = "filename";
-  //     const file = <File>blob;
-  //     const fileList: FileList = {
-  //       0: file,
-  //       1: file,
-  //       length: 2,
-  //       item: (index: number) => file
-  //     };
-  //     return fileList;
-  //   };
+     const getFileList = () => {
+       const blob = new Blob([""], { type: "image/png" });
+       blob["lastModifiedDate"] = "";
+       blob["name"] = "filename";
+       const file = <File>blob;
+       const fileList: FileList = {
+         0: file,
+         1: file,
+         length: 2,
+         item: (index: number) => file
+       };
+       return fileList;
+     };
     
-  //   component.addUserImage(getFileList(), "test");
-  //   flush();
-  // }));
+     component.addUserImage(getFileList(), {value:{value:"test"}});
+     flush();
+   }));
 
-  // it('should fail use addUserImage function ', fakeAsync(() => {
-  //   let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
-  //   spyOn(imageService, 'addUserPhoto').and.returnValue(throwError({
-  //     status: 404,
-  //     error: {
-  //       text: 'Error'
-  //     }
-  //   }))
+   it('should fail to use addUserImage function image/png', fakeAsync(() => {
+    let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+    spyOn(imageService, 'addUserPhoto').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: 'true'
+      }
+    }))
 
-  //   fixture.detectChanges();
-  //   component.ngOnInit()
+    fixture.detectChanges();
+    component.ngOnInit()
 
-  //   expect(component.expectedUser).toEqual(true)
-  //   tick();
+    expect(component.expectedUser).toEqual(true)
+    tick();
 
-  //   const getFileList = () => {
-  //     const blob = new Blob([""], { type: "text/html" });
-  //     blob["lastModifiedDate"] = "";
-  //     blob["name"] = "filename";
-  //     const file = <File>blob;
-  //     const fileList: FileList = {
-  //       0: file,
-  //       1: file,
-  //       length: 2,
-  //       item: (index: number) => file
-  //     };
-  //     return fileList;
-  //   };
-    
-  //   component.addUserImage(getFileList(), "test");
-  //   flush();
-  // }));
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename";
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        1: file,
+        length: 2,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+   
+    component.addUserImage(getFileList(), {value:{value:"test"}});
+    flush();
+  }));
+
+   it('should use addUserImage function image/png with unknown error', fakeAsync(() => {
+    let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+    spyOn(imageService, 'addUserPhoto').and.returnValue(throwError({
+      status: 404,
+      error: {
+        text: false
+      }
+    }))
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(component.expectedUser).toEqual(true)
+    tick();
+
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename";
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        1: file,
+        length: 2,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+   
+    component.addUserImage(getFileList(), {value:{value:"test"}});
+    flush();
+  }));
+
+  it('should use addUserImage function image/random', fakeAsync(() => {
+    let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+    spyOn(imageService, 'addUserPhoto').and.returnValue(of(imageAddResponseMock))
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(component.expectedUser).toEqual(true)
+    tick();
+
+    const getFileList = () => {
+      const imageSize="x".repeat(4000000+1)
+      const blob = new Blob([imageSize], { type: "image/random" });
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename";
+      
+      const file = <File>blob;
+
+      const fileList: FileList = {
+        0: file,
+        1: file,
+        length: 2,
+        item: (index: number) => file,
+      };
+
+      return fileList;
+    };
+   
+    component.addUserImage(getFileList(), {value:{value:"test"}});
+    flush();
+  }));
+
+  it('should use addUserImage function image/png big size', fakeAsync(() => {
+    let imageAddResponseMock = { "text": "Imagen añadida correctamente" }
+    spyOn(imageService, 'addUserPhoto').and.returnValue(of(imageAddResponseMock))
+
+    fixture.detectChanges();
+    component.ngOnInit()
+
+    expect(component.expectedUser).toEqual(true)
+    tick();
+
+    const getFileList = () => {
+      const imageSize="x".repeat(4000000+1)
+      const blob = new Blob([imageSize], { type: "image/jpeg" });
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename";
+      
+      const file = <File>blob;
+
+      const fileList: FileList = {
+        0: file,
+        1: file,
+        length: 2,
+        item: (index: number) => file,
+      };
+
+      return fileList;
+    };
+   
+    component.addUserImage(getFileList(), {value:{value:"test"}});
+    flush();
+  }));
 
 
   it('should use upgradeUser function ', fakeAsync(() => {
@@ -455,6 +602,61 @@ describe('Profile', () => {
     
     component.upgradeUser();
     expect(component.messageError).toEqual('Error')
+  }));
+
+  it('should use inputClass() function not touched property', fakeAsync(() => {
+    // formMock.get('text').markAsTouched()
+    // formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    // formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property and valid', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    formMock.get('text').clearValidators()
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function touched property and invalid', fakeAsync(() => {
+    formMock.get('text').markAsTouched()
+    formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
+  }));
+
+  it('should use inputClass() function not touched property and invalid', fakeAsync(() => {
+    //formMock.get('text').markAsTouched()
+    formMock.get('text').setErrors({ required: true })
+    fixture.detectChanges();
+
+    component.ngOnInit()
+    fixture.detectChanges();
+    expect(component.inputClass(formMock, 'text')).toBeTruthy()
+    component.inputClass(formMock, 'text')
   }));
 })
 

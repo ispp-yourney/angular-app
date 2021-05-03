@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comment } from 'src/app/models/comment';
 import { Itinerary } from 'src/app/models/itinerary';
@@ -27,6 +27,8 @@ export class CommentformComponent implements OnInit {
   isLogged: boolean = false;
   loggedUsername:string;
   isAdmin: boolean = false;
+  alreadyCommented:boolean=false;
+  isMyItinerary: boolean;
 
   options: Options = {
     floor: 1,
@@ -45,7 +47,7 @@ export class CommentformComponent implements OnInit {
      private toastr: ToastrService) { 
 
           this.formComment = formBuilder.group({
-            content: ['', [Validators.required, Validators.maxLength(1000)]],
+            content: ['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
             rating: [1, [Validators.required,Validators.min(1),Validators.max(5)]],
         });
 
@@ -53,6 +55,7 @@ export class CommentformComponent implements OnInit {
 }
   ngOnInit(): void {
     this.loggedUsername=this.tokenService.getUsername()
+    this.isMyItinerary= this.loggedUsername == this.itinerary.author.username
     if(this.tokenService.getAuthorities().length > 0){
       this.isAdmin = this.tokenService.getAuthorities()[0]['authority'] == 'ROLE_ADMIN';
     }
@@ -62,8 +65,19 @@ export class CommentformComponent implements OnInit {
     }
   }
 
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if(input != null && input.trim().length == 0 ){
+        return {'required': true}
+    }
+  }
+
   loadComments() {
-      this.comments = this.itinerary.comments;
+    this.comments = this.itinerary.comments;
+    var usersComment = this.comments.map(function (comment) {
+      return comment.author.username;
+    });
+    this.alreadyCommented=usersComment.indexOf(this.loggedUsername) >= 0
   }
 
  showComments(){

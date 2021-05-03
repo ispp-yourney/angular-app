@@ -19,7 +19,7 @@
 
     <div class="form-group">
       <label for="city">Ciudad</label>
-      <select formControlName="city" class="form-control" id="city">
+      <select formControlName="city" class="form-control" id="city" >
         <option disabled selected value> -- Secciona una ciudad -- </option>
         <option *ngFor="let ciudad of city" [value]="ciudad"> {{ciudad}} </option>
       </select>
@@ -29,7 +29,7 @@
 
     <button type="submit" (click)="onRegister()" [disabled]="!formFilter.valid" class="btn"> <em class="fa fa-search fa-2x" aria-hidden="true"></em></button>
 
-    <a href="/buscadorLandmark" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
+    <a href="/buscador_punto_interes" *ngIf="!create" class="btn "><em class="fa fa-refresh fa-2x" aria-hidden="true"></em></a>
 
     <app-landmark-create *ngIf="isLogged && !create"></app-landmark-create>
 
@@ -49,26 +49,14 @@
 
   <div class="container-landmarks">
 
-  <div [className]="create ? 'addLandmark_pagination' : 'div_pagination'" *ngIf="search" style="text-align:center!important" class="center">
-    <ul class="pagination pagination-lg">
-      <li class=" page-item" [ngClass]="{'disabled': currentPage==0}">
-        <a class="page-link" style="border-top-left-radius:10px;border-bottom-left-radius:10px;"
-          (click)="switchPage(currentPage-1)">&laquo;</a>
-      </li>
-
-      <div *ngFor="let i of initialPages;">
-        <li class="page-item mobile" [ngClass]="{'active':i===currentPage}">
-          <a class="page-link "  (click)="switchPage(i)">{{i + 1}}</a>
-
-        </li>
-      </div>
-
-      <li class="page-item" [ngClass]="{'disabled': (totalPages - 1)==currentPage}">
-        <a class="page-link" style="border-top-right-radius:10px;border-bottom-right-radius:10px;"
-          (click)="switchPage(currentPage+1)">&raquo;</a>
-      </li>
-    </ul>
-  </div>
+  <div  *ngIf="search">
+    
+      <div *ngFor="let item of landmarks | paginate: { itemsPerPage: 8 , currentPage: currentPage, totalItems: totalElements }"></div>
+    
+               
+      <pagination-controls [className]="create ? 'addLandmark_pagination text-center' : 'div_pagination text-center'" previousLabel="" nextLabel="" maxSize="5" responsive="true"  (pageChange)="getPage(currentPage = $event)"></pagination-controls>
+  
+    </div>
   
   <div [className]="create ? 'landmarkAdd' : 'landmark'"  *ngFor="let item of landmarks">
 
@@ -76,7 +64,9 @@
     <div class="center">
       <div class="front-face"
         [ngStyle]="{'background': 'linear-gradient(rgba(255, 60, 60, 0.2),rgba(0,0,0,.2)),url(' + item.image.imageUrl + ')', 'background-size': 'cover'}">
-
+        
+        <img *ngIf="estaPromocionado(item.endPromotionDate)" class="sponsoredItinerary" src="assets/img/itineraryFeaturedLandmark.png" alt="Punto de interes patrocinado">
+        
         <div class="contents front">
           <p>{{item.name}}</p>
           <span>{{item.city}}</span>
@@ -117,3 +107,11 @@
 </ng-template>
 
 </div>
+
+<script>  
+function isPromoted(date){
+  lDate = new Date(date)
+  hoy = new Date()
+  return lDate<hoy
+}
+</script>  

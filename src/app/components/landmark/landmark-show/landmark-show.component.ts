@@ -39,7 +39,7 @@ export class LandmarkShowComponent implements OnInit {
 
   checkPrice(control: AbstractControl): {[key: string]: any} | null {
     const price =  parseFloat(control.value)
-    if(price<0 || price >10000 ){
+    if(price<0 || price >=10000 ){
         return {'maxPrice': true}
     }else{
       return null
@@ -55,14 +55,14 @@ export class LandmarkShowComponent implements OnInit {
     if(this.isAdmin){
       this.countries = this.countryService.getAllCountries()
       this.editForm = this.formBuilder.group({
-        name: ['', [Validators.required,Validators.maxLength(50)]],
-        description:['', [Validators.required,Validators.maxLength(1000)]],
-        price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(20), Validators.pattern("^[+-]?\\d*\\.?\\d{0,6}$")]],
+        name: ['', [Validators.required, this.checkSpaces, Validators.maxLength(50)]],
+        description:['', [Validators.required, this.checkSpaces, Validators.maxLength(1000)]],
+        price: ['0', [Validators.required,this.checkPrice,Validators.maxLength(8), Validators.pattern("^[+]?[0-9]{1,4}(?:\\.[0-9]{1,2})?$")]],
         country: ['', Validators.required],
         category: [''],
-        city: ['', [Validators.required, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
-        latitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-90,90), Validators.required]],
-        longitude: ['', [Validators.pattern("^[+-]?\\d*\\.?\\d{0,10}$"), checkRange(-180,180), Validators.required]],
+        city: ['', [Validators.required,  this.checkSpaces, Validators.pattern("^([a-zA-Z ñÑá-úÁ-Ú])*$"),Validators.maxLength(100)]],
+        latitude: ['', [Validators.pattern("^[+-]?[0-9]{1,3}(?:\\.[0-9]{1,10})?$"), checkRange(-90,90), Validators.required]],
+        longitude: ['', [Validators.pattern("^[+-]?[0-9]{1,3}(?:\\.[0-9]{1,10})?$"), checkRange(-180,180), Validators.required]],
         email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")]],
         phone: ['', Validators.pattern("^(([+][(][0-9]{1,3}[)][ ])?([0-9]{6,12}))$")],
         website: ['', [Validators.pattern("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"), Validators.maxLength(300)]],
@@ -73,6 +73,13 @@ export class LandmarkShowComponent implements OnInit {
       })
     }
     this.loadLandmark();
+  }
+
+  checkSpaces(control: AbstractControl): {[key: string]: any} | null {
+    const input = control.value
+    if(input != null && input.trim().length == 0 ){
+        return {'required': true}
+    }
   }
 
   loadLandmark(): void {
@@ -177,7 +184,7 @@ export class LandmarkShowComponent implements OnInit {
 
   onDelete(){
     this.landmarkService.deleteLandmark(this.landmark.id).subscribe(data => {
-      this.router.navigateByUrl('/buscadorLandmark')
+      this.router.navigateByUrl('/buscador_punto_interes')
     }, err => {
     })
   
