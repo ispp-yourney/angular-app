@@ -328,7 +328,7 @@ export class ItineraryformComponent implements OnInit {
 
     let fileNames: Array<any> = this.addedImages(this.formItiner)
     
-    if(fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+    if(fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && (file?.type == 'image/jpeg' || file?.type == 'image/png')){
       this.itineraryImage = files.item(0)
 
     }else{
@@ -357,12 +357,13 @@ export class ItineraryformComponent implements OnInit {
 
   addLandmarkImage(files: FileList, activity: FormGroup,value) {
     const file = files.item(0)
-  
     let fileNames: Array<any> = this.addedImages(this.formItiner)
-    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+    console.log(fileNames.indexOf(file?.name) == -1)
+
+    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && (file?.type == 'image/jpeg' || file?.type == 'image/png')){
       
       activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
-
+     
     }else{
       
       value.value = ""
