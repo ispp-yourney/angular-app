@@ -7,15 +7,37 @@
         <div class="middle-welcome">
             
             <div class="inner-welcome" *ngIf="isLogged; else loggedOut">
-                <h1 class="title">Bienvenido/a</h1> 
-                <h2 class="d-flex justify-content-center name">{{username}}</h2>
+                <div class="message" data-aos="fade-up" data-aos="zoom-in">
+                    <img class="logo" src="assets/img/new_logo.png">
+                    <h1 class="welcome" >Bienvenido/a a Yourney</h1>
+                    <h2 class="username" >{{username}}</h2>
+                    <a class="btn btn-primary explore" href="/buscador" >Explorar</a>
+                </div>
+
+                <div>
+                    <img class="route"  src="assets/img/ruta_avion.png"  data-aos="fade-down">
+
+                    <img class="plane" style="width: 400px;position: relative; left: 20vw; bottom:500px;" src="assets/img/avionpapel.png"  data-aos="fade-right" >
+                </div>
                 
             </div>
             <ng-template #loggedOut>
                 <div class="inner-welcome">
-                    <h1 class="title" >Bienvenido/a</h1>
-                    <h1 class="title" style="position: relative; left: 12px!important;">a</h1>
-                    <h1 class="title" style="position: relative; left: -2px!important;" >Yourney</h1>
+                    <div class="message" data-aos="fade-up" data-aos="zoom-in">
+                        <img class="logo" src="assets/img/new_logo.png">
+                        <h1 class="welcome">Bienvenido/a a Yourney</h1>
+                        <h2 class="welcome-sub" >Despega con nosotros</h2>
+
+                        <a class="btn btn-primary explore" href="/buscador">Explorar</a>
+                    </div>
+
+                    <div>
+                        <img class="route"  src="assets/img/ruta_avion.png"  data-aos="fade-down">
+
+                        <img class="plane" src="assets/img/avionpapel.png"  data-aos="fade-right" >
+                    </div>
+                    
+
                 </div>
             </ng-template>
             <app-footer></app-footer>
@@ -23,7 +45,7 @@
     </div>
 
     
-
+   
 
 
 

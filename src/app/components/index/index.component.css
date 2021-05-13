@@ -52,6 +52,61 @@ h4 {
     padding:20px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+.welcome{
+
+    position: relative; 
+    font-size: 50px; 
+    right: 30vw;
+    font-family: PT, Serif;
+
+}
+
+.welcome-sub{
+    position: relative;
+     right: 30vw;
+     font-family: PT, Serif;
+     font-style: italic;
+
+
+}
+
+.explore{
+    position: relative;
+     border-radius: 10px;
+     right: 30vw!important; 
+     width: 200px; 
+     top: 50px;
+}
+
+.route{
+    width: 900px; 
+    position: relative;
+     left: 20vw; 
+    bottom: 500px; 
+}
+
+.plane{
+    width: 400px;
+    position: relative;
+    left: 20vw;
+    bottom:500px;
+}
+
+.logo{
+    width: 700px;
+     position: relative; 
+     right: 30vw;
+}
+
+.username{
+    font-size: 30px; 
+    position:relative;
+    right: 30vw;
+    font-style: italic;
+}
+
 @media (max-width: 800px){
     h1{
         font-size: 50px;
@@ -63,5 +118,59 @@ h4 {
     .name{
         font-size: 30px;
     }
+
+.message{
+    bottom: 100px;
+}
+    
+.welcome{
+
+    position: relative; 
+    font-size: 50px; 
+    bottom: 50px;
+    width: 300px;
+
+}
+
+.welcome-sub{
+   display: none;
+
+}
+
+.username{
+    font-size: 30px; 
+    position:relative;
+    left: -16px;
+    font-style: italic;
+
+}
+
+.explore{
+    position: relative;
+     border-radius: 10px;
+     right: 1vw!important; 
+     width: 200px; 
+     top: 50px;
+}
+
+.route{
+   display: none;
+}
+
+.plane{
+    display: none;
+
+}
+
+.logo{
+    position: relative;
+    bottom: 130px;
+    width: 100%;;
+    height: auto; 
+    left: 2px;
+    box-sizing: content-box;
+    content: url("../../../assets/img/avionpapel.png");
+    
+}
    
 }

@@ -109,13 +109,13 @@ export class LoginComponent implements OnInit {
 
     sendCode(){
       this.emailService.sendConfirmationCode(this.formConfirmation.value.email).subscribe( response =>{
-        this.toastr.success("Código reenviado correctamente.")
+        this.toastr.success("Correo de confirmación enviado correctamente.")
     }, error =>{
      
         if(error.error.text){
           this.toastr.error(error.error.text)
         }else{
-          this.toastr.error("Ha ocurrido un error al reenviar el código.")
+          this.toastr.error("Ha ocurrido un error al reenviar el correo de confirmación.")
 
         }
 

@@ -448,7 +448,7 @@ export class ItineraryupdateComponent implements OnInit {
   addItineraryImage(files: FileList, value) {
     const file = files.item(0)
     let fileNames: Array<any> = this.addedImages(this.editForm)
-    if(fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+    if(fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && (file?.type == 'image/jpeg' || file?.type == 'image/png')){
       this.itineraryImage = files.item(0)
 
     }else{
@@ -478,7 +478,7 @@ export class ItineraryupdateComponent implements OnInit {
     const file = files.item(0)
   
     let fileNames: Array<any> = this.addedImages(this.editForm)
-    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file?.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+    if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file?.size <= 4000000 && (file?.type == 'image/jpeg' || file?.type == 'image/png')){
       
       activity.get('landmark')['controls'][0]['controls'].landmarkImage.setValue(file)
 

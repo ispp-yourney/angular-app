@@ -74,12 +74,21 @@
                         </div>
                     </div>
                     <br>
-                    <div class="mt-6">
-                        <input class="form-check-input" formControlName="acceptedTerms" type="checkbox" id="acceptedTerms">
-                        <label class="form-check-label" for="acceptedTerms">
-                            Aceptar los <a href="/terminos" target="_blank">términos y condiciones</a>.
-                        </label>
+                    <div class="form-group">
+                        <label> Aceptar los <a href="/terminos" target="_blank">términos y condiciones<span style="color:#ff0000">*</span></a>. </label>
+                        
+
+                        <input style="position: relative; left: 19px; top: 2px;" class="{{inputClassCheck(formRegister, 'acceptedTerms')}}" formControlName="acceptedTerms" type="checkbox"  id="acceptedTerms">
+                            
+                        
+                            <div class="invalid-feedback" *ngIf="formRegister.get('acceptedTerms').touched && formRegister.get('acceptedTerms').invalid">
+                        
+                                <div *ngIf="formRegister.get('acceptedTerms').errors.required">Debe de aceptar los términos y condiciones</div>
+                           
+                            </div>
+                       
                     </div>
+                   
                     <div class="mt-3">
                         <button class="btn btn-primary" [disabled]="!formRegister.valid" data-target="#register" data-toggle="modal" data-backdrop="static" data-keyboard="false" >
                              Confirmar</button>
@@ -103,7 +112,7 @@
                             <div >
 
                                 ¿No le ha llegado el código?
-                                <a type="button" class="btn btn-primary" (click)="sendCode(formRegister.get('email').value)" >Reenviar código</a>
+                                <a type="button" class="btn btn-primary" (click)="sendCode(formRegister.get('email').value)" >Reenviar correo de confirmación</a>
 
                             </div>
                             </div>

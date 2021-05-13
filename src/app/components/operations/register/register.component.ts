@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
                   firstName: ['',[Validators.required, Validators.maxLength(50), Validators.minLength(3), this.checkSpaces]],
                   lastName: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(3), this.checkSpaces]],
                   email: ['', [Validators.email, Validators.pattern("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"), Validators.maxLength(50), Validators.minLength(5)]],
-                  acceptedTerms: ['', [Validators.requiredTrue]]
+                  acceptedTerms: ['', Validators.requiredTrue]
                 })
                }
 
@@ -102,6 +102,21 @@ inputClass(form:FormGroup,property: string){
   return inputClass
   }
 
+  inputClassCheck(form:FormGroup,property: string){
+    let inputClass: string;
+
+    if(!form.get(property).touched){
+      inputClass = "form-check-input"
+    }else if(form?.get(property).touched && form?.get(property).valid){
+      inputClass = "form-check-input is-valid"
+    }else if(form?.get(property).touched && form?.get(property).invalid){
+      inputClass = "form-check-input is-invalid"
+    }
+  
+    return inputClass
+
+    }
+
   reloadPage(){window.location.reload()}
 
   redirect(){
@@ -110,13 +125,13 @@ inputClass(form:FormGroup,property: string){
 
   sendCode(email: string){
     this.emailConfirmation.sendConfirmationCode(email).subscribe( response =>{
-        this.toastr.success("Código reenviado correctamente.")
+        this.toastr.success("Correo de confirmación enviado correctamente.")
     }, error =>{
      
         if(error.error.text){
           this.toastr.error(error.error.text)
         }else{
-          this.toastr.error("Ha ocurrido un error al reenviar el código.")
+          this.toastr.error("Ha ocurrido un error al reenviar el correo de confirmación.")
 
         }
 

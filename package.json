@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
+    "aos": "^2.3.4",
     "bcrypt-pbkdf": "1.0.2",
     "body-parser": "*",
     "bootstrap": "^4.6.0",
