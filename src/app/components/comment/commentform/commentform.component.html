@@ -97,11 +97,11 @@
                       <div *ngFor="let noStar of countNoStars(comment.rating)" style="float: left;">
                         <span class="fa fa-star"></span>
                       </div>
-                      <button class="btn btn-danger ml-2 eliminar" *ngIf="comment.author.username==loggedUsername || isAdmin"
-                        (click)=removeComment(comment.id)>Eliminar</button>
                     </div>
                   </li>
                 </ul>
+                <button class="btn btn-danger ml-2 eliminar" *ngIf="comment.author.username==loggedUsername || isAdmin"
+                  (click)=removeComment(comment.id)>Eliminar</button>
               </div>
             </div>
           </div>

@@ -223,7 +223,7 @@ describe('Login', () => {
 
   it('should use sendCode function', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(emailService, 'sendConfirmationCode').and.returnValue(of('Código reenviado correctamente'))
+    spyOn(emailService, 'sendConfirmationCode').and.returnValue(of('Correo reenviado correctamente'))
     fixture.detectChanges();
 
     component.sendCode();
