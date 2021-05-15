@@ -228,7 +228,7 @@ describe('Register', () => {
 
   it('should use sendCode function', () => {
     spyTokenService.getToken.and.returnValue("tokenTest");
-    spyOn(emailConfirmation, 'sendConfirmationCode').and.returnValue(of('Código reenviado correctamente'))
+    spyOn(emailConfirmation, 'sendConfirmationCode').and.returnValue(of('Correo reenviado correctamente'))
     fixture.detectChanges();
 
     component.sendCode("email");
