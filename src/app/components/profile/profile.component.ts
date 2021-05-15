@@ -149,7 +149,7 @@ export class ProfileComponent implements OnInit {
   addUserImage(files: FileList,value) {
     
     const file = files.item(0)
-    if( file?.size <= 4000000 && file?.type == 'image/jpeg' || file?.type == 'image/png'){
+    if( file?.size <= 4000000 && (file?.type == 'image/jpeg' || file?.type == 'image/png')){
       
       this.imageService.addUserPhoto(file).subscribe(
         data => {

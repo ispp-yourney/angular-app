@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { TokenService } from './services/token.service';
+import * as AOS from 'aos'
+
 
 @Component({
   selector: 'app-root',
@@ -29,6 +31,11 @@ export class AppComponent {
       this.toastr.error("Su sesión ha expirado.")
       this.router.navigate(["/"]).then( () => {this.reload()} )
     }
+
+    AOS.init({
+      offset: 30,
+      duration: 1500
+   });
   }
 
 

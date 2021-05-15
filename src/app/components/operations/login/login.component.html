@@ -39,7 +39,7 @@
 
                 </form>
 
-                <a   href="#confirmation" data-toggle="modal" >¿Desea reenviar su código de confirmación?</a>
+                <a   href="#confirmation" data-toggle="modal" >¿Desea reenviar su correo de confirmación?</a>
         <!-- Confirmation Email -->
         <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -67,7 +67,7 @@
                     
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"  [disabled]="!formConfirmation.valid" >Reenviar código</button>
+                        <button type="submit" class="btn btn-primary"  [disabled]="!formConfirmation.valid" >Reenviar correo</button>
                         <a type="submit" class="btn btn-secondary" data-dismiss="modal" (click)="refresh()"  >Cerrar</a>
                     </div>
                  </form>

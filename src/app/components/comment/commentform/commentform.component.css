@@ -132,8 +132,7 @@
 }
 
 .eliminar{
-    position: relative;
-    left: 22vw;
+    float:right;
 }
 
 @media (max-width: 800px){
@@ -162,9 +161,5 @@
         position:relative;
         top:90px;
         left: 20px;
-    }
-    .eliminar{
-        position: relative;
-        left: 2vw;
     }
 }
