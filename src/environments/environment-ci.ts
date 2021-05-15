@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendEndpoint:"https://be-s3-yourney.herokuapp.com",
+  backendEndpoint:"https://be-ppl-yourney.herokuapp.com",
   hereApiKey:"bt9aKmv6BedRi5k6JSuUbz13IYYHJVf0Mg3GTN99RIk"
 
 };
