@@ -32,8 +32,7 @@
                                 <div *ngIf="formRegister.get('password').errors.required">Debe insertar una contraseña</div>
                                 <div *ngIf="formRegister.get('password').errors.minlength">Debe de tener al menos 8 caracteres</div>
                                 <div *ngIf="formRegister.get('password').errors.maxlength">Debe de tener como máximo 50 caracteres</div>
-                                <div *ngIf="formRegister.get('password').errors.pattern">Debe contener al menos una letra y un
-                                    número</div>
+                                <div *ngIf="formRegister.get('password').errors.pattern">Debe contener al menos una letra y un número. No se permite la ñ</div>
                             </div>
                         </div>
                     </div>
