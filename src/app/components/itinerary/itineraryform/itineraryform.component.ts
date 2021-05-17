@@ -358,7 +358,6 @@ export class ItineraryformComponent implements OnInit {
   addLandmarkImage(files: FileList, activity: FormGroup,value) {
     const file = files.item(0)
     let fileNames: Array<any> = this.addedImages(this.formItiner)
-    console.log(fileNames.indexOf(file?.name) == -1)
 
     if(file?.name != this.itineraryImage?.name && fileNames.indexOf(file?.name) == -1 && file.size <= 4000000 && (file?.type == 'image/jpeg' || file?.type == 'image/png')){
       
@@ -433,7 +432,6 @@ export class ItineraryformComponent implements OnInit {
 
     if (!activity.valid) {
         this.toastr.error("La actividad no se ha completado.")
-        console.log(activity)
     }
 
     }
