@@ -20,7 +20,7 @@
                 <img class="card-img-top" style="border-radius: 10px;" src={{itinerary?.imageUrl}} alt="Card image cap">
                 <hr/>
                 <p class="card-text">{{itinerary?.description}}</p>
-                <p class="card-text"><em class="fa fa-money" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.budget}} €</p>
+                <p class="card-text"><em class="fa fa-money" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.budget | number:'.0-2'}} €</p>
                 <p class="card-text"><em class="fa fa-calendar" style="font-size:20px"></em>&nbsp;&nbsp;{{itinerary?.estimatedDays}} días</p>
                 <p class="card-text"><strong>Estación recomendada: </strong>{{getSeason(itinerary?.recommendedSeason)}}</p>
                 <span class="card-text"><strong style="float: left;">Puntuación media:&nbsp;&nbsp;</strong>
@@ -100,7 +100,7 @@
                                     <p class="card-text">{{day.description}}</p>
                                 </div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">{{day.landmark.price}} €</li>
+                                    <li class="list-group-item">{{day.landmark.price | number:'.0-2'}} €</li>
                                     
                                         <div *ngIf="day.landmark.city && day.landmark.country">
                                             <li class="list-group-item">{{day.landmark.city}} - {{day.landmark.country}}</li>

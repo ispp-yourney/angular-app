@@ -8,3 +8,9 @@
     position:absolute;
     bottom:0;
   }
+
+  @media (max-width: 800px){
+    .footer{
+      position:initial;
+    }
+  }

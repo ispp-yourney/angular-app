@@ -26,7 +26,7 @@
                         <h6 class="card-subtitle mb-2">{{landmark?.description}}</h6>
                         <hr/>
                         <p class="card-text">Categoría:&nbsp;&nbsp;{{landmark?.category}}</p>
-                        <p class="card-text"><em class="fa fa-money" >&nbsp;&nbsp;</em>{{landmark?.price}} €</p>
+                        <p class="card-text"><em class="fa fa-money" >&nbsp;&nbsp;</em>{{landmark?.price | number:'.0-2'}} €</p>
                         <div class="card-body" *ngIf="landmark?.email || landmark?.phone || landmark?.website || landmark?.instagram || landmark?.twitter">
                             <p *ngIf="landmark?.email" href="#" class="card-text"><em class="fa fa-envelope-o" >&nbsp;&nbsp;</em>{{landmark?.email}}</p>
                             <p *ngIf="landmark?.phone" href="#" class="card-text"><em class="fa fa-phone" >&nbsp;&nbsp;</em>{{landmark?.phone}}</p>
