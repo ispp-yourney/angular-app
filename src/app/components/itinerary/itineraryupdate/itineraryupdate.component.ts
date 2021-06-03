@@ -303,23 +303,27 @@ export class ItineraryupdateComponent implements OnInit {
       if(itinerary.get('days')['controls'].length > 0){
 
         for (let day of itinerary.get('days')['controls']) {
-            if(day.get('activities')['controls'].length > 0){
-                
-              for (let activity of day.get('activities')['controls']) {
-                if(activity.value.landmarkId == '' ){
+          if (day.get('activities')['controls'].length > 0) {
 
-                  if(activity.value.landmarkLoadPrice == -1){
-                    totalPrice = totalPrice + parseFloat(activity.value.landmark[0].price);
+            for (let activity of day.get('activities')['controls']) {
+              if (activity.value.landmarkId == '') {
 
-                  }else{
-                    totalPrice = totalPrice + parseFloat(activity.value.landmarkLoadPrice);
+                if (activity.value.landmarkLoadPrice == -1) {
+                  totalPrice = totalPrice + parseFloat(activity.value.landmark[0].price);
 
-                  }
-                 
-                }
+                } else {
+                  totalPrice = totalPrice + parseFloat(activity.value.landmarkLoadPrice);
 
                 }
+
+              }
+
+              else {
+                totalPrice = totalPrice + parseFloat(activity.value.landmarkId.price);
+              }
+
             }
+          }
         }
     }
 
